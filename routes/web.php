@@ -1,5 +1,9 @@
 <?php
 
+use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\LoginController;
+use App\Http\Controllers\ProductController;
+use App\Http\Controllers\SignupController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -16,3 +20,10 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', function () {
     return view('welcome');
 });
+
+Route::resource('/', LoginController::class);
+Route::resource('login', LoginController::class);
+Route::post('logout', [LoginController::class, 'logout'])->name('login.logout');
+Route::resource('signup', SignupController::class);
+Route::resource('dashboard', DashboardController::class);
+Route::resource('product', ProductController::class);
