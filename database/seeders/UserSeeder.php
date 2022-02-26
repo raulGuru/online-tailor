@@ -3,6 +3,7 @@
 namespace Database\Seeders;
 
 use App\Models\User;
+use Carbon\Carbon;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\Hash;
 
@@ -27,9 +28,12 @@ class UserSeeder extends Seeder
                 'pin_code' => '400051',
                 'address' => '2878 Carriage Lane',
                 'status' => 'active',
-                'role' => 'admin'
+                'role' => 'admin',
+                'created_at' => Carbon::now(),
+                'updated_at' => Carbon::now()
             )
         );
+        User::truncate();
         User::insert($users);
     }
 }
