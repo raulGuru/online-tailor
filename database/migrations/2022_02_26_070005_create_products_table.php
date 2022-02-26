@@ -16,21 +16,22 @@ class CreateProductsTable extends Migration
         Schema::create('products', function (Blueprint $table) {
             $table->id();
             $table->integer('creator');
-            $table->integer('cat_id');
-            $table->integer('color_id');
-            $table->integer('size_id');
-            $table->integer('type_id');
-            $table->integer('sleeve_id');
-            $table->string('title');
-            $table->string('sku');
-            $table->string('slug');
-            $table->float('price');
-            $table->float('discount')->nullable();
-            $table->string('coupon')->nullable();
+            $table->integer('cat_id'); // done
+            $table->integer('color_id'); // done
+            $table->integer('size_id'); // done
+            $table->integer('type_id'); // done
+            $table->integer('sleeve_id'); // done
+            $table->string('title'); // done
+            $table->string('sku'); // done
+            $table->string('slug'); // done
+            $table->float('price'); // done
+            $table->float('discount')->nullable(); // done
+            $table->string('coupon')->nullable();  // done
             $table->string('thumbnail')->nullable();
             $table->text('images')->nullable();
             $table->text('description')->nullable();
             $table->text('additional_details')->nullable();
+            $table->enum('status', ['active', 'inactive'])->default('active');
             $table->timestamps();
         });
     }

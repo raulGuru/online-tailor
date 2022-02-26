@@ -2,6 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\ProductCategory;
+use App\Models\ProductColor;
+use App\Models\ProductSize;
+use App\Models\ProductSleeve;
+use App\Models\ProductType;
 use Illuminate\Http\Request;
 
 class ProductController extends Controller
@@ -28,7 +33,12 @@ class ProductController extends Controller
      */
     public function create()
     {
-        return view('product.create');
+        $data['categories'] = ProductCategory::get();
+        $data['colors'] = ProductColor::get();
+        $data['sizes'] = ProductSize::get();
+        $data['types'] = ProductType::get();
+        $data['sleeves'] = ProductSleeve::get();
+        return view('product.create', $data);
     }
 
     /**
