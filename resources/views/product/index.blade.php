@@ -26,10 +26,10 @@
                   <td>2</td>
                   <td class="table-action">
                      <a href="#">
-                        <i class="align-middle me-2" data-feather="edit"></i> <span class="align-middle">edit</span>
+                        <i class="align-middle me-2" data-feather="edit"></i>
                      </a>
                      <a href="#">
-                        <i class="align-middle me-2" data-feather="trash"></i> <span class="align-middle">trash</span>
+                        <i class="align-middle me-2" data-feather="trash"></i>
                      </a>
                   </td>
                </tr>
@@ -41,10 +41,10 @@
                   <td>2</td>
                   <td class="table-action">
                     <a href="#">
-                        <i class="align-middle me-2" data-feather="edit"></i> <span class="align-middle">edit</span>
+                        <i class="align-middle me-2" data-feather="edit"></i>
                      </a>
                      <a href="#">
-                        <i class="align-middle me-2" data-feather="trash"></i> <span class="align-middle">trash</span>
+                        <i class="align-middle me-2" data-feather="trash"></i>
                      </a>
                   </td>
                </tr>
@@ -56,10 +56,10 @@
                   <td>2</td>
                   <td class="table-action">
                     <a href="#">
-                        <i class="align-middle me-2" data-feather="edit"></i> <span class="align-middle">edit</span>
+                        <i class="align-middle me-2" data-feather="edit"></i>
                      </a>
                      <a href="#">
-                        <i class="align-middle me-2" data-feather="trash"></i> <span class="align-middle">trash</span>
+                        <i class="align-middle me-2" data-feather="trash"></i>
                      </a>
                   </td>
                </tr>
@@ -71,10 +71,10 @@
                   <td>2</td>
                   <td class="table-action">
                     <a href="#">
-                        <i class="align-middle me-2" data-feather="edit"></i> <span class="align-middle">edit</span>
+                        <i class="align-middle me-2" data-feather="edit"></i>
                      </a>
                      <a href="#">
-                        <i class="align-middle me-2" data-feather="trash"></i> <span class="align-middle">trash</span>
+                        <i class="align-middle me-2" data-feather="trash"></i>
                      </a>
                   </td>
                </tr>
@@ -86,10 +86,10 @@
                   <td>2</td>
                   <td class="table-action">
                     <a href="#">
-                        <i class="align-middle me-2" data-feather="edit"></i> <span class="align-middle">edit</span>
+                        <i class="align-middle me-2" data-feather="edit"></i>
                      </a>
                      <a href="#">
-                        <i class="align-middle me-2" data-feather="trash"></i> <span class="align-middle">trash</span>
+                        <i class="align-middle me-2" data-feather="trash"></i>
                      </a>
                   </td>
                </tr>
@@ -101,10 +101,10 @@
                   <td>2</td>
                   <td class="table-action">
                     <a href="#">
-                        <i class="align-middle me-2" data-feather="edit"></i> <span class="align-middle">edit</span>
+                        <i class="align-middle me-2" data-feather="edit"></i>
                      </a>
                      <a href="#">
-                        <i class="align-middle me-2" data-feather="trash"></i> <span class="align-middle">trash</span>
+                        <i class="align-middle me-2" data-feather="trash"></i>
                      </a>
                   </td>
                </tr>
