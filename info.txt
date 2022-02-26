@@ -1,4 +1,4 @@
-::::Models::::
+:::: Models :::: [No need to run this command]
 php artisan make:model Product;
 php artisan make:model ProductCategory;
 php artisan make:model ProductColor;
@@ -6,7 +6,7 @@ php artisan make:model ProductType;
 php artisan make:model ProductSize;
 php artisan make:model ProductSleeve;
 
-:::: Seeders create ::::
+:::: Seeders create :::: [No need to run this command]
 php artisan make:seeder UserSeeder;
 php artisan make:seeder ProductCategorySeeder;
 php artisan make:seeder ProductColorSeeder;
