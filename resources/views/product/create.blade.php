@@ -190,11 +190,6 @@
                      </span>
                   @enderror
                </div>
-               <div class="thumbnail-img mt-2">
-                  <span>
-                     <img width="50" height="50" src="./img/big-img.jpg" alt="">
-                  </span>
-               </div>
             </div>
          </div>
       </div>
@@ -211,9 +206,6 @@
                            </div>
                      </span>
                   @enderror
-               </div>
-               <div class="thumbnail-img mt-2">
-                  <img width="50" height="50" src="./img/big-img.jpg" alt="">
                </div>
             </div>
          </div>

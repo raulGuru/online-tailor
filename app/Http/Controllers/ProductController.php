@@ -12,6 +12,7 @@ use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
+use Symfony\Component\Console\Input\Input;
 
 class ProductController extends Controller
 {
@@ -25,11 +26,16 @@ class ProductController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        $data['products'] = Product::get();
-        dd($data);
-        return view('product.index');
+        $q = $request->q;
+        $products = Product::where('title', 'LIKE', '%' . $q . '%')
+            ->orWhere('description', 'LIKE', '%' . $q . '%')
+            ->orWhere('additional_details', 'LIKE', '%' . $q . '%')
+            ->paginate(10)->appends(['search' => $q]);
+
+        $products->appends(['search' => $q]);
+        return view('product.index', array('products' => $products));
     }
 
     /**
@@ -160,6 +166,8 @@ class ProductController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $product = Product::find($id);
+        $product->delete();
+        return redirect()->route('product.index');
     }
 }
