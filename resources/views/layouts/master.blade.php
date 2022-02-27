@@ -32,6 +32,14 @@
             @include('layouts.footer')
          </div>
       </div>
+      <script type="text/javascript">
+         var baseUrl = "{{ url('/') }}";
+         var segment1 = "{{ !empty(Request::segment(1)) ? Request::segment(1): ''; }}";
+         var segment2 = "{{ !empty(Request::segment(2)) ? Request::segment(2): ''; }}";
+         var segment3 = "{{ !empty(Request::segment(3)) ? Request::segment(3): ''; }}";
+     </script>
+      <script src="https://cdn.quilljs.com/1.3.6/quill.js"></script>
       <script src="{{ asset('assets/js/app.js') }}"></script>
+      <script src="{{ asset('assets/js/main.js?ver=' . time()) }}"></script>
    </body>
 </html>

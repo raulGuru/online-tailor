@@ -23,7 +23,7 @@ class CreateProductsTable extends Migration
             $table->integer('sleeve_id');
             $table->string('title');
             $table->string('sku');
-            $table->string('slug');
+            $table->string('slug')->nullable();
             $table->float('price');
             $table->float('discount')->nullable();
             $table->string('coupon')->nullable();
