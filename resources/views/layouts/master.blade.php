@@ -14,7 +14,6 @@
       <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
       <link href="{{ asset('assets/css/light.css') }}" rel="stylesheet">
       <link href="{{ asset('assets/css/styles.css') }}" rel="stylesheet">
-      <script src="{{ asset('assets/js/settings.js') }}"></script>
    </head>
    <body data-theme="default" data-layout="fluid" data-sidebar-position="left" data-sidebar-layout="default">
       <div class="wrapper">
@@ -33,24 +32,14 @@
             @include('layouts.footer')
          </div>
       </div>
+      <script type="text/javascript">
+         var baseUrl = "{{ url('/') }}";
+         var segment1 = "{{ !empty(Request::segment(1)) ? Request::segment(1): ''; }}";
+         var segment2 = "{{ !empty(Request::segment(2)) ? Request::segment(2): ''; }}";
+         var segment3 = "{{ !empty(Request::segment(3)) ? Request::segment(3): ''; }}";
+     </script>
+      <script src="https://cdn.quilljs.com/1.3.6/quill.js"></script>
       <script src="{{ asset('assets/js/app.js') }}"></script>
-      <script>
-         document.addEventListener("DOMContentLoaded", function() {
-            var editor = new Quill("#quill-editor", {
-               modules: {
-                  toolbar: "#quill-toolbar"
-               },
-               placeholder: "Type something",
-               theme: "snow"
-            });
-            var bubbleEditor = new Quill("#quill-bubble-editor", {
-               placeholder: "Compose an epic...",
-               modules: {
-                  toolbar: "#quill-bubble-toolbar"
-               },
-               theme: "bubble"
-            });
-         });
-      </script>
+      <script src="{{ asset('assets/js/main.js?ver=' . time()) }}"></script>
    </body>
 </html>
