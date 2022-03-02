@@ -92,7 +92,7 @@ class ProductController extends Controller
             foreach ($request->images as $image) {
                 $file_name = $image->getClientOriginalName();
                 $thumbnail = str_replace(' ', '-', $file_name);
-                $is_uploaded = Storage::putFileAs('public/products', $request->thumbnail, $thumbnail);
+                $is_uploaded = Storage::putFileAs('public/products', $image, $thumbnail);
                 if ($is_uploaded) {
                     array_push($images, $thumbnail);
                 }
@@ -143,7 +143,16 @@ class ProductController extends Controller
      */
     public function edit($id)
     {
-        //
+        $data['categories'] = ProductCategory::get();
+        $data['colors'] = ProductColor::get();
+        $data['sizes'] = ProductSize::get();
+        $data['types'] = ProductType::get();
+        $data['sleeves'] = ProductSleeve::get();
+        $data['product'] = Product::find($id);
+        if (empty($data['product'])) {
+            return redirect()->route('product.create');
+        }
+        return view('product.edit', $data);
     }
 
     /**
@@ -155,7 +164,63 @@ class ProductController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $this->validate($request, [
+            'title' => 'required|max:255',
+            'slug' => 'required|max:255',
+            'sku' => 'max:100',
+            'category' => 'required|max:255',
+            'type' => 'required|max:255',
+            'color' => 'required|max:255',
+            'size' => 'required|max:255',
+            'sleeve' => 'required|max:255',
+            'price' => 'required|max:255',
+            'discount' => 'max:50',
+            'coupon' => 'max:100',
+            'thumbnail' => 'required|mimes:jpg,jpeg,png,bmp,tiff|max:20480', // file max size 20MB
+            'images' => 'required', // file max size 20MB
+            'product_details' => 'required',
+            'additional_details' => 'required'
+        ]);
+        $thumbnail = '';
+        if ((isset($request->thumbnail) && $request->thumbnail !== null)) {
+            $file_name = time() . "_" . $request->thumbnail->getClientOriginalName();
+            $thumbnail = str_replace(' ', '-', $file_name);
+            $is_uploaded = Storage::putFileAs('public/products', $request->thumbnail, $thumbnail);
+            if (!$is_uploaded) {
+                return redirect()->route('product.create');
+            }
+        }
+        $images = [];
+        if (isset($request->images) && !empty($request->images)) {
+            foreach ($request->images as $image) {
+                $file_name = time() . "_" . $image->getClientOriginalName();
+                $thumbnail = str_replace(' ', '-', $file_name);
+                $is_uploaded = Storage::putFileAs('public/products', $image, $thumbnail);
+                if ($is_uploaded) {
+                    array_push($images, $thumbnail);
+                }
+            }
+        }
+
+        $product = Product::find($id);
+        $product->cat_id = $request->category;
+        $product->color_id = $request->color;
+        $product->size_id = $request->size;
+        $product->type_id = $request->type;
+        $product->sleeve_id = $request->sleeve;
+        $product->title = $request->title;
+        $product->sku = $request->sku;
+        $product->slug = $request->slug;
+        $product->price = $request->price;
+        $product->price = $request->price;
+        $product->coupon = $request->coupon;
+        $product->thumbnail = $thumbnail;
+        $product->images = json_encode($images, true);
+        $product->description = $request->product_details;
+        $product->additional_details = $request->additional_details;
+        $product->updated_at = Carbon::now();
+        $product->save();
+        return redirect()->route('product.index');
     }
 
     /**

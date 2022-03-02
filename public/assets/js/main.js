@@ -42,7 +42,7 @@ MYAPP.common = {
 
 $(document).ready(function() {
 
-    if (segment1 && segment2 && segment1.toLowerCase() === 'product' && segment2.toLowerCase() === 'create') {
+    if (segment1 && segment2 && segment1.toLowerCase() === 'product' && (segment2.toLowerCase() === 'create' || segment3.toLowerCase() === 'edit')) {
         MYAPP.common.quillInit();
     }
     $("#product-title").keyup(function() {

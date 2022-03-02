@@ -54,7 +54,7 @@
                            <a href="#"><i class="align-middle me-2" data-feather="eye"></i></a>
                         </div>
                         <div>
-                           <a href="#"><i class="align-middle me-2" data-feather="edit-2"></i></a>
+                           <a href="{{ route('product.edit', $product->id) }}"><i class="align-middle me-2" data-feather="edit-2"></i></a>
                         </div>
                         <div>
                            <form method="post" action="{{ route('product.destroy', $product->id)}}" class="form-inline">
