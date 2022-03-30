@@ -2,7 +2,7 @@
     <div class="sidebar-content js-simplebar">
        <a class="sidebar-brand" href="{{ route('dashboard.index') }}">
        <span class="sidebar-brand-text align-middle">
-       Online Tailor
+       Customize Tailor
        </span>
        </a>
        <ul class="sidebar-nav">

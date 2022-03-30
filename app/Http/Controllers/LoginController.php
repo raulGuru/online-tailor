@@ -93,6 +93,10 @@ class LoginController extends Controller
         //
     }
 
+    /**
+     * Remove session storage for user
+     */
+
     public function logout(Request $request)
     {
         $request->session()->flush();

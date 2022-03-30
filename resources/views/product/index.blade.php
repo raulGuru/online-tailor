@@ -77,9 +77,7 @@
             <div class="col-sm-10 col-md-8 col-lg-6 mx-auto d-table h-100">
                <div class="d-table-cell align-middle">
                   <div class="text-center">
-                     <h1 class="display-1 font-weight-bold">402</h1>
                      <p class="h1">No data available.</p>
-                     <p class="h2 font-weight-normal mt-3 mb-4">There is no resource behind the URI.</p>
                      <a href="{{ route('product.create') }}" class="btn btn-primary btn-lg">Create new product</a>
                   </div>
                </div>
@@ -101,7 +99,6 @@
             </div>
             <div class="modal-body">
                <h4 class="text-center">Are you sure you want to delete this record?</h4>
-               <p class="text-center">If you delete this, it will be gone forever.</p>
             </div>
             <div class="modal-footer">
                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">No</button>
