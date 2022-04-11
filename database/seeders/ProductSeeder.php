@@ -18,6 +18,7 @@ class ProductSeeder extends Seeder
         $products = array(
             array(
                 'creator' => 1,
+                'type' => 'men',
                 'cat_id' => 1,
                 'color_id' => 1,
                 'size_id' => 1,

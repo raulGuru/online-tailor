@@ -16,6 +16,7 @@ class CreateProductsTable extends Migration
         Schema::create('products', function (Blueprint $table) {
             $table->id();
             $table->integer('creator');
+            $table->enum('type', ['men', 'women'])->default('men');
             $table->integer('cat_id');
             $table->integer('color_id');
             $table->integer('size_id');
@@ -31,6 +32,7 @@ class CreateProductsTable extends Migration
             $table->text('images')->nullable();
             $table->text('description')->nullable();
             $table->text('additional_details')->nullable();
+            $table->enum('status', ['active', 'inactive', 'deleted'])->default('active');
             $table->timestamps();
         });
     }

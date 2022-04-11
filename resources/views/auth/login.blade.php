@@ -68,7 +68,7 @@
                                     <div>
                                     </div>
                                     <div class="text-center mt-3">
-                                        <button type="submit" class="btn sign-btn text-white btn-blue">Sign in</button>
+                                        <button type="submit" class="btn btn-primary text-white btn-blue">Sign in</button>
                                     </div>
                                     <div class="text-center mt-3">
                                         <p class="m-0">Need an account? <a class="text-black" href="{{ route('signup.index') }}">Sign Up</a></p>

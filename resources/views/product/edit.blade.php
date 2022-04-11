@@ -144,7 +144,7 @@
          <div class="row">
             <div class=" col-sm-4">
                <label>Product Price</label>
-               <input type="text" name="price" value="{{ (old('title')) ? old('title'): $product->price }}" class="form-control" placeholder="Enter price">
+               <input type="text" name="price" value="{{ (old('price')) ? old('price'): $product->price }}" class="form-control" placeholder="Enter price">
                @error('price')
                   <span class="alert alert-danger alert-dismissible mt-1">
                         <div class="alert-message p-0">

@@ -132,7 +132,8 @@ class ProductController extends Controller
      */
     public function show($id)
     {
-        //
+        $data['product'] = Product::find($id);
+        return view('product.show', $data);
     }
 
     /**
@@ -176,13 +177,14 @@ class ProductController extends Controller
             'price' => 'required|max:255',
             'discount' => 'max:50',
             'coupon' => 'max:100',
-            'thumbnail' => 'required|mimes:jpg,jpeg,png,bmp,tiff|max:20480', // file max size 20MB
-            'images' => 'required', // file max size 20MB
             'product_details' => 'required',
             'additional_details' => 'required'
         ]);
         $thumbnail = '';
         if ((isset($request->thumbnail) && $request->thumbnail !== null)) {
+            $this->validate($request, [
+                'thumbnail' => 'required|mimes:jpg,jpeg,png,bmp,tiff|max:20480'
+            ]);
             $file_name = time() . "_" . $request->thumbnail->getClientOriginalName();
             $thumbnail = str_replace(' ', '-', $file_name);
             $is_uploaded = Storage::putFileAs('public/products', $request->thumbnail, $thumbnail);
@@ -192,6 +194,9 @@ class ProductController extends Controller
         }
         $images = [];
         if (isset($request->images) && !empty($request->images)) {
+            $this->validate($request, [
+                'images' => 'required'
+            ]);
             foreach ($request->images as $image) {
                 $file_name = time() . "_" . $image->getClientOriginalName();
                 $thumbnail = str_replace(' ', '-', $file_name);
@@ -212,10 +217,13 @@ class ProductController extends Controller
         $product->sku = $request->sku;
         $product->slug = $request->slug;
         $product->price = $request->price;
-        $product->price = $request->price;
         $product->coupon = $request->coupon;
-        $product->thumbnail = $thumbnail;
-        $product->images = json_encode($images, true);
+        if(!empty($thumbnail)) {
+            $product->thumbnail = $thumbnail;
+        }
+        if(!empty($images)) {
+            $product->images = json_encode($images, true);
+        }
         $product->description = $request->product_details;
         $product->additional_details = $request->additional_details;
         $product->updated_at = Carbon::now();

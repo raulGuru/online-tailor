@@ -13,7 +13,7 @@
       <title>Customize Tailor</title>
       <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
       <link href="{{ asset('assets/css/light.css') }}" rel="stylesheet">
-      <link href="{{ asset('assets/css/styles.css') }}" rel="stylesheet">
+      <link href="{{ asset('assets/css/admin.css') }}" rel="stylesheet">
    </head>
    <body data-theme="default" data-layout="fluid" data-sidebar-position="left" data-sidebar-layout="default">
       <div class="wrapper">

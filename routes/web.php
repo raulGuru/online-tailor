@@ -1,6 +1,8 @@
 <?php
 
+use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\HomeController;
 use App\Http\Controllers\LandingController;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\ProductController;
@@ -17,6 +19,12 @@ use Illuminate\Support\Facades\Route;
 | contains the "web" middleware group. Now create something great!
 |
 */
+
+Route::resource('/', HomeController::class);
+Route::resource('category', CategoryController::class);
+Route::get('category/{id}', [CategoryController::class, 'show']);
+Route::get('category/{id}/{color}', [CategoryController::class, 'show']);
+Route::get('category/{id}/{color}/{order}', [CategoryController::class, 'show']);
 
 Route::get('/', function () {
     return view('welcome');
