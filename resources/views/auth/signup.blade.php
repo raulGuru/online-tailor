@@ -8,7 +8,7 @@
     <meta name="description" content="">
     <meta name="author" content="">
     <meta name="keywords" content="">
-    <title>Online Tailor</title>
+    <title>Customize Tailor</title>
     <link class="js-stylesheet" href="{{ asset('assets/css/light.css') }}" rel="stylesheet">
     <link class="js-stylesheet" href="{{ asset('assets/css/styles.css') }}" rel="stylesheet">
 </head>
@@ -24,7 +24,7 @@
                                 <div class="text-center logo">
                                     <img src="{{ asset('assets/img/logo.jpg') }}" alt="logo">
                                 </div>
-                                <h4 class="mb-3 font-weight-600"> SING UP </h4>
+                                <h4 class="mb-3 font-weight-600"> Sign Up </h4>
                                 <form method="post" action="{{ route('signup.store') }}">
                                     @csrf
                                     <div class="row mb-3">
@@ -62,7 +62,7 @@
                                             @enderror
                                         </div>
                                         <div class="col-sm-6 mb-3">
-                                            <label class="mb-1">Email Address</label>
+                                            <label class="mb-1">Password</label>
                                             <input class="form-control form-control-lg" type="password" name="password" placeholder="Enter password" />
                                             @error('password')
                                                 <span class="alert alert-danger alert-dismissible mt-1">
@@ -73,7 +73,7 @@
                                             @enderror
                                         </div>
                                         <div class="col-sm-6 mb-3">
-                                            <label class="mb-1">Password again</label>
+                                            <label class="mb-1">Confirm Password</label>
                                             <input class="form-control form-control-lg" type="password" name="password_confirmation" placeholder="Enter password again" />
                                             @error('password_confirmation')
                                                 <span class="alert alert-danger alert-dismissible mt-1">
@@ -137,7 +137,7 @@
                                         <button type="submit" class="btn btn-primary text-white btn-blue">Sign up</button>
                                     </div>
                                     <div class="text-center mt-3">
-                                        <p class="m-0">Already have an account? <a class="text-black" href="{{ route('login.index') }}">LOGIN</a></p>
+                                        <p class="m-0">Already have an account? <a class="text-black" href="{{ route('login.index') }}">Login</a></p>
                                     </div>
                                 </form>
                             </div>

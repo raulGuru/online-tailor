@@ -8,7 +8,7 @@
     <meta name="description" content="">
     <meta name="author" content="">
     <meta name="keywords" content="">
-    <title>Online Tailor</title>
+    <title>Customize Tailor</title>
     <link class="js-stylesheet" href="{{ asset('assets/css/light.css') }}" rel="stylesheet">
     <link class="js-stylesheet" href="{{ asset('assets/css/styles.css') }}" rel="stylesheet">
 </head>
@@ -48,10 +48,10 @@
                                     <div class="row">
                                         <div class="col-sm-6">
                                             <label class="form-check">
-                                                <input class="form-check-input" type="checkbox" value="1" name="remember" checked>
+                                                <!-- <input class="form-check-input" type="checkbox" value="1" name="remember" checked>
                                                 <span class="form-check-label">
                                                     Remember me next time
-                                                </span>
+                                                </span> -->
                                             </label>
                                         </div>
                                         <div class="col-sm-6 text-end">
@@ -71,7 +71,7 @@
                                         <button type="submit" class="btn btn-primary text-white btn-blue">Sign in</button>
                                     </div>
                                     <div class="text-center mt-3">
-                                        <p class="m-0">Need an account? <a class="text-black" href="{{ route('signup.index') }}">SING UP</a></p>
+                                        <p class="m-0">Need an account? <a class="text-black" href="{{ route('signup.index') }}">Sign Up</a></p>
                                     </div>
                                 </form>
                             </div>

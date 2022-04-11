@@ -1,0 +1,16 @@
+@media screen and (max-width: 767px){
+
+    .navbar-brand { display: initial;}
+    .navbar-brand { margin-right: 2px;}
+    .menu-top ul li { margin: 5px 10px; }
+    .menu-top ul li a { font-size: 14px;}
+    .login-menu-top { margin-top: 10px;}
+    .navbar-expand-lg .navbar-collapse { display: flex; margin-top: 15px;}
+    .collapse:not(.show) {display: none;}
+    .navbar{ padding: 10px;}
+    .navbar-toggler { color: #ffffff; border: 1px solid #ffffff;  line-height: 20px; }
+    .navbar-toggler:focus { box-shadow: none;}
+    .banner-section { margin-top: 80px;}
+    .banner-text { bottom: 20px;}
+    .banner-text h2 { font-size: 18px;}
+}

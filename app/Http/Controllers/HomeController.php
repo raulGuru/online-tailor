@@ -3,9 +3,8 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
 
-class LoginController extends Controller
+class HomeController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -14,7 +13,8 @@ class LoginController extends Controller
      */
     public function index()
     {
-        return view('auth.login');
+        $data['product'] = array();
+        return view('home.index', $data);
     }
 
     /**
@@ -35,17 +35,7 @@ class LoginController extends Controller
      */
     public function store(Request $request)
     {
-        $this->validate($request, [
-            'email' => 'required|email|max:255',
-            'password' => 'required'
-        ]);
-
-        if (!Auth::attempt($request->only('email', 'password'), $request->remember)) {
-
-            return back()->with('error', 'Invalid login credentials.');
-        }
-
-        return redirect()->route('dashboard.index');
+        //
     }
 
     /**
@@ -91,18 +81,5 @@ class LoginController extends Controller
     public function destroy($id)
     {
         //
-    }
-
-    /**
-     * Remove session storage for user
-     */
-
-    public function logout(Request $request)
-    {
-        $request->session()->flush();
-
-        Auth::logout();
-        
-        return redirect()->route('login.index');
     }
 }

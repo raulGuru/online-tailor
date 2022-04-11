@@ -33,4 +33,8 @@ class Product extends Model
     {
         return $this->belongsTo(ProductSleeve::class, 'sleeve_id');
     }
+    public function user()
+    {
+        return $this->belongsTo(User::class, 'creator');
+    }
 }

@@ -2,10 +2,12 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Product;
+use App\Models\ProductCategory;
+use App\Models\ProductColor;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
 
-class LoginController extends Controller
+class CategoryController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -14,7 +16,9 @@ class LoginController extends Controller
      */
     public function index()
     {
-        return view('auth.login');
+        $data = $this->get_categories_colors();
+        $data['product'] = array();
+        return view('category.index', $data);
     }
 
     /**
@@ -35,17 +39,7 @@ class LoginController extends Controller
      */
     public function store(Request $request)
     {
-        $this->validate($request, [
-            'email' => 'required|email|max:255',
-            'password' => 'required'
-        ]);
-
-        if (!Auth::attempt($request->only('email', 'password'), $request->remember)) {
-
-            return back()->with('error', 'Invalid login credentials.');
-        }
-
-        return redirect()->route('dashboard.index');
+        //
     }
 
     /**
@@ -54,9 +48,18 @@ class LoginController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show($type, $color = '', $order_by = 'asc')
     {
-        //
+        if($type !== 'men' && $type !== 'women') {
+            return redirect()->route('category.index');
+        }
+
+        $data = $this->get_categories_colors();
+        $data['type'] = $type;
+        $data['color'] = $color;
+        $data['order_by'] = $order_by;
+        $data['products'] = Product::paginate(4);
+        return view('category.index', $data);
     }
 
     /**
@@ -93,16 +96,9 @@ class LoginController extends Controller
         //
     }
 
-    /**
-     * Remove session storage for user
-     */
-
-    public function logout(Request $request)
-    {
-        $request->session()->flush();
-
-        Auth::logout();
-        
-        return redirect()->route('login.index');
+    private function get_categories_colors() {
+        $data['categories'] = ProductCategory::get();
+        $data['colors'] = ProductColor::get();
+        return $data;
     }
 }
