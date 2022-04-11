@@ -26,4 +26,5 @@ php artisan db:seed --class=ProductSizeSeeder;
 php artisan db:seed --class=ProductTypeSeeder;
 php artisan db:seed --class=ProductSleeveSeeder;
 php artisan db:seed --class=ProductSeeder;
+php artisan db:seed --class=MasterCategorySeeder;
 
