@@ -11,12 +11,12 @@
             </li>
             <li class="sidebar-item">
                 <a class="sidebar-link" href="{{ route('product.index') }}">
-                    <i class="align-middle" data-feather="user"></i> <span class="align-middle">Product List</span>
+                    <i class="align-middle" data-feather="user"></i> <span class="align-middle">Material List</span>
                 </a>
             </li>
             <li class="sidebar-item">
                 <a class="sidebar-link" href="{{ route('product.create') }}">
-                    <i class="align-middle" data-feather="user"></i> <span class="align-middle">Add Product</span>
+                    <i class="align-middle" data-feather="user"></i> <span class="align-middle">Add Material</span>
                 </a>
             </li>
        </ul>
