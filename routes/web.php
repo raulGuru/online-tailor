@@ -42,3 +42,4 @@ Route::post('logout', [LoginController::class, 'logout'])->name('login.logout');
 Route::resource('signup', SignupController::class);
 Route::resource('dashboard', DashboardController::class);
 Route::resource('product', ProductController::class);
+Route::post('product/remove_image/{id}', [ProductController::class, 'remove_image'])->name('product.remove_image');

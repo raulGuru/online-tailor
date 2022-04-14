@@ -37,6 +37,20 @@ MYAPP.common = {
     },
     convertToSlug: function(Text) {
         return Text.toLowerCase().replace(/ /g, '-').replace(/[^\w-]+/g, '');
+    },
+    removeItem: function(action, imageData) {
+        $.ajax({
+            method: 'post',
+            dataType: 'json',
+            headers: { 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content') },
+            data: { image: imageData },
+            url: action,
+            success: function(response) {
+                console.log('Response => ', response);
+            },
+            error: function(response) {},
+            complete: function(response) {}
+        });
     }
 };
 
@@ -45,9 +59,9 @@ $(document).ready(function() {
     if (segment1 && segment2 && segment1.toLowerCase() === 'product' && (segment2.toLowerCase() === 'create' || segment3.toLowerCase() === 'edit')) {
         MYAPP.common.quillInit();
     }
-    $("#product-title").keyup(function() {
+    $("#material-title").keyup(function() {
         var title = $.trim($(this).val());
-        $('#product-slug').val(MYAPP.common.convertToSlug(title));
+        $('#material-slug').val(MYAPP.common.convertToSlug(title));
     });
 
     $('.show_confirm').click(function(event) {
@@ -61,5 +75,17 @@ $(document).ready(function() {
     $('#delete_modal').on('hidden.bs.modal', function(e) {
         $('#delete_modal form').attr('action', '');
     })
+
+    $('.remove-material-image').click(function() {
+        const action_url = $.trim($(this).attr('data-action-url'));
+        const image = $.trim($(this).attr('data-image'));
+        if (action_url && image) {
+            $('#material-slug').val(MYAPP.common.removeItem(action_url, image));
+        }
+    });
+
+    $('.remove-material-image-2').click(function() {
+
+    });
 
 });

@@ -15,6 +15,7 @@
       <h5 class="card-title mb-0">Product List</h5>
    </div>
    <div class="card-body">
+      {{-- <pre>{{ dd($products) }}</pre> --}}
       @if($products->count() > 0)
          <table class="table table-striped">
             <thead>
@@ -22,13 +23,11 @@
                   <th>#</th>
                   <th>Title</th>
                   <th>SKU</th>
-                  <th>Price</th>
-                  <th>Dicount</th>
-                  <th>Category</th>
                   <th>Size</th>
+                  <th>Price <span class="small">(per meter)</span></th>
+                  <th>Main Category</th>
+                  <th>Sub Category</th>
                   <th>Color</th>
-                  <th>Type</th>
-                  <th>Sleeve</th>
                   <th>Updated at</th>
                   <th>Actions</th>
                </tr>
@@ -40,13 +39,11 @@
                   <td>{{ ($products->currentpage()-1) * $products->perpage() + $key + 1 }}</td>
                   <td>{{ $product->title }}</td>
                   <td>{{ $product->sku }}</td>
+                  <td>{{ $product->size }}</td>
                   <td>&#8377 {{ $product->price }}</td>
-                  <td>{{ $product->discount }}</td>
-                  <td>{{ $product->productCategory->title }}</td>
-                  <td>{{ $product->productSize->label }}</td>
-                  <td>{{ $product->productColor->name }}</td>
-                  <td>{{ $product->productType->name }}</td>
-                  <td>{{ $product->productSleeve->name }}</td>
+                  <td>{{ $product->MasterCategory->title }}</td>
+                  <td>{{ ucfirst($product->productType->name) }}</td>
+                  <td>{{ ucfirst($product->productColor->name) }}</td>
                   <td>{{ $product->updated_at }}</td>
                   <td class="table-action">
                      <div class="d-flex justify-content-center">

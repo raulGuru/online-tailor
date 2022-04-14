@@ -1,15 +1,15 @@
 @extends('layouts.master')
 @section('content')
 <div class="container-fluid p-0">
-   <h1 class="h3 mb-3">Edit Product</h1>
+   <h1 class="h3 mb-3">Edit Material</h1>
    <form method="post" action="{{ route('product.update', $product->id) }}" enctype="multipart/form-data">
       @csrf
       @method('PATCH')
       <div class="card p-3">
          <div class="row">
             <div class=" col-sm-4">
-               <label>Product title</label>
-               <input type="text" name="title" id="product-title" value="{{ (old('title')) ? old('title'): $product->title }}" class="form-control" placeholder="Enter product title">
+               <label>Material title</label>
+               <input type="text" name="title" id="material-title" value="{{ (old('title')) ? old('title'): $product->title }}" class="form-control" placeholder="Enter product title">
                @error('title')
                   <span class="alert alert-danger alert-dismissible mt-1">
                         <div class="alert-message p-0">
@@ -20,7 +20,7 @@
             </div>
             <div class=" col-sm-4">
                <label>Slug (<span class="small"><span class="text-danger">*</span> SEO friendly URL</span>)</label>
-               <input type="text" name="slug" id="product-slug" value="{{ (old('slug')) ? old('slug'): $product->slug }}" class="form-control" placeholder="Change slug">
+               <input type="text" name="slug" id="material-slug" value="{{ (old('slug')) ? old('slug'): $product->slug }}" class="form-control" placeholder="Change slug">
                @error('slug')
                   <span class="alert alert-danger alert-dismissible mt-1">
                         <div class="alert-message p-0">
@@ -45,7 +45,7 @@
       <div class="card p-3">
          <div class="row">
             <div class=" col-sm-4">
-               <label>Product Category</label>
+               <label>Main Category</label>
                <select class="form-control" name="category">
                   <option value="" selected disabled>Select category</option>
                   @if($categories->count() > 0)
@@ -63,9 +63,9 @@
                @enderror
             </div>
             <div class=" col-sm-4">
-               <label>Product Type</label>
+               <label>Sub Category</label>
                <select class="form-control" name="type">
-                  <option value="" selected disabled>Select type</option>
+                  <option value="" selected disabled>Sub category</option>
                   @if($categories->count() > 0)
                      @foreach($types as $type)
                         <option value="{{ $type->id }}" {{ ((old('type') && old('type') == $type->id) || $product->type_id == $type->id) ? 'selected': '' }}>{{ ucfirst($type->name) }}</option>
@@ -103,15 +103,8 @@
       <div class="card p-3">
          <div class="row">
             <div class=" col-sm-6">
-               <label>Product Size</label>
-               <select class="form-control" name="size">
-                  <option value="" selected disabled>Select size</option>
-                  @if($sizes->count() > 0)
-                     @foreach($sizes as $size)
-                        <option value="{{ $size->id }}" {{ ((old('size') && old('size') == $size->id) || $product->size_id == $size->id) ? 'selected': '' }}>{{ $size->label }}</option>
-                     @endforeach
-                  @endif
-               </select>
+               <label>Material Size</label>
+               <input type="text" name="size" value="{{ (old('size')) ? old('size'): $product->size }}" class="form-control" placeholder="Enter material size">
                @error('size')
                   <span class="alert alert-danger alert-dismissible mt-1">
                         <div class="alert-message p-0">
@@ -120,54 +113,10 @@
                   </span>
                @enderror
             </div>
-            <div class=" col-sm-6">
-               <label>Product Sleeves</label>
-               <select class="form-control" name="sleeve">
-                  <option value="" selected disabled>Select sleeve</option>
-                  @if($sleeves->count() > 0)
-                     @foreach($sleeves as $sleeve)
-                        <option value="{{ $sleeve->id }}" {{ ((old('sleeve') && old('sleeve') == $sleeve->id) || $product->sleeve_id == $sleeve->id) ? 'selected': '' }}>{{ ucfirst($sleeve->name) }}</option>
-                     @endforeach
-                  @endif
-               </select>
-               @error('sleeve')
-                  <span class="alert alert-danger alert-dismissible mt-1">
-                        <div class="alert-message p-0">
-                           {{ $message }}
-                        </div>
-                  </span>
-               @enderror
-            </div>
-         </div>
-      </div>
-      <div class="card p-3">
-         <div class="row">
-            <div class=" col-sm-4">
-               <label>Product Price</label>
+            <div class="col-sm-6">
+               <label>Material Price <span class="small text-primary">(Per Meter)</span></label>
                <input type="text" name="price" value="{{ (old('price')) ? old('price'): $product->price }}" class="form-control" placeholder="Enter price">
                @error('price')
-                  <span class="alert alert-danger alert-dismissible mt-1">
-                        <div class="alert-message p-0">
-                           {{ $message }}
-                        </div>
-                  </span>
-               @enderror
-            </div>
-            <div class=" col-sm-4">
-               <label>Discount Code</label>
-               <input type="text" name="discount" value="{{ (old('discount')) ? old('discount'): $product->discount }}" class="form-control" placeholder="Enter discount">
-               @error('discount')
-                  <span class="alert alert-danger alert-dismissible mt-1">
-                        <div class="alert-message p-0">
-                           {{ $message }}
-                        </div>
-                  </span>
-               @enderror
-            </div>
-            <div class=" col-sm-4">
-               <label>Coupon Code</label>
-               <input type="text" name="coupon" value="{{ (old('coupon')) ? old('coupon'): $product->coupon }}" class="form-control" placeholder="Enter coupon code">
-               @error('coupon')
                   <span class="alert alert-danger alert-dismissible mt-1">
                         <div class="alert-message p-0">
                            {{ $message }}
@@ -193,8 +142,9 @@
                </div>
                @if($product->thumbnail)
                   <div class="thumbnail-img mt-2 position-relative">
-                        <img width="75" height="75" src="{{ asset('storage/products/' . $product->thumbnail) }}" alt="">
-                        <span class="position-absolute cursor-pointer"><i class="align-middle me-2" data-feather="x-circle"></i></span>
+                     <img width="75" height="75" src="{{ asset('storage/products/' . $product->thumbnail) }}" alt="">
+                     <span class="position-absolute cursor-pointer remove-material-image" data-image="{{ $product->thumbnail }}" data-action-url="{{ route('product.remove_image', $product->id) }}">
+                        <i class="align-middle me-2" data-feather="x-circle"></i>
                      </span>
                   </div>
                @endif
@@ -219,10 +169,11 @@
                   <?php $images = json_decode($product->images, true); ?>
                   @if(!empty($images))
                      <div class="clearfix">                     
-                        @foreach($images as $image)
+                        @foreach($images as $key => $image)
                            <div class="thumbnail-img mt-2 px-3 position-relative float-start">
-                                 <img width="75" height="75" src="{{ asset('storage/products/' . $image) }}" alt="">
-                                 <span class="position-absolute cursor-pointer"><i class="align-middle me-2" data-feather="x-circle"></i></span>
+                              <img width="75" height="75" src="{{ asset('storage/products/' . $image) }}" alt="">
+                              <span class="position-absolute cursor-pointer remove-material-image-2" data-image-2="{{ $key }}">
+                                 <i class="align-middle me-2" data-feather="x-circle"></i>
                               </span>
                            </div>
                         @endforeach

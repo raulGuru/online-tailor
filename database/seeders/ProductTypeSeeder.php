@@ -18,6 +18,11 @@ class ProductTypeSeeder extends Seeder
 
         $types = array(
             array(
+                'name' => 'fabric',
+                'created_at' => Carbon::now(),
+                'updated_at' => Carbon::now()
+            ),
+            array(
                 'name' => 'chiffon',
                 'created_at' => Carbon::now(),
                 'updated_at' => Carbon::now()

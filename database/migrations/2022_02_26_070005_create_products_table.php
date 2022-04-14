@@ -16,18 +16,14 @@ class CreateProductsTable extends Migration
         Schema::create('products', function (Blueprint $table) {
             $table->id();
             $table->integer('creator');
-            $table->enum('type', ['men', 'women'])->default('men');
-            $table->integer('cat_id');
-            $table->integer('color_id');
-            $table->integer('size_id');
-            $table->integer('type_id');
-            $table->integer('sleeve_id');
             $table->string('title');
-            $table->string('sku');
             $table->string('slug')->nullable();
+            $table->string('sku');
+            $table->integer('cat_id');
+            $table->integer('type_id');
+            $table->integer('color_id');
+            $table->integer('size');
             $table->float('price');
-            $table->float('discount')->nullable();
-            $table->string('coupon')->nullable();
             $table->string('thumbnail')->nullable();
             $table->text('images')->nullable();
             $table->text('description')->nullable();
