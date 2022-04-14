@@ -17,14 +17,14 @@ class MasterCategorySeeder extends Seeder
     {
         $categories = array(
             array(
-                'title' => 'Denium',
-                'slug' => 'denium',
+                'title' => 'Men',
+                'slug' => 'men',
                 'created_at' => Carbon::now(),
                 'updated_at' => Carbon::now()
             ),
             array(
-                'title' => 'Digital Printed',
-                'slug' => 'digital-printed',
+                'title' => 'Women',
+                'slug' => 'women',
                 'created_at' => Carbon::now(),
                 'updated_at' => Carbon::now()
             )

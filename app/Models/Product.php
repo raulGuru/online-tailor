@@ -9,14 +9,9 @@ class Product extends Model
 {
     use HasFactory;
 
-    public function productCategory()
+    public function MasterCategory()
     {
-        return $this->belongsTo(ProductCategory::class, 'cat_id');
-    }
-
-    public function productSize()
-    {
-        return $this->belongsTo(ProductSize::class, 'size_id');
+        return $this->belongsTo(MasterCategory::class, 'cat_id');
     }
 
     public function productColor()
@@ -29,10 +24,6 @@ class Product extends Model
         return $this->belongsTo(ProductType::class, 'type_id');
     }
 
-    public function productSleeve()
-    {
-        return $this->belongsTo(ProductSleeve::class, 'sleeve_id');
-    }
     public function user()
     {
         return $this->belongsTo(User::class, 'creator');

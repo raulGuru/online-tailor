@@ -2,17 +2,14 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\MasterCategory;
 use App\Models\Product;
-use App\Models\ProductCategory;
 use App\Models\ProductColor;
-use App\Models\ProductSize;
-use App\Models\ProductSleeve;
 use App\Models\ProductType;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
-use Symfony\Component\Console\Input\Input;
 
 class ProductController extends Controller
 {
@@ -45,11 +42,9 @@ class ProductController extends Controller
      */
     public function create()
     {
-        $data['categories'] = ProductCategory::get();
+        $data['categories'] = MasterCategory::get();
         $data['colors'] = ProductColor::get();
-        $data['sizes'] = ProductSize::get();
         $data['types'] = ProductType::get();
-        $data['sleeves'] = ProductSleeve::get();
         return view('product.create', $data);
     }
 
@@ -68,11 +63,8 @@ class ProductController extends Controller
             'category' => 'required|max:255',
             'type' => 'required|max:255',
             'color' => 'required|max:255',
-            'size' => 'required|max:255',
-            'sleeve' => 'required|max:255',
-            'price' => 'required|max:255',
-            'discount' => 'max:50',
-            'coupon' => 'max:100',
+            'size' => 'required|numeric|min:1|max:100000',
+            'price' => 'required|numeric|min:1|max:10000',
             'thumbnail' => 'required|mimes:jpg,jpeg,png,bmp,tiff|max:20480', // file max size 20MB
             'images' => 'required', // file max size 20MB
             'product_details' => 'required',
@@ -101,17 +93,14 @@ class ProductController extends Controller
 
         $data = array(
             'creator' => Auth::id(),
-            'cat_id' => $request->category,
-            'color_id' => $request->color,
-            'size_id' => $request->size,
-            'type_id' => $request->type,
-            'sleeve_id' => $request->sleeve,
             'title' => $request->title,
-            'sku' => $request->sku,
             'slug' => $request->slug,
+            'sku' => $request->sku,
+            'cat_id' => $request->category,
+            'type_id' => $request->type,
+            'color_id' => $request->color,
+            'size' => $request->size,
             'price' => $request->price,
-            'discount' => $request->discount,
-            'coupon' => $request->coupon,
             'thumbnail' => $thumbnail,
             'images' => json_encode($images, true),
             'description' => $request->product_details,
@@ -119,7 +108,6 @@ class ProductController extends Controller
             'created_at' => Carbon::now(),
             'updated_at' => Carbon::now()
         );
-
         Product::insert($data);
         return redirect()->route('product.index');
     }
@@ -144,11 +132,9 @@ class ProductController extends Controller
      */
     public function edit($id)
     {
-        $data['categories'] = ProductCategory::get();
+        $data['categories'] = MasterCategory::get();
         $data['colors'] = ProductColor::get();
-        $data['sizes'] = ProductSize::get();
         $data['types'] = ProductType::get();
-        $data['sleeves'] = ProductSleeve::get();
         $data['product'] = Product::find($id);
         if (empty($data['product'])) {
             return redirect()->route('product.create');
@@ -172,11 +158,8 @@ class ProductController extends Controller
             'category' => 'required|max:255',
             'type' => 'required|max:255',
             'color' => 'required|max:255',
-            'size' => 'required|max:255',
-            'sleeve' => 'required|max:255',
-            'price' => 'required|max:255',
-            'discount' => 'max:50',
-            'coupon' => 'max:100',
+            'size' => 'required|numeric|min:1|max:100000',
+            'price' => 'required|numeric|min:1|max:10000',
             'product_details' => 'required',
             'additional_details' => 'required'
         ]);
@@ -208,20 +191,18 @@ class ProductController extends Controller
         }
 
         $product = Product::find($id);
-        $product->cat_id = $request->category;
-        $product->color_id = $request->color;
-        $product->size_id = $request->size;
-        $product->type_id = $request->type;
-        $product->sleeve_id = $request->sleeve;
         $product->title = $request->title;
-        $product->sku = $request->sku;
         $product->slug = $request->slug;
+        $product->sku = $request->sku;
+        $product->cat_id = $request->category;
+        $product->type_id = $request->type;
+        $product->color_id = $request->color;
+        $product->size = $request->size;
         $product->price = $request->price;
-        $product->coupon = $request->coupon;
-        if(!empty($thumbnail)) {
+        if (!empty($thumbnail)) {
             $product->thumbnail = $thumbnail;
         }
-        if(!empty($images)) {
+        if (!empty($images)) {
             $product->images = json_encode($images, true);
         }
         $product->description = $request->product_details;
@@ -242,5 +223,14 @@ class ProductController extends Controller
         $product = Product::find($id);
         $product->delete();
         return redirect()->route('product.index');
+    }
+
+    public function remove_image(Request $request, $id)
+    {
+        if(!empty($id)) {
+            return response()->json(['status' => 'error', 'message' => 'Material id is missing'], 200);
+        }
+        return response()->json(['hello' => 1111], 200);
+        print_r($request->all());
     }
 }

@@ -7,6 +7,7 @@
       <meta name="description" content="">
       <meta name="author" content="">
       <meta name="keywords" content="">
+      <meta name="csrf-token" content="{{ csrf_token() }}" />
       <title>Customize Tailor</title>
       <link href="{{ asset('assets/css/light.css') }}" rel="stylesheet">
       <link href="{{ asset('assets/css/style.css') }}" rel="stylesheet">
