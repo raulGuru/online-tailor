@@ -38,7 +38,7 @@ MYAPP.common = {
     convertToSlug: function(Text) {
         return Text.toLowerCase().replace(/ /g, '-').replace(/[^\w-]+/g, '');
     },
-    removeItem: function(action, imageData) {
+    removeItem: function(currentRow, action, imageData) {
         $.ajax({
             method: 'post',
             dataType: 'json',
@@ -46,7 +46,16 @@ MYAPP.common = {
             data: { image: imageData },
             url: action,
             success: function(response) {
-                console.log('Response => ', response);
+                if (response.code === 200) {
+                    if ($(currentRow).parents('.thumbnail-img').remove()) {
+                        const parentItemLength = $('body .thumbnail-img').length;
+                        if (parentItemLength <= 2) {
+                            $('body .remove-material-image').remove();
+                        }
+                    }
+                } else {
+                    alert('Error: ', response.message);
+                }
             },
             error: function(response) {},
             complete: function(response) {}
@@ -80,12 +89,8 @@ $(document).ready(function() {
         const action_url = $.trim($(this).attr('data-action-url'));
         const image = $.trim($(this).attr('data-image'));
         if (action_url && image) {
-            $('#material-slug').val(MYAPP.common.removeItem(action_url, image));
+            $('#material-slug').val(MYAPP.common.removeItem(this, action_url, image));
         }
-    });
-
-    $('.remove-material-image-2').click(function() {
-
     });
 
 });
