@@ -227,10 +227,33 @@ class ProductController extends Controller
 
     public function remove_image(Request $request, $id)
     {
-        if(!empty($id)) {
-            return response()->json(['status' => 'error', 'message' => 'Material id is missing'], 200);
+        if (empty($id)) {
+            return response()->json(["code" => 201, 'status' => 'error', 'message' => 'Material id is missing'], 200);
         }
-        return response()->json(['hello' => 1111], 200);
-        print_r($request->all());
+        $product = Product::find($id);
+
+        if (empty($product)) {
+            return response()->json(["code" => 201, 'status' => 'error', 'message' => 'Material not found'], 200);
+        }
+
+        $images = $product->images;
+
+        if (empty($images)) {
+            return response()->json(["code" => 201, 'status' => 'error', 'message' => 'Material image not found'], 200);
+        }
+
+        $json_decode = json_decode($images, true);
+        
+        if (empty($json_decode)) {
+            return response()->json(["code" => 201, 'status' => 'error', 'message' => 'Material image not found due to technical error'], 200);
+        }
+        
+        unset($json_decode[$request->image]);
+        
+        $product->images = json_encode($json_decode, true);
+        $product->updated_at = Carbon::now();
+        $update_status = $product->save();
+
+        return response()->json(["code" => 200, "status" => "success", "message" => "Image removed successfully!", "data" => $update_status], 200);
     }
 }

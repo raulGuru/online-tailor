@@ -143,9 +143,6 @@
                @if($product->thumbnail)
                   <div class="thumbnail-img mt-2 position-relative">
                      <img width="75" height="75" src="{{ asset('storage/products/' . $product->thumbnail) }}" alt="">
-                     <span class="position-absolute cursor-pointer remove-material-image" data-image="{{ $product->thumbnail }}" data-action-url="{{ route('product.remove_image', $product->id) }}">
-                        <i class="align-middle me-2" data-feather="x-circle"></i>
-                     </span>
                   </div>
                @endif
             </div>
@@ -172,9 +169,11 @@
                         @foreach($images as $key => $image)
                            <div class="thumbnail-img mt-2 px-3 position-relative float-start">
                               <img width="75" height="75" src="{{ asset('storage/products/' . $image) }}" alt="">
-                              <span class="position-absolute cursor-pointer remove-material-image-2" data-image-2="{{ $key }}">
-                                 <i class="align-middle me-2" data-feather="x-circle"></i>
-                              </span>
+                              @if(count($images) > 1)
+                                 <span class="position-absolute cursor-pointer remove-material-image" data-image="{{ $key }}" data-action-url="{{ route('product.remove_image', $product->id) }}">
+                                    <i class="align-middle me-2" data-feather="x-circle"></i>
+                                 </span>
+                                @endif
                            </div>
                         @endforeach
                      </div>
