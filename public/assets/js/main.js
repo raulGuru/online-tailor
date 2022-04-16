@@ -60,6 +60,12 @@ MYAPP.common = {
             error: function(response) {},
             complete: function(response) {}
         });
+    },
+    setParams: function(key, value) {
+        const urlParams = new URLSearchParams(window.location.search);
+        urlParams.set(key, value);
+        window.location.search = urlParams;
+        return window.location.href;
     }
 };
 
@@ -91,6 +97,20 @@ $(document).ready(function() {
         if (action_url && image) {
             $('#material-slug').val(MYAPP.common.removeItem(this, action_url, image));
         }
+    });
+
+    $('body .change-limit').change(function() {
+        MYAPP.common.setParams('limit', $(this).val());
+    });
+
+    $('body .search-box').on('submit', function() {
+        const title = $.trim($(this).children('#title').val());
+        MYAPP.common.setParams('title', title);
+        return false;
+    });
+    $("body #order").on('change', function() {
+        const title = $.trim($(this).val());
+        MYAPP.common.setParams('order', title);
     });
 
 });

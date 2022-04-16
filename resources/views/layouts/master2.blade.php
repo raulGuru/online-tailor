@@ -24,15 +24,19 @@
                <div class="collapse navbar-collapse" id="navbarTogglerDemo01">
                   <div class="row">
                      <div class="col-md-1 col-2 p-0">
-                        <a class="navbar-brand" href="#"><img src="{{ asset('assets/img/logo.jpg') }}" height="40" alt="logo"></a>
+                        <a class="navbar-brand" href="{{ route('category.index') }}">
+                           <img src="{{ asset('assets/img/logo.jpg') }}" height="40" alt="logo">
+                        </a>
                      </div>
                      <div class="col-md-5 menu-top col-10 p-0">
                         <ul>
                            <li>
-                              <a href="{{ route('category.show', 'men') }}">MEN</a>
+                              <?php $query = http_build_query(['gender' => 'men']); ?>
+                              <a href="{{ route('category.index', $query) }}">MEN</a>
                            </li>
                            <li>
-                              <a href="{{ route('category.show', 'women') }}">WOMEN</a>
+                              <?php $query = http_build_query(['gender' => 'women']); ?>
+                              <a href="{{ route('category.index', $query) }}">WOMEN</a>
                            </li>
                            <li>
                               <a class="text-brown" href="">BOOK APPOINTMENT</a>
@@ -40,9 +44,9 @@
                         </ul>
                      </div>
                      <div class="col-md-3 col-12 p-0">
-                        <form class="navbar-left serach-box">
-                           <input class="form-control me-2" type="search" value="Search" placeholder="Search" aria-label="Search">
-                           <i class="fa fa-search serach-icon"></i>
+                        <form class="navbar-left search-box">
+                           <input type="search" name="title" id="title" value="{{ (isset($title) && !empty($title)) ? $title: '' }}" class="form-control me-2" placeholder="Search">
+                           <i class="fa fa-search search-icon"></i>
                         </form>
                      </div>
                      <div class="col-md-3 login-menu-top btn-brown d-flex justify-content-end col-12">
@@ -83,6 +87,13 @@
             </div>
          </div>
       </footer>
+      <script type="text/javascript">
+         var baseUrl = "{{ url('/') }}";
+         var segment1 = "{{ !empty(Request::segment(1)) ? Request::segment(1): ''; }}";
+         var segment2 = "{{ !empty(Request::segment(2)) ? Request::segment(2): ''; }}";
+         var segment3 = "{{ !empty(Request::segment(3)) ? Request::segment(3): ''; }}";
+     </script>
       <script src="{{ asset('assets/js/app.js') }}"></script>
+      <script src="{{ asset('assets/js/main.js?ver=' . time()) }}"></script>
    </body>
 </html>

@@ -32,10 +32,10 @@
 				  <div class="col-md-5 menu-top col-10 p-0">
 					  <ul>
 						  <li>
-							  <a href="">MEN</a>
+							  <a href="{{ route('category.index', http_build_query(['gender' => 'men'])) }}">MEN</a>
 						  </li>
 						  <li>
-							  <a href="">WOMEN</a>
+							  <a href="{{ route('category.index', http_build_query(['gender' => 'women'])) }}">WOMEN</a>
 						  </li>
 						  <li>
 							  <a href="/appointment">BOOK APPOINTMENT</a>
@@ -43,9 +43,9 @@
 					  </ul>
 				  </div>
 				  <div class="col-md-3 col-12 p-0">
-					  <!-- <form class="navbar-left serach-box">
+					  <!-- <form class="navbar-left search-box">
 						  <input class="form-control me-2" type="search" value="Search" placeholder="Search" aria-label="Search">
-						  <i class="fa fa-search serach-icon"></i>
+						  <i class="fa fa-search search-icon"></i>
 						 </form> -->
 				  </div>
 				  <div class="col-md-3 login-menu-top d-flex justify-content-end col-12">

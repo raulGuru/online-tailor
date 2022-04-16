@@ -3,22 +3,59 @@
 namespace App\Http\Controllers;
 
 use App\Models\Product;
-use App\Models\ProductCategory;
 use App\Models\ProductColor;
+use App\Models\ProductType;
 use Illuminate\Http\Request;
 
 class CategoryController extends Controller
 {
+    private $limit;
+    private $order;
+    private $type;
+    private $color;
+    public function __construct()
+    {
+        $this->limit = 9;
+        $this->order = 'asc';
+    }
+
     /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+
+    public function index(Request $request)
     {
         $data = $this->get_categories_colors();
-        $data['product'] = array();
-        return view('category.index', $data);
+        $searchTerm = $request->title ? trim($request->title) : '';
+        $gender = $request->gender ? trim($request->gender) : '';
+        $this->order = $request->order ? trim($request->order) : $this->order;
+        $this->limit = $request->limit ? trim($request->limit) : $this->limit;
+        $this->type = $request->type ? trim($request->type) : null;
+        $this->color = $request->color ? trim($request->color) : null;
+        $products = Product::where('title', 'like', '%' . $searchTerm . '%');
+        if (!empty($this->type)) {
+            $type = ProductType::where('name', $this->type)->first();
+            if (!empty($type)) {
+                $products->where('type_id', $type->id);
+            }
+        }
+        if (!empty($this->color)) {
+            $color = ProductColor::where('name', $this->color)->first();
+            if (!empty($color)) {
+                $products->where('color_id', $color->id);
+            }
+        }
+        if (!empty($searchTerm)) {
+            $products->orWhere('slug', 'like', '%' . $searchTerm . '%');
+            $products->orWhere('description', 'like', '%' . $searchTerm . '%');
+            $products->orWhere('additional_details', 'like', '%' . $searchTerm . '%');
+        }
+        $products->orderBy('id', $this->order);
+        $results = $products->paginate($this->limit);
+        $results->appends(['title' => $searchTerm, 'gender' => $gender, 'type' => $this->type, 'color' => $this->color, 'order' => $this->order]);
+        return view('category.index', ['results' => $results, 'title' => $searchTerm, 'limit' => $this->limit, 'type' => $this->type, 'color' => $this->color, 'order' => $this->order, 'categories' => $data['categories'], 'colors' => $data['colors']]);
     }
 
     /**
@@ -48,18 +85,14 @@ class CategoryController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($type, $color = '', $order_by = 'asc')
+    public function show(Request $request, $title)
     {
-        if($type !== 'men' && $type !== 'women') {
+        $material = Product::where('title', $title)->first();
+        if (empty($material)) {
             return redirect()->route('category.index');
         }
-
         $data = $this->get_categories_colors();
-        $data['type'] = $type;
-        $data['color'] = $color;
-        $data['order_by'] = $order_by;
-        $data['products'] = Product::paginate(4);
-        return view('category.index', $data);
+        return view('category.show', ['result' => $material, 'categories' => $data['categories'], 'colors' => $data['colors']]);
     }
 
     /**
@@ -96,8 +129,9 @@ class CategoryController extends Controller
         //
     }
 
-    private function get_categories_colors() {
-        $data['categories'] = ProductCategory::get();
+    private function get_categories_colors()
+    {
+        $data['categories'] = ProductType::get();
         $data['colors'] = ProductColor::get();
         return $data;
     }

@@ -22,9 +22,9 @@ use Illuminate\Support\Facades\Route;
 
 Route::resource('/', HomeController::class);
 Route::resource('category', CategoryController::class);
-Route::get('category/{id}', [CategoryController::class, 'show']);
-Route::get('category/{id}/{color}', [CategoryController::class, 'show']);
-Route::get('category/{id}/{color}/{order}', [CategoryController::class, 'show']);
+// Route::get('category/{category}', [CategoryController::class, 'show']);
+// Route::get('category/{category}/{color}', [CategoryController::class, 'show'])->name('category.color');
+// Route::get('category/{category}/{color}/{order}', [CategoryController::class, 'show'])->name('category.color');
 
 Route::get('/', function () {
     return view('welcome');
