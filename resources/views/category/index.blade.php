@@ -18,7 +18,7 @@
        <div class="col-md-3">
           <div class="categories-border mb-4">
              <h4 class="font-weight-600 m-0">CATEGORIES</h4>
-             <img src="{{ asset('assets/img/small-line.svg') }}" alt="">
+             <img src="{{ asset('public/assets/img/small-line.svg') }}" alt="">
              @if($categories->count() > 0)
                <ul class="categories-listing mt-3 p-0">
                   @foreach($categories as $category)
@@ -34,7 +34,7 @@
           </div>
           <div class="categories-border">
              <h4 class="font-weight-600 m-0">COLOR</h4>
-             <img src="{{ asset('assets/img/small-line.svg') }}" alt="">
+             <img src="{{ asset('public/assets/img/small-line.svg') }}" alt="">
              @if($colors->count() > 0)
                <ul class="categories-listing mt-3 p-0">
                   @foreach($colors as $color)
@@ -84,7 +84,7 @@
                   <div class="col-md-4 text-center mb-4">
                      <div class="product-shrot-view card pb-2">
                         <a href="{{ route('category.show', $result->title) }}" data-id="{{$result->id}}">
-                           <img src="{{ asset('storage/products/' . $result->thumbnail) }}" alt="{{ $result->title }}">
+                           <img src="{{ asset('public/storage/products/' . $result->thumbnail) }}" alt="{{ $result->title }}">
                         </a>
                         <h4 class="mt-3 font-weight-500">{{ $result->title }}</h4>
                         <h4 class="mt-2 font-weight-500">&#8377; {{ $result->price }}</h4>

@@ -9,8 +9,8 @@
     <meta name="author" content="">
     <meta name="keywords" content="">
     <title>Customize Tailor</title>
-    <link class="js-stylesheet" href="{{ asset('assets/css/light.css') }}" rel="stylesheet">
-    <link class="js-stylesheet" href="{{ asset('assets/css/style.css') }}" rel="stylesheet">
+    <link class="js-stylesheet" href="{{ asset('public/assets/css/light.css') }}" rel="stylesheet">
+    <link class="js-stylesheet" href="{{ asset('public/assets/css/style.css') }}" rel="stylesheet">
 </head>
 
 <body>
@@ -22,7 +22,7 @@
                         <div class="card">
                             <div class="card-body">
                                 <div class="text-center logo">
-                                    <img src="{{ asset('assets/img/logo.jpg') }}" alt="logo">
+                                    <img src="{{ asset('public/assets/img/logo.jpg') }}" alt="logo">
                                 </div>
                                 <h4 class="mb-3 font-weight-600"> Login </h4>
                                 <form method="post" action="{{ route('login.store') }}">

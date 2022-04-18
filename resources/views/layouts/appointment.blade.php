@@ -11,9 +11,9 @@
 	<meta name="keywords" content=" ">
 
 	<title>Customize Tailor</title>
-    <link href="{{ asset('assets/css/light.css') }}" rel="stylesheet">
-    <link href="{{ asset('assets/css/style.css') }}" rel="stylesheet">
-    <link href="{{ asset('assets/css/media.css') }}" rel="stylesheet">
+    <link href="{{ asset('public/assets/css/light.css') }}" rel="stylesheet">
+    <link href="{{ asset('public/assets/css/style.css') }}" rel="stylesheet">
+    <link href="{{ asset('public/assets/css/media.css') }}" rel="stylesheet">
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 </head>
 
@@ -27,7 +27,7 @@
 			<div class="collapse navbar-collapse" id="navbarTogglerDemo01">
 			  <div class="row">
 				  <div class="col-md-1 col-2 p-0">
-					  <a class="navbar-brand" href="#"><img src="{{ asset('assets/img/logo.jpg') }}" height="40" alt="logo"></a>
+					  <a class="navbar-brand" href="#"><img src="{{ asset('public/assets/img/logo.jpg') }}" height="40" alt="logo"></a>
 				  </div>
 				  <div class="col-md-5 menu-top col-10 p-0">
 					  <ul>
@@ -71,7 +71,7 @@
 		</nav>
   </header>
 	<!-- <section class="banner-section position-relative">
-		<img src="{{ asset('assets/img/banner.jpg') }}" alt="Los Angeles" class="d-block" style="width:100%" height="400">
+		<img src="{{ asset('public/assets/img/banner.jpg') }}" alt="Los Angeles" class="d-block" style="width:100%" height="400">
 		<div class="banner-text">
 			 <h2>Welcome <br>
 				To Customize Tailor
@@ -204,7 +204,7 @@
 	</footer>
 	
 
-	<script src="{{ asset('assets/js/app.js') }}"></script>
+	<script src="{{ asset('public/assets/js/app.js') }}"></script>
 
 </body>
 </html>
