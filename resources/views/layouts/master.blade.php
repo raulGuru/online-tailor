@@ -9,12 +9,12 @@
       <meta name="keywords" content="">
       <meta name="csrf-token" content="{{ csrf_token() }}" />
       <link rel="preconnect" href="https://fonts.gstatic.com">
-      <link rel="shortcut icon" href="{{ asset('assets/img/icons/icon-48x48.png') }}" />
+      <link rel="shortcut icon" href="{{ asset('public/assets/img/icons/icon-48x48.png') }}" />
       <link rel="canonical" href="https://demo.adminkit.io/pages-blank.html" />
       <title>Customize Tailor</title>
       <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
-      <link href="{{ asset('assets/css/light.css') }}" rel="stylesheet">
-      <link href="{{ asset('assets/css/admin.css') }}" rel="stylesheet">
+      <link href="{{ asset('public/assets/css/light.css') }}" rel="stylesheet">
+      <link href="{{ asset('public/assets/css/admin.css') }}" rel="stylesheet">
       <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
    </head>
    <body data-theme="default" data-layout="fluid" data-sidebar-position="left" data-sidebar-layout="default">
@@ -41,7 +41,7 @@
          var segment3 = "{{ !empty(Request::segment(3)) ? Request::segment(3): ''; }}";
      </script>
       <script src="https://cdn.quilljs.com/1.3.6/quill.js"></script>
-      <script src="{{ asset('assets/js/app.js') }}"></script>
-      <script src="{{ asset('assets/js/main.js?ver=' . time()) }}"></script>
+      <script src="{{ asset('public/assets/js/app.js') }}"></script>
+      <script src="{{ asset('public/assets/js/main.js?ver=' . time()) }}"></script>
    </body>
 </html>
