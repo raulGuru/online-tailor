@@ -1,16 +1,18 @@
 @extends('layouts.master2')
 
 @section('content')
-<div class="container mt-7">
-    <div class="breadcrumb-menu mt-4 mb-4">
-       <ul class="m-0 p-0 d-flex">
-          <li>
-             <a href="">Home</a>
-          </li>
-          <li class="pl-1">
-             <a href="">Men</a>
-          </li>
-       </ul>
+<div class="container mt-6">
+    <div class="breadcrumb-menu mt-0 mb-4">
+      <nav aria-label="breadcrumb">
+         <ol class="breadcrumb">
+            <li class="breadcrumb-item">
+               <a href="{{ route('category.index') }}">Home</a>
+            </li>
+            @if(request()->gender)
+               <li class="breadcrumb-item active">{{ ucfirst(request()->gender) }}</li>
+            @endif
+         </ol>
+      </nav>
     </div>
     <div class="row">
        <div class="col-md-3">
@@ -20,10 +22,10 @@
              @if($categories->count() > 0)
                <ul class="categories-listing mt-3 p-0">
                   @foreach($categories as $category)
-                     <a href="#" class="text-decoration-none text-reset">
+                     <a href="{{ route('category.index', http_build_query(['type' => strtolower($category->name)])) }}" class="text-decoration-none text-reset">
                         <li class="d-flex justify-content-between mt-3">
-                           <span> {{ $category->title }} </span>
-                           <span>(15)</span>
+                           <span> {{ ucfirst($category->name) }} </span>
+                           <span>({{ $category->posts->count() }})</span>
                         </li>
                      </a>
                   @endforeach
@@ -36,7 +38,7 @@
              @if($colors->count() > 0)
                <ul class="categories-listing mt-3 p-0">
                   @foreach($colors as $color)
-                     <a href="#" class="text-decoration-none text-reset">
+                     <a href="{{ route('category.index', http_build_query(['color' => strtolower($color->name)])) }}" class="text-decoration-none text-reset">
                         <li class="d-flex justify-content-between mt-3">
                            <span> {{ $color->name }} </span>
                            <span class="circle-color" style="background: {{ $color->code }}"></span>
@@ -51,123 +53,76 @@
           <div class="row mb-4">
              <div class="col-md-4">
                <div class="input-group mb-3">
-                  <span class="input-group-text">Sort By:</span>
-                  <select class="form-select" aria-label="Default select example">
-                     <option value="Name (A - Z)">Name (A - Z)</option>
-                     <option value="Default">Default</option>
-                     <option value="Name (Z - A)">Name (Z - A)</option>
-                     <option value="Price (Low &gt; High)">Price (Low &gt; High)</option>
-                     <option value="Price (High &gt; Low)">Price (High &gt; Low)</option>
-                     <option value="Rating (Highest)">Rating (Highest)</option>
-                     <option value="Rating (Lowest)">Rating (Lowest)</option>
-                     <option value="Model (A - Z)">Model (A - Z)</option>
-                     <option value="Model (Z - A)">Model (Z - A)</option>
+                  <span class="input-group-text">Sort By: </span>
+                  <select class="form-select" id="order" aria-label="Default select example">
+                     <option value="asc" {{ ($order && $order == 'asc') ? 'selected': '' }}>Name (A - Z)</option>
+                     <option value="desc" {{ ($order && $order == 'desc') ? 'selected': '' }}>Name (Z - A)</option>
                   </select>
                 </div>
              </div>
-             <div class="col-md-4">
+            <div class="col-md-4">
                <div class="input-group mb-3">
                   <span class="input-group-text">Show:</span>
-                  <select class="form-select" aria-label="Default select example">
-                     <option value="15">15</option>
-                     <option value="25">25</option>
-                     <option value="50">50</option>
-                     <option value="75">75</option>
-                     <option value="100">100</option>
+                  <select class="form-select change-limit" aria-label="Default select example">
+                     <option value="5" {{ ($limit && $limit == '5') ? 'selected': '' }}>5</option>
+                     <option value="10" {{ ($limit && $limit == '10') ? 'selected': '' }}>10</option>
+                     <option value="15" {{ ($limit && $limit == '15') ? 'selected': '' }}>15</option>
+                     <option value="25" {{ ($limit && $limit == '25') ? 'selected': '' }}>25</option>
+                     <option value="50" {{ ($limit && $limit == '50') ? 'selected': '' }}>50</option>
+                     <option value="75" {{ ($limit && $limit == '75') ? 'selected': '' }}>75</option>
+                     <option value="100" {{ ($limit && $limit == '100') ? 'selected': '' }}>100</option>
                   </select>
-                </div>
-             </div>
+               </div>
+            </div>
              <div class="col-md-4 text-end">
-                <p class="m-0"> Showing at 15 result </p>
+                <p class="m-0"> Showing {{ ($results->count()) }} results</p>
              </div>
           </div>
           <div class="row">
-             <div class="col-md-4 text-center mb-4">
-                <div class="product-shrot-view">
-                   <img src="{{ asset('assets/img/product.jpg') }}" alt="">
-                   <h4 class="mt-3 font-weight-500">Slik Fabric</h4>
-                   <h4 class="mt-2 font-weight-500">$ 300</h4>
-                   <div class="start-icon">
-                      <i class="fa fa-star"></i>
-                      <i class="fa fa-star"></i>
-                      <i class="fa fa-star"></i>
-                      <i class="fa fa-star"></i>
-                      <i class="fa fa-star"></i>
-                   </div>
-                </div>
-             </div>
-             <div class="col-md-4 text-center mb-4">
-                <div class="product-shrot-view">
-                   <img src="{{ asset('assets/img/product.jpg') }}" alt="">
-                   <h4 class="mt-3 font-weight-500">Slik Fabric</h4>
-                   <h4 class="mt-2 font-weight-500">$ 300</h4>
-                   <div class="start-icon">
-                      <i class="fa fa-star"></i>
-                      <i class="fa fa-star"></i>
-                      <i class="fa fa-star"></i>
-                      <i class="fa fa-star"></i>
-                      <i class="fa fa-star"></i>
-                   </div>
-                </div>
-             </div>
-             <div class="col-md-4 text-center mb-4">
-                <div class="product-shrot-view">
-                   <img src="{{ asset('assets/img/product.jpg') }}" alt="">
-                   <h4 class="mt-3 font-weight-500">Slik Fabric</h4>
-                   <h4 class="mt-2 font-weight-500">$ 300</h4>
-                   <div class="start-icon">
-                      <i class="fa fa-star"></i>
-                      <i class="fa fa-star"></i>
-                      <i class="fa fa-star"></i>
-                      <i class="fa fa-star"></i>
-                      <i class="fa fa-star"></i>
-                   </div>
-                </div>
-             </div>
-             <div class="col-md-4 text-center mb-4">
-                <div class="product-shrot-view">
-                   <img src="{{ asset('assets/img/product.jpg') }}" alt="">
-                   <h4 class="mt-3 font-weight-500">Slik Fabric</h4>
-                   <h4 class="mt-2 font-weight-500">$ 300</h4>
-                   <div class="start-icon">
-                      <i class="fa fa-star"></i>
-                      <i class="fa fa-star"></i>
-                      <i class="fa fa-star"></i>
-                      <i class="fa fa-star"></i>
-                      <i class="fa fa-star"></i>
-                   </div>
-                </div>
-             </div>
-             <div class="col-md-4 text-center mb-4">
-                <div class="product-shrot-view">
-                   <img src="{{ asset('assets/img/product.jpg') }}" alt="">
-                   <h4 class="mt-3 font-weight-500">Slik Fabric</h4>
-                   <h4 class="mt-2 font-weight-500">$ 300</h4>
-                   <div class="start-icon">
-                      <i class="fa fa-star"></i>
-                      <i class="fa fa-star"></i>
-                      <i class="fa fa-star"></i>
-                      <i class="fa fa-star"></i>
-                      <i class="fa fa-star"></i>
-                   </div>
-                </div>
-             </div>
-             <div class="col-md-4 text-center mb-4">
-                <div class="product-shrot-view">
-                   <img src="{{ asset('assets/img/product.jpg') }}" alt="">
-                   <h4 class="mt-3 font-weight-500">Slik Fabric</h4>
-                   <h4 class="mt-2 font-weight-500">$ 300</h4>
-                   <div class="start-icon">
-                      <i class="fa fa-star"></i>
-                      <i class="fa fa-star"></i>
-                      <i class="fa fa-star"></i>
-                      <i class="fa fa-star"></i>
-                      <i class="fa fa-star"></i>
-                   </div>
-                </div>
-             </div>
+             @if($results->count() > 0)
+               @foreach($results as $result)
+                  <div class="col-md-4 text-center mb-4">
+                     <div class="product-shrot-view card pb-2">
+                        <a href="{{ route('category.show', $result->title) }}" data-id="{{$result->id}}">
+                           <img src="{{ asset('storage/products/' . $result->thumbnail) }}" alt="{{ $result->title }}">
+                        </a>
+                        <h4 class="mt-3 font-weight-500">{{ $result->title }}</h4>
+                        <h4 class="mt-2 font-weight-500">&#8377; {{ $result->price }}</h4>
+                        <div class="start-icon">
+                           <i class="fa fa-star"></i>
+                           <i class="fa fa-star"></i>
+                           <i class="fa fa-star"></i>
+                           <i class="fa fa-star"></i>
+                           <i class="fa fa-star"></i>
+                        </div>
+                        <div class="text-center">
+                           <a href="{{ route('category.show', $result->title) }}" class="btn btn-success btn-sm">
+                              <i class="fa fa-eye"></i> View
+                           </a>
+                        </div>
+                     </div>
+                  </div>
+               @endforeach
+             @else
+               <div class="col-md-12">
+                  <div class="text-center">
+                     <h1 class="display-1 font-weight-bold">404</h1>
+                     <p class="h1">No Results found for {{ $title }}.</p>
+                     <p class="font-weight-normal mt-3 mb-4">Try searching some other keywords or apply different set of filters</p>
+                     <p class="font-weight-normal mt-3 mb-4">Try other items in our store</p>
+                     <a href="{{ route('category.index') }}" class="btn btn-primary btn-lg">Return to home</a>
+                  </div>
+               </div>
+             @endif
           </div>
+         <div class="d-flex justify-content-center">
+            {!! $results->links() !!}
+         </div>
        </div>
     </div>
  </div>
+ <script>
+    let fullUrl = '{{ Request::fullUrl() }}';
+    console.log('fullUrl => ', fullUrl);
+ </script>
 @endsection

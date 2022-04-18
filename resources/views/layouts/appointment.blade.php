@@ -43,9 +43,9 @@
 					  </ul>
 				  </div>
 				  <div class="col-md-3 col-12 p-0">
-					  <!-- <form class="navbar-left serach-box">
+					  <!-- <form class="navbar-left search-box">
 						  <input class="form-control me-2" type="search" value="Search" placeholder="Search" aria-label="Search">
-						  <i class="fa fa-search serach-icon"></i>
+						  <i class="fa fa-search search-icon"></i>
 						 </form> -->
 				  </div>
 				  <div class="col-md-3 login-menu-top d-flex justify-content-end col-12">

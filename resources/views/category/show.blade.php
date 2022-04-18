@@ -1,0 +1,114 @@
+@extends('layouts.master2')
+
+@section('content')
+<div class="container mt-6">
+    <div class="breadcrumb-menu mt-0 mb-4">
+      <nav aria-label="breadcrumb">
+         <ol class="breadcrumb">
+            <li class="breadcrumb-item">
+               <a href="{{ route('category.index') }}">Home</a>
+            </li>
+            @if(request()->gender)
+               <li class="breadcrumb-item active">{{ ucfirst(request()->gender) }}</li>
+            @endif
+         </ol>
+      </nav>
+    </div>
+    <div class="row">
+       <div class="col-md-3">
+          <div class="categories-border mb-4">
+             <h4 class="font-weight-600 m-0">CATEGORIES</h4>
+             <img src="{{ asset('assets/img/small-line.svg') }}" alt="">
+             @if($categories->count() > 0)
+               <ul class="categories-listing mt-3 p-0">
+                  @foreach($categories as $category)
+                  <a href="{{ route('category.index', http_build_query(['type' => strtolower($category->name)])) }}" class="text-decoration-none text-reset">
+                    <li class="d-flex justify-content-between mt-3">
+                       <span> {{ ucfirst($category->name) }} </span>
+                       <span>({{ $category->posts->count() }})</span>
+                    </li>
+                 </a>
+                  @endforeach
+               </ul>
+             @endif
+          </div>
+          <div class="categories-border">
+             <h4 class="font-weight-600 m-0">COLOR</h4>
+             <img src="{{ asset('assets/img/small-line.svg') }}" alt="">
+             @if($colors->count() > 0)
+               <ul class="categories-listing mt-3 p-0">
+                  @foreach($colors as $color)
+                     <a href="#" class="text-decoration-none text-reset">
+                        <li class="d-flex justify-content-between mt-3">
+                           <span> {{ $color->name }} </span>
+                           <span class="circle-color" style="background: {{ $color->code }}"></span>
+                        </li>
+                     </a>
+                  @endforeach
+               </ul>
+             @endif
+          </div>
+       </div>
+       <div class="col-md-9">
+          <div class="row">
+             @if(!empty($result))
+                <?php $images = json_decode($result->images, true); ?>
+                @if(isset($images) && !empty($images))
+                    <div class="col-md-6 big-img-product">
+                        <ul>
+                            @foreach($images as $image)
+                                <li><img src="{{ asset('storage/products/' . $image) }}" alt=""></li>
+                            @endforeach
+                        </ul>
+                    </div>
+                @endif
+                <div class="col-md-6 {{ (isset($images) && !empty($images)) ? 'col-md-6': 'col-md-12'}}">
+                    <h4 class="font-weight-600">{{ $result->title }} </h4>
+                    <div class="d-flex mb-3">
+                        <div class="start-icon">
+                            <i class="fa fa-star"></i>
+                            <i class="fa fa-star"></i>
+                            <i class="fa fa-star"></i>
+                            <i class="fa fa-star"></i>
+                            <i class="fa fa-star"></i>
+                        </div>
+                        <p class="mb-0 mx-2">(3 review)</p>
+                    </div>
+
+                    <div class="d-flex price-amt mb-4">
+                        <h5 class="f-20 me-4 font-weight-500 mb-0">{{ $result->price }}</h5>
+                        <h6 class="text-brown f-20 font-weight-500 m-0">{{ $result->price }}</h6>
+                    </div>
+
+                    <div class="row mb-4">
+                        <div class="col-md-12">
+                            <a href="" class="btn d-block add-bag-btn">BOOK TAILOR</a>
+                            <a href="" class="btn d-block add-wish-btn mt-3">ADD MEASUREMENT </a>
+                        </div>
+                    </div>
+
+                    <div class="product-details mb-4">
+                        <h3>Product Details </h3>
+                        {!! $result->description !!}
+                    </div>
+                </div>
+             @else
+               <div class="col-md-12">
+                  <div class="text-center">
+                     <h1 class="display-1 font-weight-bold">404</h1>
+                     <p class="h1">No Results found.</p>
+                     <p class="font-weight-normal mt-3 mb-4">Try searching some other keywords or apply different set of filters</p>
+                     <p class="font-weight-normal mt-3 mb-4">Try other items in our store</p>
+                     <a href="{{ route('category.index') }}" class="btn btn-primary btn-lg">Return to home</a>
+                  </div>
+               </div>
+             @endif
+          </div>
+       </div>
+    </div>
+ </div>
+ <script>
+    let fullUrl = '{{ Request::fullUrl() }}';
+    console.log('fullUrl => ', fullUrl);
+ </script>
+@endsection
