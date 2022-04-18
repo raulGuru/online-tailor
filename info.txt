@@ -24,5 +24,9 @@ php artisan db:seed --class=ProductColorSeeder;
 php artisan db:seed --class=ProductTypeSeeder;
 // symlink for storage
 php artisan storage:link
+// admin login creds
+info@example.com
+admin@123
+
 
 
