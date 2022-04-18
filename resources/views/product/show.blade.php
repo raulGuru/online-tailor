@@ -39,7 +39,7 @@
             <h4>Thumbnail</h4>
             @if($product->thumbnail)
                 <div class="thumbnail-img mt-2 position-relative">
-                    <img width="75" height="75" src="{{ asset('storage/products/' . $product->thumbnail) }}" alt="">
+                    <img width="75" height="75" src="{{ asset('public/storage/products/' . $product->thumbnail) }}" alt="">
                 </div>
             @endif
             <hr>
@@ -50,7 +50,7 @@
                     <div class="clearfix">                     
                         @foreach($images as $key => $image)
                         <div class="thumbnail-img {{ $key === 0 ? 'product-image-01': '' }} px-3 mt-2 position-relative float-start">
-                            <img width="75" height="75" src="{{ asset('storage/products/' . $image) }}" alt="">
+                            <img width="75" height="75" src="{{ asset('public/storage/products/' . $image) }}" alt="">
                             @if(count($images) > 1)
                                 <span class="position-absolute cursor-pointer remove-material-image" data-image="{{ $key }}" data-action-url="{{ route('product.remove_image', $product->id) }}">
                                 <i class="align-middle me-2" data-feather="x-circle"></i>

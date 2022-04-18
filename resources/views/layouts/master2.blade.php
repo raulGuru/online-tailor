@@ -25,7 +25,7 @@
                   <div class="row">
                      <div class="col-md-1 col-2 p-0">
                         <a class="navbar-brand" href="{{ route('category.index') }}">
-                           <img src="{{ asset('assets/img/logo.jpg') }}" height="40" alt="logo">
+                           <img src="{{ asset('public/assets/img/logo.jpg') }}" height="40" alt="logo">
                         </a>
                      </div>
                      <div class="col-md-5 menu-top col-10 p-0">

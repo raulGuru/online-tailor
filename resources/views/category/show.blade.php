@@ -18,7 +18,7 @@
        <div class="col-md-3">
           <div class="categories-border mb-4">
              <h4 class="font-weight-600 m-0">CATEGORIES</h4>
-             <img src="{{ asset('assets/img/small-line.svg') }}" alt="">
+             <img src="{{ asset('public/assets/img/small-line.svg') }}" alt="">
              @if($categories->count() > 0)
                <ul class="categories-listing mt-3 p-0">
                   @foreach($categories as $category)
@@ -34,7 +34,7 @@
           </div>
           <div class="categories-border">
              <h4 class="font-weight-600 m-0">COLOR</h4>
-             <img src="{{ asset('assets/img/small-line.svg') }}" alt="">
+             <img src="{{ asset('public/assets/img/small-line.svg') }}" alt="">
              @if($colors->count() > 0)
                <ul class="categories-listing mt-3 p-0">
                   @foreach($colors as $color)
@@ -57,7 +57,7 @@
                     <div class="col-md-6 big-img-product">
                         <ul>
                             @foreach($images as $image)
-                                <li><img src="{{ asset('storage/products/' . $image) }}" alt=""></li>
+                                <li><img src="{{ asset('public/storage/products/' . $image) }}" alt=""></li>
                             @endforeach
                         </ul>
                     </div>
