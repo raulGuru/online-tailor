@@ -20,9 +20,9 @@ php artisan db:seed
 >>> Runn specific seeder at a time :<<<<
 php artisan db:seed --class=UserSeeder;
 php artisan db:seed --class=MasterCategorySeeder;
-php artisan db:seed --class=ProductCategorySeeder;
 php artisan db:seed --class=ProductColorSeeder;
 php artisan db:seed --class=ProductTypeSeeder;
-php artisan db:seed --class=ProductSeeder;
+// symlink for storage
+php artisan storage:link
 
 
