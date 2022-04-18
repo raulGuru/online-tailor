@@ -9,9 +9,9 @@
       <meta name="keywords" content="">
       <meta name="csrf-token" content="{{ csrf_token() }}" />
       <title>Customize Tailor</title>
-      <link href="{{ asset('assets/css/light.css') }}" rel="stylesheet">
-      <link href="{{ asset('assets/css/style.css') }}" rel="stylesheet">
-      <link href="{{ asset('assets/css/media.css') }}" rel="stylesheet">
+      <link href="{{ asset('public/assets/css/light.css') }}" rel="stylesheet">
+      <link href="{{ asset('public/assets/css/style.css') }}" rel="stylesheet">
+      <link href="{{ asset('public/assets/css/media.css') }}" rel="stylesheet">
       <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
    </head>
    <body>
@@ -93,7 +93,7 @@
          var segment2 = "{{ !empty(Request::segment(2)) ? Request::segment(2): ''; }}";
          var segment3 = "{{ !empty(Request::segment(3)) ? Request::segment(3): ''; }}";
      </script>
-      <script src="{{ asset('assets/js/app.js') }}"></script>
-      <script src="{{ asset('assets/js/main.js?ver=' . time()) }}"></script>
+      <script src="{{ asset('public/assets/js/app.js') }}"></script>
+      <script src="{{ asset('public/assets/js/main.js?ver=' . time()) }}"></script>
    </body>
 </html>
