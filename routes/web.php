@@ -7,6 +7,7 @@ use App\Http\Controllers\LandingController;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\SignupController;
+use App\Http\Middleware\EnsureTokenIsValid;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -33,8 +34,8 @@ Route::get('/appointment', function() {
     return view('layouts.appointment');
 });
 
-Route::resource('/', LoginController::class);
-Route::resource('login', LoginController::class);
+Route::resource('/', DashboardController::class)->middleware(EnsureTokenIsValid::class);
+Route::resource('login', LoginController::class)->middleware(EnsureTokenIsValid::class);
 Route::post('logout', [LoginController::class, 'logout'])->name('login.logout');
 Route::resource('signup', SignupController::class);
 Route::resource('dashboard', DashboardController::class);
