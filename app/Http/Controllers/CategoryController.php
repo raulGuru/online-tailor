@@ -87,7 +87,7 @@ class CategoryController extends Controller
      */
     public function show(Request $request, $title)
     {
-        $material = Product::where('title', $title)->first();
+        $material = Product::where('slug', $title)->first();
         if (empty($material)) {
             return redirect()->route('category.index');
         }
