@@ -29,6 +29,7 @@ class ProductController extends Controller
         $products = Product::where('title', 'LIKE', '%' . $q . '%')
             ->orWhere('description', 'LIKE', '%' . $q . '%')
             ->orWhere('additional_details', 'LIKE', '%' . $q . '%')
+            ->orderBy('id', 'DESC')
             ->paginate(10)->appends(['search' => $q]);
 
         $products->appends(['search' => $q]);
@@ -58,7 +59,7 @@ class ProductController extends Controller
     {
         $this->validate($request, [
             'title' => 'required|max:255',
-            'slug' => 'required|max:255',
+            'slug' => 'required|unique:products|max:255',
             'sku' => 'max:100',
             'category' => 'required|max:255',
             'type' => 'required|max:255',

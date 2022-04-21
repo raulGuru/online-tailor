@@ -83,7 +83,7 @@
                @foreach($results as $result)
                   <div class="col-md-4 text-center mb-4">
                      <div class="product-shrot-view card pb-2">
-                        <a href="{{ route('category.show', $result->title) }}" data-id="{{$result->id}}">
+                        <a href="{{ route('category.show', $result->slug) }}" data-id="{{$result->id}}">
                            <img src="{{ asset('public/storage/products/' . $result->thumbnail) }}" alt="{{ $result->title }}">
                         </a>
                         <h4 class="mt-3 font-weight-500">{{ $result->title }}</h4>
@@ -96,7 +96,7 @@
                            <i class="fa fa-star"></i>
                         </div>
                         <div class="text-center">
-                           <a href="{{ route('category.show', $result->title) }}" class="btn btn-success btn-sm">
+                           <a href="{{ route('category.show', $result->slug) }}" class="btn btn-success btn-sm">
                               <i class="fa fa-eye"></i> View
                            </a>
                         </div>

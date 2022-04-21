@@ -35,8 +35,8 @@ Route::get('/appointment', function() {
 });
 
 Route::resource('/', DashboardController::class)->middleware(EnsureTokenIsValid::class);
-Route::resource('login', LoginController::class)->middleware(EnsureTokenIsValid::class);
-Route::post('logout', [LoginController::class, 'logout'])->name('login.logout');
+Route::resource('admin/login', LoginController::class)->middleware(EnsureTokenIsValid::class);
+Route::post('admin/logout', [LoginController::class, 'logout'])->name('login.logout');
 Route::resource('signup', SignupController::class);
 Route::resource('dashboard', DashboardController::class);
 Route::resource('product', ProductController::class);
