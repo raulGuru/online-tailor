@@ -8,8 +8,8 @@ php artisan make:model ProductSleeve;
 
 :::: Seeders create :::: [No need to run this command]
 php artisan make:seeder UserSeeder;
+php artisan make:seeder RoleSeeder;
 php artisan make:seeder MasterCategorySeeder;
-php artisan make:seeder ProductCategorySeeder;
 php artisan make:seeder ProductColorSeeder;
 php artisan make:seeder ProductTypeSeeder;
 php artisan make:seeder ProductSeeder;
@@ -19,6 +19,7 @@ php artisan make:seeder ProductSeeder;
 php artisan db:seed
 >>> Runn specific seeder at a time :<<<<
 php artisan db:seed --class=UserSeeder;
+php artisan db:seed --class=RoleSeeder;
 php artisan db:seed --class=MasterCategorySeeder;
 php artisan db:seed --class=ProductColorSeeder;
 php artisan db:seed --class=ProductTypeSeeder;

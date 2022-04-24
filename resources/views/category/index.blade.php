@@ -107,7 +107,7 @@
                <div class="col-md-12">
                   <div class="text-center">
                      <h1 class="display-1 font-weight-bold">404</h1>
-                     <p class="h1">No Results found for {{ $title }}.</p>
+                     <p class="h1">No Result Found.</p>
                      <p class="font-weight-normal mt-3 mb-4">Try searching some other keywords or apply different set of filters</p>
                      <p class="font-weight-normal mt-3 mb-4">Try other items in our store</p>
                      <a href="{{ route('category.index') }}" class="btn btn-primary btn-lg">Return to home</a>
