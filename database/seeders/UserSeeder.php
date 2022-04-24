@@ -19,14 +19,11 @@ class UserSeeder extends Seeder
         $users = array(
             array(
                 'creator' => 1,
-                'first_name' => 'John',
-                'last_name' => "Doe",
                 'email' => 'info@example.com',
                 'password' => Hash::make('admin@123'),
                 'gender' => 'male',
                 'phone' => '1234567890',
                 'pin_code' => '400051',
-                'address' => '2878 Carriage Lane',
                 'status' => 'active',
                 'role' => 'admin',
                 'created_at' => Carbon::now(),

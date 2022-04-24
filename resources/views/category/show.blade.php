@@ -75,9 +75,8 @@
                         <p class="mb-0 mx-2">(3 review)</p>
                     </div>
 
-                    <div class="d-flex price-amt mb-4">
-                        <h5 class="f-20 me-4 font-weight-500 mb-0">{{ $result->price }}</h5>
-                        <h6 class="text-brown f-20 font-weight-500 m-0">{{ $result->price }}</h6>
+                    <div class="d-flex mb-4">
+                        <h6 class="text-brown f-20 font-weight-500 m-0">&#8377; {{ $result->price }}</h6>
                     </div>
 
                     <div class="row mb-4">
@@ -96,7 +95,7 @@
                <div class="col-md-12">
                   <div class="text-center">
                      <h1 class="display-1 font-weight-bold">404</h1>
-                     <p class="h1">No Results found.</p>
+                     <p class="h1">No Result Found.</p>
                      <p class="font-weight-normal mt-3 mb-4">Try searching some other keywords or apply different set of filters</p>
                      <p class="font-weight-normal mt-3 mb-4">Try other items in our store</p>
                      <a href="{{ route('category.index') }}" class="btn btn-primary btn-lg">Return to home</a>
