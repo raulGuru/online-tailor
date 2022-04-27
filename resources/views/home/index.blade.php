@@ -4,7 +4,7 @@
     <img src="{{ asset('public/assets/img/banner.jpg') }}" alt="Los Angeles" class="d-block" style="width:100%">
     <div class="banner-text">
        <h2>Welcome <br>
-          To Custom Tailoring
+         To Customize Tailor
        </h2>
     </div>
  </section>
