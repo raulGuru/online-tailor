@@ -23,18 +23,9 @@ use Illuminate\Support\Facades\Route;
 
 Route::resource('/', HomeController::class);
 Route::resource('category', CategoryController::class);
-
-Route::get('/', function () {
-    return view('welcome');
-});
-Route::get('/home', function() {
-    return view('layouts.front');
-});
 Route::get('/appointment', function() {
     return view('layouts.appointment');
 });
-
-Route::resource('/', DashboardController::class)->middleware(EnsureTokenIsValid::class);
 Route::resource('admin/login', LoginController::class)->middleware(EnsureTokenIsValid::class);
 Route::post('admin/logout', [LoginController::class, 'logout'])->name('login.logout');
 Route::resource('user', UserController::class);

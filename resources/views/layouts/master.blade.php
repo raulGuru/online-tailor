@@ -19,9 +19,9 @@
    </head>
    <body data-theme="default" data-layout="fluid" data-sidebar-position="left" data-sidebar-layout="default">
       <div class="wrapper">
-         @include('layouts.sidebar')
+         @include('layouts.admin.sidebar')
          <div class="main">
-            @include('layouts.header')
+            @include('layouts.admin.header')
             <main class="content p-3">
                <div class="container-fluid">
                   <div class="row">
@@ -31,7 +31,7 @@
                   </div>
                </div>
             </main>
-            @include('layouts.footer')
+            @include('layouts.admin.footer')
          </div>
       </div>
       <script type="text/javascript">
