@@ -105,6 +105,12 @@ class ProductController extends Controller
             'thumbnail' => $thumbnail,
             'images' => json_encode($images, true),
             'description' => $request->product_details,
+            'width' => $request->width,
+            'weight' => $request->weight,
+            'disclaimer' => $request->disclaimer,
+            'quality' => $request->quality,
+            'mfg_by' => $request->mfg_by,
+            'note' => $request->note,
             'additional_details' => $request->additional_details,
             'created_at' => Carbon::now(),
             'updated_at' => Carbon::now()
@@ -207,6 +213,12 @@ class ProductController extends Controller
             $product->images = json_encode($images, true);
         }
         $product->description = $request->product_details;
+        $product->width = $request->width;
+        $product->weight = $request->weight;
+        $product->disclaimer = $request->disclaimer;
+        $product->quality = $request->quality;
+        $product->mfg_by = $request->mfg_by;
+        $product->note = $request->note;
         $product->additional_details = $request->additional_details;
         $product->updated_at = Carbon::now();
         $product->save();

@@ -34,7 +34,7 @@
             <p>{{ $product->updated_at }}</p>
             <h4>Description:</h4> 
             {!! $product->description !!}
-            <h4>Additional details:</h4> 
+            <h4 class="mt-3">Additional details:</h4> 
             {!! $product->additional_details !!}
             <h4>Thumbnail</h4>
             @if($product->thumbnail)

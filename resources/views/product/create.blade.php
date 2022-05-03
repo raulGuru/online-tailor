@@ -162,18 +162,83 @@
       <div class="card p-3">
          <div class="row">
             <div class="col-sm-12">
-               <label class="mb-3">Material Details</label>
-               <div class="cleaxfix">
-                  <div id="product-details" class="quill-editor"></div>
-                  <textarea name="product_details" id="product_details" class="d-none">{{ old('product_details') }}</textarea>
-                  @error('product_details')
-                     <span class="alert alert-danger alert-dismissible mt-1">
-                           <div class="alert-message p-0">
-                              {{ $message }}
-                           </div>
-                     </span>
-                  @enderror
-               </div>
+               <label class="mb-3">Material description</label>
+               <textarea name="product_details" class="form-control" rows="5" id="product_details">{{ old('product_details') }}</textarea>
+               @error('product_details')
+                  <span class="alert alert-danger alert-dismissible mt-1">
+                        <div class="alert-message p-0">
+                           {{ $message }}
+                        </div>
+                  </span>
+               @enderror
+            </div>
+         </div>
+         <div class="row mt-3">
+            <div class="col-4">
+               <label class="mb-1">Width</label>
+               <input type="text" name="width" value="{{ old('width') }}" class="form-control" placeholder="Enter material width">
+               @error('width')
+                  <span class="alert alert-danger alert-dismissible mt-1">
+                        <div class="alert-message p-0">
+                           {{ $message }}
+                        </div>
+                  </span>
+               @enderror
+            </div>
+            <div class="col-4">
+               <label class="mb-1">Weight</label>
+               <input type="text" name="weight" value="{{ old('weight') }}" class="form-control" placeholder="Enter material weight per meter">
+               @error('width')
+                  <span class="alert alert-danger alert-dismissible mt-1">
+                        <div class="alert-message p-0">
+                           {{ $message }}
+                        </div>
+                  </span>
+               @enderror
+            </div>
+            <div class="col-4">
+               <label class="mb-1">Quality</label>
+               <input type="text" name="quality" value="{{ old('quality') }}" class="form-control" placeholder="Enter material quality">
+               @error('quality')
+                  <span class="alert alert-danger alert-dismissible mt-1">
+                        <div class="alert-message p-0">
+                           {{ $message }}
+                        </div>
+                  </span>
+               @enderror
+            </div>
+            <div class="col-6">
+               <label class="mb-1 mt-2">Disclaimer</label>
+               <input type="text" name="disclaimer" value="{{ old('disclaimer') }}" class="form-control" placeholder="Enter material disclaimer if any">
+               @error('disclaimer')
+                  <span class="alert alert-danger alert-dismissible mt-1">
+                        <div class="alert-message p-0">
+                           {{ $message }}
+                        </div>
+                  </span>
+               @enderror
+            </div>
+            <div class="col-6">
+               <label class="mb-1 mt-2">Mktg. Or Mfg. By</label>
+               <input type="text" name="mfg_by" value="{{ old('mfg_by') }}" class="form-control" placeholder="Enter material Mktg. Or Mfg. By">
+               @error('mfg_by')
+                  <span class="alert alert-danger alert-dismissible mt-1">
+                        <div class="alert-message p-0">
+                           {{ $message }}
+                        </div>
+                  </span>
+               @enderror
+            </div>
+            <div class="col-12">
+               <label class="mb-1 mt-2">Note</label>
+               <textarea name="note" class="form-control" rows="5" id="note" placeholder="Enter note related this material">{{ old('note') }}</textarea>
+               @error('note')
+                  <span class="alert alert-danger alert-dismissible mt-1">
+                        <div class="alert-message p-0">
+                           {{ $message }}
+                        </div>
+                  </span>
+               @enderror
             </div>
          </div>
       </div>

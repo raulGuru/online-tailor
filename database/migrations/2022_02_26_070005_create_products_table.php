@@ -27,6 +27,12 @@ class CreateProductsTable extends Migration
             $table->string('thumbnail')->nullable();
             $table->text('images')->nullable();
             $table->text('description')->nullable();
+            $table->text('width')->nullable();
+            $table->text('weight')->nullable();
+            $table->text('disclaimer')->nullable();
+            $table->text('quality')->nullable();
+            $table->text('mfg_by')->nullable();
+            $table->text('note')->nullable();
             $table->text('additional_details')->nullable();
             $table->enum('status', ['active', 'inactive', 'deleted'])->default('active');
             $table->timestamps();
