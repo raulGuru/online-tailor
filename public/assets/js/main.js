@@ -6,21 +6,6 @@ MYAPP.common = {
     segment2: segment3,
     quillInit: function() {
         /*
-            product_details quill_editor
-        */
-        var quill_editor = new Quill('#product-details', {
-            theme: 'snow',
-            placeholder: 'Product description here...',
-        });
-
-        const delta = quill_editor.clipboard.convert($('#product_details').val());
-        quill_editor.setContents(delta, 'silent');
-
-        quill_editor.on('text-change', function(delta, oldDelta, source) {
-            $('#product_details').val(quill_editor.container.firstChild.innerHTML);
-        });
-
-        /*
             additional_details quill_editor
         */
         var quill_editor2 = new Quill('#product-additional-detail', {
