@@ -55,7 +55,7 @@
                               <a href="#">Login</a>
                            </li>
                            <li>
-                              <a href="#">Sing Up</a>
+                              <a href="#">Sign Up</a>
                            </li>
                            <li>
                               <a href="#"> <i class="fa fa-user"></i> </a>
