@@ -98,7 +98,8 @@
                                         </div>
                                     </div>
                                     <div class="text-center mt-3">
-                                        <button type="submit" class="btn btn-primary text-white btn-blue">Sign Up</button>
+                                        <button type="submit" class="btn btn-primary text-white btn-blue mr-3">Sign Up</button>
+                                        <a href="{{ route('login.index') }}" class="text-black f-12 text-end ml-3">Login ?</a>
                                     </div>
                                 </form>
                             </div>

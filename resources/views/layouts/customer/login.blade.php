@@ -61,6 +61,7 @@
                                     </div>
                                     <div class="text-center mt-3">
                                         <button type="submit" class="btn btn-primary text-white btn-blue">Sign in</button>
+                                        <a href="{{ route('signup.index') }}" class="text-black f-12 text-end ml-3">Sign Up ?</a>
                                     </div>
                                 </form>
                             </div>
