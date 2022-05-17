@@ -265,8 +265,7 @@ class ProductController extends Controller
         if (empty($json_decode)) {
             return response()->json(["code" => 201, 'status' => 'error', 'message' => 'Material image not found due to technical error'], 200);
         }
-        echo 'big-img.jpg';
-        exit;
+
         unset($json_decode[$request->image]);
         
         $product->images = json_encode($json_decode, true);
