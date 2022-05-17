@@ -23,6 +23,7 @@ php artisan db:seed --class=RoleSeeder;
 php artisan db:seed --class=MasterCategorySeeder;
 php artisan db:seed --class=ProductColorSeeder;
 php artisan db:seed --class=ProductTypeSeeder;
+php artisan db:seed --class=ProductSeeder;
 // symlink for storage
 php artisan storage:link
 // admin login creds

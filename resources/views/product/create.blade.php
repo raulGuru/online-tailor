@@ -174,7 +174,7 @@
             </div>
          </div>
          <div class="row mt-3">
-            <div class="col-4">
+            <div class="col-6">
                <label class="mb-1">Width</label>
                <input type="text" name="width" value="{{ old('width') }}" class="form-control" placeholder="Enter material width">
                @error('width')
@@ -185,18 +185,7 @@
                   </span>
                @enderror
             </div>
-            <div class="col-4">
-               <label class="mb-1">Weight</label>
-               <input type="text" name="weight" value="{{ old('weight') }}" class="form-control" placeholder="Enter material weight per meter">
-               @error('width')
-                  <span class="alert alert-danger alert-dismissible mt-1">
-                        <div class="alert-message p-0">
-                           {{ $message }}
-                        </div>
-                  </span>
-               @enderror
-            </div>
-            <div class="col-4">
+            <div class="col-6">
                <label class="mb-1">Quality</label>
                <input type="text" name="quality" value="{{ old('quality') }}" class="form-control" placeholder="Enter material quality">
                @error('quality')
@@ -257,6 +246,21 @@
                      </span>
                   @enderror
                </div>
+            </div>
+         </div>
+      </div>
+      <div class="card p-3">
+         <div class="row">
+            <div class="col-sm-12">
+               <label class="mb-3">Tags</label>
+               <textarea name="tags" class="form-control" rows="5" id="tags">{{ old('tags') }}</textarea>
+               @error('tags')
+                  <span class="alert alert-danger alert-dismissible mt-1">
+                        <div class="alert-message p-0">
+                           {{ $message }}
+                        </div>
+                  </span>
+               @enderror
             </div>
          </div>
       </div>

@@ -23,7 +23,7 @@ class CreateUsersTable extends Migration
             $table->string('phone');
             $table->string('pin_code');
             $table->enum('status', ['active', 'inactive'])->default('active');
-            $table->enum('role', ['admin', 'editor', 'contributor', 'viewer', 'billing'])->default('editor');
+            $table->enum('role', ['admin', 'editor', 'contributor', 'viewer', 'billing', 'vendor', 'customer'])->default('editor');
             $table->rememberToken();
             $table->timestamps();
         });

@@ -1,6 +1,9 @@
 <?php
 
 use App\Http\Controllers\CategoryController;
+use App\Http\Controllers\CustomerAccountController;
+use App\Http\Controllers\CustomerLoginController;
+use App\Http\Controllers\CustomerSignupController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\LandingController;
@@ -26,7 +29,10 @@ Route::resource('category', CategoryController::class);
 Route::get('/appointment', function() {
     return view('layouts.appointment');
 });
-Route::resource('admin/login', LoginController::class)->middleware(EnsureTokenIsValid::class);
+Route::resource('login', CustomerLoginController::class);
+Route::resource('signup', CustomerSignupController::class, ['names' => 'signup']);
+Route::resource('account', CustomerAccountController::class);
+Route::resource('admin/login', LoginController::class, ['names' => 'admin.login'])->middleware(EnsureTokenIsValid::class);
 Route::post('admin/logout', [LoginController::class, 'logout'])->name('login.logout');
 Route::resource('user', UserController::class);
 Route::resource('dashboard', DashboardController::class);

@@ -29,9 +29,9 @@ class ProductController extends Controller
         $products = Product::where('title', 'LIKE', '%' . $q . '%')
             ->orWhere('description', 'LIKE', '%' . $q . '%')
             ->orWhere('additional_details', 'LIKE', '%' . $q . '%')
+            ->orWhere('tags', 'LIKE', '%' . $q . '%')
             ->orderBy('id', 'DESC')
             ->paginate(10)->appends(['search' => $q]);
-
         $products->appends(['search' => $q]);
         return view('product.index', array('products' => $products));
     }
@@ -69,7 +69,7 @@ class ProductController extends Controller
             'thumbnail' => 'required|mimes:jpg,jpeg,png,bmp,tiff|max:20480', // file max size 20MB
             'images' => 'required', // file max size 20MB
             'product_details' => 'required',
-            'additional_details' => 'required'
+            'tags' => 'required'
         ]);
         $thumbnail = '';
         if ((isset($request->thumbnail) && $request->thumbnail !== null)) {
@@ -84,10 +84,10 @@ class ProductController extends Controller
         if (isset($request->images) && !empty($request->images)) {
             foreach ($request->images as $image) {
                 $file_name = $image->getClientOriginalName();
-                $thumbnail = str_replace(' ', '-', $file_name);
-                $is_uploaded = Storage::putFileAs('public/products', $image, $thumbnail);
+                $thumbnail2 = str_replace(' ', '-', $file_name);
+                $is_uploaded = Storage::putFileAs('public/products', $image, $thumbnail2);
                 if ($is_uploaded) {
-                    array_push($images, $thumbnail);
+                    array_push($images, $thumbnail2);
                 }
             }
         }
@@ -102,19 +102,24 @@ class ProductController extends Controller
             'color_id' => $request->color,
             'size' => $request->size,
             'price' => $request->price,
-            'thumbnail' => $thumbnail,
-            'images' => json_encode($images, true),
             'description' => $request->product_details,
             'width' => $request->width,
-            'weight' => $request->weight,
             'disclaimer' => $request->disclaimer,
             'quality' => $request->quality,
             'mfg_by' => $request->mfg_by,
             'note' => $request->note,
             'additional_details' => $request->additional_details,
+            'tags' => $request->tags,
             'created_at' => Carbon::now(),
             'updated_at' => Carbon::now()
         );
+
+        if(!empty($thumbnail)) {
+            $data['thumbnail'] = $thumbnail;
+        }
+        if(!empty($images)) {
+            $data['images'] = json_encode($images, true);
+        }
         Product::insert($data);
         return redirect()->route('product.index');
     }
@@ -168,7 +173,7 @@ class ProductController extends Controller
             'size' => 'required|numeric|min:1|max:100000',
             'price' => 'required|numeric|min:1|max:10000',
             'product_details' => 'required',
-            'additional_details' => 'required'
+            'tags' => 'required'
         ]);
         $thumbnail = '';
         if ((isset($request->thumbnail) && $request->thumbnail !== null)) {
@@ -189,10 +194,10 @@ class ProductController extends Controller
             ]);
             foreach ($request->images as $image) {
                 $file_name = time() . "_" . $image->getClientOriginalName();
-                $thumbnail = str_replace(' ', '-', $file_name);
-                $is_uploaded = Storage::putFileAs('public/products', $image, $thumbnail);
+                $thumbnail2 = str_replace(' ', '-', $file_name);
+                $is_uploaded = Storage::putFileAs('public/products', $image, $thumbnail2);
                 if ($is_uploaded) {
-                    array_push($images, $thumbnail);
+                    array_push($images, $thumbnail2);
                 }
             }
         }
@@ -214,12 +219,12 @@ class ProductController extends Controller
         }
         $product->description = $request->product_details;
         $product->width = $request->width;
-        $product->weight = $request->weight;
         $product->disclaimer = $request->disclaimer;
         $product->quality = $request->quality;
         $product->mfg_by = $request->mfg_by;
         $product->note = $request->note;
         $product->additional_details = $request->additional_details;
+        $product->tags = $request->tags;
         $product->updated_at = Carbon::now();
         $product->save();
         return redirect()->route('product.index');
@@ -260,7 +265,7 @@ class ProductController extends Controller
         if (empty($json_decode)) {
             return response()->json(["code" => 201, 'status' => 'error', 'message' => 'Material image not found due to technical error'], 200);
         }
-        
+
         unset($json_decode[$request->image]);
         
         $product->images = json_encode($json_decode, true);

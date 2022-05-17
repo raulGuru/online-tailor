@@ -64,19 +64,8 @@
                 @endif
                 <div class="col-md-6 {{ (isset($images) && !empty($images)) ? 'col-md-6': 'col-md-12'}}">
                     <h4 class="font-weight-600">{{ $result->title }} </h4>
-                    <div class="d-flex mb-3">
-                        <div class="start-icon">
-                            <i class="fa fa-star"></i>
-                            <i class="fa fa-star"></i>
-                            <i class="fa fa-star"></i>
-                            <i class="fa fa-star"></i>
-                            <i class="fa fa-star"></i>
-                        </div>
-                        <p class="mb-0 mx-2">(3 review)</p>
-                    </div>
-
                     <div class="d-flex mb-4">
-                        <h6 class="text-brown f-20 font-weight-500 m-0">&#8377; {{ $result->price }}</h6>
+                        <h6 class="text-brown f-20 font-weight-500 m-0">&#8377; {{ $result->price }} /meter</h6>
                     </div>
 
                     <div class="row mb-4">
@@ -90,6 +79,49 @@
                         <h3>Product Details </h3>
                         {!! $result->description !!}
                     </div>
+                </div>
+                <div class="col-md-12">
+                   <h4 class="btn-brown p-3 text-white">Product Details</h4>
+                  <table class="table">
+                     <tbody>
+                        @if($result->width)
+                           <tr>
+                              <th scope="col">Width</th>
+                              <td>{{ $result->width }}</td>
+                           </tr>
+                       @endif
+                       @if($result->quality)
+                           <tr>
+                              <th scope="col">Quality</th>
+                              <td>{{ $result->quality }}</td>
+                           </tr>
+                       @endif
+                       @if($result->mfg_by)
+                        <tr>
+                           <th scope="col">Mfg by</th>
+                           <td>{{ $result->mfg_by }}</td>
+                        </tr>
+                       @endif
+                       @if($result->note)
+                        <tr>
+                           <th scope="col">Note</th>
+                           <td>{{ $result->note }}</td>
+                        </tr>
+                       @endif
+                       @if($result->disclaimer)
+                        <tr>
+                           <th scope="col">disclaimer</th>
+                           <td>{{ $result->disclaimer }}</td>
+                        </tr>
+                       @endif
+                       @if($result->additional_details)
+                        <tr>
+                           <th scope="col">Additional details</th>
+                           <td>{!! $result->additional_details !!}</td>
+                        </tr>
+                       @endif
+                     </tbody>
+                   </table>
                 </div>
              @else
                <div class="col-md-12">
