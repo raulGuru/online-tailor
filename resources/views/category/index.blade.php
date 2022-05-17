@@ -88,13 +88,6 @@
                         </a>
                         <h4 class="mt-3 font-weight-500">{{ $result->title }}</h4>
                         <h4 class="mt-2 font-weight-500">&#8377; {{ $result->price }}</h4>
-                        <div class="start-icon">
-                           <i class="fa fa-star"></i>
-                           <i class="fa fa-star"></i>
-                           <i class="fa fa-star"></i>
-                           <i class="fa fa-star"></i>
-                           <i class="fa fa-star"></i>
-                        </div>
                         <div class="text-center">
                            <a href="{{ route('category.show', $result->slug) }}" class="btn btn-success btn-sm">
                               <i class="fa fa-eye"></i> View

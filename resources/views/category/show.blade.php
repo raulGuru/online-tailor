@@ -64,17 +64,6 @@
                 @endif
                 <div class="col-md-6 {{ (isset($images) && !empty($images)) ? 'col-md-6': 'col-md-12'}}">
                     <h4 class="font-weight-600">{{ $result->title }} </h4>
-                    <div class="d-flex mb-3">
-                        <div class="start-icon">
-                            <i class="fa fa-star"></i>
-                            <i class="fa fa-star"></i>
-                            <i class="fa fa-star"></i>
-                            <i class="fa fa-star"></i>
-                            <i class="fa fa-star"></i>
-                        </div>
-                        <p class="mb-0 mx-2">(3 review)</p>
-                    </div>
-
                     <div class="d-flex mb-4">
                         <h6 class="text-brown f-20 font-weight-500 m-0">&#8377; {{ $result->price }}</h6>
                     </div>

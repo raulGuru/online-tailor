@@ -2,19 +2,26 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
-class LoginController extends Controller
+class CustomerLoginController extends Controller
 {
     /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
+    private $roles;
+
+    public function __construct()
+    {
+        $this->roles = ['admin', 'editor', 'contributor', 'viewer', 'billing', 'vendor'];
+    }
     public function index()
     {
-        return view('auth.login');
+        return view('layouts.customer.login');
     }
 
     /**
@@ -45,7 +52,13 @@ class LoginController extends Controller
             return back()->with('error', 'Invalid login credentials.');
         }
 
-        return redirect()->route('dashboard.index');
+        $user = User::find(Auth::id());
+
+        if (in_array($user->role, $this->roles)) {
+
+            return redirect()->route('admin.login.index');
+        }
+        return redirect()->route('account.index');
     }
 
     /**
@@ -65,7 +78,7 @@ class LoginController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit($customerLogin)
     {
         //
     }
@@ -91,18 +104,5 @@ class LoginController extends Controller
     public function destroy($id)
     {
         //
-    }
-
-    /**
-     * Remove session storage for user
-     */
-
-    public function logout(Request $request)
-    {
-        $request->session()->flush();
-
-        Auth::logout();
-        
-        return redirect()->route('admin.login.index');
     }
 }

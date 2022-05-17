@@ -61,6 +61,11 @@
                     </div>
                 @endif
             @endif
+            @if($product->tags)
+            <hr>
+                <h4>Tags</h4>
+                <p>{{ $product->tags }}</p>
+            @endif
         @else
             <div class="row">
                 <div class="col-sm-10 col-md-8 col-lg-6 mx-auto d-table h-100">

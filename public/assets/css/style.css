@@ -319,4 +319,6 @@ footer ul li a:hover {
 .big-img-product ul li {
     margin: 1px;
     float: left;
+    width: 205px;
+    height: 205px;
 }

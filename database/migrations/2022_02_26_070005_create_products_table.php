@@ -34,6 +34,7 @@ class CreateProductsTable extends Migration
             $table->text('mfg_by')->nullable();
             $table->text('note')->nullable();
             $table->text('additional_details')->nullable();
+            $table->text('tags')->nullable();
             $table->enum('status', ['active', 'inactive', 'deleted'])->default('active');
             $table->timestamps();
         });

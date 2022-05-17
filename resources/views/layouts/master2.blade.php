@@ -52,10 +52,10 @@
                      <div class="col-md-3 login-menu-top btn-brown d-flex justify-content-end col-12">
                         <ul>
                            <li>
-                              <a href="#">Login</a>
+                              <a href="{{ route('login.index') }}">Login</a>
                            </li>
                            <li>
-                              <a href="#">Sign Up</a>
+                              <a href="{{ route('signup.index') }}">Sign Up</a>
                            </li>
                            <li>
                               <a href="#"> <i class="fa fa-user"></i> </a>
@@ -70,7 +70,15 @@
             </div>
          </nav>
       </header>
-      @yield('content')
+      <div class="main">
+         <div class="container-fluid mt-6">
+            <div class="row">
+               <div class="col-12">
+                  @yield('content')
+               </div>
+            </div>
+         </div>
+      </div>
       <footer>
          <div class="container-fluid">
             <div class="row">

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\MasterCategory;
 use App\Models\Product;
 use App\Models\ProductColor;
 use App\Models\ProductType;
@@ -10,6 +11,7 @@ use Illuminate\Http\Request;
 class CategoryController extends Controller
 {
     private $limit;
+    private $gender;
     private $order;
     private $type;
     private $color;
@@ -29,7 +31,7 @@ class CategoryController extends Controller
     {
         $data = $this->get_categories_colors();
         $searchTerm = $request->title ? trim($request->title) : '';
-        $gender = $request->gender ? trim($request->gender) : '';
+        $this->gender = $request->gender ? trim($request->gender) : '';
         $this->order = $request->order ? trim($request->order) : $this->order;
         $this->limit = $request->limit ? trim($request->limit) : $this->limit;
         $this->type = $request->type ? trim($request->type) : null;
@@ -47,14 +49,21 @@ class CategoryController extends Controller
                 $products->where('color_id', $color->id);
             }
         }
+        if(!empty($this->gender)) {
+            $gender = MasterCategory::where('slug', $this->gender)->first();
+            if (!empty($gender)) {
+                $products->where('cat_id', $gender->id);
+            }
+        }
         if (!empty($searchTerm)) {
-            $products->orWhere('slug', 'like', '%' . $searchTerm . '%');
-            $products->orWhere('description', 'like', '%' . $searchTerm . '%');
-            $products->orWhere('additional_details', 'like', '%' . $searchTerm . '%');
+            // $products->orWhere('slug', 'like', '%' . $searchTerm . '%');
+            // $products->orWhere('description', 'like', '%' . $searchTerm . '%');
+            // $products->orWhere('additional_details', 'like', '%' . $searchTerm . '%');
+            $products->orWhere('tags', 'LIKE', '%' . $searchTerm . '%');
         }
         $products->orderBy('id', $this->order);
         $results = $products->paginate($this->limit);
-        $results->appends(['title' => $searchTerm, 'gender' => $gender, 'type' => $this->type, 'color' => $this->color, 'order' => $this->order]);
+        $results->appends(['title' => $searchTerm, 'gender' => $this->gender, 'type' => $this->type, 'color' => $this->color, 'order' => $this->order]);
         return view('category.index', ['results' => $results, 'title' => $searchTerm, 'limit' => $this->limit, 'type' => $this->type, 'color' => $this->color, 'order' => $this->order, 'categories' => $data['categories'], 'colors' => $data['colors']]);
     }
 

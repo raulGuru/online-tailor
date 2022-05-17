@@ -25,7 +25,7 @@
                                     <a href="{{ route('index') }}"><img src="{{ asset('public/assets/img/logo.jpg') }}" alt="logo"></a>
                                 </div>
                                 <h4 class="mb-3 font-weight-600"> Login </h4>
-                                <form method="post" action="{{ route('admin.login.store') }}">
+                                <form method="post" action="{{ route('login.store') }}">
                                     @csrf
                                     <div class="mb-3">
                                         <label class="mb-1">Email</label>

@@ -2,19 +2,22 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
 
-class LoginController extends Controller
+class CustomerSignupController extends Controller
 {
     /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
+
     public function index()
     {
-        return view('auth.login');
+        return view('layouts.customer.signup');
     }
 
     /**
@@ -36,25 +39,35 @@ class LoginController extends Controller
     public function store(Request $request)
     {
         $this->validate($request, [
-            'email' => 'required|email|max:255',
-            'password' => 'required'
+            'email' => 'required|email|unique:users|max:255',
+            'password' => 'required|max:255|confirmed',
+            'password_confirmation' => 'required',
+            'gender' => 'required',
+            'phone' => 'required|digits:10',
+            'pin_code' => 'required|regex:/\b\d{6}\b/'
         ]);
 
-        if (!Auth::attempt($request->only('email', 'password'), $request->remember)) {
-
-            return back()->with('error', 'Invalid login credentials.');
-        }
-
-        return redirect()->route('dashboard.index');
+        $data = array(
+            'email' => $request->email,
+            'password' => Hash::make($request->password),
+            'gender' => $request->gender,
+            'phone' => $request->phone,
+            'pin_code' => $request->pin_code,
+            'role' => 'customer'
+        );
+        
+        User::create($data);
+        
+        return redirect()->route('login.index');
     }
 
     /**
      * Display the specified resource.
      *
-     * @param  int  $id
+     * @param  \App\Models\User  $User
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show(User $User)
     {
         //
     }
@@ -62,10 +75,10 @@ class LoginController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  int  $id
+     * @param  \App\Models\User  $User
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(User $User)
     {
         //
     }
@@ -74,10 +87,10 @@ class LoginController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
+     * @param  \App\Models\User  $User
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, User $User)
     {
         //
     }
@@ -85,24 +98,11 @@ class LoginController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  int  $id
+     * @param  \App\Models\User  $User
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(User $User)
     {
         //
-    }
-
-    /**
-     * Remove session storage for user
-     */
-
-    public function logout(Request $request)
-    {
-        $request->session()->flush();
-
-        Auth::logout();
-        
-        return redirect()->route('admin.login.index');
     }
 }
