@@ -1,7 +1,7 @@
 @extends('layouts.master2')
 
 @section('content')
-<div class="container mt-6">
+<div class="container">
     <div class="breadcrumb-menu mt-0 mb-4">
       <nav aria-label="breadcrumb">
          <ol class="breadcrumb">
@@ -86,7 +86,11 @@
                         <a href="{{ route('category.show', $result->slug) }}" data-id="{{$result->id}}">
                            <img src="{{ asset('public/storage/products/' . $result->thumbnail) }}" alt="{{ $result->title }}">
                         </a>
-                        <h4 class="mt-3 font-weight-500">{{ $result->title }}</h4>
+                        <h4 class="mt-3 font-weight-500">
+                           <a href="{{ route('category.show', $result->slug) }}" data-id="{{$result->id}}" style="text-decoration: none; color: #495057">
+                           {{ $result->title }}
+                           </a>
+                        </h4>
                         <h4 class="mt-2 font-weight-500">&#8377; {{ $result->price }}</h4>
                         <div class="text-center">
                            <a href="{{ route('category.show', $result->slug) }}" class="btn btn-success btn-sm">

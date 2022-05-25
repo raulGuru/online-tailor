@@ -1,7 +1,7 @@
 @extends('layouts.master2')
 
 @section('content')
-<div class="container mt-6">
+<div class="container">
     <div class="breadcrumb-menu mt-0 mb-4">
       <nav aria-label="breadcrumb">
          <ol class="breadcrumb">
@@ -90,10 +90,16 @@
                               <td>{{ $result->width }}</td>
                            </tr>
                        @endif
-                       @if($result->quality)
+                       @if($result->productType->name)
                            <tr>
-                              <th scope="col">Quality</th>
-                              <td>{{ $result->quality }}</td>
+                              <th scope="col">Type</th>
+                              <td>{{ ucfirst($result->productType->name) }}</td>
+                           </tr>
+                       @endif
+                       @if($result->productColor)
+                           <tr>
+                              <th scope="col">Type</th>
+                              <td>{{ $result->productColor->name }}</td>
                            </tr>
                        @endif
                        @if($result->mfg_by)

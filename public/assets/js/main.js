@@ -88,11 +88,6 @@ $(document).ready(function() {
         MYAPP.common.setParams('limit', $(this).val());
     });
 
-    $('body .search-box').on('submit', function() {
-        const title = $.trim($(this).children('#title').val());
-        MYAPP.common.setParams('title', title);
-        return false;
-    });
     $("body #order").on('change', function() {
         const title = $.trim($(this).val());
         MYAPP.common.setParams('order', title);
