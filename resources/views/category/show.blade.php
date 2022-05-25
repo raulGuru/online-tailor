@@ -98,7 +98,7 @@
                        @endif
                        @if($result->productColor)
                            <tr>
-                              <th scope="col">Type</th>
+                              <th scope="col">Color</th>
                               <td>{{ $result->productColor->name }}</td>
                            </tr>
                        @endif
