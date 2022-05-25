@@ -13,7 +13,7 @@
             @method('PATCH')
             <div class="row mb-3">
                 <div class="col-sm-6 mb-3">
-                    <label class="mb-1">Email Address</label>
+                    <label class="mb-1">Email Address<span class="text-danger">*</span></label>
                     <input class="form-control form-control-lg" type="email" name="email" value="{{ old('email') ? old('email') : $user->email }}" readonly placeholder="Enter your Email Address" />
                     @error('email')
                         <span class="alert alert-danger alert-dismissible mt-1">
@@ -24,7 +24,7 @@
                     @enderror
                 </div>
                 <div class="col-sm-6 mb-3">
-                    <label class="mb-1">Gender</label>
+                    <label class="mb-1">Gender<span class="text-danger">*</span></label>
                     <select class="form-control form-control-lg @error('gender') border-danger @enderror" name="gender">
                         <option value="">Select gender</option>
                         <option value="male" {{ ((old('gender') && old('gender') == $user->gender) || $user->gender == 'male') ? 'selected': '' }}>Male</option>
@@ -39,7 +39,7 @@
                     @enderror
                 </div>
                 <div class="col-sm-6 mb-3">
-                    <label class="mb-1">Password</label>
+                    <label class="mb-1">Password<span class="text-danger">*</span></label>
                     <input class="form-control form-control-lg" type="password" name="password" placeholder="Enter password" />
                     @error('password')
                         <span class="alert alert-danger alert-dismissible mt-1">
@@ -50,7 +50,7 @@
                     @enderror
                 </div>
                 <div class="col-sm-6 mb-3">
-                    <label class="mb-1">Confirm Password</label>
+                    <label class="mb-1">Confirm Password<span class="text-danger">*</span></label>
                     <input class="form-control form-control-lg" type="password" name="password_confirmation" placeholder="Enter password again" />
                     @error('password_confirmation')
                         <span class="alert alert-danger alert-dismissible mt-1">
@@ -61,7 +61,7 @@
                     @enderror
                 </div>
                 <div class="col-sm-4 mb-3">
-                    <label class="mb-1">Mobile Number</label>
+                    <label class="mb-1">Mobile Number<span class="text-danger">*</span></label>
                     <input class="form-control form-control-lg" type="phone" name="phone" value="{{ (old('phone')) ? old('phone'): $user->phone }}" placeholder="Enter your phone number" />
                     @error('phone')
                         <span class="alert alert-danger alert-dismissible mt-1">
@@ -72,7 +72,7 @@
                     @enderror
                 </div>
                 <div class="col-sm-4 mb-3">
-                    <label class="mb-1">Pin Code</label>
+                    <label class="mb-1">Pin Code<span class="text-danger">*</span></label>
                     <input class="form-control form-control-lg" type="text" name="pin_code" value="{{ (old('pin_code')) ? old('pin_code'): $user->pin_code }}" placeholder="Enter your pin code" />
                     @error('pin_code')
                         <span class="alert alert-danger alert-dismissible mt-1">
@@ -83,7 +83,7 @@
                     @enderror
                 </div>
                 <div class="col-sm-4 mb-3">
-                    <label class="mb-1">Role</label>
+                    <label class="mb-1">Role<span class="text-danger">*</span></label>
                     <select class="form-control form-control-lg @error('role') border-danger @enderror" name="role">
                         <option value="">Select role</option>
                         @if($roles->count())
@@ -101,7 +101,7 @@
                     @enderror
                 </div>
                 <div class="col-sm-12 mb-3">
-                    <p class="mb-3">Status</p>
+                    <p class="mb-3">Status<span class="text-danger">*</span></p>
                     <div class="form-check form-check-inline">
                         <input class="form-check-input" name="status" type="radio" value="active" {{ ((old('status') && old('status') == $user->status) || $user->status == 'active') ? 'checked': '' }} id="flexCheckDefault">
                         <label class="form-check-label" for="flexCheckDefault">

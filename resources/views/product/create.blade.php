@@ -7,7 +7,7 @@
       <div class="card p-3">
          <div class="row">
             <div class=" col-sm-4">
-               <label>Material title</label>
+               <label>Material title<span class="text-danger">*</span></label>
                <input type="text" name="title" id="material-title" value="{{ old('title') }}" class="form-control" placeholder="Enter Material title">
                @error('title')
                   <span class="alert alert-danger alert-dismissible mt-1">
@@ -29,7 +29,7 @@
                @enderror
             </div>
             <div class=" col-sm-4">
-               <label>SKU</label>
+               <label>SKU<span class="text-danger">*</span></label>
                <input type="text" name="sku" value="{{ old('sku') }}" class="form-control">
                @error('sku')
                   <span class="alert alert-danger alert-dismissible mt-1">
@@ -44,7 +44,7 @@
       <div class="card p-3">
          <div class="row">
             <div class=" col-sm-4">
-               <label>Category</label>
+               <label>Category<span class="text-danger">*</span></label>
                <select class="form-control" name="category">
                   <option value="" selected disabled>Category</option>
                   @if($categories->count() > 0)
@@ -62,7 +62,7 @@
                @enderror
             </div>
             <div class=" col-sm-4">
-               <label>Sub Category</label>
+               <label>Sub Category<span class="text-danger">*</span></label>
                <select class="form-control" name="type">
                   <option value="" selected disabled>Sub category</option>
                   @if($categories->count() > 0)
@@ -80,7 +80,7 @@
                @enderror
             </div>
             <div class=" col-sm-4">
-               <label>Color</label>
+               <label>Color<span class="text-danger">*</span></label>
                <select class="form-control" name="color">
                   <option value="" selected disabled>Select color</option>
                   @if($colors->count() > 0)
@@ -102,7 +102,7 @@
       <div class="card p-3">
          <div class="row">
             <div class=" col-sm-6">
-               <label>Material Size</label>
+               <label>Material Size<span class="text-danger">*</span></label>
                <input type="text" name="size" id="material-size" value="{{ old('size') }}" class="form-control" placeholder="Enter material size">
                @error('size')
                   <span class="alert alert-danger alert-dismissible mt-1">
@@ -113,7 +113,7 @@
                @enderror
             </div>
             <div class="col-sm-6">
-               <label>Material Price <span class="small text-primary">(Per Meter)</span></label>
+               <label>Material Price <span class="small text-primary">(Per Meter)</span><span class="text-danger">*</span></label>
                <input type="text" name="price" value="{{ old('price') }}" class="form-control" placeholder="Enter price">
                @error('price')
                   <span class="alert alert-danger alert-dismissible mt-1">
@@ -128,7 +128,7 @@
       <div class="card p-3">
          <div class="row">
             <div class="col-sm-12">
-               <label class="m-0">Material Thumbnail</label>
+               <label class="m-0">Material Thumbnail<span class="text-danger">*</span></label>
                <div class="mt-2">
                   <input type="file" name="thumbnail" accept="image/*">
                   @error('thumbnail')
@@ -145,7 +145,7 @@
       <div class="card p-3">
          <div class="row">
             <div class="col-sm-12">
-               <label>Material Images</label>
+               <label>Material Images<span class="text-danger">*</span></label>
                <div class="mt-2">
                   <input type="file" name="images[]" multiple accept="image/*">
                   @error('images')
@@ -162,7 +162,7 @@
       <div class="card p-3">
          <div class="row">
             <div class="col-sm-12">
-               <label class="mb-3">Material description</label>
+               <label class="mb-3">Material description<span class="text-danger">*</span></label>
                <textarea name="product_details" class="form-control" rows="5" id="product_details">{{ old('product_details') }}</textarea>
                @error('product_details')
                   <span class="alert alert-danger alert-dismissible mt-1">
@@ -252,7 +252,7 @@
       <div class="card p-3">
          <div class="row">
             <div class="col-sm-12">
-               <label class="mb-3">Tags</label>
+               <label class="mb-3">Tags<span class="text-danger">*</span></label>
                <textarea name="tags" class="form-control" rows="5" id="tags">{{ old('tags') }}</textarea>
                @error('tags')
                   <span class="alert alert-danger alert-dismissible mt-1">
