@@ -23,12 +23,12 @@
                 Tailors
             </li>
             <li class="sidebar-item">
-                <a class="sidebar-link" href="{{ route('product.index') }}">
+                <a class="sidebar-link" href="{{ route('tailors.index') }}">
                     <i class="align-middle" data-feather="user"></i> <span class="align-middle">Tailor List</span>
                 </a>
             </li>
             <li class="sidebar-item">
-                <a class="sidebar-link" href="{{ route('product.index') }}">
+                <a class="sidebar-link" href="{{ route('tailors.create') }}">
                     <i class="align-middle" data-feather="user"></i> <span class="align-middle">Add Tailor</span>
                 </a>
             </li>
