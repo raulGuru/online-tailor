@@ -115,7 +115,7 @@
                     <p class="mb-3">Services <span class="text-danger">*</span></p>
                     @foreach($services as $key => $service)
                         <div class="form-check form-check-inline">
-                            <input class="form-check-input" name="services[]" type="checkbox" id="service_checkbox_{{ $key }}" value="{{ $service }}">
+                            <input class="form-check-input" name="services[]" type="checkbox" {{ (!empty(old('services') && in_array($service, old('services')))) ? 'checked': '' }} id="service_checkbox_{{ $key }}" value="{{ $service }}">
                             <label class="form-check-label" for="service_checkbox_{{ $key }}">{{ Str::ucfirst($service) }}</label>
                         </div>
                     @endforeach
@@ -131,7 +131,7 @@
                     <p class="mb-3">Appointment</p>
                     @foreach($appointments as $key => $appointment)
                         <div class="form-check form-check-inline">
-                            <input class="form-check-input" name="appointments[]" type="checkbox" id="appointment_checkbox_{{ $key }}" value="{{ $appointment }}">
+                            <input class="form-check-input" name="appointments[]" type="checkbox" {{ (!empty(old('appointments') && in_array($appointment, old('appointments')))) ? 'checked': '' }} id="appointment_checkbox_{{ $key }}" value="{{ $appointment }}">
                             <label class="form-check-label" for="appointment_checkbox_{{ $key }}">{{ Str::ucfirst($appointment) }}</label>
                         </div>
                     @endforeach

@@ -28,20 +28,12 @@ class TailorController extends Controller
 
     private $image_extensions;
 
-    /**
-     * @var int $file_size
-     */
-
-    private $file_size;
-
     public function __construct()
     {
         $this->middleware(['auth']);
         $this->services = ['constructing', 'altering', 'repairing', 'custom tailoring'];
         $this->appointments = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
         $this->image_extensions = ['apng', 'avif', 'gif', 'jpg', 'jpeg', 'jfif', 'pjpeg', 'pjp', 'png', 'svg', 'webp', 'tif', 'tiff', 'bmp'];
-        $this->file_size = 5000; // 5MB
-        error_reporting(-1);
     }
 
     /**
@@ -147,7 +139,8 @@ class TailorController extends Controller
      */
     public function show(Tailor $Tailor)
     {
-        //
+        $data['tailor'] = $Tailor;
+        return view('tailors.show', $data);
     }
 
     /**
@@ -158,7 +151,8 @@ class TailorController extends Controller
      */
     public function edit(Tailor $Tailor)
     {
-        //
+        $data['tailor'] = $Tailor;
+        return view('tailors.edit', $data);
     }
 
     /**
@@ -181,6 +175,7 @@ class TailorController extends Controller
      */
     public function destroy(Tailor $Tailor)
     {
-        //
+        $Tailor->delete();
+        return redirect()->route('tailors.index');
     }
 }

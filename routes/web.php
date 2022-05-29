@@ -40,3 +40,4 @@ Route::resource('dashboard', DashboardController::class);
 Route::resource('product', ProductController::class);
 Route::post('product/remove_image/{id}', [ProductController::class, 'remove_image'])->name('product.remove_image');
 route::resource('tailors', TailorController::class);
+Route::post('tailors/remove_image/{id}', [TailorController::class, 'remove_image'])->name('tailor.remove_image');
