@@ -25,7 +25,7 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::resource('/', HomeController::class);
+Route::resource('home', HomeController::class);
 Route::resource('category', CategoryController::class);
 Route::get('/appointment', function() {
     return view('layouts.appointment');

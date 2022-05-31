@@ -322,3 +322,7 @@ footer ul li a:hover {
     width: 205px;
     height: 205px;
 }
+
+.under-contr-box {  height: calc(100vh - 60px);}
+.under-contr-box h1{ font-size: 50px;}
+.under-contr-box img { width: 70%;}
