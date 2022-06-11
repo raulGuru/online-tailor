@@ -46,7 +46,7 @@
                 </div>
                 <div class="col-sm-3 mb-3">
                     <label class="mb-1">Pin Code <span class="text-danger">*</span></label>
-                    <input class="form-control form-control-lg" type="text" name="pin_code" value="{{ old('pin_code') }}" placeholder="Enter tailor's pin code" />
+                    <input class="form-control form-control-lg" type="number" min="0" name="pin_code" value="{{ old('pin_code') }}" placeholder="Enter tailor's pin code" />
                     @error('pin_code')
                         <span class="alert alert-danger alert-dismissible mt-1">
                             <div class="alert-message p-0">
@@ -68,7 +68,7 @@
                 </div>
                 <div class="col-sm-3 mb-3">
                     <label class="mb-1">Mobile <span class="text-danger">*</span></label>
-                    <input class="form-control form-control-lg" type="text" name="mobile" value="{{ old('mobile') }}" placeholder="Enter  tailor's mobile" />
+                    <input class="form-control form-control-lg" type="number" min="0" maxlength="10" name="mobile" value="{{ old('mobile') }}" placeholder="Enter  tailor's mobile" />
                     @error('mobile')
                         <span class="alert alert-danger alert-dismissible mt-1">
                             <div class="alert-message p-0">
@@ -90,7 +90,7 @@
                 </div>
                 <div class="col-sm-3 mb-3">
                     <label class="mb-1">Commission <span class="text-danger">*</span></label>
-                    <input class="form-control form-control-lg" type="number" name="commission" value="{{ old('commission') }}" placeholder="Enter  tailor's commission" />
+                    <input class="form-control form-control-lg" type="number" min="0" name="commission" value="{{ old('commission') }}" placeholder="Enter  tailor's commission" />
                     @error('commission')
                         <span class="alert alert-danger alert-dismissible mt-1">
                             <div class="alert-message p-0">

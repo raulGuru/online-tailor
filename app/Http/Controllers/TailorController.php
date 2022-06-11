@@ -30,7 +30,7 @@ class TailorController extends Controller
 
     public function __construct()
     {
-        $this->middleware(['auth']);
+        $this->middleware(['auth', 'role']);
         $this->services = ['constructing', 'altering', 'repairing', 'custom tailoring'];
         $this->appointments = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
         $this->image_extensions = ['apng', 'avif', 'gif', 'jpg', 'jpeg', 'jfif', 'pjpeg', 'pjp', 'png', 'svg', 'webp', 'tif', 'tiff', 'bmp'];
@@ -152,6 +152,11 @@ class TailorController extends Controller
     public function edit(Tailor $Tailor)
     {
         $data['tailor'] = $Tailor;
+        $data['services'] = $this->services;
+        $data['appointments'] = $this->appointments;
+        // echo "<pre>";
+        // print_r($data);
+        // exit;
         return view('tailors.edit', $data);
     }
 
@@ -164,7 +169,56 @@ class TailorController extends Controller
      */
     public function update(Request $request, Tailor $Tailor)
     {
-        //
+        $this->validate($request, [
+            'name' => 'required|max:255',
+            'shop_name' => 'required|max:255',
+            'location' => 'required|max:255',
+            'pin_code' => 'required|max:255',
+            'email' => 'required|max:255',
+            'mobile' => 'required|max:255',
+            'commission' => 'required|numeric|min:1|max:100',
+            'address' => 'required|max:255',
+            'services' => 'required|min:1',
+            'appointments' => 'required|min:1',
+            'status' => 'required'
+        ]);
+        $files = [];
+        if ($request->hasfile('photos')) {
+            $images = $request->file('photos');
+            foreach ($images as $image) {
+                // Getting image extension
+                $extension = $image->getClientOriginalExtension();
+                $check = in_array($extension, $this->image_extensions);
+                // Checking the image extension
+                if (!$check) {
+                    return redirect()->back()->with('error', 'Images must be ' . implode(', ', $this->image_extensions) . '!');
+                }
+                $file_name = $image->getClientOriginalName();
+                $new_filename = str_replace(' ', '-', $file_name);
+                Storage::putFileAs('public/tailors', $image, $new_filename);
+                array_push($files, $new_filename);
+            }
+        }
+        $tailor = $Tailor;
+        $tailor->name = $request->name;
+        $tailor->shop_name = $request->shop_name;
+        $tailor->location = $request->location;
+        $tailor->pin_code = $request->pin_code;
+        $tailor->mobile = $request->mobile;
+        $tailor->phone = $request->phone;
+        $tailor->commission = $request->commission;
+        $tailor->address = $request->address;
+        $tailor->services = json_encode($request->services, true);
+        $tailor->appointments = json_encode($request->appointments, true);
+        $tailor->expertise = $request->expertise;
+        $tailor->description = $request->description;
+        $tailor->status = $request->status;
+        if(!empty($files)) {
+            $tailor->photos = json_encode($files, true);
+        }
+        $tailor->updated_at = Carbon::now();
+        $tailor->save();
+        return redirect()->route('tailors.index');
     }
 
     /**

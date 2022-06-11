@@ -99,10 +99,13 @@ class LoginController extends Controller
 
     public function logout(Request $request)
     {
+        $role = Auth::user()->role;
         $request->session()->flush();
-
         Auth::logout();
-        
-        return redirect()->route('admin.login.index');
+        if ($role === 'customer') {
+            return redirect()->route('login.index');
+        } else {
+            return redirect()->route('admin.login.index');
+        }
     }
 }

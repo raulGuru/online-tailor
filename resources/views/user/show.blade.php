@@ -12,7 +12,7 @@
       <div class="row">
         <div class="col-md-12">
             <div class="card-body text-left">
-               <div class="text-muted">Creator: {{ $user->user->email }}</div>
+               <div class="text-muted">Creator: {{ isset($user->user->email) ? $user->user->email: 'N/A' }}</div>
                <div class="text-muted">Email: {{ $user->email }}</div>
                <div class="text-muted">Gender: {{ ucfirst($user->gender) }}</div>
                <div class="text-muted">Role: {{ ucfirst($user->role) }}</div>

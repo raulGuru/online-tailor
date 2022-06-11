@@ -30,5 +30,5 @@ php artisan storage:link
 info@example.com
 admin@123
 
-
+composer dump-autoload
 
