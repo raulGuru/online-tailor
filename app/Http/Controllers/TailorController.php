@@ -154,9 +154,6 @@ class TailorController extends Controller
         $data['tailor'] = $Tailor;
         $data['services'] = $this->services;
         $data['appointments'] = $this->appointments;
-        // echo "<pre>";
-        // print_r($data);
-        // exit;
         return view('tailors.edit', $data);
     }
 
