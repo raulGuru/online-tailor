@@ -72,7 +72,7 @@
                 </div>
                 <div class="col-sm-4 mb-3">
                     <label class="mb-1">Pin Code<span class="text-danger">*</span></label>
-                    <input class="form-control form-control-lg" type="text" name="pin_code" value="{{ old('pin_code') }}" placeholder="Enter your pin code" />
+                    <input class="form-control form-control-lg" type="number" min="0" name="pin_code" value="{{ old('pin_code') }}" placeholder="Enter your pin code" />
                     @error('pin_code')
                         <span class="alert alert-danger alert-dismissible mt-1">
                             <div class="alert-message p-0">
@@ -85,9 +85,9 @@
                     <label class="mb-1">Role<span class="text-danger">*</span></label>
                     <select class="form-control form-control-lg @error('role') border-danger @enderror" name="role">
                         <option value="">Select role</option>
-                        @if($roles->count())
+                        @if(!empty($roles))
                             @foreach($roles as $role)
-                                <option value="{{ $role->role }}" {{ (old('role') == $role->role ? 'selected' : '') }}>{{ $role->role }}</option>
+                                <option value="{{ $role }}" {{ (old('role') == $role ? 'selected' : '') }}>{{ $role }}</option>
                             @endforeach
                         @endif
                     </select>

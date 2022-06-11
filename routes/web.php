@@ -33,6 +33,8 @@ Route::get('/appointment', function() {
 });
 Route::resource('login', CustomerLoginController::class);
 Route::resource('signup', CustomerSignupController::class, ['names' => 'signup']);
+Route::get('account/orders', [CustomerAccountController::class, 'orders'])->name('account.orders');
+Route::get('account/address', [CustomerAccountController::class, 'address'])->name('account.address');
 Route::resource('account', CustomerAccountController::class);
 Route::resource('admin/login', LoginController::class, ['names' => 'admin.login'])->middleware(EnsureTokenIsValid::class);
 Route::post('admin/logout', [LoginController::class, 'logout'])->name('login.logout');

@@ -52,18 +52,35 @@
                      </div>
                      <div class="col-md-3 login-menu-top btn-brown d-flex justify-content-end col-12">
                         <ul>
-                           <li>
-                              <a href="{{ route('login.index') }}">Login</a>
-                           </li>
-                           <li>
-                              <a href="{{ route('signup.index') }}">Sign Up</a>
-                           </li>
-                           <li>
-                              <a href="#"> <i class="fa fa-user"></i> </a>
-                           </li>
-                           <li>
-                              <a href="#"><i class="fa fa-cart-plus"> </i> </a>
-                           </li>
+                           @if(!Auth::id())
+                              <li>
+                                 <a href="{{ route('login.index') }}" class="p-1">Login</a>
+                              </li>
+                              <li>
+                                 <a href="{{ route('signup.index') }}" class="p-1">Sign Up</a>
+                              </li>
+                           @else
+                              <li>
+                                 <a href="#" class="p-1"><i class="fa fa-cart-plus"> </i> </a>
+                              </li>
+                              <li class="nav-item dropdown">
+                                 <a class="nav-icon pe-md-0 dropdown-toggle" href="#" data-bs-toggle="dropdown">
+                                    <i class="fa fa-user"></i>
+                                </a>
+                                <div class="dropdown-menu dropdown-menu-end">
+                                    <a class="dropdown-item" href="{{ route('account.index') }}">
+                                       <i class="align-middle me-1" data-feather="user"></i> Profile
+                                    </a>
+                                    <div class="dropdown-divider"></div>
+                                    <form class="form-inline" action="{{ route('login.logout') }}" method="post">
+                                       @csrf
+                                       <button type="submit" class="btn mb-1 dropdown-item">
+                                          <i class="fa fa-sign-out" aria-hidden="true"></i> Log out
+                                      </button>
+                                    </form>
+                                 </div>
+                              </li>
+                           @endif
                         </ul>
                      </div>
                   </div>

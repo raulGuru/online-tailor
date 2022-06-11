@@ -15,7 +15,7 @@ class CreateRolesTable extends Migration
     {
         Schema::create('roles', function (Blueprint $table) {
             $table->id();
-            $table->enum('role', ['admin', 'editor', 'contributor', 'viewer', 'billing'])->defaul('editor');
+            $table->enum('role', ['admin', 'editor', 'contributor', 'viewer', 'billing', 'vendor','customer'])->defaul('editor');
             $table->timestamps();
         });
     }

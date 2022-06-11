@@ -11,9 +11,11 @@ use Illuminate\Support\Facades\Hash;
 
 class UserController extends Controller
 {
+    private $roles;
     public function __construct()
     {
-        $this->middleware(['auth']);
+        $this->roles = get_roles();
+        $this->middleware(['auth', 'role']);
     }
     /**
      * Display a listing of the resource.
@@ -38,8 +40,8 @@ class UserController extends Controller
      */
     public function create()
     {
-        $roles = Role::get();
-        return view('user.create', array('roles' => $roles));
+        
+        return view('user.create', array('roles' => $this->roles));
     }
 
     /**
@@ -97,7 +99,7 @@ class UserController extends Controller
     public function edit($id)
     {
         $data['user'] = User::find($id);
-        $data['roles'] = Role::get();
+        $data['roles'] = $this->roles;
         return view('user.edit', $data);
     }
 
@@ -123,7 +125,7 @@ class UserController extends Controller
         $user = User::find($id);
         $user->creator = Auth::id();
         if($request->password) {
-            $user->password = $request->password;
+            $user->password = Hash::make($request->password);
         }
         $user->email = $request->email;
         $user->gender = $request->gender;

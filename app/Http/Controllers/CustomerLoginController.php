@@ -17,7 +17,7 @@ class CustomerLoginController extends Controller
 
     public function __construct()
     {
-        $this->roles = ['admin', 'editor', 'contributor', 'viewer', 'billing', 'vendor'];
+        $this->roles = get_roles();
     }
     public function index()
     {
@@ -53,9 +53,7 @@ class CustomerLoginController extends Controller
         }
 
         $user = User::find(Auth::id());
-
-        if (in_array($user->role, $this->roles)) {
-
+        if (in_array($user->role, $this->roles) && $user->role !== 'customer') {
             return redirect()->route('admin.login.index');
         }
         return redirect()->route('account.index');
