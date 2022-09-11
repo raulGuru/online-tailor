@@ -13,7 +13,7 @@
             @method('PATCH')
             <div class="row mb-3">
                 <div class="col-sm-3 mb-3">
-                    <label class="mb-1">Name <span class="text-danger">*</span></label>
+                    <label class="mb-1"><strong>Name</strong> <span class="text-danger">*</span></label>
                     <input class="form-control form-control-lg" type="name" name="name" value="{{ old('name') ? old('name') : $tailor->name }}" placeholder="Enter tailor name" />
                     @error('name')
                         <span class="alert alert-danger alert-dismissible mt-1">
@@ -24,7 +24,7 @@
                     @enderror
                 </div>
                 <div class="col-sm-3 mb-3">
-                    <label class="mb-1">Shop name <span class="text-danger">*</span></label>
+                    <label class="mb-1"><strong>Shop name</strong> <span class="text-danger">*</span></label>
                     <input class="form-control form-control-lg" type="shop_name" name="shop_name" value="{{ old('shop_name') ? old('shop_name') : $tailor->shop_name }}" placeholder="Enter tailor's shop name" />
                     @error('shop_name')
                         <span class="alert alert-danger alert-dismissible mt-1">
@@ -35,7 +35,7 @@
                     @enderror
                 </div>
                 <div class="col-sm-3 mb-3">
-                    <label class="mb-1">Location <span class="text-danger">*</span></label>
+                    <label class="mb-1"><strong>Location</strong> <span class="text-danger">*</span></label>
                     <input class="form-control form-control-lg" type="location" name="location" value="{{ old('location') ? old('location') : $tailor->location }}" placeholder="Enter tailor's location" />
                     @error('location')
                         <span class="alert alert-danger alert-dismissible mt-1">
@@ -46,7 +46,7 @@
                     @enderror
                 </div>
                 <div class="col-sm-3 mb-3">
-                    <label class="mb-1">Pin Code <span class="text-danger">*</span></label>
+                    <label class="mb-1"><strong>Pin Code</strong> <span class="text-danger">*</span></label>
                     <input class="form-control form-control-lg" type="number" min="0" name="pin_code" value="{{ old('pin_code') ? old('pin_code') : $tailor->pin_code }}" placeholder="Enter tailor's pin code" />
                     @error('pin_code')
                         <span class="alert alert-danger alert-dismissible mt-1">
@@ -57,7 +57,7 @@
                     @enderror
                 </div>
                 <div class="col-sm-3 mb-3">
-                    <label class="mb-1">Email Address</label>
+                    <label class="mb-1"><strong>Email Address</strong></label>
                     <input class="form-control form-control-lg" type="email" name="email" value="{{ old('email') ? old('email') : $tailor->email }}" placeholder="Enter  tailor's email Address" />
                     @error('email')
                         <span class="alert alert-danger alert-dismissible mt-1">
@@ -68,7 +68,7 @@
                     @enderror
                 </div>
                 <div class="col-sm-3 mb-3">
-                    <label class="mb-1">Mobile <span class="text-danger">*</span></label>
+                    <label class="mb-1"><strong>Mobile</strong> <span class="text-danger">*</span></label>
                     <input class="form-control form-control-lg" type="number" min="0" maxlength="10" name="mobile" value="{{ old('mobile') ? old('mobile') : $tailor->mobile }}" placeholder="Enter  tailor's mobile" />
                     @error('mobile')
                         <span class="alert alert-danger alert-dismissible mt-1">
@@ -79,7 +79,7 @@
                     @enderror
                 </div>
                 <div class="col-sm-3 mb-3">
-                    <label class="mb-1">Phone</label>
+                    <label class="mb-1"><strong>Phone</strong></label>
                     <input class="form-control form-control-lg" type="text" name="phone" value="{{ old('phone') ? old('phone') : $tailor->phone }}" placeholder="Enter tailor's phone" />
                     @error('phone')
                         <span class="alert alert-danger alert-dismissible mt-1">
@@ -90,7 +90,7 @@
                     @enderror
                 </div>
                 <div class="col-sm-3 mb-3">
-                    <label class="mb-1">Commission <span class="text-danger">*</span></label>
+                    <label class="mb-1"><strong>Commission</strong> <span class="text-danger">*</span></label>
                     <input class="form-control form-control-lg" type="number" min="0" name="commission" value="{{ old('commission') ? old('commission') : $tailor->commission }}" placeholder="Enter  tailor's commission" />
                     @error('commission')
                         <span class="alert alert-danger alert-dismissible mt-1">
@@ -101,7 +101,7 @@
                     @enderror
                 </div>
                 <div class="col-sm-12 mb-3">
-                    <label class="mb-3">Address <span class="text-danger">*</span></label>
+                    <label class="mb-3"><strong>Address</strong> <span class="text-danger">*</span></label>
                     <textarea name="address" class="form-control" rows="3" id="address">{{ old('address') ? old('address') : $tailor->address }}</textarea>
                     @error('address')
                         <span class="alert alert-danger alert-dismissible mt-1">
@@ -111,9 +111,8 @@
                         </span>
                     @enderror
                 </div>
-                
                 <div class="col-sm-12 mb-3">
-                    <p class="mb-3">Services <span class="text-danger">*</span></p>
+                    <p class="mb-3"><strong>Services</strong> <span class="text-danger">*</span></p>
                     @foreach($services as $key => $service)
                         <div class="form-check form-check-inline">
                             <input class="form-check-input" name="services[]" type="checkbox" {{ (!empty(old('services') && in_array($service, old('services'))) || in_array($service, json_decode($tailor->services, true))) ? 'checked': '' }} id="service_checkbox_{{ $key }}" value="{{ $service }}">
@@ -129,13 +128,44 @@
                     @enderror
                 </div>
                 <div class="col-sm-12 mb-3">
-                    <p class="mb-3">Appointment</p>
-                    @foreach($appointments as $key => $appointment)
-                        <div class="form-check form-check-inline">
-                            <input class="form-check-input" name="appointments[]" type="checkbox" {{ (!empty(old('appointments') && in_array($appointment, old('appointments'))) || in_array($appointment, json_decode($tailor->appointments, true))) ? 'checked': '' }} id="appointment_checkbox_{{ $key }}" value="{{ $appointment }}">
-                            <label class="form-check-label" for="appointment_checkbox_{{ $key }}">{{ Str::ucfirst($appointment) }}</label>
-                        </div>
-                    @endforeach
+                    <p class="mb-3"><strong>Appointment</strong></p>
+                    <div class="row">
+                        @foreach($appointments as $key => $appointment)
+                            <div class="col-sm-2">
+                                <div class="form-check form-check-inline">
+                                    <input class="form-check-input" name="appointments[]" type="checkbox" {{ (!empty(old('appointments') && in_array($appointment, old('appointments'))) || in_array($appointment, json_decode($tailor->appointments, true))) ? 'checked': '' }} id="appointment_checkbox_{{ $key }}" value="{{ $appointment }}">
+                                    <label class="form-check-label" for="appointment_checkbox_{{ $key }}">{{ Str::ucfirst($appointment) }}</label>
+                                </div>
+                            </div>
+                            <div class="col-sm-10">
+                                <label class="m-3 mt-0">
+                                    Opens: 
+                                    
+                                    <select name="{{ $appointment }}_opens">
+                                        <option value="">Select opens time</option>
+                                        <option value="closed" {{ (isset($store_timings[$appointment . '_opens']) && $store_timings[$appointment . '_opens'] == 'closed') ? 'selected': '' }}>Closed</option>
+                                        @foreach($working_hours as $hour):
+                                            <option value="{{ $hour }}" {{ (isset($store_timings[$appointment . '_opens']) && $store_timings[$appointment . '_opens'] == $hour) ? 'selected': '' }}>
+                                                {{ $hour }}
+                                            </option>
+                                        @endforeach
+                                    </select>
+                                </label>
+                                <label class="m-3 mt-0">
+                                    Closes:
+                                    <select name="{{ $appointment }}_closes">
+                                        <option value="">Select closes time</option>
+                                        <option value="closed" {{ (isset($store_timings[$appointment . '_closes']) && $store_timings[$appointment . '_closes'] == 'closed') ? 'selected': '' }}>Closed</option>
+                                        @foreach($working_hours as $hour):
+                                            <option value="{{ $hour }}" {{ (isset($store_timings[$appointment . '_closes']) && $store_timings[$appointment . '_closes'] == $hour) ? 'selected': '' }}>
+                                                {{ $hour }}
+                                            </option>
+                                        @endforeach
+                                    </select>
+                                </label>
+                            </div>
+                        @endforeach
+                    </div>
                     @error('appointments')
                         <span class="alert alert-danger alert-dismissible mt-1">
                             <div class="alert-message p-0">
@@ -144,8 +174,35 @@
                         </span>
                     @enderror
                 </div>
+                <div class="col-sm-12 mb-3">
+                    <p class="mb-3"><strong>Stitching Cost</strong></p>
+                    <div class="row">
+                        @foreach($stitchings as $key => $stitching)
+                            <div class="col-sm-3 mb-2">
+                                <div class="form-check form-check-inline p-0">
+                                    <label class="form-check-label" for="stitching_{{ $key }}">{{ Str::ucfirst($stitching) }}</label>
+                                    <input 
+                                        class="form-control form-control-lg" 
+                                        id="stitching_{{ $key }}" 
+                                        type="number" 
+                                        min="0" 
+                                        name="stitchings[{{ str_replace(' ', '_', Str::lower($stitching)) }}]" 
+                                        value="{{ isset($stitching_costs[str_replace(' ', '_', Str::lower($stitching))]) ? $stitching_costs[str_replace(' ', '_', Str::lower($stitching))]: '' }}" 
+                                        placeholder="Enter stitching cost" />
+                                </div>
+                            </div>
+                        @endforeach
+                    </div>
+                    @error('stitchings')
+                        <span class="alert alert-danger alert-dismissible mt-1">
+                            <div class="alert-message p-0">
+                                {{ $message }}
+                            </div>
+                        </span>
+                    @enderror
+                </div>
                 <div class="col-sm-6 mb-3">
-                    <label class="mb-3">Expertise</label>
+                    <label class="mb-3"><strong>Expertise</strong></label>
                     <textarea name="expertise" class="form-control" rows="3" id="expertise">{{ old('expertise') ? old('expertise') : $tailor->expertise }}</textarea>
                     @error('expertise')
                         <span class="alert alert-danger alert-dismissible mt-1">
@@ -155,19 +212,8 @@
                         </span>
                     @enderror
                 </div>
-                <div class="col-sm-6 mb-3">
-                    <label class="mb-3">Description</label>
-                    <textarea name="description" class="form-control" rows="3" id="description">{{ old('description') ? old('description') : $tailor->description }}</textarea>
-                    @error('description')
-                        <span class="alert alert-danger alert-dismissible mt-1">
-                            <div class="alert-message p-0">
-                            {{ $message }}
-                            </div>
-                        </span>
-                    @enderror
-                </div>
                 <div class="col-sm-12 mb-3">
-                    <p class="mb-3">Status <span class="text-danger">*</span></p>
+                    <p class="mb-3"><strong>Status</strong> <span class="text-danger">*</span></p>
                     <div class="form-check form-check-inline">
                         <input class="form-check-input" name="status" type="radio" value="active" {{ ((old('status') && old('status') == $tailor->status) || $tailor->status == 'active') ? 'checked': '' }} id="flexCheckDefault">
                         <label class="form-check-label" for="flexCheckDefault">
@@ -189,7 +235,7 @@
                     @enderror
                 </div>
                 <div class="col-sm-12 mb-3">
-                    <label>Tailor's photos <span class="text-danger">*</span></label>
+                    <label><strong>Tailor's photos</strong> <span class="text-danger">*</span></label>
                     <div class="mt-2">
                         <input type="file" name="photos[]" multiple accept="image/*">
                         @error('photos')
@@ -207,6 +253,16 @@
                             </span>
                         @enderror
                     </div>
+                    @if(!empty($tailor->photos))
+                        <?php $photos = json_decode($tailor->photos); ?>
+                        <div class="row">
+                            @foreach($photos as $photo)
+                                <div class="col-sm-2 mt-3">
+                                    <img src="{{ asset('public/storage/tailors/' . $photo) }}" />
+                                </div>
+                            @endforeach
+                        </div>
+                    @endif
                 </div>
             </div>
             <div class="text-end mt-3">
