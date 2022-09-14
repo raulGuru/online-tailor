@@ -23,7 +23,44 @@
                 <div><strong>Commission:</strong> {{ $tailor->commission }}</div>
                 <div><strong>Address:</strong> {{ $tailor->address }}</div>
                 <div><strong>Services:</strong> {{ implode(", ", json_decode($tailor->services)) }}</div>
-                <div><strong>Appointment Days:</strong> {{ implode(", ", json_decode($tailor->appointments)) }}</div>
+                <div>
+                  <strong>Shop Opening Timings:</strong>
+                  <div class="row p-3 pt-0">
+                     <div class="col-sm-2">
+                        <strong>Days</strong>
+                     </div>
+                     <div class="col-sm-3">
+                        <strong>Opnes</strong>
+                     </div>
+                     <div class="col-sm-7">
+                        <strong>Closes</strong>
+                     </div>
+                     @foreach($appointments as $appointment)
+                        <div class="col-sm-2">
+                           {{ Str::ucfirst($appointment) }}
+                        </div>
+                        @if($store_timings)
+                           <div class="col-sm-3">
+                              {{ $store_timings[$appointment . '_opens'] }}
+                           </div>
+                           <div class="col-sm-7">
+                              {{ $store_timings[$appointment . '_closes'] }}
+                           </div>
+                        @endif
+                     @endforeach
+                  </div>
+               </div>
+               @if($stitching_costs)
+                  <div>
+                     <strong>Stitching Cost:</strong>
+                     <div class="row p-3 pt-0">
+                        @foreach($stitching_costs as $stitching_cost)
+                           <div class="col-sm-2">{{ Str::ucfirst(str_replace("_", " ", $stitching_cost->stitch_name)) }}</div>
+                           <div class="col-sm-10">&#8377; {{ $stitching_cost->cost }}</div>
+                        @endforeach
+                     </div>
+                  </div>
+               @endif
                 <div><strong>Expertise:</strong> {{ $tailor->expertise }}</div>
                 <?php $photos = (isset($tailor->photos) && !empty($tailor->photos)) ? json_decode($tailor->photos) : null; ?>
                 @if(!empty($photos))
