@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Stitching;
 use App\Models\Tailor;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
@@ -41,7 +42,6 @@ class TailorController extends Controller
         $this->appointments = week_days();
         $this->working_hours = working_hours();
         $this->image_extensions = ['apng', 'avif', 'gif', 'jpg', 'jpeg', 'jfif', 'pjpeg', 'pjp', 'png', 'svg', 'webp', 'tif', 'tiff', 'bmp'];
-        $this->stitchings = stitching_list();
     }
 
     /**
@@ -73,7 +73,7 @@ class TailorController extends Controller
         $data['services'] = $this->services;
         $data['appointments'] = $this->appointments;
         $data['working_hours'] = $this->working_hours;
-        $data['stitchings'] = $this->stitchings;
+        $data['stitchings'] = Stitching::all();
         return view('tailors.create', $data);
     }
 
@@ -96,6 +96,7 @@ class TailorController extends Controller
             'address' => 'required|max:255',
             'services' => 'required|min:1',
             'appointments' => 'required|min:1',
+            'stitchings' => 'required|min:1',
             'status' => 'required',
             'photos.*' => 'max:20000'
         ]);
@@ -184,7 +185,6 @@ class TailorController extends Controller
         $data['appointments'] = $this->appointments;
         $data['store_timings'] = (array) DB::table('store_timings')->where('tailor_id', $Tailor->id)->get()->first();
         $data['stitching_costs'] = DB::table('stitching_costs')->where('tailor_id', $Tailor->id)->get();
-        // dd($data);
         return view('tailors.show', $data);
     }
 
@@ -200,7 +200,23 @@ class TailorController extends Controller
         $data['services'] = $this->services;
         $data['appointments'] = $this->appointments;
         $data['working_hours'] = $this->working_hours;
-        $data['stitchings'] = $this->stitchings;
+        $stitches = Stitching::all();
+        $selected_costs = DB::table('stitching_costs')->where('tailor_id', $Tailor->id)->get();
+        $hold_array = array();
+        if($selected_costs->count() > 0) {
+            foreach($selected_costs as $stitch) {
+                array_push($hold_array, $stitch);
+            }
+        }
+        if($stitches->count() > 0) {
+            foreach($stitches as $key => $selected_cost) {
+                $index = array_search($selected_cost->slug_name, array_column($hold_array, 'stitch_name'));
+                if(is_int($index)) {
+                    $stitches[$key]->cost = $hold_array[$index]->cost;
+                }
+            }
+        }
+        $data['stitchings'] = $stitches;
         $data['store_timings'] = (array) DB::table('store_timings')->where('tailor_id', $Tailor->id)->get()->first();
         $costs = DB::table('stitching_costs')->where('tailor_id', $Tailor->id)->get();
         $data['stitching_costs'] = array();
@@ -304,7 +320,7 @@ class TailorController extends Controller
                     DB::table('stitching_costs')->insert($stitching);
                 } else {
                     $update_data = array('cost' => $stitching['cost'], 'updated_at' => Carbon::now());
-                    $update = DB::table('stitching_costs')->where(array('tailor_id' => $Tailor->id, 'stitch_name' => $stitching['stitch_name']))->update($update_data);
+                    DB::table('stitching_costs')->where(array('tailor_id' => $Tailor->id, 'stitch_name' => $stitching['stitch_name']))->update($update_data);
                 }
             }
         }

@@ -70,11 +70,11 @@
                                 @foreach($photos as $key => $photo)
                                 <div class="thumbnail-img {{ $key === 0 ? 'product-image-01': '' }} px-3 mt-2 position-relative float-start">
                                     <img width="75" height="75" src="{{ asset('public/storage/tailors/' . $photo) }}" alt="">
-                                    @if(count($photos) > 1)
+                                    {{-- @if(count($photos) > 1)
                                         <span class="position-absolute cursor-pointer remove-tailor-image" data-image="{{ $key }}" data-action-url="{{ route('tailor.remove_image', $tailor->id) }}">
                                         <i class="align-middle me-2" data-feather="x-circle"></i>
                                         </span>
-                                    @endif
+                                    @endif --}}
                                 </div>
                                 @endforeach
                             </div>

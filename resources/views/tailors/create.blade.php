@@ -169,26 +169,28 @@
                         </span>
                     @enderror
                 </div>
-                <div class="col-sm-12 mb-3">
-                    <p class="mb-3"><strong>Stitching Cost</strong></p>
-                    <div class="row">
-                        @foreach($stitchings as $key => $stitching)
-                            <div class="col-sm-3 mb-2">
-                                <div class="form-check form-check-inline p-0">
-                                    <label class="form-check-label" for="stitching_{{ $key }}">{{ Str::ucfirst($stitching) }}</label>
-                                    <input class="form-control form-control-lg" id="stitching_{{ $key }}" type="number" min="0" name="stitchings[{{ str_replace(' ', '_', Str::lower($stitching)) }}]" value="{{ (!empty(old(str_replace(' ', '_', Str::lower($stitching))))) ? old(str_replace(' ', '_', Str::lower($stitching))): '' }} " placeholder="Enter stitching cost" />
+                @if($stitchings->count())
+                    <div class="col-sm-12 mb-3">
+                        <p class="mb-3"><strong>Stitching Cost</strong></p>
+                        <div class="row">
+                            @foreach($stitchings as $key => $stitching)
+                                <div class="col-sm-3 mb-2">
+                                    <div class="form-check form-check-inline p-0">
+                                        <label class="form-check-label" for="stitching_{{ $key }}">{{ $stitching->stitch_name }}</label>
+                                        <input class="form-control form-control-lg" id="stitching_{{ $key }}" type="number" min="0" name="stitchings[{{ $stitching->slug_name }}]" value="{{ $stitching->cost }}" placeholder="Enter stitching cost" />
+                                    </div>
                                 </div>
-                            </div>
-                        @endforeach
+                            @endforeach
+                        </div>
+                        @error('stitchings')
+                            <span class="alert alert-danger alert-dismissible mt-1">
+                                <div class="alert-message p-0">
+                                    {{ $message }}
+                                </div>
+                            </span>
+                        @enderror
                     </div>
-                    @error('stitchings')
-                        <span class="alert alert-danger alert-dismissible mt-1">
-                            <div class="alert-message p-0">
-                                {{ $message }}
-                            </div>
-                        </span>
-                    @enderror
-                </div>
+                @endif
                 <div class="col-sm-6 mb-3">
                     <label class="mb-3"><strong>Expertise</strong></label>
                     <textarea name="expertise" class="form-control" rows="3" id="expertise">{{ old('expertise') }}</textarea>
@@ -200,17 +202,6 @@
                         </span>
                     @enderror
                 </div>
-                {{-- <div class="col-sm-6 mb-3">
-                    <label class="mb-3">Description</label>
-                    <textarea name="description" class="form-control" rows="3" id="description">{{ old('description') }}</textarea>
-                    @error('description')
-                        <span class="alert alert-danger alert-dismissible mt-1">
-                            <div class="alert-message p-0">
-                            {{ $message }}
-                            </div>
-                        </span>
-                    @enderror
-                </div> --}}
                 <div class="col-sm-12 mb-3">
                     <p class="mb-3"><strong>Status</strong> <span class="text-danger">*</span></p>
                     <div class="form-check form-check-inline">
