@@ -13,19 +13,6 @@ if (!function_exists('get_roles')) {
     }
 }
 
-if (!function_exists('stitching_list')) {
-    function stitching_list($default = null)
-    {
-        $stitching = array('pant', 'shirt', 'blazer', 'pyjama', 'kurta', 'kalidar kurta', 'sherwani');
-        
-        if (is_numeric($default)) {
-            return $stitching[$default];
-        }
-
-        return $stitching;
-    }
-}
-
 if (!function_exists('week_days')) {
     function week_days($default = null)
     {

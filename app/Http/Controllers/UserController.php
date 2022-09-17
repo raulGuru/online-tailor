@@ -28,7 +28,7 @@ class UserController extends Controller
         $users = User::orWhere('email', 'LIKE', '%' . $q . '%')
             ->orWhere('phone', 'LIKE', '%' . $q . '%')
             ->orderBy('id', 'DESC')
-            ->paginate(5)->appends(['search' => $q]);
+            ->paginate(10)->appends(['search' => $q]);
         $users->appends(['search' => $q]);
         return view('user.index', array('users' => $users));
     }
