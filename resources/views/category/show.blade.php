@@ -71,7 +71,7 @@
                     <div class="row mb-4">
                         <div class="col-md-12">
                             <a href="" class="btn d-block add-bag-btn">BOOK TAILOR</a>
-                            <a href="" class="btn d-block add-wish-btn mt-3">ADD MEASUREMENT </a>
+                            <a href="{{ route('measurment.index') }}" class="btn d-block add-wish-btn mt-3">ADD MEASUREMENT </a>
                         </div>
                     </div>
 

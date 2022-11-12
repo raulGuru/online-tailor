@@ -87,3 +87,172 @@ if (!function_exists('working_hours')) {
         return $working_hours;
     }
 }
+
+if (!function_exists('get_measurment_form_fields')) {
+    function get_measurment_form_fields($genders = null, $variant = null)
+    {
+        $measurment_fileds = array(
+            'men' => array(
+                'shirt' => array(
+                    'fields' => array(
+                        array(
+                            'name'  => 'measurment_type',
+                            'type'  => 'hidden',
+                            'value' => 'shirt' 
+                        ),
+                        array(
+                            'name'  => 'gender',
+                            'type'  => 'hidden',
+                            'value' => 'men' 
+                        ),
+                        array(
+                            'label' => 'Length',
+                            'name'  => 'length',
+                            'type'  => 'textbox',
+                        ),
+                        array(
+                            'label' => 'Shoulder',
+                            'name'  => 'shoulder',
+                            'type'  => 'textbox',
+                        ),
+                        array(
+                            'label' => 'Full Sleeve length',
+                            'name'  => 'full_sleeve_length',
+                            'type'  => 'textbox',
+                        ),
+                        array(
+                            'label' => 'Half Sleeve length',
+                            'name'  => 'half_sleeve_length',
+                            'type'  => 'textbox',
+                        ),
+                        array(
+                            'label' => 'Cuff',
+                            'name'  => 'cuff',
+                            'type'  => 'textbox',
+                        ),
+                        array(
+                            'label' => 'Arm',
+                            'name'  => 'arm',
+                            'type'  => 'textbox',
+                        ),
+                        array(
+                            'label' => 'Chest',
+                            'name'  => 'chest',
+                            'type'  => 'textbox',
+                        ),
+                        array(
+                            'label' => 'Waist',
+                            'name'  => 'waist',
+                            'type'  => 'textbox',
+                        ),
+                        array(
+                            'label' => 'Hip',
+                            'name'  => 'hip',
+                            'type'  => 'textbox',
+                        ),
+                        array(
+                            'label' => 'Neck',
+                            'name'  => 'neck',
+                            'type'  => 'textbox',
+                        ),
+                        array(
+                            'label' => 'Pocket',
+                            'name'  => 'pocket',
+                            'type'  => 'textarea',
+                        ),
+                        array(
+                            'label' => 'Style details',
+                            'name'  => 'style_details',
+                            'type'  => 'textarea',
+                        ),
+                        array(
+                            'label' => 'Body posture details',
+                            'name'  => 'body_posture_details',
+                            'type'  => 'textarea',
+                        )
+                    ),
+                ),
+                'pant' => array(
+                    'fields' => array(
+                        array(
+                            'name'  => 'measurment_type',
+                            'type'  => 'hidden',
+                            'value' => 'pant' 
+                        ),
+                        array(
+                            'name'  => 'gender',
+                            'type'  => 'hidden',
+                            'value' => 'men' 
+                        ),
+                        array(
+                            'label' => 'Length',
+                            'name'  => 'length',
+                            'type'  => 'textbox',
+                        ),
+                        array(
+                            'label' => 'Waist',
+                            'name'  => 'waist',
+                            'type'  => 'textbox',
+                        ),
+                        array(
+                            'label' => 'Hip',
+                            'name'  => 'hip',
+                            'type'  => 'textbox',
+                        ),
+                        array(
+                            'label' => 'Thigh',
+                            'name'  => 'thigh',
+                            'type'  => 'textbox',
+                        ),
+                        array(
+                            'label' => 'Knee',
+                            'name'  => 'knee',
+                            'type'  => 'textbox',
+                        ),
+                        array(
+                            'label' => 'Bottom',
+                            'name'  => 'bottom',
+                            'type'  => 'textbox',
+                        ),
+                        array(
+                            'label' => 'Fork',
+                            'name'  => 'fork',
+                            'type'  => 'textbox',
+                        ),
+                        array(
+                            'label' => 'Inseam',
+                            'name'  => 'inseam',
+                            'type'  => 'textbox',
+                        ),
+                        array(
+                            'label' => 'Pocket',
+                            'name'  => 'pocket',
+                            'type'  => 'textarea',
+                        ),
+                        array(
+                            'label' => 'Style details',
+                            'name'  => 'style_details',
+                            'type'  => 'textarea',
+                        ),
+                        array(
+                            'label' => 'Body posture details',
+                            'name'  => 'body_posture_details',
+                            'type'  => 'textarea',
+                        )
+                    ),
+                )
+            ),
+            'women' => array(
+                
+            )
+        );
+        
+        if (!empty($genders) && !empty($variant)) {
+            return $measurment_fileds[$genders][$variant];
+        }else if(!empty($genders)){
+            return $measurment_fileds[$genders];
+        }
+
+        return $measurment_fileds;
+    }
+}
