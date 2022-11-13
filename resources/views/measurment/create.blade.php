@@ -1,6 +1,5 @@
 @extends('layouts.master2')
 @section('content')
-{{--<pre>{{ dd($measurments) }}</pre> --}}
 <div class="container-fluid p-0">
     <h1 class="h3 mb-3">Add Measurment</h1>
     <form method="post" action="{{ route('measurment.save_measurment') }}" enctype="multipart/form-data">
@@ -11,9 +10,9 @@
                     <label>Measurment For<span class="text-danger">*</span></label>
                     <select class="form-control" name="measurment" id="measurment" onchange="getFields(this)">
                         <option value="" selected disabled>Select</option>
-                        @if($measurments->count() > 0)
+                        @if(count($measurments) > 0)
                         @foreach($measurments as $measurment)
-                        <option value="{{ $measurment->id }}" {{ (old('measurment') && old('measurment') == $measurment->id) ? 'selected': '' }}>{{ $measurment->name }}</option>
+                        <option value="{{ $measurment['id'] }}" {{ (old('measurment') && old('measurment') == $measurment['id']) ? 'selected': '' }}>{{ $measurment['name'] }}</option>
                         @endforeach
                         @endif
                     </select>

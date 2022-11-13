@@ -128,14 +128,14 @@ function prepareMeasumentFields(data = '') {
     let html = '';
     fields.forEach(e => {
         if(e.type === 'hidden'){
-            html += `<input type="${e.type}" name="${e.name}" value="${e.value}" class="form-control">`
+            html += `<input type="${e.type}" name="${e.name}" value="${e.value}" class="form-control dynamicAdded">`
         }else{
-            html += `<div class="col-sm-6 mb-2">
+            html += `<div class="col-sm-6 mb-2 dynamicAdded">
                <label>${e.label}<span class="text-danger">*</span></label>
                <input type="${e.type}" name="${e.name}" id="${e.name}" value="" class="form-control" placeholder="Enter ${e.label}" required>
             </div>`
         }
     });
-    
+    $(".dynamicAdded").remove();
     $("#dynamicfields").append(html);
 }

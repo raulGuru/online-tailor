@@ -3,10 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\MeasurmentShirt;
-use App\Models\MeasurmentTypes;
-use App\Models\MasterCategory;
 use Illuminate\Http\Request;
-use Illuminate\Http\Response;
 
 class MeasurmentController extends Controller
 {
@@ -21,13 +18,9 @@ class MeasurmentController extends Controller
      */
     public function index(Request $request)
     {
-        if(!empty($this->gender)) {
-            $gender = MasterCategory::where('slug', $this->gender)->first()->id;
-        }
-        $data['measurments'] = MeasurmentTypes::where('cat_id', $gender)->get();
-        // $gender = $request->gender;
-        // $gender = 'men';
-        // $data['measurments'] = measurment_types($gender);
+        $this->gender = !empty($request->gender) ? $request->gender : $this->gender;
+        // $data['product_id'] = $request->product_id;
+        $data['measurments'] = measurment_types($this->gender);
         return view('measurment.create', $data);
     }
 
@@ -99,9 +92,8 @@ class MeasurmentController extends Controller
 
     public function get_fields(Request $request)
     {
-        $type_id = $request->type;
-        $type_name = MeasurmentTypes::where('id', $type_id)->first()->slug;
-        $data = get_measurment_form_fields($this->gender , $type_name);
+        $type = $request->type;
+        $data = get_measurment_form_fields($this->gender , $type);
         array_push($data , array('type' => 'hidden', 'name' => 'product_type_id', 'value' => $this->product_id));
         return response()->json(["code" => 200, "status" => "success", "message" => "fields found successfully!", "data" => $data], 200);
     }
@@ -110,7 +102,7 @@ class MeasurmentController extends Controller
     {
         $form_data = $request->all();
         unset($form_data['_token']);
-        $request->session()->push('orders', json_encode($form_data));
+        $request->session()->push('measurment', json_encode($form_data));
         echo '<pre>'; print_r($form_data); exit();
     }
 }

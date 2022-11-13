@@ -265,9 +265,28 @@ if (!function_exists('measurment_types')) {
                     'name' => 'Shirt'
                 ),
                 array(
-                    'id' => 'shirt',
-                    'name' => 'Shirt'
+                    'id' => 'pant',
+                    'name' => 'Pant / Trouser'
+                ),
+                array(
+                    'id' => 'jacket',
+                    'name' => 'Jacket'
+                ),
+                array(
+                    'id' => 'blazer',
+                    'name' => 'Blazer'
+                ),
+                array(
+                    'id' => 'kurta',
+                    'name' => 'Kurta'
+                ),
+                array(
+                    'id' => 'pyjama',
+                    'name' => 'Pyjama'
                 )
+            ),
+            'women' => array(
+
             )
         ];
         return $types[$gender];
