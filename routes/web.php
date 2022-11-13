@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\AppointmentController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\CustomerAccountController;
 use App\Http\Controllers\CustomerLoginController;
@@ -30,9 +31,6 @@ use Illuminate\Support\Facades\Route;
 Route::resource('/', HomeController::class);
 Route::resource('home', HomeController::class);
 Route::resource('category', CategoryController::class);
-Route::get('/appointment', function() {
-    return view('layouts.appointment');
-});
 Route::resource('login', CustomerLoginController::class);
 Route::resource('signup', CustomerSignupController::class, ['names' => 'signup']);
 Route::get('account/orders', [CustomerAccountController::class, 'orders'])->name('account.orders');
@@ -47,6 +45,8 @@ Route::post('product/remove_image/{id}', [ProductController::class, 'remove_imag
 route::resource('tailors', TailorController::class);
 Route::post('tailors/remove_image/{id}', [TailorController::class, 'remove_image'])->name('tailor.remove_image');
 Route::resource('stitching', StitchingController::class);
+Route::resource('appointment', AppointmentController::class);
+Route::get('get_appointment/{id}', [AppointmentController::class, 'get_appointment']);
 Route::resource('measurment', MeasurmentController::class);
 Route::post('measurment/get_fields', [MeasurmentController::class, 'get_fields'])->name('measurment.get_fields');
 Route::post('measurment/save_measurment', [MeasurmentController::class, 'save_measurment'])->name('measurment.save_measurment');

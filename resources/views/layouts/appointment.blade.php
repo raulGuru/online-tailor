@@ -1,210 +1,142 @@
 
-<!DOCTYPE html>
-<html lang="en">
-
-<head>
-	<meta charset="utf-8">
-	<meta http-equiv="X-UA-Compatible" content="IE=edge">
-	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-	<meta name="description" content="">
-	<meta name="author" content="">
-	<meta name="keywords" content=" ">
-
-	<title>Customize Tailor</title>
-    <link href="{{ asset('public/assets/css/light.css') }}" rel="stylesheet">
-    <link href="{{ asset('public/assets/css/style.css') }}" rel="stylesheet">
-    <link href="{{ asset('public/assets/css/media.css') }}" rel="stylesheet">
-	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-</head>
-
-<body>
-	<header>
-		<nav class="navbar fixed-top navbar-expand-lg  ">
-		  <div class="container-fluid">
-			<button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarTogglerDemo01" aria-controls="navbarTogglerDemo01" aria-expanded="false" aria-label="Toggle navigation">
-			  <span class="navbar-toggler-icon"> <i class="fa fa-navicon"></i> </span>
-			</button>
-			<div class="collapse navbar-collapse" id="navbarTogglerDemo01">
-			  <div class="row">
-				  <div class="col-md-1 col-2 p-0">
-					  <a class="navbar-brand" href="#"><img src="{{ asset('public/assets/img/logo.jpg') }}" height="40" alt="logo"></a>
-				  </div>
-				  <div class="col-md-5 menu-top col-10 p-0">
-					  <ul>
-						  <li>
-							  <a href="">MEN</a>
-						  </li>
-						  <li>
-							  <a href="">WOMEN</a>
-						  </li>
-						  <li>
-							  <a href="/appointment">BOOK APPOINTMENT</a>
-						  </li>
-					  </ul>
-				  </div>
-				  <div class="col-md-3 col-12 p-0">
-					  <!-- <form class="navbar-left search-box">
-						  <input class="form-control me-2" type="search" value="Search" placeholder="Search" aria-label="Search">
-						  <i class="fa fa-search search-icon"></i>
-						 </form> -->
-				  </div>
-				  <div class="col-md-3 login-menu-top d-flex justify-content-end col-12">
-					  <!-- <ul>
-						  <li>
-							  <a href="#">Login</a>
-						  </li>
-						  <li>
-							  <a href="#">Sign Up</a>
-						  </li>
-						  <li>
-							  <a href="#"> <i class="fa fa-user"></i> </a>
-						  </li>
-						  <li>
-							  <a href="#"><i class="fa fa-cart-plus"> </i> </a>
-						  </li>
-					  </ul> -->
-				  </div>
-			  </div>
-		   
+@extends('layouts.master2')
+@section('content')
+<div class="container d-flex flex-column">
+	<div class="row {{ !request()->pincode ? 'vh-100': ''}}">
+		<div class="col-sm-10 col-md-8 col-lg-8 mx-auto d-table">
+			<div class="d-table-cell align-middle">
+				<div class="card">
+					<div class="card-body">
+						<div class="row">
+							<div class="col-sm-12">
+								<h1>Search Tailor</h1>
+								<p class="mb-2">Are you looking the best tailor near about your location ?</p>
+								<form method="get" action="{{ route('appointment.index') }}">
+									<div class="input-group find-location-search">
+										<input type="number" class="form-control" required name="pincode" value="{{ request()->pincode }}" pattern="/^-?\d+\.?\d*$/" placeholder="Enter a PIN code">
+										<button class="btn btn-blue text-white" type="submit">FIND LOCATION</button>
+									</div>
+								</form>
+							</div>
+						</div>
+					</div>
+				</div>
 			</div>
-		  </div>
-		</nav>
-  </header>
-	<!-- <section class="banner-section position-relative">
-		<img src="{{ asset('public/assets/img/banner.jpg') }}" alt="Los Angeles" class="d-block" style="width:100%" height="400">
-		<div class="banner-text">
-			 <h2>Welcome <br>
-				To Customize Tailor
-			</h2>
-		</div>
-		 
-	</section> -->
-    <div class="container mt-7">
-		<!-- <div class="breadcrumb-menu mt-4 mb-4">
-			<ul class="m-0 p-0 d-flex">
-				<li>
-					<a href="">Home</a>
-				</li>
-				<li class="pl-1">
-					<a href="">Men</a>
-				</li>
-			</ul>
-		</div> -->
-
-		<div class="row">
-			  <div class="col-md-8 m-auto">
-					
-				<div class="row mb-5">
-					<div class="col-md-3 d-flex align-items-center">
-						<p class="mb-0 font-weight-500 f-16">Select  what to  stitch</p>
-					</div>
-					<div class="col-md-6">
-						<select class="form-control"> 
-							<option value="shirt">Shirt</option>
-                            <option value="Pant">Pant</option>
-                            <option value="Kurta">Kurta</option>
-						</select>
-					</div>
-				</div>
-				
-				<h3 class="font-weight-500 mb-4">SHRITS MEASUREMENT</h3>
-
-				<div class="row">
-					<div class="col-md-6 mb-4">
-						<p class="mb-1 f-16">Type Of Collar</p>
-						<select class="form-control"> 
-							<option></option>
-						</select>
-					</div>
-					<div class="col-md-6 mb-4">
-						<p class="mb-1 f-16 d-flex justify-content-between">Collar 
-							<i class="fa fa-info-circle"></i>
-						</p>
-						<input class="form-control" type="text">
-					</div>
-
-					<div class="col-md-6 mb-4">
-						<p class="mb-1 f-16">Type Of Shoulder</p>
-						<select class="form-control"> 
-							<option></option>
-						</select>
-					</div>
-					<div class="col-md-6 mb-4">
-						<p class="mb-1 f-16 d-flex justify-content-between">Shoulder 
-							<i class="fa fa-info-circle"></i>
-						</p>
-						<input class="form-control" type="text">
-					</div>
-
-
-					<div class="col-md-6 mb-4">
-						<p class="mb-1 f-16">Type Of Neck</p>
-						<select class="form-control"> 
-							<option></option>
-						</select>
-					</div>
-					<div class="col-md-6 mb-4">
-						<p class="mb-1 f-16 d-flex justify-content-between">Neck 
-							<i class="fa fa-info-circle"></i>
-						</p>
-						<input class="form-control" type="text">
-					</div>
-
-
-					<div class="col-md-6 mb-4">
-						<p class="mb-1 f-16">Type Of Cuff</p>
-						<select class="form-control"> 
-							<option></option>
-						</select>
-					</div>
-					<div class="col-md-6 mb-4">
-						<p class="mb-1 f-16 d-flex justify-content-between">Cuff 
-							<i class="fa fa-info-circle"></i>
-						</p>
-						<input class="form-control" type="text">
-					</div>
-
-
-					<div class="col-md-6 mb-4">
-						<p class="mb-1 f-16">Body Posture Details</p>
-						<select class="form-control"> 
-							<option></option>
-						</select>
-					</div>
-					<div class="col-md-6 mb-4">
-						<p class="mb-1 f-16 d-flex justify-content-between">No of shrits 
-							<i class="fa fa-info-circle"></i>
-						</p>
-						<select class="form-control"> 
-							<option></option>
-						</select>
-					</div>
-
-
-				</div>
-
-			  </div>
 		</div>
 	</div>
-	<footer>
-		<div class="container-fluid"> 
-		<div class="row">
-			<div class="col-md-6 d-flex align-items-center">
-				<p class="m-0"> © 2022 Customize Tailor. All rights reserved</p>
-			</div>
-			<!-- <div class="col-md-6 d-flex justify-content-end align-items-center">
-				<ul>
-					<li><a href="#">Footer Link</a></li>
-					<li><a href="#">Footer Link</a></li>
-					<li><a href="#">Footer Link</a></li>
+	<div class="row">
+		<div class="col-12">
+			<h1 class="mb-3 border-bottom border-3 pb-2">Best tailor(s) near your area</h1>
+			@if($tailors->count())
+				<ul class="list-unstyled">
+					@foreach($tailors as $tailor)
+						<li class="media border-bottom border-1 pb-2 mb-2">
+							<div class="row">
+								<div class="col-3">
+									<img class="me-2 img-thumbnail" src="http://localhost/online-tailor/public/assets/img/shop-photo01.jpg" alt="Generic placeholder image">
+								</div>
+								<div class="col-9">
+									<div class="media-body pr-3">
+										<h3 class="mt-0 mb-1">{{ $tailor->shop_name }}</h3>
+										<h4 class="mt-0 mb-1 text-muted"><strong>Location: </strong><i class="fas fa-map-marker text-success"></i> {{ $tailor->location }} - {{ $tailor->pin_code }}</h4>
+										<p class="m-0"><strong>Address: </strong>{{ $tailor->address }}</p>
+										<p class="m-0"><strong>Phone: </strong>{{ $tailor->phone }}</p>
+										<p class="m-0">
+											<strong>Open Days: </strong>
+											@if($tailor->appointments)
+												<?php
+													$appointments_days = collect(json_decode($tailor->appointments, true));
+													$days_names = $appointments_days->map(function($name, $key) {
+														return ucwords($name);
+													});
+													echo implode(', ', $days_names->toArray());
+												?>
+											@else
+												N/A
+											@endif
+										</p>
+										<p class="m-0"><strong>Timing: </strong>09:10 AM - 09:30 PM</p>
+										<p class="m-0">
+											<strong>Services: </strong>
+											@if($tailor->services)
+												<?php
+													$services = collect(json_decode($tailor->services, true));
+													$service_names = $services->map(function($name, $key) {
+														return ucwords($name);
+													});
+													echo implode(', ', $service_names->toArray());
+												?>
+											@else
+												N/A
+											@endif
+										</p>
+										@if($tailor->description)
+											<p class="m-0"><strong>Description: </strong>{{ $tailor->description }}</p>
+										@endif
+										<p><button class="btn btn-success appointment_button" type="button" data-id="{{ $tailor->id }}">Book appointment</button></p>
+									</div>
+								</div>
+							</div>
+						</li>
+					@endforeach
 				</ul>
-			</div> -->
+				<div class="d-flex flex-row-reverse">
+					<div class="p-0">
+						{{ $tailors->links() }}	
+					</div>
+				</div>
+			@else
+				<div class="row">
+					<div class="col-sm-10 col-md-8 col-lg-6 mx-auto d-table h-100">
+						<div class="d-table-cell align-middle">
+							<div class="text-center">
+								<h1 class="display-1 font-weight-bold">402</h1>
+								<p class="h1">No data available.</p>
+								<p class="h2 font-weight-normal mt-3 mb-4">There is no resource behind the URI.</p>
+							</div>
+						</div>
+					</div>
+				</div>
+			@endif
 		</div>
+	</div>
+	<div class="modal fade" id="appointmentModal" tabindex="-1" aria-labelledby="appointmentModal" aria-hidden="true">
+		<div class="modal-dialog">
+			<div class="modal-content">
+			<div class="modal-header">
+				<h5 class="modal-title" id="exampleModalLabel">Book Appointment</h5>
+				<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+			</div>
+			<div class="modal-body">
+				<form>
+					<div class="mb-3">
+						<label for="fullname" class="form-label">Full Name <span class="text-danger">*</span></label>
+						<input type="text" class="form-control" id="fullname" placeholder="Enter full name">
+					</div>
+					<div class="mb-3">
+						<label for="email" class="form-label">Email address</label>
+						<input type="email" class="form-control" id="email" placeholder="Enter email address">
+					</div>
+					<div class="mb-3">
+						<label for="mobile" class="form-label">Mobile <span class="text-danger">*</span></label>
+						<input type="number" class="form-control" id="mobile" placeholder="Enter mobile">
+					</div>
+					<div class="mb-3">
+						<label for="address" class="form-label">Address <span class="text-danger">*</span></label>
+						<textarea class="form-control" id="address" rows="3"></textarea>
+					</div>
+					<div class="mb-3">
+						<label for="appointment_datetime" class="form-label">Appointment Date <span class="text-danger">*</span></label>
+						<input type="number" class="form-control" id="appointment_datetime" placeholder="Select appointment date">
+					</div>
+				</form>
+			</div>
+			<div class="modal-footer">
+				<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+				<input type="hidden" name="tailor_id" class="form-control" id="tailor_id">
+				<button type="button" class="btn btn-primary">Save</button>
+			</div>
+			</div>
 		</div>
-	</footer>
-	
-
-	<script src="{{ asset('public/assets/js/app.js') }}"></script>
-
-</body>
-</html>
+	</div>
+@endsection

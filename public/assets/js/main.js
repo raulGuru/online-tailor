@@ -51,7 +51,30 @@ MYAPP.common = {
         urlParams.set(key, value);
         window.location.search = urlParams;
         return window.location.href;
-    }
+    },
+    getAppointmentDate: function(tailor_id) {
+        $.ajax({
+            method: 'get',
+            dataType: 'json',
+            headers: { 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content') },
+            url: this.base_url + '/get_appointment/' + tailor_id,
+            success: function(response) {
+                let disabledDate = [];
+                if(response.code === 200 && response.result && response.result.length > 0) {
+                    disabledDate = response.result;
+                }
+                $('#appointment_datetime').flatpickr({
+                    enableTime: true,
+                    dateFormat: 'Y-m-d G:i K',
+                    minDate: 'today',
+                    disable: disabledDate // ["2022-11-18", "2022-11-20", "2022-11-28"]
+                });
+                $('body #appointmentModal').modal('show');
+            },
+            error: function(response) {},
+            complete: function(response) {}
+        });
+    },
 };
 
 $(document).ready(function() {
@@ -91,6 +114,12 @@ $(document).ready(function() {
     $("body #order").on('change', function() {
         const title = $.trim($(this).val());
         MYAPP.common.setParams('order', title);
+    });
+
+    $("body .appointment_button").on('click', function() {
+        const tailor_id = $.trim($(this).attr('data-id'));
+        MYAPP.common.getAppointmentDate(tailor_id);
+        
     });
 
 });
