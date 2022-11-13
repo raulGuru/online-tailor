@@ -12,6 +12,7 @@
       <link href="{{ asset('public/assets/css/light.css') }}" rel="stylesheet">
       <link href="{{ asset('public/assets/css/style.css') }}" rel="stylesheet">
       <link href="{{ asset('public/assets/css/media.css') }}" rel="stylesheet">
+      <link rel="stylesheet" href="{{ asset('public/assets/css/flatpickr.min.css') }}">
       <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
    </head>
    <body>
@@ -39,7 +40,7 @@
                               <a href="{{ route('category.index', $query) }}">WOMEN</a>
                            </li>
                            <li>
-                              <a class="text-brown" href="">BOOK APPOINTMENT</a>
+                              <a class="text-brown" href="{{ route('appointment.index') }}">BOOK APPOINTMENT</a>
                            </li>
                         </ul>
                      </div>
@@ -97,7 +98,7 @@
             </div>
          </div>
       </div>
-      <footer>
+      <footer class="footer mt-auto py-3 bg-dark">
          <div class="container-fluid">
             <div class="row">
                <div class="col-md-6 d-flex align-items-center">
@@ -120,6 +121,7 @@
          var segment3 = "{{ !empty(Request::segment(3)) ? Request::segment(3): ''; }}";
      </script>
       <script src="{{ asset('public/assets/js/app.js') }}"></script>
+      <script src="{{ asset('public/assets/js/flatpickr.js') }}"></script>
       <script src="{{ asset('public/assets/js/main.js?ver=' . time()) }}"></script>
    </body>
 </html>

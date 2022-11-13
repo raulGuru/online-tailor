@@ -39,7 +39,7 @@
                               <a href="{{ route('category.index', $query) }}">WOMEN</a>
                            </li>
                            <li>
-                              <a class="text-brown" href="">BOOK APPOINTMENT</a>
+                              <a class="text-brown" href="{{ route('appointment.index') }}">BOOK APPOINTMENT</a>
                            </li>
                         </ul>
                      </div>
