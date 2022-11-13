@@ -94,3 +94,48 @@ $(document).ready(function() {
     });
 
 });
+
+function getFields(e) {
+    let action = `measurment/get_fields`;
+    let type = e.value;
+    $.ajax({
+        method: 'post',
+        headers: { 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content') },
+        data: { type: type },
+        url: action,
+        success: function(response) {
+            if (response.code === 200) {
+                if(response.data !== ''){
+                    prepareMeasumentFields(response.data)
+                }else{
+                    alert("Error: ", 'Something went wrong');
+                }
+            } else {
+                alert('Error: ', response.message);
+            }
+        },
+        error: function(response) {
+            console.log(response)
+        },
+        complete: function(response) {
+            console.log(response)
+        }
+    });
+}
+
+function prepareMeasumentFields(data = '') {
+    fields = data.fields;
+    let html = '';
+    fields.forEach(e => {
+        if(e.type === 'hidden'){
+            html += `<input type="${e.type}" name="${e.name}" value="${e.value}" class="form-control">`
+        }else{
+            html += `<div class="col-sm-6 mb-2">
+               <label>${e.label}<span class="text-danger">*</span></label>
+               <input type="${e.type}" name="${e.name}" id="${e.name}" value="" class="form-control" placeholder="Enter ${e.label}" required>
+            </div>`
+        }
+    });
+    
+    $("#dynamicfields").append(html);
+}

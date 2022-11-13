@@ -12,6 +12,7 @@ use App\Http\Controllers\ProductController;
 use App\Http\Controllers\StitchingController;
 use App\Http\Controllers\TailorController;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\MeasurmentController;
 use App\Http\Middleware\EnsureTokenIsValid;
 use Illuminate\Support\Facades\Route;
 
@@ -46,3 +47,6 @@ Route::post('product/remove_image/{id}', [ProductController::class, 'remove_imag
 route::resource('tailors', TailorController::class);
 Route::post('tailors/remove_image/{id}', [TailorController::class, 'remove_image'])->name('tailor.remove_image');
 Route::resource('stitching', StitchingController::class);
+Route::resource('measurment', MeasurmentController::class);
+Route::post('measurment/get_fields', [MeasurmentController::class, 'get_fields'])->name('measurment.get_fields');
+Route::post('measurment/save_measurment', [MeasurmentController::class, 'save_measurment'])->name('measurment.save_measurment');
