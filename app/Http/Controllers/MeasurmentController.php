@@ -25,6 +25,9 @@ class MeasurmentController extends Controller
             $gender = MasterCategory::where('slug', $this->gender)->first()->id;
         }
         $data['measurments'] = MeasurmentTypes::where('cat_id', $gender)->get();
+        // $gender = $request->gender;
+        // $gender = 'men';
+        // $data['measurments'] = measurment_types($gender);
         return view('measurment.create', $data);
     }
 
@@ -108,5 +111,6 @@ class MeasurmentController extends Controller
         $form_data = $request->all();
         unset($form_data['_token']);
         $request->session()->push('orders', json_encode($form_data));
+        echo '<pre>'; print_r($form_data); exit();
     }
 }
