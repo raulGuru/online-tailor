@@ -126,11 +126,10 @@ $(document).ready(function() {
 
 function getFields(e) {
     let action = `measurment/get_fields`;
-    let type = e.value;
     $.ajax({
         method: 'post',
         headers: { 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content') },
-        data: { type: type },
+        data: { type: e.value, gender: e.dataset.gender },
         url: action,
         success: function(response) {
             if (response.code === 200) {

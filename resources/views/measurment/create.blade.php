@@ -7,8 +7,9 @@
         <div class="card p-3">
             <div class="row" id="dynamicfields">
                 <div class="col-sm-6 mb-2">
+                    <input type="hidden" name="product_type_id" value="{{$product_id}}">
                     <label>Measurment For<span class="text-danger">*</span></label>
-                    <select class="form-control" name="measurment" id="measurment" onchange="getFields(this)">
+                    <select class="form-control" name="measurment" id="measurment" onchange="getFields(this)" data-gender="{{$gender}}">
                         <option value="" selected disabled>Select</option>
                         @if(count($measurments) > 0)
                         @foreach($measurments as $measurment)
