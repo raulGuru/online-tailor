@@ -2,12 +2,14 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Appointment;
-use App\Models\Tailor;
 use Illuminate\Http\Request;
 
-class AppointmentController extends Controller
+class LocationController extends Controller
 {
+    public function __construct()
+    {
+        
+    }
     /**
      * Display a listing of the resource.
      *
@@ -15,22 +17,11 @@ class AppointmentController extends Controller
      */
     public function index(Request $request)
     {
-        if (!$request->session()->has('pincode')) {
+        if ($request->session()->has('pincode')) {
+            return redirect()->route('appointment.index');
+        } else {
             return redirect()->route('location.show', 'appointment');
         }
-        $q = $request->session()->get('pincode');
-        $tailors = Tailor::where('status', 'active')->whereBetween('pin_code', [$q - 5, $q + 5])->paginate(2);
-        $data['tailors'] = $tailors;
-        return view('layouts.appointment', $data);
-    }
-
-    public function get_appointment($id)
-    {
-        if (empty($id)) {
-            return response()->json(['code' => 200, 'status' => 'success', 'result' => []]);
-        }
-        $appointments = Appointment::select('appointment_at')->where('tailor_id', $id)->get();
-        return response()->json(['code' => 200, 'status' => 'success', 'result' => $appointments]);
     }
 
     /**
@@ -51,27 +42,41 @@ class AppointmentController extends Controller
      */
     public function store(Request $request)
     {
-        print_r($request->all());
+        $this->validate($request, [
+            'pincode' => 'required|regex:/^(?:\d{6})$/i',
+            'redirect_uri' => 'required|string'
+        ]);
+        $request->session()->put('pincode', $request->pincode);
+        /**
+         * After validation user will redirect to controller as user specify
+         * $route
+         */
+        $route = $request->redirect_uri . '.index';
+        return redirect()->route($route);
     }
 
     /**
      * Display the specified resource.
      *
-     * @param  \App\Models\Appointment  $appointment
+     * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show(Appointment $appointment)
+    public function show($id)
     {
-        //
+        if(empty($id)) {
+            return redirect()->route('appointment.index');
+        }
+        $data['redirect_uri'] = $id;
+        return view('layouts.location', $data);
     }
 
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Models\Appointment  $appointment
+     * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit(Appointment $appointment)
+    public function edit($id)
     {
         //
     }
@@ -80,10 +85,10 @@ class AppointmentController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\Appointment  $appointment
+     * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Appointment $appointment)
+    public function update(Request $request, $id)
     {
         //
     }
@@ -91,10 +96,10 @@ class AppointmentController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Models\Appointment  $appointment
+     * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Appointment $appointment)
+    public function destroy($id)
     {
         //
     }

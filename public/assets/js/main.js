@@ -69,10 +69,30 @@ MYAPP.common = {
                     minDate: 'today',
                     disable: disabledDate // ["2022-11-18", "2022-11-20", "2022-11-28"]
                 });
+                $('#appointment-form #hidden-tailor-id').val(tailor_id);
                 $('body #appointmentModal').modal('show');
             },
             error: function(response) {},
             complete: function(response) {}
+        });
+    },
+    save_appointment: function(action, data) {
+        $.ajax({
+            method: 'post',
+            dataType: 'json',
+            headers: { 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content') },
+            data: data,
+            url: action,
+            beforeSend: function() {
+                $('#appointment-form #book-now').attr('disabled', true);
+            },
+            success: function(response) {
+                console.log('response => ', response);
+            },
+            error: function(response) {},
+            complete: function(response) {
+                $('#appointment-form #book-now').attr('disabled', false);
+            }
         });
     },
 };
@@ -119,7 +139,13 @@ $(document).ready(function() {
     $("body .appointment_button").on('click', function() {
         const tailor_id = $.trim($(this).attr('data-id'));
         MYAPP.common.getAppointmentDate(tailor_id);
-        
+    });
+
+    $('body #appointment-form').on('submit', function(event) {
+        const formData = $(this).serializeArray();
+        const action = $(this).attr('action');
+        event.preventDefault();
+        MYAPP.common.save_appointment(action, formData);
     });
 
 });

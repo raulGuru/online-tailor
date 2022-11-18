@@ -42,6 +42,9 @@
                            <li>
                               <a class="text-brown" href="{{ route('appointment.index') }}">BOOK APPOINTMENT</a>
                            </li>
+                           <li>
+                              <a href="{{ route('location.show', 'appointment') }}">CHANGE LOCATION</a>
+                           </li>
                         </ul>
                      </div>
                      <div class="col-md-3 col-12 p-0">
