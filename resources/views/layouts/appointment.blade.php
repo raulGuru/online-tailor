@@ -2,32 +2,10 @@
 @extends('layouts.master2')
 @section('content')
 <div class="container d-flex flex-column">
-	<div class="row {{ !request()->pincode ? 'vh-100': ''}}">
-		<div class="col-sm-10 col-md-8 col-lg-8 mx-auto d-table">
-			<div class="d-table-cell align-middle">
-				<div class="card">
-					<div class="card-body">
-						<div class="row">
-							<div class="col-sm-12">
-								<h1>Search Tailor</h1>
-								<p class="mb-2">Are you looking the best tailor near about your location ?</p>
-								<form method="get" action="{{ route('appointment.index') }}">
-									<div class="input-group find-location-search">
-										<input type="number" class="form-control" required name="pincode" value="{{ request()->pincode }}" pattern="/^-?\d+\.?\d*$/" placeholder="Enter a PIN code">
-										<button class="btn btn-blue text-white" type="submit">FIND LOCATION</button>
-									</div>
-								</form>
-							</div>
-						</div>
-					</div>
-				</div>
-			</div>
-		</div>
-	</div>
 	<div class="row">
 		<div class="col-12">
-			<h1 class="mb-3 border-bottom border-3 pb-2">Best tailor(s) near your area</h1>
 			@if($tailors->count())
+			<h1 class="mb-3 border-bottom border-3 pb-2">Best tailor(s) near your area</h1>
 				<ul class="list-unstyled">
 					@foreach($tailors as $tailor)
 						<li class="media border-bottom border-1 pb-2 mb-2">
@@ -102,41 +80,41 @@
 	</div>
 	<div class="modal fade" id="appointmentModal" tabindex="-1" aria-labelledby="appointmentModal" aria-hidden="true">
 		<div class="modal-dialog">
-			<div class="modal-content">
-			<div class="modal-header">
-				<h5 class="modal-title" id="exampleModalLabel">Book Appointment</h5>
-				<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-			</div>
-			<div class="modal-body">
-				<form>
-					<div class="mb-3">
-						<label for="fullname" class="form-label">Full Name <span class="text-danger">*</span></label>
-						<input type="text" class="form-control" id="fullname" placeholder="Enter full name">
+			<form method="post" id="appointment-form" action="{{ route('appointment.store') }}">
+				<div class="modal-content">
+					<div class="modal-header">
+						<h5 class="modal-title" id="exampleModalLabel">Book Appointment</h5>
+						<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
 					</div>
-					<div class="mb-3">
-						<label for="email" class="form-label">Email address</label>
-						<input type="email" class="form-control" id="email" placeholder="Enter email address">
+					<div class="modal-body">
+						<div class="mb-3">
+							<label for="fullname" class="form-label">Full Name <span class="text-danger">*</span></label>
+							<input type="text" name="fullname" class="form-control" id="fullname" placeholder="Enter full name">
+						</div>
+						<div class="mb-3">
+							<label for="email" class="form-label">Email address</label>
+							<input type="email" name="email" class="form-control" id="email" placeholder="Enter email address">
+						</div>
+						<div class="mb-3">
+							<label for="mobile" class="form-label">Mobile <span class="text-danger">*</span></label>
+							<input type="number" name="mobile" class="form-control" id="mobile" placeholder="Enter mobile">
+						</div>
+						<div class="mb-3">
+							<label for="address" class="form-label">Address <span class="text-danger">*</span></label>
+							<textarea name="address" class="form-control" id="address" rows="3"></textarea>
+						</div>
+						<div class="mb-3">
+							<label for="appointment_datetime" class="form-label">Appointment Date <span class="text-danger">*</span></label>
+							<input type="number" name="appointment_at" class="form-control" id="appointment_datetime" placeholder="Select appointment date">
+						</div>
 					</div>
-					<div class="mb-3">
-						<label for="mobile" class="form-label">Mobile <span class="text-danger">*</span></label>
-						<input type="number" class="form-control" id="mobile" placeholder="Enter mobile">
+					<div class="modal-footer">
+						<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+						<input type="hidden" name="tailor_id" id="hidden-tailor-id" class="form-control" id="tailor_id">
+						<button type="submit" id="book-now" class="btn btn-primary">Book Now</button>
 					</div>
-					<div class="mb-3">
-						<label for="address" class="form-label">Address <span class="text-danger">*</span></label>
-						<textarea class="form-control" id="address" rows="3"></textarea>
-					</div>
-					<div class="mb-3">
-						<label for="appointment_datetime" class="form-label">Appointment Date <span class="text-danger">*</span></label>
-						<input type="number" class="form-control" id="appointment_datetime" placeholder="Select appointment date">
-					</div>
-				</form>
-			</div>
-			<div class="modal-footer">
-				<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-				<input type="hidden" name="tailor_id" class="form-control" id="tailor_id">
-				<button type="button" class="btn btn-primary">Save</button>
-			</div>
-			</div>
+				</div>
+			</form>
 		</div>
 	</div>
 @endsection
