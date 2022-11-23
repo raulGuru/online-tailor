@@ -4,6 +4,7 @@ MYAPP.common = {
     routeName: segment1,
     segment1: segment2,
     segment2: segment3,
+    headers: {'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content') },
     quillInit: function() {
         /*
             additional_details quill_editor
@@ -27,7 +28,7 @@ MYAPP.common = {
         $.ajax({
             method: 'post',
             dataType: 'json',
-            headers: { 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content') },
+            headers: this.headers,
             data: { image: imageData },
             url: action,
             success: function(response) {
@@ -56,7 +57,7 @@ MYAPP.common = {
         $.ajax({
             method: 'get',
             dataType: 'json',
-            headers: { 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content') },
+            headers: this.headers,
             url: this.base_url + '/get_appointment/' + tailor_id,
             beforeSend: function() {
                 $('#appointment-form #custom-message').html('').addClass('d-none');
@@ -83,7 +84,7 @@ MYAPP.common = {
         $.ajax({
             method: 'post',
             dataType: 'json',
-            headers: { 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content') },
+            headers: this.headers,
             data: data,
             url: action,
             beforeSend: function() {
@@ -170,7 +171,7 @@ function getFields(e) {
     let type = e.value;
     $.ajax({
         method: 'post',
-        headers: { 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content') },
+        headers: this.headers,
         data: { type: type },
         url: action,
         success: function(response) {
