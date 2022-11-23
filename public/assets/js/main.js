@@ -4,6 +4,7 @@ MYAPP.common = {
     routeName: segment1,
     segment1: segment2,
     segment2: segment3,
+    headers: {'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content') },
     quillInit: function() {
         /*
             additional_details quill_editor
@@ -27,7 +28,7 @@ MYAPP.common = {
         $.ajax({
             method: 'post',
             dataType: 'json',
-            headers: { 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content') },
+            headers: this.headers,
             data: { image: imageData },
             url: action,
             success: function(response) {
@@ -56,8 +57,11 @@ MYAPP.common = {
         $.ajax({
             method: 'get',
             dataType: 'json',
-            headers: { 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content') },
+            headers: this.headers,
             url: this.base_url + '/get_appointment/' + tailor_id,
+            beforeSend: function() {
+                $('#appointment-form #custom-message').html('').addClass('d-none');
+            },
             success: function(response) {
                 let disabledDate = [];
                 if(response.code === 200 && response.result && response.result.length > 0) {
@@ -69,10 +73,42 @@ MYAPP.common = {
                     minDate: 'today',
                     disable: disabledDate // ["2022-11-18", "2022-11-20", "2022-11-28"]
                 });
+                $('#appointment-form #hidden-tailor-id').val(tailor_id);
                 $('body #appointmentModal').modal('show');
             },
             error: function(response) {},
             complete: function(response) {}
+        });
+    },
+    save_appointment: function(action, data) {
+        $.ajax({
+            method: 'post',
+            dataType: 'json',
+            headers: this.headers,
+            data: data,
+            url: action,
+            beforeSend: function() {
+                $('#appointment-form #book-now').attr('disabled', true);
+                $('#appointment-form #custom-message').html('').addClass('d-none');
+            },
+            success: function(response) {
+                let html = '';
+                if(response.code === 202) {
+                    response.errors.forEach(element => {
+                        html += '<p class="text-danger mb-0">' + element + '</p>';
+                    });
+                } else {
+                    html += '<p class="text-success mb-0 text-center">' + response.message + '</p>';
+                }
+                $('#appointment-form #custom-message').html(html).removeClass('d-none');
+                if(response.code === 200) {
+                    window.location.reload();
+                }
+            },
+            error: function(response) {},
+            complete: function(response) {
+                $('#appointment-form #book-now').attr('disabled', false);
+            }
         });
     },
 };
@@ -119,7 +155,13 @@ $(document).ready(function() {
     $("body .appointment_button").on('click', function() {
         const tailor_id = $.trim($(this).attr('data-id'));
         MYAPP.common.getAppointmentDate(tailor_id);
-        
+    });
+
+    $('body #appointment-form').on('submit', function(event) {
+        const formData = $(this).serializeArray();
+        const action = $(this).attr('action');
+        event.preventDefault();
+        MYAPP.common.save_appointment(action, formData);
     });
 
 });
@@ -129,7 +171,7 @@ function getFields(e) {
     let type = e.value;
     $.ajax({
         method: 'post',
-        headers: { 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content') },
+        headers: this.headers,
         data: { type: type },
         url: action,
         success: function(response) {

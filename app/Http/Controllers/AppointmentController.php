@@ -4,7 +4,9 @@ namespace App\Http\Controllers;
 
 use App\Models\Appointment;
 use App\Models\Tailor;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Validator;
 
 class AppointmentController extends Controller
 {
@@ -15,10 +17,12 @@ class AppointmentController extends Controller
      */
     public function index(Request $request)
     {
-        $q = $request->pincode;
-        $tailors = Tailor::where('status', 'active')->whereBetween('pin_code', [$q - 5, $q + 5])->paginate(2);
+        if (!$request->session()->has('pincode')) {
+            return redirect()->route('location.show', 'appointment');
+        }
+        $q = $request->session()->get('pincode');
+        $tailors = Tailor::where('status', 'active')->whereBetween('pin_code', [$q - 5, $q + 5])->orderBy('created_at', 'DESC')->paginate(10);
         $data['tailors'] = $tailors;
-        $tailors->appends(['pincode' => $q]);
         return view('layouts.appointment', $data);
     }
 
@@ -49,7 +53,34 @@ class AppointmentController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $validator = Validator::make($request->all(), [
+            'fullname' => 'required',
+            'email' => 'sometimes|nullable|email',
+            'mobile' => 'required|digits:10',
+            'address' => 'required',
+            'appointment_at' => 'required',
+            'tailor_id' => 'required|numeric'
+        ], [
+            'email.sometimes' => 'Please enter valid email',
+            'mobile.sometimes' => 'Enter valid mobile number with 10 digits',
+            'appointment_at.required' => 'Select valid appointment date & time'
+        ]);
+        if ($validator->fails()) {
+            return response()->json(['code' => 202, 'status' => 'error', 'errors' => $validator->errors()->all()]);
+        }
+        $data = array(
+            'tailor_id' => $request->tailor_id,
+            'fullname' => $request->fullname,
+            'mobile' => $request->mobile,
+            'email' => $request->email,
+            'address' => $request->address,
+            'appointment_at' => Carbon::parse($request->appointment_at),
+            'created_at' => Carbon::now(),
+            'updated_at' => Carbon::now()
+        );
+
+        Appointment::insert($data);
+        return response()->json(['code' => 200, 'status' => 'success', 'message' => 'Your appointment has been booked. We will send you confirmation email shortly.']);
     }
 
     /**
