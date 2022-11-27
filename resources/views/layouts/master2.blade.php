@@ -123,6 +123,11 @@
          var segment2 = "{{ !empty(Request::segment(2)) ? Request::segment(2): ''; }}";
          var segment3 = "{{ !empty(Request::segment(3)) ? Request::segment(3): ''; }}";
      </script>
+      @if(!empty(Request::segment(1)) && Request::segment(1) == 'order')
+         <script src="https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.slim.min.js"></script>
+         <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
+         <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/js/bootstrap.bundle.min.js"></script>
+      @endif
       <script src="{{ asset('public/assets/js/app.js') }}"></script>
       <script src="{{ asset('public/assets/js/flatpickr.js') }}"></script>
       <script src="{{ asset('public/assets/js/main.js?ver=' . time()) }}"></script>

@@ -138,6 +138,11 @@ $(document).ready(function() {
 
     $("body .appointment_button").on('click', function() {
         const tailor_id = $.trim($(this).attr('data-id'));
+        if($(this).hasClass('measurment_button')){
+            $('#appointment-form1 #hidden-tailor-id1').val(tailor_id);
+            $('body #appointmentModal1').modal('show');
+            return;
+        }
         MYAPP.common.getAppointmentDate(tailor_id);
     });
 
@@ -152,6 +157,7 @@ $(document).ready(function() {
 
 function getFields(e) {
     let action = `measurment/get_fields`;
+    let selected = e.value;
     $.ajax({
         method: 'post',
         headers: { 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content') },
@@ -161,6 +167,7 @@ function getFields(e) {
             if (response.code === 200) {
                 if(response.data !== ''){
                     prepareMeasumentFields(response.data)
+                    $(".h3_title_measurment").html(selected.toUpperCase() + ' MEASUREMENT')
                 }else{
                     alert("Error: ", 'Something went wrong');
                 }
@@ -184,10 +191,12 @@ function prepareMeasumentFields(data = '') {
         if(e.type === 'hidden'){
             html += `<input type="${e.type}" name="${e.name}" value="${e.value}" class="form-control dynamicAdded">`
         }else{
-            html += `<div class="col-sm-6 mb-2 dynamicAdded">
-               <label>${e.label}<span class="text-danger">*</span></label>
-               <input type="${e.type}" name="${e.name}" id="${e.name}" value="" class="form-control" placeholder="Enter ${e.label}" required>
-            </div>`
+            html += ` <div class="col-md-6 mb-4 dynamicAdded">
+                        <p class="mb-1 f-16 d-flex justify-content-between">${e.label} 
+                            <i class="fa fa-info-circle"></i>
+                        </p>
+                        <input type="${e.type}" name="${e.name}" id="${e.name}" value="" class="form-control" placeholder="Enter ${e.label}" required>
+                    </div>`
         }
     });
     $(".dynamicAdded").remove();

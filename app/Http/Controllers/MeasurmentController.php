@@ -2,8 +2,9 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\MeasurmentShirt;
 use App\Models\MasterCategory;
+use App\Models\Tailor;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
 
 class MeasurmentController extends Controller
@@ -18,10 +19,20 @@ class MeasurmentController extends Controller
      */
     public function index(Request $request)
     {
-        // $this->gender = !empty($request->gender) ? $request->gender : $this->gender;
-        // $data['product_id'] = $request->product_id;
-        // $data['measurments'] = measurment_types($this->gender);
-        // return view('measurment.create', $data);
+        if (!$request->session()->has('pincode')) {
+            return redirect()->route('location.show', 'measurment');
+        }
+        $q = $request->session()->get('pincode');
+        $tailors = Tailor::where('status', 'active')->whereBetween('pin_code', [$q - 5, $q + 5])->paginate(2);
+        // Doubt 
+        // Need to confirm which type of service while create new use  
+        // Need to confirm pricing based on service type how to differentiate this stiching_cost
+        // foreach ($tailors as $key => $value) {
+        //     $value['stitching_costs'] = DB::table('stitching_costs')->where('tailor_id', $Tailor->id)->get();
+        // } 
+        $data['tailors'] = $tailors;
+        $data['request_from'] = 'measurment';
+        return view('layouts.appointment', $data);
     }
 
     /**
@@ -29,9 +40,9 @@ class MeasurmentController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function create(Request $request)
     {
-        //
+        // 
     }
 
     /**
@@ -110,7 +121,20 @@ class MeasurmentController extends Controller
     {
         $form_data = $request->all();
         unset($form_data['_token']);
-        $request->session()->push('measurment', json_encode($form_data));
-        echo '<pre>'; print_r($form_data); exit();
+        // when there is multiple uncomment below method
+        // $request->session()->push('measurment', json_encode($form_data));
+
+        // Use For single element
+        $request->session()->put('measurment', json_encode($form_data));
+        return redirect()->route('measurment.index');
     }
+
+    public function book_tailor(Request $request)
+    {
+        $form_data = $request->all();
+        unset($form_data['_token']);
+        $request->session()->put('customer_details', json_encode($form_data));
+        return redirect()->route('order.index');
+    }
+    
 }

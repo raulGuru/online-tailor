@@ -15,6 +15,7 @@ use App\Http\Controllers\StitchingController;
 use App\Http\Controllers\TailorController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\MeasurmentController;
+use App\Http\Controllers\OrderController;
 use App\Http\Middleware\EnsureTokenIsValid;
 use Illuminate\Support\Facades\Route;
 
@@ -52,3 +53,5 @@ Route::resource('measurment', MeasurmentController::class);
 Route::resource('location', LocationController::class);
 Route::post('measurment/get_fields', [MeasurmentController::class, 'get_fields'])->name('measurment.get_fields');
 Route::post('measurment/save_measurment', [MeasurmentController::class, 'save_measurment'])->name('measurment.save_measurment');
+Route::post('measurment/book_tailor', [MeasurmentController::class, 'book_tailor'])->name('measurment.book_tailor');
+Route::resource('order', OrderController::class);
