@@ -4,6 +4,7 @@ MYAPP.common = {
     routeName: segment1,
     segment1: segment2,
     segment2: segment3,
+    headers: {'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content') },
     quillInit: function() {
         /*
             additional_details quill_editor
@@ -27,7 +28,7 @@ MYAPP.common = {
         $.ajax({
             method: 'post',
             dataType: 'json',
-            headers: { 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content') },
+            headers: this.headers,
             data: { image: imageData },
             url: action,
             success: function(response) {
@@ -56,8 +57,11 @@ MYAPP.common = {
         $.ajax({
             method: 'get',
             dataType: 'json',
-            headers: { 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content') },
+            headers: this.headers,
             url: this.base_url + '/get_appointment/' + tailor_id,
+            beforeSend: function() {
+                $('#appointment-form #custom-message').html('').addClass('d-none');
+            },
             success: function(response) {
                 let disabledDate = [];
                 if(response.code === 200 && response.result && response.result.length > 0) {
@@ -80,14 +84,26 @@ MYAPP.common = {
         $.ajax({
             method: 'post',
             dataType: 'json',
-            headers: { 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content') },
+            headers: this.headers,
             data: data,
             url: action,
             beforeSend: function() {
                 $('#appointment-form #book-now').attr('disabled', true);
+                $('#appointment-form #custom-message').html('').addClass('d-none');
             },
             success: function(response) {
-                console.log('response => ', response);
+                let html = '';
+                if(response.code === 202) {
+                    response.errors.forEach(element => {
+                        html += '<p class="text-danger mb-0">' + element + '</p>';
+                    });
+                } else {
+                    html += '<p class="text-success mb-0 text-center">' + response.message + '</p>';
+                }
+                $('#appointment-form #custom-message').html(html).removeClass('d-none');
+                if(response.code === 200) {
+                    window.location.reload();
+                }
             },
             error: function(response) {},
             complete: function(response) {

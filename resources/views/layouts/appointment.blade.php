@@ -11,7 +11,28 @@
 						<li class="media border-bottom border-1 pb-2 mb-2">
 							<div class="row">
 								<div class="col-3">
-									<img class="me-2 img-thumbnail" src="http://localhost/online-tailor/public/assets/img/shop-photo01.jpg" alt="Generic placeholder image">
+									<?php $photos = json_decode($tailor->photos); ?>
+									@if(!empty($photos) && count($photos) > 1)
+										<div id="carouselExampleControls_{{ $tailor->id }}" class="carousel slide" data-bs-ride="carousel">
+											<div class="carousel-inner">
+												@foreach($photos as $key => $photo)
+													<div class="carousel-item {{ $key === 0 ? 'active': '' }}">
+														<img src="{{ asset('public/storage/tailors/' . $photo) }}" class="d-block w-100" alt="Thumbnail">
+													</div>
+												@endforeach
+											</div>
+											<button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleControls_{{ $tailor->id }}" data-bs-slide="prev">
+												<span class="carousel-control-prev-icon" aria-hidden="true"></span>
+												<span class="visually-hidden">Previous</span>
+											</button>
+											<button class="carousel-control-next" type="button" data-bs-target="#carouselExampleControls_{{ $tailor->id }}" data-bs-slide="next">
+												<span class="carousel-control-next-icon" aria-hidden="true"></span>
+												<span class="visually-hidden">Next</span>
+											</button>
+										</div>
+									@elseif(!empty($photos) && count($photos) === 1)
+									  	<img class="me-2 img-thumbnail" src="{{ asset('public/storage/tailors/' . $photos[0]) }}" alt="Thumbnail">
+									@endif
 								</div>
 								<div class="col-9">
 									<div class="media-body pr-3">
@@ -107,6 +128,9 @@
 						<div class="mb-3">
 							<label for="appointment_datetime" class="form-label">Appointment Date <span class="text-danger">*</span></label>
 							<input type="number" name="appointment_at" class="form-control" id="appointment_datetime" placeholder="Select appointment date">
+						</div>
+						<div class="mb-3 d-none" id="custom-message">
+							<p>Errors</p>
 						</div>
 					</div>
 					<div class="modal-footer">
