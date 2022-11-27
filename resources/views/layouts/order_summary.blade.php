@@ -37,7 +37,7 @@
                                             </div>
                                             <div>
                                                 <h3>{{ucwords($product->title)}}</h3>
-                                                <p class="mb-1">Delivery by {{$deliver_by}}</p>
+                                                <p class="mb-1">Delivery by {{$deliver_by['format']}}</p>
                                                 <h6 class="text-brown f-20 font-weight-500 m-0"> ₹{{$product->price}}</h6>
                                             </div>
                                         </div>

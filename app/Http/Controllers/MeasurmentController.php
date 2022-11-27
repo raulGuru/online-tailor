@@ -42,7 +42,7 @@ class MeasurmentController extends Controller
      */
     public function create()
     {
-        // 
+        //
     }
 
     /**
