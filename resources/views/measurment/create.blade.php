@@ -1,7 +1,7 @@
 @extends('layouts.master2')
 @section('content')
 <div class="container-fluid p-0">
-    <form method="post" action="{{ route('measurment.save_measurment') }}" enctype="multipart/form-data">
+    <form method="post" id="measurment-form" action="{{ route('measurment.save_measurment') }}" enctype="multipart/form-data">
         @csrf
         <div class="card p-3">
             <div class="row">
@@ -12,7 +12,7 @@
                         </div>
                         <div class="col-md-6">
                             <input type="hidden" name="product_type_id" value="{{$product_id}}">
-                            <select class="form-control" name="measurment" id="measurment" onchange="getFields(this)" data-gender="{{$gender}}">
+                            <select class="form-control" name="measurment" id="measurment"  data-gender="{{$gender}}">
                                 <option value="" selected disabled>Select</option>
                                 @if(count($measurments) > 0)
                                 @foreach($measurments as $measurment)

@@ -111,6 +111,49 @@ MYAPP.common = {
             }
         });
     },
+    get_measurment_fields: function(action, data){
+        $.ajax({
+            method: 'post',
+            headers: { 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content') },
+            data: data,
+            url: action,
+            success: function(response) {
+                if (response.code === 200) {
+                    if(response.data !== ''){
+                        MYAPP.common.prepareMeasumentFields(response.data)
+                    }else{
+                        alert("Error: ", 'Something went wrong');
+                    }
+                } else {
+                    alert('Error: ', response.message);
+                }
+            },
+            error: function(response) {
+                // console.log(response)
+            },
+            complete: function(response) {
+                // console.log(response)
+            }
+        });
+    },
+    prepareMeasumentFields:function(data) {
+        fields = data.fields;
+        let html = '';
+        fields.forEach(e => {
+            if(e.type === 'hidden'){
+                html += `<input type="${e.type}" name="${e.name}" value="${e.value}" class="form-control dynamicAdded">`
+            }else{
+                html += ` <div class="col-md-6 mb-4 dynamicAdded">
+                            <p class="mb-1 f-16 d-flex justify-content-between">${e.label} 
+                                <i class="fa fa-info-circle"></i>
+                            </p>
+                            <input type="${e.type}" name="${e.name}" id="${e.name}" value="" class="form-control" placeholder="Enter ${e.label}" required>
+                        </div>`
+            }
+        });
+        $(".dynamicAdded").remove();
+        $("#dynamicfields").append(html);
+    }
 };
 
 $(document).ready(function() {
@@ -169,52 +212,11 @@ $(document).ready(function() {
         MYAPP.common.save_appointment(action, formData);
     });
 
+    $('body #measurment-form').on('change', function(event){
+        let action = `measurment/get_fields`;
+        let params = { type: event.target.value, gender: event.target.dataset.gender };
+        event.preventDefault();
+        MYAPP.common.get_measurment_fields(action, params);
+        $(".h3_title_measurment").html(event.target.selectedOptions[0].label.toUpperCase() + ' MEASUREMENT')
+    });
 });
-
-function getFields(e) {
-    let action = `measurment/get_fields`;
-    let selected = e.value;
-    $.ajax({
-        method: 'post',
-        headers: { 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content') },
-        data: { type: e.value, gender: e.dataset.gender },
-        url: action,
-        success: function(response) {
-            if (response.code === 200) {
-                if(response.data !== ''){
-                    prepareMeasumentFields(response.data)
-                    $(".h3_title_measurment").html(selected.toUpperCase() + ' MEASUREMENT')
-                }else{
-                    alert("Error: ", 'Something went wrong');
-                }
-            } else {
-                alert('Error: ', response.message);
-            }
-        },
-        error: function(response) {
-            console.log(response)
-        },
-        complete: function(response) {
-            console.log(response)
-        }
-    });
-}
-
-function prepareMeasumentFields(data = '') {
-    fields = data.fields;
-    let html = '';
-    fields.forEach(e => {
-        if(e.type === 'hidden'){
-            html += `<input type="${e.type}" name="${e.name}" value="${e.value}" class="form-control dynamicAdded">`
-        }else{
-            html += ` <div class="col-md-6 mb-4 dynamicAdded">
-                        <p class="mb-1 f-16 d-flex justify-content-between">${e.label} 
-                            <i class="fa fa-info-circle"></i>
-                        </p>
-                        <input type="${e.type}" name="${e.name}" id="${e.name}" value="" class="form-control" placeholder="Enter ${e.label}" required>
-                    </div>`
-        }
-    });
-    $(".dynamicAdded").remove();
-    $("#dynamicfields").append(html);
-}
