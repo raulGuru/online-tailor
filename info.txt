@@ -5,7 +5,7 @@ php artisan make:model ProductColor;
 php artisan make:model ProductType;
 php artisan make:model ProductSize;
 php artisan make:model ProductSleeve;
-php artisan make:model MesaurmentTypes;
+php artisan make:model MesaurmentTypes; -- not required
 php artisan make:model MeasurmentShirt;
 
 :::: Seeders create :::: [No need to run this command]
@@ -15,7 +15,7 @@ php artisan make:seeder MasterCategorySeeder;
 php artisan make:seeder ProductColorSeeder;
 php artisan make:seeder ProductTypeSeeder;
 php artisan make:seeder ProductSeeder;
-php artisan make:seeder MeasurmentTypesSeeder;
+php artisan make:seeder MeasurmentTypesSeeder; -- not required
 php artisan make:seeder MeasurmentShirtSeeder;
 
 :::: Seeders run ::::
@@ -28,7 +28,7 @@ php artisan db:seed --class=MasterCategorySeeder;
 php artisan db:seed --class=ProductColorSeeder;
 php artisan db:seed --class=ProductTypeSeeder;
 php artisan db:seed --class=ProductSeeder;
-php artisan db:seed --class=MeasurmentTypesSeeder;
+php artisan db:seed --class=MeasurmentTypesSeeder; -- not required
 php artisan db:seed --class=MeasurmentShirtSeeder;
 // symlink for storage
 php artisan storage:link

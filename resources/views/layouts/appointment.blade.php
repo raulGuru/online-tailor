@@ -72,7 +72,8 @@
 										@if($tailor->description)
 											<p class="m-0"><strong>Description: </strong>{{ $tailor->description }}</p>
 										@endif
-										<p><button class="btn btn-success appointment_button" type="button" data-id="{{ $tailor->id }}">Book appointment</button></p>
+										<p><button class="btn btn-success appointment_button {{(isset($request_from) && $request_from == 'measurment') ? 'measurment_button': ''}}" type="button"
+										 data-id="{{ $tailor->id }}">{{(isset($request_from) && $request_from == 'measurment') ? 'Book Tailor': 'Book appointment'}}</button></p>
 									</div>
 								</div>
 							</div>
@@ -141,4 +142,40 @@
 			</form>
 		</div>
 	</div>
+	<div class="modal fade" id="appointmentModal1" tabindex="-1" aria-labelledby="appointmentModal1" aria-hidden="true">
+		<div class="modal-dialog">
+			<form method="post" id="appointment-form1" action="{{ route('measurment.book_tailor') }}">
+				<div class="modal-content">
+					<div class="modal-header">
+						<h5 class="modal-title" id="exampleModalLabel">Contact Details</h5>
+						<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+					</div>
+					<div class="modal-body">
+						@csrf
+						<div class="mb-3">
+							<label for="fullname" class="form-label">Full Name <span class="text-danger">*</span></label>
+							<input type="text" name="fullname" class="form-control" id="fullname" placeholder="Enter full name">
+						</div>
+						<div class="mb-3">
+							<label for="email" class="form-label">Email address</label>
+							<input type="email" name="email" class="form-control" id="email" placeholder="Enter email address">
+						</div>
+						<div class="mb-3">
+							<label for="mobile" class="form-label">Mobile <span class="text-danger">*</span></label>
+							<input type="number" name="mobile" class="form-control" id="mobile" placeholder="Enter mobile">
+						</div>
+						<div class="mb-3">
+							<label for="address" class="form-label">Address <span class="text-danger">*</span></label>
+							<textarea name="address" class="form-control" id="address" rows="3"></textarea>
+						</div>
+					</div>
+					<div class="modal-footer">
+						<input type="hidden" name="tailor_id" id="hidden-tailor-id1" class="form-control">
+						<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+						<button type="submit" id="book-now" class="btn btn-primary">Book Now</button>
+					</div>
+				</div>
+			</form>
+		</div>
+	</div>	
 @endsection

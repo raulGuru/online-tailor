@@ -111,6 +111,49 @@ MYAPP.common = {
             }
         });
     },
+    get_measurment_fields: function(action, data){
+        $.ajax({
+            method: 'post',
+            headers: { 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content') },
+            data: data,
+            url: action,
+            success: function(response) {
+                if (response.code === 200) {
+                    if(response.data !== ''){
+                        MYAPP.common.prepareMeasumentFields(response.data)
+                    }else{
+                        alert("Error: ", 'Something went wrong');
+                    }
+                } else {
+                    alert('Error: ', response.message);
+                }
+            },
+            error: function(response) {
+                // console.log(response)
+            },
+            complete: function(response) {
+                // console.log(response)
+            }
+        });
+    },
+    prepareMeasumentFields:function(data) {
+        fields = data.fields;
+        let html = '';
+        fields.forEach(e => {
+            if(e.type === 'hidden'){
+                html += `<input type="${e.type}" name="${e.name}" value="${e.value}" class="form-control dynamicAdded">`
+            }else{
+                html += ` <div class="col-md-6 mb-4 dynamicAdded">
+                            <p class="mb-1 f-16 d-flex justify-content-between">${e.label} 
+                                <i class="fa fa-info-circle"></i>
+                            </p>
+                            <input type="${e.type}" name="${e.name}" id="${e.name}" value="" class="form-control" placeholder="Enter ${e.label}" required>
+                        </div>`
+            }
+        });
+        $(".dynamicAdded").remove();
+        $("#dynamicfields").append(html);
+    }
 };
 
 $(document).ready(function() {
@@ -154,6 +197,11 @@ $(document).ready(function() {
 
     $("body .appointment_button").on('click', function() {
         const tailor_id = $.trim($(this).attr('data-id'));
+        if($(this).hasClass('measurment_button')){
+            $('#appointment-form1 #hidden-tailor-id1').val(tailor_id);
+            $('body #appointmentModal1').modal('show');
+            return;
+        }
         MYAPP.common.getAppointmentDate(tailor_id);
     });
 
@@ -164,49 +212,11 @@ $(document).ready(function() {
         MYAPP.common.save_appointment(action, formData);
     });
 
+    $('body #measurment-form').on('change', function(event){
+        let action = `measurment/get_fields`;
+        let params = { type: event.target.value, gender: event.target.dataset.gender };
+        event.preventDefault();
+        MYAPP.common.get_measurment_fields(action, params);
+        $(".h3_title_measurment").html(event.target.selectedOptions[0].label.toUpperCase() + ' MEASUREMENT')
+    });
 });
-
-function getFields(e) {
-    let action = `measurment/get_fields`;
-    let type = e.value;
-    $.ajax({
-        method: 'post',
-        headers: this.headers,
-        data: { type: type },
-        url: action,
-        success: function(response) {
-            if (response.code === 200) {
-                if(response.data !== ''){
-                    prepareMeasumentFields(response.data)
-                }else{
-                    alert("Error: ", 'Something went wrong');
-                }
-            } else {
-                alert('Error: ', response.message);
-            }
-        },
-        error: function(response) {
-            console.log(response)
-        },
-        complete: function(response) {
-            console.log(response)
-        }
-    });
-}
-
-function prepareMeasumentFields(data = '') {
-    fields = data.fields;
-    let html = '';
-    fields.forEach(e => {
-        if(e.type === 'hidden'){
-            html += `<input type="${e.type}" name="${e.name}" value="${e.value}" class="form-control">`
-        }else{
-            html += `<div class="col-sm-6 mb-2">
-               <label>${e.label}<span class="text-danger">*</span></label>
-               <input type="${e.type}" name="${e.name}" id="${e.name}" value="" class="form-control" placeholder="Enter ${e.label}" required>
-            </div>`
-        }
-    });
-    
-    $("#dynamicfields").append(html);
-}
