@@ -18,10 +18,9 @@ class LocationController extends Controller
     public function index(Request $request)
     {
         if ($request->session()->has('pincode')) {
-            return redirect()->route('appointment.index');
-        } else {
-            return redirect()->route('location.show', 'appointment');
+            return response()->json(['code' => 200, 'status' => 'success', 'result' => true]);
         }
+        return response()->json(['code' => 200, 'status' => 'success', 'result' => false]);
     }
 
     /**
@@ -42,17 +41,9 @@ class LocationController extends Controller
      */
     public function store(Request $request)
     {
-        $this->validate($request, [
-            'pincode' => 'required|regex:/^(?:\d{6})$/i',
-            'redirect_uri' => 'required|string'
-        ]);
+        $this->validate($request, ['pincode' => 'required|regex:/^(?:\d{6})$/i']);
         $request->session()->put('pincode', $request->pincode);
-        /**
-         * After validation user will redirect to controller as user specify
-         * $route
-         */
-        $route = $request->redirect_uri . '.index';
-        return redirect()->route($route);
+        return response()->json(['code' => 200, 'status' => 'success', 'result' => $request->session()->get('pincode')]);
     }
 
     /**

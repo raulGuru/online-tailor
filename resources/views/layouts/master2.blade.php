@@ -40,10 +40,10 @@
                               <a href="{{ route('category.index', $query) }}">WOMEN</a>
                            </li>
                            <li>
-                              <a class="text-brown" href="{{ route('appointment.index') }}">BOOK APPOINTMENT</a>
+                              <a href="{{ route('appointment.index') }}" id="check-pincode">BOOK APPOINTMENT</a>
                            </li>
                            <li>
-                              <a href="{{ route('location.show', 'appointment') }}">CHANGE LOCATION</a>
+                              <a href="javascript:void(0)" id="change-location">CHANGE LOCATION</a>
                            </li>
                         </ul>
                      </div>
@@ -117,6 +117,26 @@
             </div>
          </div>
       </footer>
+      <div class="modal fade" id="search-location" tabindex="-1" aria-labelledby="search-location-modal" aria-hidden="true">
+         <div class="modal-dialog">
+            <form method="post" action="{{ route('location.store') }}">
+               <div class="modal-content">
+                  <div class="modal-header">
+                     <h5 class="modal-title" id="exampleModalLabel">Search Location</h5>
+                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                  </div>
+                  <div class="modal-body">
+                     @csrf
+                     <div class="input-group find-location-search">
+                        <input type="number" required maxlength="6" oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);" class="form-control" name="pincode" value="{{ old('pincode') }}" placeholder="Enter your pincode">
+                        <button class="btn btn-blue text-white" type="submit" id="search-location-btn">Search</button>
+                     </div>
+                     <div class="text-danger mt-2" id="pincode-error"></div>
+                  </div>
+               </div>
+            </form>
+         </div>
+      </div>
       <script type="text/javascript">
          var baseUrl = "{{ url('/') }}";
          var segment1 = "{{ !empty(Request::segment(1)) ? Request::segment(1): ''; }}";
