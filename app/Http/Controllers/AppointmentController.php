@@ -55,15 +55,11 @@ class AppointmentController extends Controller
     {
         $validator = Validator::make($request->all(), [
             'fullname' => 'required',
-            'email' => 'sometimes|nullable|email',
+            'email' => 'required|email',
             'mobile' => 'required|digits:10',
             'address' => 'required',
             'appointment_at' => 'required',
             'tailor_id' => 'required|numeric'
-        ], [
-            'email.sometimes' => 'Please enter valid email',
-            'mobile.sometimes' => 'Enter valid mobile number with 10 digits',
-            'appointment_at.required' => 'Select valid appointment date & time'
         ]);
         if ($validator->fails()) {
             return response()->json(['code' => 202, 'status' => 'error', 'errors' => $validator->errors()->all()]);

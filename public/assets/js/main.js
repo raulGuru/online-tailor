@@ -58,7 +58,7 @@ MYAPP.common = {
             method: 'get',
             dataType: 'json',
             headers: this.headers,
-            url: this.base_url + '/get_appointment/' + tailor_id,
+            url: MYAPP.common.base_url + '/get_appointment/' + tailor_id,
             beforeSend: function() {
                 $('#appointment-form #custom-message').html('').addClass('d-none');
             },
@@ -153,6 +153,50 @@ MYAPP.common = {
         });
         $(".dynamicAdded").remove();
         $("#dynamicfields").append(html);
+    },
+    checkPincode: function(redirect_uri) {
+        $.ajax({
+            method: 'get',
+            dataType: 'json',
+            headers: this.headers,
+            url: MYAPP.common.base_url + '/location',
+            beforeSend: function() {},
+            success: function(response) {
+                console.log('redirect_uri => ', redirect_uri);
+                if(response.code === 200 && response.result === true) {
+                    window.location.href = redirect_uri;
+                } else {
+                    localStorage.setItem('is_redirect', true);
+                    $('body #search-location').modal('show');
+                }
+            },
+            error: function(response) {},
+            complete: function(response) {}
+        });
+    },
+    storePincode: function(data) {
+        $.ajax({
+            method: 'post',
+            dataType: 'json',
+            headers: this.headers,
+            data: data,
+            url: MYAPP.common.base_url + '/location',
+            beforeSend: function() {},
+            success: function(response) {
+                if(response.code === 200 && response.status === 'success') {
+                    if(localStorage.getItem('is_redirect')) {
+                        window.location.href = MYAPP.common.base_url + '/appointment'
+                    }
+                    $('body #pincode-error').text('');
+                }
+            },
+            error: function(response) {
+                if(response.responseJSON.message) {
+                    $('body #pincode-error').text(response.responseJSON.message);
+                }
+            },
+            complete: function(response) {}
+        });
     }
 };
 
@@ -218,5 +262,20 @@ $(document).ready(function() {
         event.preventDefault();
         MYAPP.common.get_measurment_fields(action, params);
         $(".h3_title_measurment").html(event.target.selectedOptions[0].label.toUpperCase() + ' MEASUREMENT')
+    });
+
+    $('body').on('click', '#check-pincode', function(e){
+        e.preventDefault();
+        const redirect_uri = $.trim($(this).attr('href'));
+        MYAPP.common.checkPincode(redirect_uri);
+    });
+    $('body').on('click', '#change-location', function(){
+        $('body #search-location').modal('show');
+    });
+    $('body').on('click', '#search-location-btn', function(e){
+        e.preventDefault();
+        var form = $(this).closest("form");
+        const formData = form.serializeArray();
+        MYAPP.common.storePincode(formData);
     });
 });

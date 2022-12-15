@@ -14,9 +14,9 @@
 								<form method="post" action="{{ route('location.store') }}">
                                     @csrf
 									<div class="input-group find-location-search">
-										<input type="number" required pattern="/^-?\d+\.?\d*$/" class="form-control" name="pincode" value="{{ old('pincode') }}" placeholder="Enter a PIN code">
+										<input type="number" required maxlength="6" oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);" class="form-control" name="pincode" value="{{ old('pincode') }}" placeholder="Enter a PIN code">
                                         <input type="hidden" required  class="form-control" name="redirect_uri" value="{{ old('redirect_uri') ? old('redirect_uri') : $redirect_uri }}" placeholder="Enter a PIN code">
-										<button class="btn btn-blue text-white" type="submit">FIND LOCATION</button>
+										<button class="btn btn-blue text-white" type="submit">Search</button>
 									</div>
                                     @error('pincode')
                                         <div class="small text-danger mt-2">
