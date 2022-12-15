@@ -127,6 +127,7 @@
                   </div>
                   <div class="modal-body">
                      @csrf
+                     <p>Are you looking the best tailor near your location ?</p>
                      <div class="input-group find-location-search">
                         <input type="number" required maxlength="6" oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);" class="form-control" name="pincode" value="{{ old('pincode') }}" placeholder="Enter your pincode">
                         <button class="btn btn-blue text-white" type="submit" id="search-location-btn">Search</button>

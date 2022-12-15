@@ -129,7 +129,7 @@
 							<label for="appointment_datetime" class="form-label">Appointment Date <span class="text-danger">*</span></label>
 							<input type="number" name="appointment_at" class="form-control" id="appointment_datetime" placeholder="Select appointment date">
 						</div>
-						<div class="mb-3 d-none" id="custom-message">
+						<div class="d-none" id="custom-message">
 							<p>Errors</p>
 						</div>
 					</div>

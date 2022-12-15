@@ -97,18 +97,15 @@ MYAPP.common = {
                     response.errors.forEach(element => {
                         html += '<p class="text-danger mb-0">' + element + '</p>';
                     });
+                    $('#appointment-form #book-now').attr('disabled', false);
                 } else {
                     html += '<p class="text-success mb-0 text-center">' + response.message + '</p>';
                 }
                 $('#appointment-form #custom-message').html(html).removeClass('d-none');
-                if(response.code === 200) {
-                    window.location.reload();
-                }
+                $('#appointment-form #book-now').attr('disabled', true);
             },
             error: function(response) {},
-            complete: function(response) {
-                $('#appointment-form #book-now').attr('disabled', false);
-            }
+            complete: function(response) {}
         });
     },
     get_measurment_fields: function(action, data){
