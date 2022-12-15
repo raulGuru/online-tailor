@@ -162,6 +162,7 @@ MYAPP.common = {
             url: MYAPP.common.base_url + '/location',
             beforeSend: function() {},
             success: function(response) {
+                console.log('redirect_uri => ', redirect_uri);
                 if(response.code === 200 && response.result === true) {
                     window.location.href = redirect_uri;
                 } else {
@@ -184,7 +185,7 @@ MYAPP.common = {
             success: function(response) {
                 if(response.code === 200 && response.status === 'success') {
                     if(localStorage.getItem('is_redirect')) {
-                        window.location.href = MYAPP.common.base_url + 'appointment'
+                        window.location.href = MYAPP.common.base_url + '/appointment'
                     }
                     $('body #pincode-error').text('');
                 }
