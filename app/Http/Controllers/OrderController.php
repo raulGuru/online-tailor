@@ -39,10 +39,11 @@ class OrderController extends Controller
         $data['products'] = [$products]; // 
         $data['deliver_by'] = $this->formatDate($estimated_day); 
         $data['gender'] = $measurment['gender'];
+        $data['price']['product'] = $products->price;
         $data['price']['stiching_cost'] = $stiching_cost * $product_qty;
         $data['price']['discount'] = $discount;
         $data['price']['delivey_charges'] = $delivey_charges;
-        $data['price']['total'] = $data['price']['stiching_cost'] - $data['price']['discount'] +  $data['price']['delivey_charges'];
+        $data['price']['total'] = $data['price']['product'] + $data['price']['stiching_cost'] - $data['price']['discount'] +  $data['price']['delivey_charges'];
         return view('layouts.order_summary', $data);
     }
 

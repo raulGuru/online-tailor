@@ -98,7 +98,7 @@ if (!function_exists('get_measurment_form_fields')) {
                         array(
                             'name'  => 'measurment_type',
                             'type'  => 'hidden',
-                            'value' => 'shirt'
+                            'value' => 'shirt',
                         ),
                         array(
                             'name'  => 'gender',
@@ -109,66 +109,89 @@ if (!function_exists('get_measurment_form_fields')) {
                             'label' => 'Length',
                             'name'  => 'length',
                             'type'  => 'textbox',
+                            'validate' => 'validateNumber',
+                            'value' => ''
                         ),
                         array(
                             'label' => 'Shoulder',
                             'name'  => 'shoulder',
                             'type'  => 'textbox',
+                            'validate' => 'validateNumber',
+                            'value' => ''
                         ),
                         array(
                             'label' => 'Full Sleeve length',
                             'name'  => 'full_sleeve_length',
                             'type'  => 'textbox',
+                            'validate' => 'validateNumber',
+                            'value' => ''
                         ),
                         array(
                             'label' => 'Half Sleeve length',
                             'name'  => 'half_sleeve_length',
                             'type'  => 'textbox',
+                            'validate' => 'validateNumber',
+                            'value' => ''
                         ),
                         array(
                             'label' => 'Cuff',
                             'name'  => 'cuff',
                             'type'  => 'textbox',
+                            'validate' => 'validateNumber',
+                            'value' => ''
                         ),
                         array(
                             'label' => 'Arm',
                             'name'  => 'arm',
                             'type'  => 'textbox',
+                            'validate' => 'validateNumber',
+                            'value' => ''
                         ),
                         array(
                             'label' => 'Chest',
                             'name'  => 'chest',
                             'type'  => 'textbox',
+                            'validate' => 'validateNumber',
+                            'value' => ''
                         ),
                         array(
                             'label' => 'Waist',
                             'name'  => 'waist',
                             'type'  => 'textbox',
+                            'validate' => 'validateNumber',
+                            'value' => ''
                         ),
                         array(
                             'label' => 'Hip',
                             'name'  => 'hip',
                             'type'  => 'textbox',
+                            'validate' => 'validateNumber',
+                            'value' => ''
                         ),
                         array(
                             'label' => 'Neck',
                             'name'  => 'neck',
                             'type'  => 'textbox',
+                            'validate' => 'validateNumber',
+                            'value' => ''
                         ),
                         array(
                             'label' => 'Pocket',
                             'name'  => 'pocket',
                             'type'  => 'textarea',
+                            'value' => ''
                         ),
                         array(
                             'label' => 'Style details',
                             'name'  => 'style_details',
                             'type'  => 'textarea',
+                            'value' => ''
                         ),
                         array(
                             'label' => 'Body posture details',
                             'name'  => 'body_posture_details',
                             'type'  => 'textarea',
+                            'value' => ''
                         )
                     ),
                 ),
@@ -188,56 +211,76 @@ if (!function_exists('get_measurment_form_fields')) {
                             'label' => 'Length',
                             'name'  => 'length',
                             'type'  => 'textbox',
+                            'validate' => 'validateNumber',
+                            'value' => ''
                         ),
                         array(
                             'label' => 'Waist',
                             'name'  => 'waist',
                             'type'  => 'textbox',
+                            'validate' => 'validateNumber',
+                            'value' => ''
                         ),
                         array(
                             'label' => 'Hip',
                             'name'  => 'hip',
                             'type'  => 'textbox',
+                            'validate' => 'validateNumber',
+                            'value' => ''
                         ),
                         array(
                             'label' => 'Thigh',
                             'name'  => 'thigh',
                             'type'  => 'textbox',
+                            'validate' => 'validateNumber',
+                            'value' => ''
                         ),
                         array(
                             'label' => 'Knee',
                             'name'  => 'knee',
                             'type'  => 'textbox',
+                            'validate' => 'validateNumber',
+                            'value' => ''
                         ),
                         array(
                             'label' => 'Bottom',
                             'name'  => 'bottom',
                             'type'  => 'textbox',
+                            'validate' => 'validateNumber',
+                            'value' => ''
                         ),
                         array(
                             'label' => 'Fork',
                             'name'  => 'fork',
                             'type'  => 'textbox',
+                            'validate' => 'validateNumber',
+                            'value' => ''
                         ),
                         array(
                             'label' => 'Inseam',
                             'name'  => 'inseam',
                             'type'  => 'textbox',
+                            'validate' => 'validateNumber',
+                            'value' => ''
                         ),
                         array(
                             'label' => 'Pocket',
                             'name'  => 'pocket',
                             'type'  => 'textarea',
+                            'validate' => 'validateNumber',
+                            'value' => ''
                         ),
                         array(
                             'label' => 'Style details',
                             'name'  => 'style_details',
                             'type'  => 'textarea',
+                            'value' => ''
                         ),
                         array(
                             'label' => 'Body posture details',
                             'name'  => 'body_posture_details',
                             'type'  => 'textarea',
+                            'value' => ''
                         )
                     ),
                 )
@@ -268,22 +311,22 @@ if (!function_exists('measurment_types')) {
                     'id' => 'pant',
                     'name' => 'Pant / Trouser'
                 ),
-                array(
-                    'id' => 'jacket',
-                    'name' => 'Jacket'
-                ),
-                array(
-                    'id' => 'blazer',
-                    'name' => 'Blazer'
-                ),
-                array(
-                    'id' => 'kurta',
-                    'name' => 'Kurta'
-                ),
-                array(
-                    'id' => 'pyjama',
-                    'name' => 'Pyjama'
-                )
+                // array(
+                //     'id' => 'jacket',
+                //     'name' => 'Jacket'
+                // ),
+                // array(
+                //     'id' => 'blazer',
+                //     'name' => 'Blazer'
+                // ),
+                // array(
+                //     'id' => 'kurta',
+                //     'name' => 'Kurta'
+                // ),
+                // array(
+                //     'id' => 'pyjama',
+                //     'name' => 'Pyjama'
+                // )
             ),
             'women' => array(
 
