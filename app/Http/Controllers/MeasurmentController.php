@@ -114,7 +114,18 @@ class MeasurmentController extends Controller
         $type = $request->type;
         $gender = $request->gender;
         $data = get_measurment_form_fields($gender , $type);
-        return response()->json(["code" => 200, "status" => "success", "message" => "fields found successfully!", "data" => $data], 200);
+        if($request->session()->has('measurment')){
+            $measurment = json_decode($request->session()->get('measurment'), TRUE);
+            if($type == $measurment['measurment']){
+                foreach ($data['fields'] as $key => $value) {
+                    $data['fields'][$key]['value'] = $measurment[$value['name']];
+                }
+            }else{
+                $request->session()->forget('measurment');
+            }
+        }
+        $result = ["code" => 200, "status" => "success", "message" => "fields found successfully!", "data" => $data];
+        return response()->json( $result, 200);
     }
 
     public function save_measurment(Request $request)

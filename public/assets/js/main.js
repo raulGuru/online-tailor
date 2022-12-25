@@ -137,7 +137,7 @@ MYAPP.common = {
         });
     },
     prepareMeasumentFields:function(data) {
-        fields = data.fields;
+        let fields = data.fields;
         let html = '';
         fields.forEach(e => {
             if(e.type === 'hidden'){
@@ -147,7 +147,8 @@ MYAPP.common = {
                             <p class="mb-1 f-16 d-flex justify-content-between">${e.label} 
                                 <i class="fa fa-info-circle"></i>
                             </p>
-                            <input type="${e.type}" name="${e.name}" id="${e.name}" value="" class="form-control" placeholder="Enter ${e.label}" required>
+                            <input type="${e.type}" name="${e.name}" id="${e.name}" 
+                            value="${e.value}" class="form-control ${e.validate != undefined ? e.validate : '' }" placeholder="Enter ${e.label}" required>
                         </div>`
             }
         });
@@ -212,11 +213,24 @@ $(document).ready(function() {
         MYAPP.common.save_appointment(action, formData);
     });
 
-    $('body #measurment-form').on('change', function(event){
+    $('body #measurment-form #measurment').on('change', function(event){
         let action = `measurment/get_fields`;
         let params = { type: event.target.value, gender: event.target.dataset.gender };
         event.preventDefault();
         MYAPP.common.get_measurment_fields(action, params);
         $(".h3_title_measurment").html(event.target.selectedOptions[0].label.toUpperCase() + ' MEASUREMENT')
     });
+
+    $("body").on("keyup", ".validateNumber", function(event){
+        event.target.value = event.target.value.replace(/[^0-9]/g,"");
+    });
+
+});
+
+window.addEventListener("load", (event) => {
+    if(event.currentTarget.document.forms['measurment-form'] != undefined){
+        if($("#measurment").val() != null){
+            $("#measurment").trigger("change");
+        }
+    }
 });
