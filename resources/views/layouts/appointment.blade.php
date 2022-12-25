@@ -111,25 +111,25 @@
 					<div class="modal-body">
 						<div class="mb-3">
 							<label for="fullname" class="form-label">Full Name <span class="text-danger">*</span></label>
-							<input type="text" name="fullname" class="form-control" id="fullname" placeholder="Enter full name">
+							<input type="text" name="fullname" class="form-control" id="fullname" placeholder="Enter full name" required>
 						</div>
 						<div class="mb-3">
-							<label for="email" class="form-label">Email address</label>
-							<input type="email" name="email" class="form-control" id="email" placeholder="Enter email address">
+							<label for="email" class="form-label">Email address <span class="text-danger">*</span></label>
+							<input type="email" name="email" class="form-control" id="email" placeholder="Enter email address" required>
 						</div>
 						<div class="mb-3">
 							<label for="mobile" class="form-label">Mobile <span class="text-danger">*</span></label>
-							<input type="number" name="mobile" class="form-control" id="mobile" placeholder="Enter mobile">
+							<input type="number" name="mobile" class="form-control" id="mobile" maxlength="10" oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);" placeholder="Enter mobile" required>
 						</div>
 						<div class="mb-3">
 							<label for="address" class="form-label">Address <span class="text-danger">*</span></label>
-							<textarea name="address" class="form-control" id="address" rows="3"></textarea>
+							<textarea name="address" class="form-control" id="address" rows="3" required></textarea>
 						</div>
 						<div class="mb-3">
 							<label for="appointment_datetime" class="form-label">Appointment Date <span class="text-danger">*</span></label>
 							<input type="number" name="appointment_at" class="form-control" id="appointment_datetime" placeholder="Select appointment date">
 						</div>
-						<div class="mb-3 d-none" id="custom-message">
+						<div class="d-none" id="custom-message">
 							<p>Errors</p>
 						</div>
 					</div>
