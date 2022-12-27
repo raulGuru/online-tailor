@@ -54,11 +54,11 @@ class LocationController extends Controller
      */
     public function show($id)
     {
-        if(empty($id)) {
-            return redirect()->route('appointment.index');
-        }
-        $data['redirect_uri'] = $id;
-        return view('layouts.location', $data);
+        // if(empty($id)) {
+        //     return redirect()->route('appointment.index');
+        // }
+        // $data['redirect_uri'] = $id;
+        // return view('layouts.location', $data);
     }
 
     /**
