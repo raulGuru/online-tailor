@@ -74,6 +74,7 @@ MYAPP.common = {
                     disable: disabledDate // ["2022-11-18", "2022-11-20", "2022-11-28"]
                 });
                 $('#appointment-form #hidden-tailor-id').val(tailor_id);
+                $('body #appointment-form')[0].reset();
                 $('body #appointmentModal').modal('show');
             },
             error: function(response) {},
@@ -88,7 +89,6 @@ MYAPP.common = {
             data: data,
             url: action,
             beforeSend: function() {
-                $('#appointment-form #book-now').attr('disabled', true);
                 $('#appointment-form #custom-message').html('').addClass('d-none');
             },
             success: function(response) {
@@ -102,7 +102,6 @@ MYAPP.common = {
                     html += '<p class="text-success mb-0 text-center">' + response.message + '</p>';
                 }
                 $('#appointment-form #custom-message').html(html).removeClass('d-none');
-                $('#appointment-form #book-now').attr('disabled', true);
             },
             error: function(response) {},
             complete: function(response) {}
@@ -160,7 +159,6 @@ MYAPP.common = {
             url: MYAPP.common.base_url + '/location',
             beforeSend: function() {},
             success: function(response) {
-                console.log('redirect_uri => ', redirect_uri);
                 if(response.code === 200 && response.result === true) {
                     window.location.href = redirect_uri;
                 } else {
@@ -182,10 +180,8 @@ MYAPP.common = {
             beforeSend: function() {},
             success: function(response) {
                 if(response.code === 200 && response.status === 'success') {
-                    if(localStorage.getItem('is_redirect')) {
-                        window.location.href = MYAPP.common.base_url + '/appointment'
-                    }
                     $('body #pincode-error').text('');
+                    window.location.reload();
                 }
             },
             error: function(response) {

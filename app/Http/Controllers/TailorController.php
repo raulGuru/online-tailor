@@ -4,10 +4,12 @@ namespace App\Http\Controllers;
 
 use App\Models\Stitching;
 use App\Models\Tailor;
+use App\Models\User;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Storage;
 
 class TailorController extends Controller
@@ -169,6 +171,46 @@ class TailorController extends Controller
                 }
                 DB::table('stitching_costs')->insert($stitchings);
             }
+        }
+
+        $data = array(
+            'creator' => Auth::id(),
+            'name' => $request->name,
+            'shop_name' => $request->shop_name,
+            'location' => $request->location,
+            'pin_code' => $request->pin_code,
+            'email' => $request->email,
+            'mobile' => $request->mobile,
+            'phone' => $request->phone,
+            'commission' => $request->commission,
+            'address' => $request->address,
+            'services' => json_encode($request->services, true),
+            'appointments' => json_encode($request->appointments, true),
+            'expertise' => $request->expertise,
+            'description' => $request->description,
+            'status' => $request->status,
+            'photos' => json_encode($files, true),
+            'created_at' => Carbon::now(),
+            'updated_at' => Carbon::now()
+        );
+
+        $user = User::where('email', $request->email)->first();
+        if(empty($user)) {
+            $users = array(
+                array(
+                    'creator' => Auth::id(),
+                    'email' => $request->email,
+                    'password' => Hash::make('abc@123'),
+                    'gender' => 'unknown',
+                    'phone' => $request->mobile,
+                    'pin_code' => $request->pin_code,
+                    'status' => 'active',
+                    'role' => 'vendor',
+                    'created_at' => Carbon::now(),
+                    'updated_at' => Carbon::now()
+                )
+            );
+            User::insert($users);
         }
         return redirect()->route('tailors.index');
     }
