@@ -34,17 +34,67 @@
                                 <li class="mb-2 pb-2 bd-bottom d-flex justify-content-between">
                                     <div class="d-flex">
                                         <div class="Summary-img-box me-2">
-                                            <img src="{{ asset('public/products/'.$product->images) }}" alt="">
+                                            <img src="{{ asset('storage/app/public/products/'.$product->images) }}" alt="">
                                         </div>
                                         <div>
                                             <h3>{{ucwords($product->title)}}</h3>
-                                            <p class="mb-1">Delivery by {{$deliver_by['format']}}</p>
+                                            <!-- <p class="mb-1">Delivery by {{$deliver_by['format']}}</p> -->
                                             <h6 class="text-brown f-20 font-weight-500 m-0"> ₹{{$product->price}}</h6>
                                         </div>
                                     </div>
-                                    <a href="">
+                                </li>
+                                <li class="mb-2 pb-2 bd-bottom d-flex justify-content-between">
+                                    <div class="col-md-12">
+                                        <table class="table">
+                                            <tbody>
+                                                @if($product->width)
+                                                <tr>
+                                                    <th scope="col">Width</th>
+                                                    <td>{{ $product->width }}</td>
+                                                </tr>
+                                            @endif
+                                            @if($product->productType->name)
+                                                <tr>
+                                                    <th scope="col">Type</th>
+                                                    <td>{{ ucfirst($product->productType->name) }}</td>
+                                                </tr>
+                                            @endif
+                                            @if($product->productColor)
+                                                <tr>
+                                                    <th scope="col">Color</th>
+                                                    <td>{{ $product->productColor->name }}</td>
+                                                </tr>
+                                            @endif
+                                            @if($product->mfg_by)
+                                                <tr>
+                                                <th scope="col">Mfg by</th>
+                                                <td>{{ $product->mfg_by }}</td>
+                                                </tr>
+                                            @endif
+                                            @if($product->note)
+                                                <tr>
+                                                <th scope="col">Note</th>
+                                                <td>{{ $product->note }}</td>
+                                                </tr>
+                                            @endif
+                                            @if($product->disclaimer)
+                                                <tr>
+                                                <th scope="col">disclaimer</th>
+                                                <td>{{ $product->disclaimer }}</td>
+                                                </tr>
+                                            @endif
+                                            @if($product->additional_details)
+                                                <tr>
+                                                <th scope="col">Additional details</th>
+                                                <td>{!! $product->additional_details !!}</td>
+                                                </tr>
+                                            @endif
+                                            </tbody>
+                                        </table>     
+                                    </div>
+                                    <!-- <a href="">
                                         <img src="{{ asset('public/assets/img/cancel.svg') }}" alt="">
-                                    </a>
+                                    </a> -->
                                 </li>
                                 @endforeach
                             </ul>
@@ -64,11 +114,45 @@
                                     <img src="{{ asset('public/tailors/'.$tailor->photos) }}" alt="">
                                 </div>
                                 <div class="w-75">
-                                    <h4 class="mb-1">{{$tailor->name}}</h4>
-                                    <p>{{$tailor->description}} </p>
+									<div class="media-body pr-3">
+										<h3 class="mt-0 mb-1">{{ $tailor->shop_name }}</h3>
+										<h4 class="mt-0 mb-1 text-muted"><strong>Location: </strong><i class="fas fa-map-marker text-success"></i> {{ $tailor->location }} - {{ $tailor->pin_code }}</h4>
+										<p class="m-0"><strong>Address: </strong>{{ $tailor->address }}</p>
+										<p class="m-0"><strong>Phone: </strong>{{ $tailor->phone }}</p>
+										<p class="m-0">
+											<strong>Open Days: </strong>
+											@if($tailor->appointments)
+												<?php
+													$appointments_days = collect(json_decode($tailor->appointments, true));
+													$days_names = $appointments_days->map(function($name, $key) {
+														return ucwords($name);
+													});
+													echo implode(', ', $days_names->toArray());
+												?>
+											@else
+												N/A
+											@endif
+										</p>
+										<p class="m-0"><strong>Timing: </strong>09:10 AM - 09:30 PM</p>
+										<p class="m-0">
+											<strong>Services: </strong>
+											@if($tailor->services)
+												<?php
+													$services = collect(json_decode($tailor->services, true));
+													$service_names = $services->map(function($name, $key) {
+														return ucwords($name);
+													});
+													echo implode(', ', $service_names->toArray());
+												?>
+											@else
+												N/A
+											@endif
+										</p>
+										@if($tailor->description)
+											<p class="m-0"><strong>Description: </strong>{{ $tailor->description }}</p>
+										@endif
+									</div>
 
-                                    <h5 class="font-weight-500 mb-1">Expertise</h5>
-                                    <p>{{$tailor->expertise}}</p>
                                 </div>
                             </div>
                         </div>
@@ -85,6 +169,10 @@
                     <table class="table mb-0">
                         <tr>
                             <td>Price ({{count($products)}} items)</td>
+                            <td class="text-end">₹{{$price['product']}}</td>
+                        </tr>
+                        <tr>
+                            <td>Stitching Cost</td>
                             <td class="text-end">₹{{$price['stiching_cost']}}</td>
                         </tr>
                         <tr>
