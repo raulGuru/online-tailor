@@ -89,7 +89,7 @@ MYAPP.common = {
             data: data,
             url: action,
             beforeSend: function() {
-                $('#appointment-form #custom-message').html('').addClass('d-none');
+                $('body #custom-message').html('Please wait while we are sending your information to the selected tailor').removeClass('d-none');
             },
             success: function(response) {
                 let html = '';
