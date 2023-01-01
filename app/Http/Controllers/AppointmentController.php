@@ -95,7 +95,6 @@ class AppointmentController extends Controller
         try {
             Mail::to($tailor->email)->send(new TailorMailNotify($email_body_content));
         } catch (Exception $e) {
-            print_r($e->getMessage());
             return response()->json(['code' => 202, 'status' => 'error', 'errors' => array('Sorry! Please try again latter')]);
         }
         return response()->json(['code' => 200, 'status' => 'success', 'message' => 'Your appointment has been booked. We will send you confirmation email shortly.']);
