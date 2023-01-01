@@ -47,6 +47,7 @@ Route::post('product/remove_image/{id}', [ProductController::class, 'remove_imag
 route::resource('tailors', TailorController::class);
 Route::post('tailors/remove_image/{id}', [TailorController::class, 'remove_image'])->name('tailor.remove_image');
 Route::resource('stitching', StitchingController::class);
+Route::get('appointment/list', [AppointmentController::class, 'list'])->name('appointment.list');
 Route::resource('appointment', AppointmentController::class);
 Route::get('get_appointment/{id}', [AppointmentController::class, 'get_appointment']);
 Route::resource('measurment', MeasurmentController::class);

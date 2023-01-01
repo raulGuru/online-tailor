@@ -45,6 +45,14 @@
                     <i class="align-middle" data-feather="user"></i> <span class="align-middle">Add stitching</span>
                 </a>
             </li>
+            <li class="sidebar-header">
+                Appointments
+            </li>
+            <li class="sidebar-item">
+                <a class="sidebar-link" href="{{ route('appointment.list') }}">
+                    <i class="align-middle" data-feather="user"></i> <span class="align-middle">Appointments</span>
+                </a>
+            </li>
        </ul>
     </div>
  </nav>

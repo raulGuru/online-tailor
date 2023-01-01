@@ -8,4 +8,9 @@ use Illuminate\Database\Eloquent\Model;
 class Appointment extends Model
 {
     use HasFactory;
+
+    public function tailor()
+    {
+        return $this->belongsTo(Tailor::class, 'tailor_id');
+    }
 }
