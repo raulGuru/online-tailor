@@ -7,7 +7,7 @@ use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Mail\Mailable;
 use Illuminate\Queue\SerializesModels;
 
-class TailorMailNotify extends Mailable
+class CustomerMailNotify extends Mailable
 {
     use Queueable, SerializesModels;
 
@@ -31,6 +31,6 @@ class TailorMailNotify extends Mailable
     {
         return $this->from('support@booktailor.in', 'Book Tailor Support')
             ->subject($this->data["subject"])
-            ->view('emails.appointment')->with("data", $this->data);
+            ->view('emails.customer')->with("data", $this->data);
     }
 }

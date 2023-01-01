@@ -43,7 +43,7 @@
                                     <form method="post" action="{{ route('appointment.update', $appointment->id) }}" class="form-inline">
                                         @csrf
                                         @method('PATCH')
-                                        <button type="submit" class="btn btn-sm btn-success mt-2 text-white">
+                                        <button type="submit" {{ $appointment->status === 'accepted' ? 'disabled': '' }} class="btn btn-sm btn-success mt-2 text-white">
                                             Approve
                                         </button>
                                     </form>

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Mail\CustomerMailNotify;
 use App\Mail\TailorMailNotify;
 use App\Models\Appointment;
 use App\Models\Tailor;
@@ -133,6 +134,27 @@ class AppointmentController extends Controller
     {
         $appointment->status = 'accepted';
         $appointment->save();
+        $tailor = Tailor::find($appointment->tailor_id);
+        $data = array(
+            'customer_name' => $appointment->fullname,
+            'tailor_name' => $tailor->name,
+            'shop_name' => $tailor->shop_name,
+            'mobile' => $tailor->mobile,
+            'location' => $tailor->location,
+            'appointment_at' => Carbon::parse($appointment->appointment_at)->format('Y-m-d g:i A'),
+            'address' => $tailor->address
+        );
+        $email_body_content = array(
+            "subject" => "Book Tailor Support",
+            "body" => $data
+        );
+
+        try {
+            Mail::to($appointment->email)->send(new CustomerMailNotify($email_body_content));
+        } catch (Exception $e) {
+            return response()->json(['code' => 202, 'status' => 'error', 'errors' => array('Sorry! Please try again latter')]);
+        }
+
         return redirect()->route('appointment.list');
     }
 
