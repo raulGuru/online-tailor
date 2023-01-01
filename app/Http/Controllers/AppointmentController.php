@@ -15,6 +15,12 @@ class AppointmentController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+    private $limit;
+    public function __construct()
+    {
+        $this->middleware(['auth', 'role']);
+        $this->limit = 10;
+    }
     public function index(Request $request)
     {
         if (!$request->session()->has('pincode')) {
@@ -110,7 +116,9 @@ class AppointmentController extends Controller
      */
     public function update(Request $request, Appointment $appointment)
     {
-        //
+        $appointment->status = 'accepted';
+        $appointment->save();
+        return redirect()->route('appointment.list');
     }
 
     /**
@@ -121,6 +129,14 @@ class AppointmentController extends Controller
      */
     public function destroy(Appointment $appointment)
     {
-        //
+        $appointment->status = 'rejected';
+        $appointment->save();
+        return redirect()->route('appointment.list');
+    }
+
+    public function list() {
+        $appointments = Appointment::latest();
+        $appointments = $appointments->paginate($this->limit);
+        return view('appointment.index')->with('appointments', $appointments);
     }
 }
