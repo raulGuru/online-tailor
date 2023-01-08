@@ -38,7 +38,7 @@
             </div>
             <div class="row">
                 <div class="col-sm-12 text-end">
-                    <button class="btn btn-primary" type="submit">Submit</button>
+                    <button class="btn btn-primary" id="check-pincode" data-redirect="false" type="submit">Submit</button>
                     <button class="btn btn-secondary">Cancel</button>
                 </div>
             </div>

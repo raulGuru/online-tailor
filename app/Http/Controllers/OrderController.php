@@ -17,7 +17,7 @@ class OrderController extends Controller
      */
     public function index(Request $request)
     {
-        if (!$request->session()->has('measurment') && !$request->session()->has('customer_details')) {
+        if (!$request->session()->has('measurment') || !$request->session()->has('customer_details')) {
             return redirect()->route('category.index');
         }
         $product_qty = 1;

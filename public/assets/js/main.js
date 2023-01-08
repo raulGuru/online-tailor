@@ -160,7 +160,13 @@ MYAPP.common = {
             beforeSend: function() {},
             success: function(response) {
                 if(response.code === 200 && response.result === true) {
-                    window.location.href = redirect_uri;
+                    if(localStorage.getItem('measurement_redirect') != null && localStorage.getItem('measurement_redirect') === 'false'){
+                        $('body #search-location').modal('hide');
+                        localStorage.removeItem('measurement_redirect');
+                        $('#measurment-form button[type=submit]').removeAttr('id');
+                    }else{
+                        window.location.href = redirect_uri;
+                    }
                 } else {
                     localStorage.setItem('is_redirect', true);
                     $('body #search-location').modal('show');
@@ -181,7 +187,13 @@ MYAPP.common = {
             success: function(response) {
                 if(response.code === 200 && response.status === 'success') {
                     $('body #pincode-error').text('');
-                    window.location.reload();
+                    if(localStorage.getItem('measurement_redirect') != null && localStorage.getItem('measurement_redirect') === 'false'){
+                        $('body #search-location').modal('hide');
+                        localStorage.removeItem('measurement_redirect');
+                        $('#measurment-form button[type=submit]').removeAttr('id');
+                    }else{
+                        window.location.reload();
+                    }
                 }
             },
             error: function(response) {
@@ -265,6 +277,9 @@ $(document).ready(function() {
     $('body').on('click', '#check-pincode', function(e){
         e.preventDefault();
         const redirect_uri = $.trim($(this).attr('href'));
+        if(this.dataset.redirect != undefined){
+            localStorage.setItem('measurement_redirect', false);
+        }
         MYAPP.common.checkPincode(redirect_uri);
     });
     $('body').on('click', '#change-location', function(){
