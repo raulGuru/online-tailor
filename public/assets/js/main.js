@@ -259,7 +259,7 @@ $(document).ready(function() {
     });
 
     $("body").on("keyup", ".validateNumber", function(event){
-        event.target.value = event.target.value.replace(/[^0-9]/g,"");
+        event.target.value = event.target.value.replace(/[^0-9.]/g, "");
     });
 
     $('body').on('click', '#check-pincode', function(e){
