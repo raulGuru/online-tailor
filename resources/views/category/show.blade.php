@@ -69,7 +69,7 @@
                     </div>
                     <div class="row mb-4">
                         <div class="col-md-12">
-                            <a href="" class="btn d-block add-bag-btn">BOOK TAILOR</a>
+                            <a href="{{ route('appointment.index') }}" id="check-pincode" class="btn d-block add-bag-btn">BOOK TAILOR</a>
                             <form action="{{ route('measurment.store') }}" method="post">
                               @csrf
                               <input type="hidden" name="product_id" value="{{$result->id}}">
