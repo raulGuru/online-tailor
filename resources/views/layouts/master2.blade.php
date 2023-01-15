@@ -44,6 +44,9 @@
                            </li>
                            <li>
                               <a href="javascript:void(0)" id="change-location">CHANGE LOCATION</a>
+                              @if(session()->has('pincode'))
+                                 <span class="text-white">({{ session()->get('pincode') }})</span>
+                              @endif
                            </li>
                         </ul>
                      </div>

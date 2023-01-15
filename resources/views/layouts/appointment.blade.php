@@ -5,7 +5,11 @@
 	<div class="row">
 		<div class="col-12">
 			@if($tailors->count())
-			<h1 class="mb-3 border-bottom border-3 pb-2">Best tailor(s) near your area</h1>
+			<h1 class="mb-3 border-bottom border-3 pb-2">Best tailor(s) near your pin code : 
+				@if(session()->has('pincode'))
+					{{ session()->get('pincode') }}
+				@endif
+			</h1>
 				<ul class="list-unstyled">
 					@foreach($tailors as $tailor)
 						<li class="media border-bottom border-1 pb-2 mb-2">
