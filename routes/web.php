@@ -49,9 +49,11 @@ Route::post('tailors/remove_image/{id}', [TailorController::class, 'remove_image
 Route::resource('stitching', StitchingController::class);
 Route::get('appointment/list', [AppointmentController::class, 'list'])->name('appointment.list');
 Route::resource('appointment', AppointmentController::class);
-Route::get('get_appointment/{id}', [AppointmentController::class, 'get_appointment']);
-Route::resource('measurment', MeasurmentController::class);
+Route::get('get_appointment/{id}', [LocationController::class, 'get_appointment']);
+Route::get('location/list', [LocationController::class, 'list'])->name('location.list');
+Route::post('location/send_notification', [LocationController::class, 'send_notification'])->name('location.send_notification');
 Route::resource('location', LocationController::class);
+Route::resource('measurment', MeasurmentController::class);
 Route::post('measurment/get_fields', [MeasurmentController::class, 'get_fields'])->name('measurment.get_fields');
 Route::post('measurment/save_measurment', [MeasurmentController::class, 'save_measurment'])->name('measurment.save_measurment');
 Route::post('measurment/book_tailor', [MeasurmentController::class, 'book_tailor'])->name('measurment.book_tailor');

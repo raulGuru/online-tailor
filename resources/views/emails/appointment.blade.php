@@ -27,6 +27,12 @@
             <td>Appointment datetime</td>
             <td>{{ $data['body']['appointment_at'] }}</td>
         </tr>
+        <tr>
+            <td>Click on below link to approve or disapprove appointment</td>
+            <td>
+                <a href="{{ route('appointment.list') }}" target="_blank">Click here</a>
+            </td>
+        </tr>
     </table>
     <p>Thanks & Regards!</p>
 </body>

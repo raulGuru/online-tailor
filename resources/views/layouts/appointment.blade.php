@@ -106,7 +106,8 @@
 	</div>
 	<div class="modal fade" id="appointmentModal" tabindex="-1" aria-labelledby="appointmentModal" aria-hidden="true">
 		<div class="modal-dialog">
-			<form method="post" id="appointment-form" action="{{ route('appointment.store') }}">
+			<form method="post" id="appointment-form" action="{{ route('location.send_notification') }}">
+				@csrf
 				<div class="modal-content">
 					<div class="modal-header">
 						<h5 class="modal-title" id="exampleModalLabel">Book Appointment</h5>

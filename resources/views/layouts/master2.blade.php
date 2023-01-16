@@ -40,7 +40,7 @@
                               <a href="{{ route('category.index', $query) }}">WOMEN</a>
                            </li>
                            <li>
-                              <a href="{{ route('appointment.index') }}" id="check-pincode">BOOK APPOINTMENT</a>
+                              <a href="{{ route('location.list') }}" id="check-pincode">BOOK APPOINTMENT</a>
                            </li>
                            <li>
                               <a href="javascript:void(0)" id="change-location">CHANGE LOCATION</a>

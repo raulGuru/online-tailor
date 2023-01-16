@@ -296,10 +296,8 @@ class TailorController extends Controller
         if ($request->hasfile('photos')) {
             $images = $request->file('photos');
             foreach ($images as $image) {
-                // Getting image extension
                 $extension = $image->getClientOriginalExtension();
                 $check = in_array($extension, $this->image_extensions);
-                // Checking the image extension
                 if (!$check) {
                     return redirect()->back()->with('error', 'Images must be ' . implode(', ', $this->image_extensions) . '!');
                 }
@@ -309,8 +307,33 @@ class TailorController extends Controller
                 array_push($files, $new_filename);
             }
         }
+        // Update privious email into users table
+        $previous_tailor_email = $Tailor->email;
+        $user = User::where('email', $previous_tailor_email)->first();
+        if(empty($user)) {
+            $users = array(
+                array(
+                    'creator' => Auth::id(),
+                    'email' => $request->email,
+                    'password' => Hash::make('abc@123'),
+                    'gender' => 'unknown',
+                    'phone' => $request->mobile,
+                    'pin_code' => $request->pin_code,
+                    'status' => 'active',
+                    'role' => 'vendor',
+                    'created_at' => Carbon::now(),
+                    'updated_at' => Carbon::now()
+                )
+            );
+            User::insert($users);
+        } else {
+            $user->email = $request->email;
+            $user->save();
+        }
+        // Update tailors
         $tailor = $Tailor;
         $tailor->name = $request->name;
+        $tailor->email = $request->email;
         $tailor->shop_name = $request->shop_name;
         $tailor->location = $request->location;
         $tailor->pin_code = $request->pin_code;
@@ -366,6 +389,7 @@ class TailorController extends Controller
                 }
             }
         }
+        
         return redirect()->route('tailors.index');
     }
 
