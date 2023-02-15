@@ -8,6 +8,7 @@ use App\Models\Tailor;
 use Carbon\Carbon;
 use Exception;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Mail;
 
 class AppointmentController extends Controller
@@ -113,8 +114,18 @@ class AppointmentController extends Controller
         return redirect()->route('appointment.list');
     }
 
-    public function list() {
-        $appointments = Appointment::latest();
+    public function list()
+    {
+        $user = Auth::user();
+        if ($user->role === 'admin') {
+            $appointments = Appointment::latest();
+        } else {
+            $tailor = Tailor::where('email', $user->email)->first();
+            if (!empty($tailor)) {
+                $where = array('tailor_id' => $tailor->id);
+                $appointments = Appointment::where($where)->latest();
+            }
+        }
         $appointments = $appointments->paginate($this->limit);
         return view('appointment.index')->with('appointments', $appointments);
     }

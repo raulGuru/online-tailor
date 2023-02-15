@@ -44,9 +44,9 @@
       <div class="card p-3">
          <div class="row">
             <div class=" col-sm-4">
-               <label>Category<span class="text-danger">*</span></label>
+               <label>Gender<span class="text-danger">*</span></label>
                <select class="form-control" name="category">
-                  <option value="" selected disabled>Category</option>
+                  <option value="" selected disabled>Gender</option>
                   @if($categories->count() > 0)
                      @foreach($categories as $category)
                         <option value="{{ $category->id }}" {{ (old('category') && old('category') == $category->id) ? 'selected': '' }}>{{ $category->title }}</option>

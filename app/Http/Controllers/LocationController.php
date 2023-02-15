@@ -47,8 +47,13 @@ class LocationController extends Controller
         if (empty($id)) {
             return response()->json(['code' => 200, 'status' => 'success', 'result' => []]);
         }
-        $appointments = Appointment::select('appointment_at')->where('tailor_id', $id)->get();
-        return response()->json(['code' => 200, 'status' => 'success', 'result' => $appointments]);
+        $appointments = Appointment::select('appointment_at')->where('tailor_id', $id)->get()->toArray();
+        $tailor = Tailor::select('services')->find($id)->toArray();
+        $services = json_decode($tailor['services'], true);
+        array_push($services, 'other');
+        $data['services'] = $services;
+        $data['disabled_date'] = array_column($appointments, 'appointment_at');
+        return response()->json(['code' => 200, 'status' => 'success', 'result' => $data]);
     }
 
     /**
@@ -131,6 +136,8 @@ class LocationController extends Controller
             'mobile' => 'required|digits:10',
             'address' => 'required',
             'appointment_at' => 'required',
+            'services' => 'required',
+            'service_description' => 'required',
             'tailor_id' => 'required|numeric'
         ]);
         if ($validator->fails()) {
@@ -142,6 +149,8 @@ class LocationController extends Controller
             'mobile' => $request->mobile,
             'email' => $request->email,
             'address' => $request->address,
+            'services' => json_encode($request->services),
+            'service_description' => $request->service_description,
             'appointment_at' => Carbon::parse($request->appointment_at),
             'created_at' => Carbon::now(),
             'updated_at' => Carbon::now()
@@ -151,6 +160,7 @@ class LocationController extends Controller
         unset($data['created_at'], $data['updated_at']);
         $data['appointment_at'] = Carbon::parse($request->appointment_at)->format('Y-m-d g:i A');
         $data['tailor_name'] = $tailor->name;
+        $data['services'] = $request->services;
         $email_body_content = array(
             "subject" => "Book Tailor Support",
             "body" => $data

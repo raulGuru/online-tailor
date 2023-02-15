@@ -134,6 +134,14 @@
 							<label for="appointment_datetime" class="form-label">Appointment Date <span class="text-danger">*</span></label>
 							<input type="number" name="appointment_at" class="form-control" id="appointment_datetime" placeholder="Select appointment date">
 						</div>
+						<div class="mb-3">
+							<p class="mb-3"><strong>Services</strong> <span class="text-danger">*</span></p>
+							<div id="ajax-services" class="text-capitalize"></div>
+						</div>
+						<div class="mb-3">
+							<label for="service_description" class="form-label">Service Description <span class="text-danger">*</span></label>
+							<textarea name="service_description" class="form-control" id="service_description" rows="3"></textarea>
+						</div>
 						<div class="d-none text-center" id="custom-message">
 							<p>Errors</p>
 						</div>
