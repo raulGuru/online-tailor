@@ -64,8 +64,20 @@ MYAPP.common = {
             },
             success: function(response) {
                 let disabledDate = [];
-                if(response.code === 200 && response.result && response.result.length > 0) {
-                    disabledDate = response.result;
+                if(response.code === 200 && response.result) {
+                    if(response.result.disabled_date) {
+                        disabledDate = response.result.disabled_date;
+                    }
+                    let services = '';
+                    if(response.result.services && response.result.services.length > 0) {
+                        response.result.services.forEach((elem, i) => {
+                            services += '<div class="form-check form-check-inline">';
+                            services += '<input class="form-check-input" name="services[]" type="checkbox" id="service_checkbox_' + i + '" value="' + elem +'">';
+                            services += '<label class="form-check-label" for="service_checkbox_' + i + '">' + elem +'</label>';
+                            services += '</div>';
+                        });
+                        $('#appointment-form #ajax-services').html(services);
+                    }
                 }
                 $('#appointment_datetime').flatpickr({
                     enableTime: true,
@@ -76,6 +88,7 @@ MYAPP.common = {
                 $('#appointment-form #hidden-tailor-id').val(tailor_id);
                 $('body #appointment-form')[0].reset();
                 $('body #appointmentModal').modal('show');
+                $('#book-now').attr('disabled', false);
             },
             error: function(response) {},
             complete: function(response) {}
@@ -90,21 +103,26 @@ MYAPP.common = {
             url: action,
             beforeSend: function() {
                 $('body #custom-message').html('Please wait while we are sending your information to the selected tailor').removeClass('d-none');
+                $('#book-now').attr('disabled', true);
             },
-            success: function(response) {
+            success: function (response) {
                 let html = '';
-                if(response.code === 202) {
+                if (response.code === 202) {
                     response.errors.forEach(element => {
                         html += '<p class="text-danger mb-0">' + element + '</p>';
                     });
                     $('#appointment-form #book-now').attr('disabled', false);
-                } else {
+                }
+                if (response.code === 200) {
                     html += '<p class="text-success mb-0 text-center">' + response.message + '</p>';
+                    // $('body #appointment-form')[0].reset();
                 }
                 $('#appointment-form #custom-message').html(html).removeClass('d-none');
             },
             error: function(response) {},
-            complete: function(response) {}
+            complete: function(response) {
+                $('#book-now').attr('disabled', false);
+            }
         });
     },
     get_measurment_fields: function(action, data){

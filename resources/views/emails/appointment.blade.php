@@ -28,6 +28,22 @@
             <td>{{ $data['body']['appointment_at'] }}</td>
         </tr>
         <tr>
+            <td>Services</td>
+            <td class="text-capitalize">
+                <ol>
+                    @foreach($data['body']['services'] as $service)
+                        <li>{{ $service }}</li>
+                    @endforeach
+                </ol>
+            </td>
+        </tr>
+        <tr>
+            <td>Service Description</td>
+            <td>
+                {{ $data['body']['service_description'] }}
+            </td>
+        </tr>
+        <tr>
             <td>Click on below link to approve or disapprove appointment</td>
             <td>
                 <a href="{{ route('appointment.list') }}" target="_blank">Click here</a>

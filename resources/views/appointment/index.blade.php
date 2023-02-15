@@ -14,6 +14,8 @@
                   <th>Mobile</th>
                   <th>Email</th>
                   <th>Address</th>
+                  <th>Services</th>
+                  <th>Service Description</th>
                   <th>Appointment</th>
                   <th>Status</th>
                   <th class="text-end">Actions</th>
@@ -28,6 +30,8 @@
                             <td>{{ $appointment->fullname }}</td>
                             <td>{{ $appointment->mobile }}</td>
                             <td>{{ $appointment->email }}</td>
+                            <td>{{ $appointment->address }}</td>
+                            <td class="text-capitalize">{{ $appointment->services ? implode(", ", json_decode($appointment->services)): 'N/A'; }}</td>
                             <td>{{ $appointment->address }}</td>
                             <td>{{ $appointment->appointment_at }}</td>
                             <td>
@@ -60,7 +64,7 @@
                     @endforeach
                @else:
                     <tr>
-                        <td colspan="9">
+                        <td colspan="11">
                             No appointment found!
                         </td>
                     </tr>
