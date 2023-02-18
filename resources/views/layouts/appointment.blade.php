@@ -76,8 +76,9 @@
 										@if($tailor->description)
 											<p class="m-0"><strong>Description: </strong>{{ $tailor->description }}</p>
 										@endif
-										<p><button class="btn btn-success appointment_button {{(isset($request_from) && $request_from == 'measurment') ? 'measurment_button': ''}}" type="button"
-										 data-id="{{ $tailor->id }}">{{(isset($request_from) && $request_from == 'measurment') ? 'Book Tailor': 'Book appointment'}}</button></p>
+										<p>
+											<button class="btn btn-success appointment_button {{(isset($request_from) && $request_from == 'measurment') ? 'measurment_button': ''}}" type="button" data-id="{{ $tailor->id }}">{{(isset($request_from) && $request_from == 'measurment') ? 'Book Tailor': 'Book appointment'}}</button>
+										</p>
 									</div>
 								</div>
 							</div>
