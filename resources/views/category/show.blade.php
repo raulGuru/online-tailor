@@ -69,8 +69,8 @@
                     </div>
                     <div class="row mb-4">
                         <div class="col-md-12">
-                            <a href="{{ route('appointment.index') }}" id="check-pincode" class="btn d-block add-bag-btn">BOOK TAILOR</a>
-                            <form action="{{ route('measurment.store') }}" method="post">
+                            <a href="{{ route('location.list') }}" id="check-pincode" class="btn d-block add-bag-btn">BOOK TAILOR</a>
+                            <form action="{{ route('measurement.store') }}" method="post">
                               @csrf
                               <input type="hidden" name="product_id" value="{{$result->id}}">
                               <input type="hidden" name="cat_id" value="{{$result->cat_id}}">
@@ -78,7 +78,7 @@
                                  ADD MEASUREMENT 
                               </button>
                             </form>
-                            <!-- <a href="{{ route('measurment.index') }}" class="btn d-block add-wish-btn mt-3">ADD MEASUREMENT </a> -->
+                            {{-- <a href="{{ route('measurement.index') }}" class="btn d-block add-wish-btn mt-3">ADD MEASUREMENT </a> --}}
                         </div>
                     </div>
 

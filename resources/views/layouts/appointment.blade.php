@@ -76,8 +76,9 @@
 										@if($tailor->description)
 											<p class="m-0"><strong>Description: </strong>{{ $tailor->description }}</p>
 										@endif
-										<p><button class="btn btn-success appointment_button {{(isset($request_from) && $request_from == 'measurment') ? 'measurment_button': ''}}" type="button"
-										 data-id="{{ $tailor->id }}">{{(isset($request_from) && $request_from == 'measurment') ? 'Book Tailor': 'Book appointment'}}</button></p>
+										<p>
+											<button class="btn btn-success appointment_button {{ (isset($request_from) && $request_from == 'measurement') ? 'measurement_button': '' }}" type="button" data-id="{{ $tailor->id }}">{{(isset($request_from) && $request_from == 'measurement') ? 'Book Tailor': 'Book appointment'}}</button>
+										</p>
 									</div>
 								</div>
 							</div>
@@ -157,7 +158,7 @@
 	</div>
 	<div class="modal fade" id="appointmentModal1" tabindex="-1" aria-labelledby="appointmentModal1" aria-hidden="true">
 		<div class="modal-dialog">
-			<form method="post" id="appointment-form1" action="{{ route('measurment.book_tailor') }}">
+			<form method="post" id="appointment-form1" action="{{ route('measurement.book_tailor') }}">
 				<div class="modal-content">
 					<div class="modal-header">
 						<h5 class="modal-title" id="exampleModalLabel">Contact Details</h5>
