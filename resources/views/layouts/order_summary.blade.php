@@ -34,7 +34,9 @@
                                 <li class="mb-2 pb-2 bd-bottom d-flex justify-content-between">
                                     <div class="d-flex">
                                         <div class="Summary-img-box me-2">
-                                            <img src="{{ asset('storage/app/public/products/'.$product->images) }}" alt="">
+                                            @if(json_decode($product->images, true))
+                                                <img src="{{ asset('storage/app/public/products/'. json_decode($product->images, true)[0]) }}" alt="">
+                                            @endif
                                         </div>
                                         <div>
                                             <h3>{{ucwords($product->title)}}</h3>

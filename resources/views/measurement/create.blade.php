@@ -1,7 +1,7 @@
 @extends('layouts.master2')
 @section('content')
 <div class="container-fluid p-0">
-    <form method="post" id="measurment-form" action="{{ route('measurment.save_measurment') }}" enctype="multipart/form-data">
+    <form method="post" id="measurement-form" action="{{ route('measurement.save_measurement') }}">
         @csrf
         <div class="card p-3">
             <div class="row">
@@ -12,15 +12,15 @@
                         </div>
                         <div class="col-md-6">
                             <input type="hidden" name="product_type_id" value="{{$product_id}}">
-                            <select class="form-control" name="measurment" id="measurment"  data-gender="{{$gender}}">
+                            <select class="form-control" name="measurement" id="measurement"  data-gender="{{$gender}}">
                                 <option value="" selected disabled>Select</option>
-                                @if(count($measurments) > 0)
-                                @foreach($measurments as $measurment)
-                                <option value="{{ $measurment['id'] }}" {{ (old('measurment') && old('measurment') == $measurment['id']) ? 'selected': '' }}>{{ $measurment['name'] }}</option>
+                                @if(count($measurements) > 0)
+                                @foreach($measurements as $measurement)
+                                <option value="{{ $measurement['id'] }}" {{ (old('measurement') && old('measurement') == $measurement['id']) ? 'selected': '' }}>{{ $measurement['name'] }}</option>
                                 @endforeach
                                 @endif
                             </select>
-                            @error('measurment')
+                            @error('measurement')
                             <span class="alert alert-danger alert-dismissible mt-1">
                                 <div class="alert-message p-0">
                                     {{ $message }}
@@ -30,7 +30,7 @@
                         </div>
                     </div>
                     
-                    <h3 class="font-weight-500 mb-4 h3_title_measurment"></h3>
+                    <h3 class="font-weight-500 mb-4 h3_title_measurement"></h3>
                     <div class="row" id="dynamicfields">
     
                     </div>

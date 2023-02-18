@@ -4,10 +4,9 @@ namespace App\Http\Controllers;
 
 use App\Models\MasterCategory;
 use App\Models\Tailor;
-use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
 
-class MeasurmentController extends Controller
+class MeasurementController extends Controller
 {
     public function __construct() {
 
@@ -20,7 +19,7 @@ class MeasurmentController extends Controller
     public function index(Request $request)
     {
         if (!$request->session()->has('pincode')) {
-            return redirect()->route('location.show', 'measurment');
+            return redirect()->route('home.index');
         }
         $q = $request->session()->get('pincode');
         $tailors = Tailor::where('status', 'active')->whereBetween('pin_code', [$q - 5, $q + 5])->paginate(2);
@@ -31,7 +30,7 @@ class MeasurmentController extends Controller
         //     $value['stitching_costs'] = DB::table('stitching_costs')->where('tailor_id', $Tailor->id)->get();
         // } 
         $data['tailors'] = $tailors;
-        $data['request_from'] = 'measurment';
+        $data['request_from'] = 'measurement';
         return view('layouts.appointment', $data);
     }
 
@@ -60,8 +59,8 @@ class MeasurmentController extends Controller
         $gender = MasterCategory::where('id', $cat_id)->first()['slug'];
         $data['product_id'] = $request->product_id;
         $data['gender'] = $gender;
-        $data['measurments'] = measurment_types($gender);
-        return view('measurment.create', $data);
+        $data['measurements'] = measurement_types($gender);
+        return view('measurement.create', $data);
     }
 
     /**
@@ -113,31 +112,31 @@ class MeasurmentController extends Controller
     {
         $type = $request->type;
         $gender = $request->gender;
-        $data = get_measurment_form_fields($gender , $type);
-        if($request->session()->has('measurment')){
-            $measurment = json_decode($request->session()->get('measurment'), TRUE);
-            if($type == $measurment['measurment']){
+        $data = get_measurement_form_fields($gender , $type);
+        if($request->session()->has('measurement')){
+            $measurement = json_decode($request->session()->get('measurement'), TRUE);
+            if($type == $measurement['measurement']){
                 foreach ($data['fields'] as $key => $value) {
-                    $data['fields'][$key]['value'] = $measurment[$value['name']];
+                    $data['fields'][$key]['value'] = $measurement[$value['name']];
                 }
             }else{
-                $request->session()->forget('measurment');
+                $request->session()->forget('measurement');
             }
         }
         $result = ["code" => 200, "status" => "success", "message" => "fields found successfully!", "data" => $data];
         return response()->json( $result, 200);
     }
 
-    public function save_measurment(Request $request)
+    public function save_measurement(Request $request)
     {
         $form_data = $request->all();
         unset($form_data['_token']);
         // when there is multiple uncomment below method
-        // $request->session()->push('measurment', json_encode($form_data));
+        // $request->session()->push('measurement', json_encode($form_data));
 
         // Use For single element
-        $request->session()->put('measurment', json_encode($form_data));
-        return redirect()->route('measurment.index');
+        $request->session()->put('measurement', json_encode($form_data));
+        return redirect()->route('measurement.index');
     }
 
     public function book_tailor(Request $request)

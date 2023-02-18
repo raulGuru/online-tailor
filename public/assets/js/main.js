@@ -125,7 +125,7 @@ MYAPP.common = {
             }
         });
     },
-    get_measurment_fields: function(action, data){
+    get_measurement_fields: function(action, data){
         $.ajax({
             method: 'post',
             headers: { 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content') },
@@ -181,7 +181,7 @@ MYAPP.common = {
                     if(localStorage.getItem('measurement_redirect') != null && localStorage.getItem('measurement_redirect') === 'false'){
                         $('body #search-location').modal('hide');
                         localStorage.removeItem('measurement_redirect');
-                        $('#measurment-form button[type=submit]').removeAttr('id');
+                        $('#measurement-form button[type=submit]').removeAttr('id');
                     }else{
                         window.location.href = redirect_uri;
                     }
@@ -208,7 +208,7 @@ MYAPP.common = {
                     if(localStorage.getItem('measurement_redirect') != null && localStorage.getItem('measurement_redirect') === 'false'){
                         $('body #search-location').modal('hide');
                         localStorage.removeItem('measurement_redirect');
-                        $('#measurment-form button[type=submit]').removeAttr('id');
+                        $('#measurement-form button[type=submit]').removeAttr('id');
                     }else{
                         window.location.reload();
                     }
@@ -265,7 +265,7 @@ $(document).ready(function() {
 
     $("body .appointment_button").on('click', function() {
         const tailor_id = $.trim($(this).attr('data-id'));
-        if($(this).hasClass('measurment_button')){
+        if($(this).hasClass('measurement_button')){
             $('#appointment-form1 #hidden-tailor-id1').val(tailor_id);
             $('body #appointmentModal1').modal('show');
             return;
@@ -280,12 +280,12 @@ $(document).ready(function() {
         MYAPP.common.save_appointment(action, formData);
     });
 
-    $('body #measurment-form #measurment').on('change', function(event){
-        let action = `measurment/get_fields`;
+    $('body #measurement-form #measurement').on('change', function(event){
+        let action = `measurement/get_fields`;
         let params = { type: event.target.value, gender: event.target.dataset.gender };
         event.preventDefault();
-        MYAPP.common.get_measurment_fields(action, params);
-        $(".h3_title_measurment").html(event.target.selectedOptions[0].label.toUpperCase() + ' MEASUREMENT')
+        MYAPP.common.get_measurement_fields(action, params);
+        $(".h3_title_measurement").html(event.target.selectedOptions[0].label.toUpperCase() + ' MEASUREMENT')
     });
 
     $("body").on("keyup", ".validateNumber", function(event){
@@ -312,9 +312,9 @@ $(document).ready(function() {
 });
 
 window.addEventListener("load", (event) => {
-    if(event.currentTarget.document.forms['measurment-form'] != undefined){
-        if($("#measurment").val() != null){
-            $("#measurment").trigger("change");
+    if(event.currentTarget.document.forms['measurement-form'] != undefined){
+        if($("#measurement").val() != null){
+            $("#measurement").trigger("change");
         }
     }
 });

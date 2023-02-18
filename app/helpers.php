@@ -88,15 +88,15 @@ if (!function_exists('working_hours')) {
     }
 }
 
-if (!function_exists('get_measurment_form_fields')) {
-    function get_measurment_form_fields($genders = null, $variant = null)
+if (!function_exists('get_measurement_form_fields')) {
+    function get_measurement_form_fields($genders = null, $variant = null)
     {
-        $measurment_fileds = array(
+        $measurement_fileds = array(
             'men' => array(
                 'shirt' => array(
                     'fields' => array(
                         array(
-                            'name'  => 'measurment_type',
+                            'name'  => 'measurement_type',
                             'type'  => 'hidden',
                             'value' => 'shirt',
                         ),
@@ -198,7 +198,7 @@ if (!function_exists('get_measurment_form_fields')) {
                 'pant' => array(
                     'fields' => array(
                         array(
-                            'name'  => 'measurment_type',
+                            'name'  => 'measurement_type',
                             'type'  => 'hidden',
                             'value' => 'pant'
                         ),
@@ -289,17 +289,17 @@ if (!function_exists('get_measurment_form_fields')) {
         );
 
         if (!empty($genders) && !empty($variant)) {
-            return $measurment_fileds[$genders][$variant];
+            return $measurement_fileds[$genders][$variant];
         } else if (!empty($genders)) {
-            return $measurment_fileds[$genders];
+            return $measurement_fileds[$genders];
         }
 
-        return $measurment_fileds;
+        return $measurement_fileds;
     }
 }
 
-if (!function_exists('measurment_types')) {
-    function measurment_types($gender = 'men')
+if (!function_exists('measurement_types')) {
+    function measurement_types($gender = 'men')
     {
         $types = [
             'men' => array(
