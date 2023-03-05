@@ -13,7 +13,7 @@ class CreateMeasurmentShirtTable extends Migration
      */
     public function up()
     {
-        Schema::create('measurment_shirt', function (Blueprint $table) {
+        Schema::create('measurment_shirts', function (Blueprint $table) {
             $table->id();
             $table->integer('creator')->nullable();
             $table->string('order_id')->nullable();
@@ -42,6 +42,6 @@ class CreateMeasurmentShirtTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('measurment_shirt');
+        Schema::dropIfExists('measurment_shirts');
     }
 }
