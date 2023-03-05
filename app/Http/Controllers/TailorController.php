@@ -40,7 +40,7 @@ class TailorController extends Controller
     public function __construct()
     {
         $this->middleware(['auth', 'role']);
-        $this->services = ['constructing', 'altering', 'repairing', 'custom tailoring'];
+        $this->services = ['new stiching', 'alteration', 'custom tailoring', 'other'];
         $this->appointments = week_days();
         $this->working_hours = working_hours();
         $this->image_extensions = ['apng', 'avif', 'gif', 'jpg', 'jpeg', 'jfif', 'pjpeg', 'pjp', 'png', 'svg', 'webp', 'tif', 'tiff', 'bmp'];
