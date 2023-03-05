@@ -164,6 +164,7 @@ class LocationController extends Controller
         $inserted_id = Appointment::insertGetId($data);
         $tailor = Tailor::find($request->tailor_id);
         unset($data['created_at'], $data['updated_at']);
+        $data['subject'] = "Book Tailor Support";
         $data['appointment_at'] = Carbon::parse($request->appointment_at)->format('Y-m-d g:i A');
         $data['appointment_id'] = $inserted_id;
         $data['tailor_name'] = $tailor->name;

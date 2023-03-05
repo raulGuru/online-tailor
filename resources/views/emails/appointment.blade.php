@@ -32,7 +32,7 @@
             <td class="text-capitalize">
                 <ol>
                     @foreach($data['body']['services'] as $service)
-                        <li>{{ $service }}</li>
+                        <li>{{ ucfirst($service) }}</li>
                     @endforeach
                 </ol>
             </td>

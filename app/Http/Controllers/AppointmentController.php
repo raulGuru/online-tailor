@@ -93,7 +93,7 @@ class AppointmentController extends Controller
             'location' => $tailor->location,
             'appointment_at' => Carbon::parse($appointment->appointment_at)->format('Y-m-d g:i A'),
             'address' => $tailor->address,
-            "subject" => "Bookymytailor -- Waiting",
+            "subject" => "Bookymytailor -- Approved",
         );
         $email_body_content = array(
             "subject" => "Bookymytailor -- Approved",
