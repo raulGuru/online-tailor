@@ -22,10 +22,19 @@
                 <div><strong>Phone:</strong> {{ $tailor->phone }}</div>
                 <div><strong>Commission:</strong> {{ $tailor->commission }}</div>
                 <div><strong>Address:</strong> {{ $tailor->address }}</div>
-                <div><strong>Services:</strong> {{ implode(", ", json_decode($tailor->services)) }}</div>
-                <div>
+                <div class="mt-3">
+                  <strong>Services:</strong>
+                  <?php
+                     $appointments_days = collect(json_decode($tailor->services, true));
+                     $days_names = $appointments_days->map(function($name, $key) {
+                        return ucwords($name);
+                     });
+                     echo implode(', ', $days_names->toArray());
+                  ?>
+               </div>
+                <div class="mt-3">
                   <strong>Shop Opening Timings:</strong>
-                  <div class="row p-3 pt-0">
+                  <div class="row pt-0">
                      <div class="col-sm-2">
                         <strong>Days</strong>
                      </div>
@@ -51,7 +60,7 @@
                   </div>
                </div>
                @if($stitching_costs)
-                  <div>
+                  <div class="mt-3">
                      <strong>Stitching Cost:</strong>
                      <div class="row p-3 pt-0">
                         @foreach($stitching_costs as $stitching_cost)

@@ -44,7 +44,15 @@
                   <td>{{ $tailor->location }}</td>
                   <td>{{ $tailor->pin_code }}</td>
                   <td>{{ $tailor->mobile }}</td>
-                  <td>{{ implode(', ', json_decode($tailor->services, true)) }}</td>
+                  <td>
+                     <?php
+                        $appointments_days = collect(json_decode($tailor->services, true));
+                        $days_names = $appointments_days->map(function($name, $key) {
+                           return ucwords($name);
+                        });
+                        echo implode(', ', $days_names->toArray());
+                     ?>
+                  </td>
                   <td>{{ $tailor->status }}</td>
                   <td>{{ $tailor->updated_at }}</td>
                   <td class="table-action">
