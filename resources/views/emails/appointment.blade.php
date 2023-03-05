@@ -46,7 +46,7 @@
         <tr>
             <td>Click on below link to approve or disapprove appointment</td>
             <td>
-                <a href="{{ route('appointment.list') }}" target="_blank">Click here</a>
+                <a href="{{ route('appointment.show', $data['body']['appointment_id']) }}" target="_blank">Click here</a>
             </td>
         </tr>
     </table>

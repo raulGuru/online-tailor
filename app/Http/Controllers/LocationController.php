@@ -161,10 +161,11 @@ class LocationController extends Controller
             'created_at' => Carbon::now(),
             'updated_at' => Carbon::now()
         );
-        Appointment::insert($data);
+        $inserted_id = Appointment::insertGetId($data);
         $tailor = Tailor::find($request->tailor_id);
         unset($data['created_at'], $data['updated_at']);
         $data['appointment_at'] = Carbon::parse($request->appointment_at)->format('Y-m-d g:i A');
+        $data['appointment_id'] = $inserted_id;
         $data['tailor_name'] = $tailor->name;
         $data['services'] = $request->services;
         $email_body_content = array(
