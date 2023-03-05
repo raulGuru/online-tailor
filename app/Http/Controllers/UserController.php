@@ -25,10 +25,14 @@ class UserController extends Controller
     public function index(Request $request)
     {
         $q = $request->q;
-        $users = User::orWhere('email', 'LIKE', '%' . $q . '%')
+        $users = User::latest();
+        if(Auth::user()->role === 'admin') {
+            $users = $users->orWhere('email', 'LIKE', '%' . $q . '%')
             ->orWhere('phone', 'LIKE', '%' . $q . '%')
-            ->orderBy('id', 'DESC')
-            ->paginate(10)->appends(['search' => $q]);
+            ->paginate(10);
+        } else {
+            $users = $users->where('id', Auth::id())->paginate(10);
+        }
         $users->appends(['search' => $q]);
         return view('user.index', array('users' => $users));
     }
