@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Mail\CustomerMailNotify;
+use App\Mail\CustomerMailNotifyReject;
 use App\Models\Appointment;
 use App\Models\Tailor;
 use Carbon\Carbon;
@@ -52,7 +53,13 @@ class AppointmentController extends Controller
      */
     public function show(Appointment $appointment)
     {
-        //
+        if(empty($appointment)) {
+            return redirect()->route('appointment.index');
+        }
+        $tailor = Tailor::find($appointment->tailor_id);
+        $data['tailor'] = $tailor;
+        $data['appointment'] = $appointment;
+        return view('appointment.show', $data);
     }
 
     /**
@@ -85,17 +92,19 @@ class AppointmentController extends Controller
             'mobile' => $tailor->mobile,
             'location' => $tailor->location,
             'appointment_at' => Carbon::parse($appointment->appointment_at)->format('Y-m-d g:i A'),
-            'address' => $tailor->address
+            'address' => $tailor->address,
+            "subject" => "Bookymytailor -- Approved",
         );
         $email_body_content = array(
-            "subject" => "Book Tailor Support",
+            "subject" => "Bookymytailor -- Approved",
             "body" => $data
         );
-
+        // return view('emails.customer-accept', array('data' => $email_body_content));
+        // exit;
         try {
             Mail::to($appointment->email)->send(new CustomerMailNotify($email_body_content));
         } catch (Exception $e) {
-            return response()->json(['code' => 202, 'status' => 'error', 'errors' => array('Sorry! Please try again latter')]);
+            return response()->json(['code' => 202, 'status' => 'error', 'errors' => array('Sorry! Please try again latter ' . $e->getMessage())]);
         }
 
         return redirect()->route('appointment.list');
@@ -111,6 +120,26 @@ class AppointmentController extends Controller
     {
         $appointment->status = 'rejected';
         $appointment->save();
+        $tailor = Tailor::find($appointment->tailor_id);
+        $data = array(
+            'customer_name' => $appointment->fullname,
+            'tailor_name' => $tailor->name,
+            'shop_name' => $tailor->shop_name,
+            'mobile' => $tailor->mobile,
+            'location' => $tailor->location,
+            'appointment_at' => Carbon::parse($appointment->appointment_at)->format('Y-m-d g:i A'),
+            'address' => $tailor->address,
+            "subject" => "Bookymytailor -- Waiting"
+        );
+        $email_body_content = array(
+            "subject" => "Bookymytailor -- Waiting",
+            "body" => $data
+        );
+        try {
+            Mail::to($appointment->email)->send(new CustomerMailNotifyReject($email_body_content));
+        } catch (Exception $e) {
+            return response()->json(['code' => 202, 'status' => 'error', 'errors' => array('Sorry! Please try again latter ' . $e->getMessage())]);
+        }
         return redirect()->route('appointment.list');
     }
 
