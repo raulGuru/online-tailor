@@ -55,7 +55,7 @@ MYAPP.common = {
     },
     getAppointmentDate: function(tailor_id) {
         $.ajax({
-            method: 'get',
+            type: 'get',
             dataType: 'json',
             headers: this.headers,
             url: MYAPP.common.base_url + '/get_appointment/' + tailor_id,
@@ -78,8 +78,12 @@ MYAPP.common = {
                         });
                         $('#appointment-form #ajax-services').html(services);
                     }
+                    if(response.result.user) {
+                        $('.appointment .email').attr('value', response.result.user.email);
+                        $('.appointment .mobile').attr('value',response.result.user.phone);
+                    }
                 }
-                $('#appointment_datetime').flatpickr({
+                $('.appointment_datetime').flatpickr({
                     enableTime: true,
                     dateFormat: 'Y-m-d G:i K',
                     minDate: 'today',

@@ -8,6 +8,7 @@ use App\Models\Tailor;
 use Carbon\Carbon;
 use Exception;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Validator;
 
@@ -50,8 +51,13 @@ class LocationController extends Controller
         $appointments = Appointment::select('appointment_at')->where('tailor_id', $id)->get()->toArray();
         $tailor = Tailor::select('services')->find($id)->toArray();
         $services = json_decode($tailor['services'], true);
-        array_push($services, 'other');
         $data['services'] = $services;
+        if(Auth::id()) {
+            $data['user'] = array(
+                'email' => Auth::user()->email,
+                'phone' => Auth::user()->phone
+            );
+        }
         $data['disabled_date'] = array_column($appointments, 'appointment_at');
         return response()->json(['code' => 200, 'status' => 'success', 'result' => $data]);
     }

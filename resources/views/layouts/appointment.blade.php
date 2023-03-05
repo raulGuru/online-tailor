@@ -107,7 +107,7 @@
 	</div>
 	<div class="modal fade" id="appointmentModal" tabindex="-1" aria-labelledby="appointmentModal" aria-hidden="true">
 		<div class="modal-dialog">
-			<form method="post" id="appointment-form" action="{{ route('location.send_notification') }}">
+			<form method="post" class="appointment" id="appointment-form" action="{{ route('location.send_notification') }}">
 				@csrf
 				<div class="modal-content">
 					<div class="modal-header">
@@ -117,23 +117,23 @@
 					<div class="modal-body">
 						<div class="mb-3">
 							<label for="fullname" class="form-label">Full Name <span class="text-danger">*</span></label>
-							<input type="text" name="fullname" class="form-control" id="fullname" placeholder="Enter full name" required>
+							<input type="text" name="fullname" class="form-control" placeholder="Enter full name" required>
 						</div>
 						<div class="mb-3">
 							<label for="email" class="form-label">Email address <span class="text-danger">*</span></label>
-							<input type="email" name="email" class="form-control" id="email" placeholder="Enter email address" required>
+							<input type="email" name="email" class="form-control email" value="" placeholder="Enter email address" required>
 						</div>
 						<div class="mb-3">
 							<label for="mobile" class="form-label">Mobile <span class="text-danger">*</span></label>
-							<input type="number" name="mobile" class="form-control" id="mobile" maxlength="10" oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);" placeholder="Enter mobile" required>
+							<input type="number" name="mobile" class="form-control mobile" value="" maxlength="10" oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);" placeholder="Enter mobile" required>
 						</div>
 						<div class="mb-3">
 							<label for="address" class="form-label">Address <span class="text-danger">*</span></label>
-							<textarea name="address" class="form-control" id="address" rows="3" required></textarea>
+							<textarea name="address" class="form-control" rows="3" required></textarea>
 						</div>
 						<div class="mb-3">
 							<label for="appointment_datetime" class="form-label">Appointment Date <span class="text-danger">*</span></label>
-							<input type="number" name="appointment_at" class="form-control" id="appointment_datetime" placeholder="Select appointment date">
+							<input type="number" name="appointment_at" class="form-control appointment_datetime" placeholder="Select appointment date">
 						</div>
 						<div class="mb-3">
 							<p class="mb-3"><strong>Services</strong> <span class="text-danger">*</span></p>
@@ -158,7 +158,7 @@
 	</div>
 	<div class="modal fade" id="appointmentModal1" tabindex="-1" aria-labelledby="appointmentModal1" aria-hidden="true">
 		<div class="modal-dialog">
-			<form method="post" id="appointment-form1" action="{{ route('measurement.book_tailor') }}">
+			<form method="post" class="appointment" id="appointment-form1" action="{{ route('measurement.book_tailor') }}">
 				<div class="modal-content">
 					<div class="modal-header">
 						<h5 class="modal-title" id="exampleModalLabel">Contact Details</h5>
@@ -168,15 +168,15 @@
 						@csrf
 						<div class="mb-3">
 							<label for="fullname" class="form-label">Full Name <span class="text-danger">*</span></label>
-							<input type="text" name="fullname" class="form-control" id="fullname" placeholder="Enter full name">
+							<input type="text" name="fullname" class="form-control" placeholder="Enter full name">
 						</div>
 						<div class="mb-3">
 							<label for="email" class="form-label">Email address</label>
-							<input type="email" name="email" class="form-control" id="email" placeholder="Enter email address">
+							<input type="email" name="email" class="form-control email" value="" placeholder="Enter email address">
 						</div>
 						<div class="mb-3">
 							<label for="mobile" class="form-label">Mobile <span class="text-danger">*</span></label>
-							<input type="number" name="mobile" class="form-control" id="mobile" placeholder="Enter mobile">
+							<input type="number" name="mobile" class="form-control mobile" value="" placeholder="Enter mobile">
 						</div>
 						<div class="mb-3">
 							<label for="address" class="form-label">Address <span class="text-danger">*</span></label>
