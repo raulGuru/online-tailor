@@ -130,7 +130,7 @@
                 <div class="col-sm-12 mb-3">
                     <p class="mb-3"><strong>Appointment</strong></p>
                     <div class="row">
-                            @foreach($appointments as $key => $appointment)
+                        @foreach($appointments as $key => $appointment)
                             <div class="col-sm-2">
                                 <div class="form-check form-check-inline">
                                     <input class="form-check-input" name="appointments[]" type="checkbox" {{ (!empty(old('appointments') && in_array($appointment, old('appointments')))) ? 'checked': '' }} id="appointment_checkbox_{{ $key }}" value="{{ $appointment }}">
@@ -159,7 +159,7 @@
                                     </select>
                                 </label>
                             </div>
-                            @endforeach
+                        @endforeach
                     </div>
                     @error('appointments')
                         <span class="alert alert-danger alert-dismissible mt-1">
@@ -169,9 +169,9 @@
                         </span>
                     @enderror
                 </div>
-                @if($stitchings->count())
-                    <div class="col-sm-12 mb-3">
-                        <p class="mb-3"><strong>Stitching Cost</strong></p>
+                <div class="col-sm-12 mb-3">
+                    <p class="mb-3"><strong>Stitching Cost</strong></p>
+                    @if($stitchings->count())
                         <div class="row">
                             @foreach($stitchings as $key => $stitching)
                                 <div class="col-sm-3 mb-2">
@@ -189,8 +189,13 @@
                                 </div>
                             </span>
                         @enderror
-                    </div>
-                @endif
+                        @else
+                        <p class="mb-3 text-danger">
+                            <strong>Stitching Cost missing</strong>
+                        </p>
+                        <p class="mb-3">Add Stitching Cost first then only you can create a tailor <a href="{{ route('stitching.create') }}" class="text-success">Click here</a></p>
+                    @endif
+                </div>
                 <div class="col-sm-6 mb-3">
                     <label class="mb-3"><strong>Expertise</strong></label>
                     <textarea name="expertise" class="form-control" rows="3" id="expertise">{{ old('expertise') }}</textarea>
@@ -225,7 +230,7 @@
                     @enderror
                 </div>
                 <div class="col-sm-12 mb-3">
-                    <label><strong>Tailor's photos</strong> <span class="text-danger">*</span></label>
+                    <label><strong>Tailor's photos</strong></label>
                     <div class="mt-2">
                         <input type="file" name="photos[]" multiple accept="image/*">
                         @error('photos')
@@ -235,15 +240,17 @@
                                 </div>
                             </span>
                         @enderror
-                        @if (\Session::has('error'))
-                            <span class="alert alert-danger alert-dismissible mt-2">
-                                <div class="alert-message p-0">
-                                    {{ \Session::get('error') }}
-                                </div>
-                            </span>
-                        @enderror
                     </div>
                 </div>
+                @if (\Session::has('error'))
+                    <div class="col-sm-12 mb-3">
+                        <span class="alert alert-danger alert-dismissible mt-2">
+                            <div class="alert-message p-0">
+                                {{ \Session::get('error') }}
+                            </div>
+                        </span>
+                    </div>
+                @enderror
             </div>
             <div class="text-end mt-3">
                 <button type="submit" class="btn btn-primary">Save</button>

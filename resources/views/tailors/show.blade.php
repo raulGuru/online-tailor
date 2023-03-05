@@ -62,7 +62,7 @@
                @if($stitching_costs)
                   <div class="mt-3">
                      <strong>Stitching Cost:</strong>
-                     <div class="row p-3 pt-0">
+                     <div class="row">
                         @foreach($stitching_costs as $stitching_cost)
                            <div class="col-sm-2">{{ Str::ucfirst(str_replace("_", " ", $stitching_cost->stitch_name)) }}</div>
                            <div class="col-sm-10">&#8377; {{ $stitching_cost->cost }}</div>
@@ -70,7 +70,7 @@
                      </div>
                   </div>
                @endif
-                <div><strong>Expertise:</strong> {{ $tailor->expertise }}</div>
+                <div class="mt-3"><strong>Expertise:</strong> {{ $tailor->expertise }}</div>
                 <?php $photos = (isset($tailor->photos) && !empty($tailor->photos)) ? json_decode($tailor->photos) : null; ?>
                 @if(!empty($photos))
                         <div class="mb-3">

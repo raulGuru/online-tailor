@@ -99,8 +99,7 @@ class TailorController extends Controller
             'services' => 'required|min:1',
             'appointments' => 'required|min:1',
             'stitchings' => 'required|min:1',
-            'status' => 'required',
-            'photos.*' => 'max:20000'
+            'status' => 'required'
         ]);
         $files = [];
         if ($request->hasfile('photos')) {
