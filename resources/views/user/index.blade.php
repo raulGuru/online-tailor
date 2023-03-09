@@ -3,17 +3,19 @@
 <div class="card">
    <div class="card-header">
       <div class="float-end">
-         <form class="d-none d-sm-inline-block">
-            <div class="input-group input-group-navbar">
-               <input type="text" class="form-control" name="q" value="{{ request()->q }}" placeholder="Search product…" aria-label="Search">
-               <button class="btn" type="button">
-               <i class="align-middle" data-feather="search"></i>
-               </button>
-            </div>
-         </form>
-         <a href="{{ route('user.create') }}" class="btn btn-primary" role="button">
-            <i class="align-middle me-2" data-feather="edit-2"></i> Create user
-         </a>
+         @if(Auth::user()->role === 'admin')
+            <form class="d-none d-sm-inline-block">
+               <div class="input-group input-group-navbar">
+                  <input type="text" class="form-control" name="q" value="{{ request()->q }}" placeholder="Search product…" aria-label="Search">
+                  <button class="btn" type="button">
+                  <i class="align-middle" data-feather="search"></i>
+                  </button>
+               </div>
+            </form>
+            <a href="{{ route('user.create') }}" class="btn btn-primary" role="button">
+               <i class="align-middle me-2" data-feather="edit-2"></i> Create user
+            </a>
+         @endif
       </div>
       <h5 class="card-title mb-0">User List</h5>
    </div>
@@ -55,15 +57,15 @@
                            <a href="{{ route('user.edit', $user->id) }}"><i class="align-middle me-2" data-feather="edit-2"></i></a>
                         </div>
                         @if($user->id !== Auth::id())
-                        <div>
-                           <form method="post" action="{{ route('user.destroy', $user->id)}}" class="form-inline">
-                            @csrf
-                            @method('DELETE')
-                              <button type="submit" class="btn p-0">
-                                 <i class="align-middle me-2" data-feather="trash"></i>
-                              </button>
-                           </form>
-                        </div>
+                           <div>
+                              <form method="post" action="{{ route('user.destroy', $user->id)}}" class="form-inline">
+                              @csrf
+                              @method('DELETE')
+                                 <button type="submit" class="btn p-0">
+                                    <i class="align-middle me-2" data-feather="trash"></i>
+                                 </button>
+                              </form>
+                           </div>
                         @else
                         <button type="button" class="btn p-0 disabled" disabled>
                             <i class="align-middle me-2" data-feather="trash"></i>

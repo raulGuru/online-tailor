@@ -43,22 +43,21 @@
                                 </span>
                             </td>
                             <td class="text-end">
-                                <div class="d-flex gap-1 justify-content-end">
-                                    <form method="post" action="{{ route('appointment.update', $appointment->id) }}" class="form-inline">
-                                        @csrf
-                                        @method('PATCH')
-                                        <button type="submit" {{ $appointment->status === 'accepted' ? 'disabled': '' }} class="btn btn-sm btn-success mt-2 text-white">
-                                            Approve
-                                        </button>
-                                    </form>
-                                    <form method="post" action="{{ route('appointment.destroy', $appointment->id) }}" class="form-inline">
-                                        @csrf
-                                        @method('DELETE')
-                                        <button type="submit" class="btn btn-sm btn-danger mt-2 text-white">
-                                            Decline
-                                        </button>
-                                    </form>
-                                </div>
+                                <a class="btn btn-sm btn-info mt-2 text-white" href="{{ route('appointment.show', $appointment->id) }}">View</a>
+                                <form method="post" action="{{ route('appointment.update', $appointment->id) }}" class="form-inline">
+                                    @csrf
+                                    @method('PATCH')
+                                    <button type="submit" {{ ($appointment->status === 'accepted' || $appointment->status === 'rejected') ? 'disabled': '' }} class="btn btn-sm btn-success mt-2 text-white">
+                                        Approve
+                                    </button>
+                                </form>
+                                <form method="post" action="{{ route('appointment.destroy', $appointment->id) }}" class="form-inline">
+                                    @csrf
+                                    @method('DELETE')
+                                    <button type="submit" {{ ($appointment->status === 'accepted' || $appointment->status === 'rejected') ? 'disabled': '' }} class="btn btn-sm btn-danger mt-2 text-white">
+                                        Decline
+                                    </button>
+                                </form>
                             </td>
                         </tr>
                     @endforeach
