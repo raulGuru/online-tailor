@@ -25,11 +25,20 @@ php artisan db:seed
 php artisan db:seed --class=UserSeeder;
 php artisan db:seed --class=RoleSeeder;
 php artisan db:seed --class=MasterCategorySeeder;
+php artisan db:seed --class=ProductCategorySeeder;
+php artisan db:seed --class=ProductSubCategorySeeder;
 php artisan db:seed --class=ProductColorSeeder;
 php artisan db:seed --class=ProductTypeSeeder;
 php artisan db:seed --class=ProductSeeder;
 php artisan db:seed --class=MeasurmentTypesSeeder; -- not required
 php artisan db:seed --class=MeasurmentShirtSeeder;
+
+::: Clear all configuration :::
+php artisan config:clear;
+php artisan cache:clear;
+php artisan route:clear;
+php artisan view:clear;
+
 // symlink for storage
 php artisan storage:link
 // admin login creds
@@ -37,3 +46,5 @@ info@example.com
 admin@123
 
 composer dump-autoload
+Email: support@booktailor.in
+Password: support@54321
