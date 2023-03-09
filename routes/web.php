@@ -7,7 +7,6 @@ use App\Http\Controllers\CustomerLoginController;
 use App\Http\Controllers\CustomerSignupController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\HomeController;
-use App\Http\Controllers\LandingController;
 use App\Http\Controllers\LocationController;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\ProductController;
