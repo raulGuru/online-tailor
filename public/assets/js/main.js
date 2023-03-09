@@ -225,6 +225,32 @@ MYAPP.common = {
             },
             complete: function(response) {}
         });
+    },
+    get_product_category: function(action, data){
+        $.ajax({
+            method: 'post',
+            dataType: 'json',
+            headers: this.headers,
+            data: data,
+            url: MYAPP.common.base_url+action,
+            beforeSend: function() {},
+            success: function(response) {
+                if(response.code === 200 && response.status === 'success') {
+                    let html = '<option value="" selected disabled>Sub category</option>';
+                    let data = response.data
+                    $.each(data, function(e, v){
+                        html += `<option value="${e}">${v}</option>`;
+                    });
+                    $("#product_subtype").html(html);
+                }
+            },
+            error: function(response) {
+                if(response.responseJSON.message) {
+                    $('body #pincode-error').text(response.responseJSON.message);
+                }
+            },
+            complete: function(response) {}
+        });
     }
 };
 
@@ -313,6 +339,14 @@ $(document).ready(function() {
         const formData = form.serializeArray();
         MYAPP.common.storePincode(formData);
     });
+    $("body #product_type").on('change', function(event) {
+        const id = $.trim($(this).val());
+        let params = { id: id};
+        const action = "/product/get_subcategory";
+        event.preventDefault();
+        MYAPP.common.get_product_category(action, params);
+    });
+
 });
 
 window.addEventListener("load", (event) => {

@@ -18,8 +18,10 @@
             <p>{{ $product->title }}</p>
             <h4>Main Category:</h4>
             <p>{{ $product->MasterCategory->title }}</p>
+            <h4>Category:</h4> 
+            <p>{{ ucfirst($product->productCategory->name) }}</p>
             <h4>Sub Category:</h4> 
-            <p>{{ ucfirst($product->productType->name) }}</p>
+            <p>{{ ucfirst($product->productSubCategory->name) }}</p>
             <h4>Color:</h4> 
             <p>{{ ucfirst($product->productColor->name) }}</p>
             <h4>Size:</h4> 

@@ -16,6 +16,8 @@ use App\Http\Controllers\TailorController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\MeasurementController;
 use App\Http\Controllers\OrderController;
+use App\Http\Controllers\ProductCategoryController;
+use App\Http\Controllers\ProductSubCategoryController;
 use App\Http\Middleware\EnsureTokenIsValid;
 use Illuminate\Support\Facades\Route;
 
@@ -44,6 +46,7 @@ Route::resource('user', UserController::class);
 Route::resource('dashboard', DashboardController::class);
 Route::resource('product', ProductController::class);
 Route::post('product/remove_image/{id}', [ProductController::class, 'remove_image'])->name('product.remove_image');
+Route::post('product/get_subcategory', [ProductController::class, 'get_subcategory'])->name('product.get_subcategory');
 route::resource('tailors', TailorController::class);
 Route::post('tailors/remove_image/{id}', [TailorController::class, 'remove_image'])->name('tailor.remove_image');
 Route::resource('stitching', StitchingController::class);
@@ -58,3 +61,7 @@ Route::post('measurement/get_fields', [MeasurementController::class, 'get_fields
 Route::post('measurement/save_measurement', [MeasurementController::class, 'save_measurement'])->name('measurement.save_measurement');
 Route::post('measurement/book_tailor', [MeasurementController::class, 'book_tailor'])->name('measurement.book_tailor');
 Route::resource('order', OrderController::class);
+Route::resource('product_category', ProductCategoryController::class);
+Route::post('product_category/update_status', [ProductCategoryController::class, 'update_status'])->name('product_category.update_status');
+Route::resource('product_subcategory', ProductSubCategoryController::class);
+Route::post('product_subcategory/update_status', [ProductSubCategoryController::class, 'update_status'])->name('product_subcategory.update_status');
