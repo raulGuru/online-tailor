@@ -5,6 +5,8 @@ namespace Database\Seeders;
 use App\Models\ProductCategory;
 use Carbon\Carbon;
 use Illuminate\Database\Seeder;
+use Illuminate\Support\Facades\Schema;
+
 class ProductCategorySeeder extends Seeder
 {
     /**
@@ -32,7 +34,9 @@ class ProductCategorySeeder extends Seeder
                 'updated_at' => Carbon::now(),
             ),
         );
-        // ProductCategory::truncate();
+        Schema::disableForeignKeyConstraints();
+        ProductCategory::truncate();
+        Schema::enableForeignKeyConstraints();
         ProductCategory::insert($types);            
     }
 }

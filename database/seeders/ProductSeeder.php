@@ -23,6 +23,7 @@ class ProductSeeder extends Seeder
                 'sku' => "XYZ-PQR-ABC",
                 'cat_id' => 1,
                 'type_id' => 1,
+                'subtype_id' => 1,
                 'color_id' => 1,
                 'size' => 2000,
                 'price' => 100,
