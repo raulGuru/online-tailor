@@ -62,9 +62,9 @@
                @enderror
             </div>
             <div class=" col-sm-4">
-               <label>Sub Category<span class="text-danger">*</span></label>
-               <select class="form-control" name="type">
-                  <option value="" selected disabled>Sub category</option>
+               <label>Category<span class="text-danger">*</span></label>
+               <select class="form-control" name="type" id="product_type">
+                  <option value="" selected disabled>Category</option>
                   @if($categories->count() > 0)
                      @foreach($types as $type)
                         <option value="{{ $type->id }}" {{ (old('type') && old('type') == $type->id) ? 'selected': '' }}>{{ ucfirst($type->name) }}</option>
@@ -79,6 +79,24 @@
                   </span>
                @enderror
             </div>
+            <div class=" col-sm-4">
+               <label>Sub Category<span class="text-danger">*</span></label>
+               <select class="form-control" name="subtype" id="product_subtype">
+                  <option value="" selected disabled>Sub category</option>
+
+               </select>
+               @error('subtype')
+                  <span class="alert alert-danger alert-dismissible mt-1">
+                        <div class="alert-message p-0">
+                           {{ $message }}
+                        </div>
+                  </span>
+               @enderror
+            </div>            
+         </div>
+      </div>
+      <div class="card p-3">
+         <div class="row">
             <div class=" col-sm-4">
                <label>Color<span class="text-danger">*</span></label>
                <select class="form-control" name="color">
@@ -97,11 +115,7 @@
                   </span>
                @enderror
             </div>
-         </div>
-      </div>
-      <div class="card p-3">
-         <div class="row">
-            <div class=" col-sm-6">
+            <div class=" col-sm-4">
                <label>Material Size<span class="text-danger">*</span></label>
                <input type="text" name="size" id="material-size" value="{{ old('size') }}" class="form-control" placeholder="Enter material size">
                @error('size')
@@ -112,7 +126,7 @@
                   </span>
                @enderror
             </div>
-            <div class="col-sm-6">
+            <div class="col-sm-4">
                <label>Material Price <span class="small text-primary">(Per Meter)</span><span class="text-danger">*</span></label>
                <input type="text" name="price" value="{{ old('price') }}" class="form-control" placeholder="Enter price">
                @error('price')

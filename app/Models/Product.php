@@ -19,11 +19,21 @@ class Product extends Model
         return $this->belongsTo(ProductColor::class, 'color_id');
     }
 
-    public function productType()
-    {
-        return $this->belongsTo(ProductType::class, 'type_id');
-    }
+    // public function productType()
+    // {
+    //     return $this->belongsTo(ProductType::class, 'type_id');
+    // }
 
+    public function productCategory()
+    {
+        return $this->belongsTo(ProductCategory::class, 'type_id');
+    }
+    
+    public function productSubCategory()
+    {
+        return $this->belongsTo(ProductSubCategory::class, 'subtype_id');
+    }
+    
     public function user()
     {
         return $this->belongsTo(User::class, 'creator');

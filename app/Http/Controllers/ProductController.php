@@ -6,6 +6,8 @@ use App\Models\MasterCategory;
 use App\Models\Product;
 use App\Models\ProductColor;
 use App\Models\ProductType;
+use App\Models\ProductCategory;
+use App\Models\ProductSubCategory;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -45,7 +47,8 @@ class ProductController extends Controller
     {
         $data['categories'] = MasterCategory::get();
         $data['colors'] = ProductColor::get();
-        $data['types'] = ProductType::get();
+        // $data['types'] = ProductType::get();
+        $data['types'] = ProductCategory::get();
         return view('product.create', $data);
     }
 
@@ -63,6 +66,7 @@ class ProductController extends Controller
             'sku' => 'max:100',
             'category' => 'required|max:255',
             'type' => 'required|max:255',
+            'subtype' => 'required|max:255',
             'color' => 'required|max:255',
             'size' => 'required|numeric|min:1|max:100000',
             'price' => 'required|numeric|min:1|max:10000',
@@ -99,6 +103,7 @@ class ProductController extends Controller
             'sku' => $request->sku,
             'cat_id' => $request->category,
             'type_id' => $request->type,
+            'subtype_id' => $request->subtype,
             'color_id' => $request->color,
             'size' => $request->size,
             'price' => $request->price,
@@ -146,11 +151,13 @@ class ProductController extends Controller
     {
         $data['categories'] = MasterCategory::get();
         $data['colors'] = ProductColor::get();
-        $data['types'] = ProductType::get();
+        // $data['types'] = ProductType::get();
+        $data['types'] = ProductCategory::get();
         $data['product'] = Product::find($id);
         if (empty($data['product'])) {
             return redirect()->route('product.create');
         }
+        $data['subtypes'] = ProductSubCategory::where('product_category_id',$data['product']['type_id'])->get();
         return view('product.edit', $data);
     }
 
@@ -169,6 +176,7 @@ class ProductController extends Controller
             'sku' => 'max:100',
             'category' => 'required|max:255',
             'type' => 'required|max:255',
+            'subtype' => 'required|max:255',
             'color' => 'required|max:255',
             'size' => 'required|numeric|min:1|max:100000',
             'price' => 'required|numeric|min:1|max:10000',
@@ -208,6 +216,7 @@ class ProductController extends Controller
         $product->sku = $request->sku;
         $product->cat_id = $request->category;
         $product->type_id = $request->type;
+        $product->subtype_id = $request->subtype;
         $product->color_id = $request->color;
         $product->size = $request->size;
         $product->price = $request->price;
@@ -273,5 +282,15 @@ class ProductController extends Controller
         $update_status = $product->save();
 
         return response()->json(["code" => 200, "status" => "success", "message" => "Image removed successfully!", "data" => $update_status], 200);
+    }
+
+    public function get_subcategory(Request $request)
+    {
+        $id = $request->id;
+        if (empty($id)) {
+            return response()->json(["code" => 201, 'status' => 'error', 'message' => 'Category id is missing'], 200);
+        }
+        $subCategory = ProductSubCategory::where('product_category_id',$id)->pluck('name', 'id');
+        return response()->json(["code" => 200, "status" => "success", "message" => "Image removed successfully!", "data" => $subCategory], 200);
     }
 }
