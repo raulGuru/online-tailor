@@ -22,4 +22,9 @@ class ProductCategory extends Model
     {
         return $this->belongsTo(User::class, 'creator');
     }
+
+    public function posts()
+    {
+        return $this->hasMany(Product::class, 'type_id');
+    }
 }

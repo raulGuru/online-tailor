@@ -48,7 +48,7 @@ class ProductController extends Controller
         $data['categories'] = MasterCategory::get();
         $data['colors'] = ProductColor::get();
         // $data['types'] = ProductType::get();
-        $data['types'] = ProductCategory::get();
+        $data['types'] = ProductCategory::where('action','active')->get();
         return view('product.create', $data);
     }
 
@@ -152,7 +152,7 @@ class ProductController extends Controller
         $data['categories'] = MasterCategory::get();
         $data['colors'] = ProductColor::get();
         // $data['types'] = ProductType::get();
-        $data['types'] = ProductCategory::get();
+        $data['types'] = ProductCategory::where('action','active')->get();
         $data['product'] = Product::find($id);
         if (empty($data['product'])) {
             return redirect()->route('product.create');
@@ -290,7 +290,7 @@ class ProductController extends Controller
         if (empty($id)) {
             return response()->json(["code" => 201, 'status' => 'error', 'message' => 'Category id is missing'], 200);
         }
-        $subCategory = ProductSubCategory::where('product_category_id',$id)->pluck('name', 'id');
+        $subCategory = ProductSubCategory::where('product_category_id',$id)->where('action','active')->pluck('name', 'id');
         return response()->json(["code" => 200, "status" => "success", "message" => "Image removed successfully!", "data" => $subCategory], 200);
     }
 }

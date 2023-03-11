@@ -97,10 +97,10 @@
                               <td>{{ $result->width }}</td>
                            </tr>
                        @endif
-                       @if($result->productType->name)
+                       @if($result->productCategory->name)
                            <tr>
                               <th scope="col">Type</th>
-                              <td>{{ ucfirst($result->productType->name) }}</td>
+                              <td>{{ ucfirst($result->productCategory->name) }}</td>
                            </tr>
                        @endif
                        @if($result->productColor)
