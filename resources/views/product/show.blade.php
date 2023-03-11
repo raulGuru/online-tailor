@@ -13,7 +13,7 @@
     <div class="card-body">
         @if(!empty($product))
             <h4>Creator:</h4> 
-            <p>{{ $product->user->first_name . " " . $product->user->last_name }}</p>
+            <p>{{ $product->user->email }}</p>
             <h4>Material's name:</h4>
             <p>{{ $product->title }}</p>
             <h4>Main Category:</h4>
