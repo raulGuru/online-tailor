@@ -5,7 +5,9 @@ namespace App\Http\Controllers;
 use App\Models\MasterCategory;
 use App\Models\Product;
 use App\Models\ProductColor;
-use App\Models\ProductType;
+// use App\Models\ProductType;
+use App\Models\ProductCategory;
+use App\Models\ProductSubCategory;
 use Illuminate\Http\Request;
 
 class CategoryController extends Controller
@@ -14,6 +16,7 @@ class CategoryController extends Controller
     private $gender;
     private $order;
     private $type;
+    private $subtype;
     private $color;
     public function __construct()
     {
@@ -35,14 +38,26 @@ class CategoryController extends Controller
         $this->order = $request->order ? trim($request->order) : $this->order;
         $this->limit = $request->limit ? trim($request->limit) : $this->limit;
         $this->type = $request->type ? trim($request->type) : null;
+        $this->subtype = $request->subtype ? trim($request->subtype) : null;
         $this->color = $request->color ? trim($request->color) : null;
         $products = Product::where('title', 'like', '%' . $searchTerm . '%');
         if (!empty($this->type)) {
-            $type = ProductType::where('name', $this->type)->first();
+            // $type = ProductType::where('name', $this->type)->first();
+            $type = ProductCategory::where('name', $this->type)->first();
             if (!empty($type)) {
+                $data['sub_categories'] = ProductSubCategory::where('product_category_id', $type->id)->get();
                 $products->where('type_id', $type->id);
             }
         }
+
+        if (!empty($this->subtype)) {
+            $subtype = ProductSubCategory::where('name', $this->subtype)->first();
+            if (!empty($subtype)) {
+                $data['sub_categories'] = ProductSubCategory::where('product_category_id', $subtype->product_category_id)->get();
+                $products->where('subtype_id', $subtype->id);
+            }
+        }
+
         if (!empty($this->color)) {
             $color = ProductColor::where('name', $this->color)->first();
             if (!empty($color)) {
@@ -64,7 +79,7 @@ class CategoryController extends Controller
         $products->orderBy('id', $this->order);
         $results = $products->paginate($this->limit);
         $results->appends(['title' => $searchTerm, 'gender' => $this->gender, 'type' => $this->type, 'color' => $this->color, 'order' => $this->order]);
-        return view('category.index', ['results' => $results, 'title' => $searchTerm, 'limit' => $this->limit, 'type' => $this->type, 'color' => $this->color, 'order' => $this->order, 'categories' => $data['categories'], 'colors' => $data['colors']]);
+        return view('category.index', ['results' => $results, 'title' => $searchTerm, 'limit' => $this->limit, 'type' => $this->type, 'color' => $this->color, 'order' => $this->order, 'categories' => $data['categories'], 'sub_categories' => $data['sub_categories'], 'colors' => $data['colors']]);
     }
 
     /**
@@ -140,8 +155,10 @@ class CategoryController extends Controller
 
     private function get_categories_colors()
     {
-        $data['categories'] = ProductType::get();
+        // $data['categories'] = ProductType::get();
+        $data['categories'] = ProductCategory::where('action','active')->get();
         $data['colors'] = ProductColor::get();
+        $data['sub_categories'] = null;
         return $data;
     }
 }

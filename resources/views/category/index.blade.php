@@ -32,6 +32,21 @@
                </ul>
              @endif
           </div>
+          @if($sub_categories->count() > 0)
+          <div class="categories-border mb-4">
+             <h4 class="font-weight-600 m-0">SUB CATEGORIES</h4>
+             <img src="{{ asset('public/assets/img/small-line.svg') }}" alt="">
+               <ul class="categories-listing mt-3 p-0">
+                  @foreach($sub_categories as $sub_category)
+                     <a href="{{ route('category.index', http_build_query(['subtype' => strtolower($sub_category->name)])) }}" class="text-decoration-none text-reset">
+                        <li class="d-flex justify-content-between mt-3">
+                           <span> {{ ucfirst($sub_category->name) }} </span>
+                        </li>
+                     </a>
+                  @endforeach
+               </ul>
+          </div>
+          @endif
           <div class="categories-border">
              <h4 class="font-weight-600 m-0">COLOR</h4>
              <img src="{{ asset('public/assets/img/small-line.svg') }}" alt="">

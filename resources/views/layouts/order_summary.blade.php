@@ -54,10 +54,10 @@
                                                     <td>{{ $product->width }}</td>
                                                 </tr>
                                             @endif
-                                            @if($product->productType->name)
+                                            @if($product->productCategory->name)
                                                 <tr>
                                                     <th scope="col">Type</th>
-                                                    <td>{{ ucfirst($product->productType->name) }}</td>
+                                                    <td>{{ ucfirst($product->productCategory->name) }}</td>
                                                 </tr>
                                             @endif
                                             @if($product->productColor)
