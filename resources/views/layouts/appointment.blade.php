@@ -48,17 +48,38 @@
 											<strong>Open Days: </strong>
 											@if($tailor->appointments)
 												<?php
+													$store_timings = $tailor->store_timings->toArray();
+													$opened = array();
+													$closed = array();
+													$start_end_time = null;
 													$appointments_days = collect(json_decode($tailor->appointments, true));
-													$days_names = $appointments_days->map(function($name, $key) {
-														return ucwords($name);
-													});
-													echo implode(', ', $days_names->toArray());
+													foreach($appointments_days as $day) {
+														if(isset($store_timings[$day . '_opens']) && 
+															!empty($store_timings[$day . '_opens']) && 
+															$store_timings[$day . '_opens'] !== 'closed') {
+															array_push($opened, ucwords($day));
+															if(empty($start_end_time) && $store_timings[$day . '_closes'] && $store_timings[$day . '_closes'] !== 'closed') {
+																$start_end_time = $store_timings[$day . '_opens'] . ' - ' . $store_timings[$day . '_closes'];
+															}
+														} else {
+															array_push($closed, ucwords($day));
+														}
+													}
+													echo implode(', ', $opened);
 												?>
 											@else
 												N/A
 											@endif
 										</p>
-										<p class="m-0"><strong>Timing: </strong>09:10 AM - 09:30 PM</p>
+										@if(!empty($closed))
+											<p class="m-0">
+												<strong>Close Days: </strong>
+												{{ implode(', ', $closed) }}
+											</p>
+										@endif
+										@if($start_end_time)
+											<p class="m-0"><strong>Open Time: </strong>{{ $start_end_time }}</p>
+										@endif
 										<p class="m-0">
 											<strong>Services: </strong>
 											@if($tailor->services)

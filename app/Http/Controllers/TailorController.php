@@ -211,6 +211,7 @@ class TailorController extends Controller
             );
             User::insert($users);
         }
+        
         return redirect()->route('tailors.index');
     }
 
