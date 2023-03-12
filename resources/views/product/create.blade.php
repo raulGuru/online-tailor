@@ -233,7 +233,7 @@
                @enderror
             </div>
             <div class="col-12">
-               <label class="mb-1 mt-2">Note</label>
+               <label class="mb-1 mt-2">Info</label>
                <textarea name="note" class="form-control" rows="5" id="note" placeholder="Enter note related this material">{{ old('note') }}</textarea>
                @error('note')
                   <span class="alert alert-danger alert-dismissible mt-1">
