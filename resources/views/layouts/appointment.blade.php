@@ -162,7 +162,7 @@
 						</div>
 						<div class="mb-3">
 							<label for="service_description" class="form-label">Service Description <span class="text-danger">*</span></label>
-							<textarea name="service_description" class="form-control" id="service_description" rows="3"></textarea>
+							<textarea name="service_description" class="form-control" id="service_description" rows="3" placeholder="Suit, Sherwani, Shirt, Pant, Kurta, Pyjama, Indo Western, Safari, Nehru Jacket, Pathani, Uniform orders, Wedding Orders"></textarea>
 						</div>
 						<div class="d-none text-center" id="custom-message">
 							<p>Errors</p>

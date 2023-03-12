@@ -19,7 +19,13 @@
    </head>
    <body data-theme="default" data-layout="fluid" data-sidebar-position="left" data-sidebar-layout="default">
       <div class="wrapper">
-         @include('layouts.admin.sidebar')
+         @if (auth()->check())
+            @if (auth()->user()->role === 'admin')
+               @include('layouts.admin.sidebar')
+            @elseif (auth()->user()->role === 'vendor')
+               @include('layouts.tailor.sidebar')
+            @endif
+         @endif
          <div class="main">
             @include('layouts.admin.header')
             <main class="content p-3">
@@ -39,7 +45,7 @@
          var segment1 = "{{ !empty(Request::segment(1)) ? Request::segment(1): ''; }}";
          var segment2 = "{{ !empty(Request::segment(2)) ? Request::segment(2): ''; }}";
          var segment3 = "{{ !empty(Request::segment(3)) ? Request::segment(3): ''; }}";
-     </script>
+      </script>
       <script src="https://cdn.quilljs.com/1.3.6/quill.js"></script>
       <script src="{{ asset('public/assets/js/app.js') }}"></script>
       <script src="{{ asset('public/assets/js/main.js?ver=' . time()) }}"></script>

@@ -59,19 +59,6 @@
                 </a>
             </li>
             <li class="sidebar-header">
-                Stitching
-            </li>
-            <li class="sidebar-item">
-                <a class="sidebar-link" href="{{ route('stitching.index') }}">
-                    <i class="align-middle" data-feather="user"></i> <span class="align-middle">Stitching List</span>
-                </a>
-            </li>
-            <li class="sidebar-item">
-                <a class="sidebar-link" href="{{ route('stitching.create') }}">
-                    <i class="align-middle" data-feather="user"></i> <span class="align-middle">Add stitching</span>
-                </a>
-            </li>
-            <li class="sidebar-header">
                 Appointments
             </li>
             <li class="sidebar-item">

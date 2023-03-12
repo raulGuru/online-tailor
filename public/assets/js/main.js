@@ -164,7 +164,7 @@ MYAPP.common = {
                 html += ` <div class="col-md-6 mb-4 dynamicAdded">
                             <p class="mb-1 f-16 d-flex justify-content-between">${e.label}</p>
                             <input type="${e.type}" name="${e.name}" id="${e.name}" 
-                            value="${e.value}" class="form-control ${e.validate != undefined ? e.validate : '' }" placeholder="Enter ${e.label}" required>
+                            value="${e.value}" class="form-control ${e.validate != undefined ? e.validate : '' }" placeholder="Enter ${e.label} in CM (centimeters)" required>
                         </div>`
             }
         });
