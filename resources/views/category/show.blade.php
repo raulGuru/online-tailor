@@ -116,7 +116,7 @@
                        @endif
                        @if($result->note)
                         <tr>
-                           <th scope="col">Note</th>
+                           <th scope="col">Info</th>
                            <td>{{ $result->note }}</td>
                         </tr>
                        @endif
