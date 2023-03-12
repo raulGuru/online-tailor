@@ -32,7 +32,7 @@
                </ul>
              @endif
           </div>
-          @if($sub_categories->count() > 0)
+          @if($sub_categories!== null && $sub_categories->count() > 0)
           <div class="categories-border mb-4">
              <h4 class="font-weight-600 m-0">SUB CATEGORIES</h4>
              <img src="{{ asset('public/assets/img/small-line.svg') }}" alt="">
