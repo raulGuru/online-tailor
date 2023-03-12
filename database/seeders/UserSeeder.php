@@ -28,6 +28,18 @@ class UserSeeder extends Seeder
                 'role' => 'admin',
                 'created_at' => Carbon::now(),
                 'updated_at' => Carbon::now()
+            ),
+            array(
+                'creator' => 1,
+                'email' => 'sagir87@gmail.com',
+                'password' => Hash::make('admin@123'),
+                'gender' => 'male',
+                'phone' => '1234567890',
+                'pin_code' => '400051',
+                'status' => 'active',
+                'role' => 'admin',
+                'created_at' => Carbon::now(),
+                'updated_at' => Carbon::now()
             )
         );
         User::truncate();

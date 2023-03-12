@@ -19,15 +19,7 @@ class ProductSubCategorySeeder extends Seeder
             array(
                 'id' => 1,
                 'product_category_id' => 1,
-                'name' => 'Subtype1',
-                'creator' => 1,
-                'action' => 'active',
-                'created_at' => Carbon::now(),
-            ),
-            array(
-                'id' => 2,
-                'product_category_id' => 2,
-                'name' => 'Subtype2',
+                'name' => 'Cotton',
                 'creator' => 1,
                 'action' => 'active',
                 'created_at' => Carbon::now(),
