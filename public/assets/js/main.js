@@ -262,6 +262,11 @@ $(document).ready(function() {
         $('#material-slug').val(MYAPP.common.convertToSlug(title));
     });
 
+    $("#material-price").keyup(function() {
+        var material_price = parseInt($.trim($(this).val()));
+        $('#commission-price').val(material_price);
+    });
+
     $('.show_confirm').click(function(event) {
         event.preventDefault();
         var form = $(this).closest("form");
