@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\MasterCategory;
 use App\Models\Tailor;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 
 class MeasurementController extends Controller
 {
@@ -115,7 +116,7 @@ class MeasurementController extends Controller
         $data = get_measurement_form_fields($gender , $type);
         if($request->session()->has('measurement')){
             $measurement = json_decode($request->session()->get('measurement'), TRUE);
-            if($type == $measurement['measurement']){
+            if($type == $measurement['measurement_type']){
                 foreach ($data['fields'] as $key => $value) {
                     $data['fields'][$key]['value'] = $measurement[$value['name']];
                 }
@@ -133,7 +134,17 @@ class MeasurementController extends Controller
         unset($form_data['_token']);
         // when there is multiple uncomment below method
         // $request->session()->push('measurement', json_encode($form_data));
-
+        $images = [];
+        if (isset($request->images) && !empty($request->images)) {
+            foreach ($request->images as $image) {
+                $file_name = $image->getClientOriginalName();
+                $thumbnail2 = str_replace(' ', '-', $file_name);
+                $is_uploaded = Storage::putFileAs('public/inprocess_order_image', $image, $thumbnail2);
+                if ($is_uploaded) {
+                    array_push($images, $thumbnail2);
+                }
+            }
+        }
         // Use For single element
         $request->session()->put('measurement', json_encode($form_data));
         return redirect()->route('measurement.index');

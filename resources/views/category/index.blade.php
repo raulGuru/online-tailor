@@ -22,7 +22,7 @@
              @if($categories->count() > 0)
                <ul class="categories-listing mt-3 p-0">
                   @foreach($categories as $category)
-                     <a href="{{ route('category.index', http_build_query(['type' => strtolower($category->name)])) }}" class="text-decoration-none text-reset">
+                     <a href="{{ route('category.index', http_build_query(['gender'=> strtolower(request()->gender), 'type' => strtolower($category->name)])) }}" class="text-decoration-none text-reset">
                         <li class="d-flex justify-content-between mt-3">
                            <span> {{ ucfirst($category->name) }} </span>
                            <span>({{ $category->posts->count() }})</span>
@@ -38,7 +38,7 @@
              <img src="{{ asset('public/assets/img/small-line.svg') }}" alt="">
                <ul class="categories-listing mt-3 p-0">
                   @foreach($sub_categories as $sub_category)
-                     <a href="{{ route('category.index', http_build_query(['subtype' => strtolower($sub_category->name)])) }}" class="text-decoration-none text-reset">
+                     <a href="{{ route('category.index', http_build_query(['gender'=> strtolower(request()->gender), 'subtype' => strtolower($sub_category->name)])) }}" class="text-decoration-none text-reset">
                         <li class="d-flex justify-content-between mt-3">
                            <span> {{ ucfirst($sub_category->name) }} </span>
                         </li>
@@ -53,7 +53,7 @@
              @if($colors->count() > 0)
                <ul class="categories-listing mt-3 p-0">
                   @foreach($colors as $color)
-                     <a href="{{ route('category.index', http_build_query(['color' => strtolower($color->name)])) }}" class="text-decoration-none text-reset">
+                     <a href="{{ route('category.index', http_build_query(['gender'=> strtolower(request()->gender), 'color' => strtolower($color->name)])) }}" class="text-decoration-none text-reset">
                         <li class="d-flex justify-content-between mt-3">
                            <span> {{ $color->name }} </span>
                            <span class="circle-color" style="background: {{ $color->code }}"></span>

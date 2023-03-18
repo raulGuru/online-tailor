@@ -32,7 +32,7 @@ class CategoryController extends Controller
 
     public function index(Request $request)
     {
-        $data = $this->get_categories_colors();
+     
         $searchTerm = $request->title ? trim($request->title) : '';
         $this->gender = $request->gender ? trim($request->gender) : '';
         $this->order = $request->order ? trim($request->order) : $this->order;
@@ -76,6 +76,7 @@ class CategoryController extends Controller
             // $products->orWhere('additional_details', 'like', '%' . $searchTerm . '%');
             $products->orWhere('tags', 'LIKE', '%' . $searchTerm . '%');
         }
+        $data = $this->get_categories_colors($gender->id);
         $products->orderBy('id', $this->order);
         $results = $products->paginate($this->limit);
         $results->appends(['title' => $searchTerm, 'gender' => $this->gender, 'type' => $this->type, 'color' => $this->color, 'order' => $this->order]);
@@ -153,11 +154,12 @@ class CategoryController extends Controller
         //
     }
 
-    private function get_categories_colors()
+    private function get_categories_colors($id)
     {
-        // $data['categories'] = ProductType::get();
-        $data['categories'] = ProductCategory::where('action','active')->get();
-        $data['colors'] = ProductColor::get();
+        $data['categories'] = ProductCategory::join('products', 'product_categories.id', '=', 'products.type_id')
+                                ->where(['action' => 'active', 'products.cat_id' => $id ])->get();
+        $data['colors'] = ProductColor::join('products', 'product_colors.id', '=', 'products.color_id')
+                        ->where('products.cat_id', $id)->get();
         $data['sub_categories'] = null;
         return $data;
     }

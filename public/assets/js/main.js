@@ -172,6 +172,7 @@ MYAPP.common = {
         });
         $(".dynamicAdded").remove();
         $("#dynamicfields").append(html);
+        $("#image_row").removeClass('d-none');
     },
     checkPincode: function(redirect_uri) {
         $.ajax({
@@ -186,6 +187,7 @@ MYAPP.common = {
                         $('body #search-location').modal('hide');
                         localStorage.removeItem('measurement_redirect');
                         $('#measurement-form button[type=submit]').removeAttr('id');
+                        $('#measurement-form').submit();
                     }else{
                         window.location.href = redirect_uri;
                     }
