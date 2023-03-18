@@ -249,6 +249,37 @@ MYAPP.common = {
             },
             complete: function(response) {}
         });
+    },
+    tailor_change: function(data){
+        $.ajax({
+            type: 'post',
+            dataType: 'json',
+            headers: this.headers,
+            data: data,
+            url: MYAPP.common.base_url + '/product/tailor_change',
+            beforeSend: function() {},
+            success: function(response) {
+                if(response.code === 200 && response.status === 'success') {
+                    let commission = response.result.commission;
+                    $("body #commission-price-hidden").val(commission);
+                    var material_price = parseInt($.trim($("body #material-price").val()));
+                    var price = 0;
+                    if(material_price) {
+                        price = material_price;
+                    }
+                    var commission_percentage = parseInt(commission);
+                    var percentage = 0;
+                    if(commission_percentage) {
+                        percentage = commission_percentage;
+                    }
+                    commission = (percentage / 100) * price;
+                    var new_price = price + commission;
+                    $('body #commission-price').val(new_price);
+                }
+            },
+            error: function(response) {},
+            complete: function(response) {}
+        });
     }
 };
 
@@ -262,9 +293,26 @@ $(document).ready(function() {
         $('#material-slug').val(MYAPP.common.convertToSlug(title));
     });
 
-    $("#material-price").keyup(function() {
+    $("body #material-price").keyup(function() {
         var material_price = parseInt($.trim($(this).val()));
-        $('#commission-price').val(material_price);
+        var price = 0;
+        if(material_price) {
+            price = material_price;
+        }
+        var commission_percentage = parseInt($('body #commission-price-hidden').val());
+        var percentage = 0;
+        if(commission_percentage) {
+            percentage = commission_percentage;
+        }
+        commission = (percentage / 100) * price;
+        var new_price = price + commission;
+        $('body #commission-price').val(new_price);
+    });
+
+    $("body #tailor-change").on('change', function(event) {
+        let params = { id: $.trim($(this).val())};
+        event.preventDefault();
+        MYAPP.common.tailor_change(params);
     });
 
     $('.show_confirm').click(function(event) {

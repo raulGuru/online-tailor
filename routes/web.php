@@ -43,6 +43,7 @@ Route::resource('admin/login', LoginController::class, ['names' => 'admin.login'
 Route::post('admin/logout', [LoginController::class, 'logout'])->name('login.logout');
 Route::resource('user', UserController::class);
 Route::resource('dashboard', DashboardController::class);
+Route::post('product/tailor_change', [ProductController::class, 'tailor_change']);
 Route::resource('product', ProductController::class);
 Route::post('product/remove_image/{id}', [ProductController::class, 'remove_image'])->name('product.remove_image');
 Route::post('product/get_subcategory', [ProductController::class, 'get_subcategory'])->name('product.get_subcategory');

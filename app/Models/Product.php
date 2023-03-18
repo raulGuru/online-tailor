@@ -38,4 +38,9 @@ class Product extends Model
     {
         return $this->belongsTo(User::class, 'creator');
     }
+
+    public function tailor()
+    {
+        return $this->belongsTo(Tailor::class, 'tailor_id');
+    }
 }
