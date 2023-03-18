@@ -83,7 +83,6 @@
                     </div>
 
                     <div class="product-details mb-4">
-                        <h3>Product Details </h3>
                         {!! $result->description !!}
                     </div>
                 </div>
@@ -97,10 +96,10 @@
                               <td>{{ $result->width }}</td>
                            </tr>
                        @endif
-                       @if($result->productCategory->name)
+                       @if($result->quality)
                            <tr>
-                              <th scope="col">Type</th>
-                              <td>{{ ucfirst($result->productCategory->name) }}</td>
+                              <th scope="col">Quality</th>
+                              <td>{{ $result->quality }}</td>
                            </tr>
                        @endif
                        @if($result->productColor)
@@ -117,7 +116,7 @@
                        @endif
                        @if($result->note)
                         <tr>
-                           <th scope="col">Note</th>
+                           <th scope="col">Info</th>
                            <td>{{ $result->note }}</td>
                         </tr>
                        @endif

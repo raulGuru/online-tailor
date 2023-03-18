@@ -70,6 +70,7 @@ class ProductController extends Controller
             'color' => 'required|max:255',
             'size' => 'required|numeric|min:1|max:100000',
             'price' => 'required|numeric|min:1|max:10000',
+            'commission_price' => 'required|numeric',
             'thumbnail' => 'required|mimes:jpg,jpeg,png,bmp,tiff|max:20480', // file max size 20MB
             'images' => 'required', // file max size 20MB
             'product_details' => 'required',
@@ -107,6 +108,7 @@ class ProductController extends Controller
             'color_id' => $request->color,
             'size' => $request->size,
             'price' => $request->price,
+            'commission_price' => $request->commission_price,
             'description' => $request->product_details,
             'width' => $request->width,
             'disclaimer' => $request->disclaimer,

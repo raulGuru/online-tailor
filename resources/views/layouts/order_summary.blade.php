@@ -74,7 +74,7 @@
                                             @endif
                                             @if($product->note)
                                                 <tr>
-                                                <th scope="col">Note</th>
+                                                <th scope="col">Info</th>
                                                 <td>{{ $product->note }}</td>
                                                 </tr>
                                             @endif

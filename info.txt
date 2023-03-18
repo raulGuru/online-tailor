@@ -28,10 +28,11 @@ php artisan db:seed --class=MasterCategorySeeder;
 php artisan db:seed --class=ProductCategorySeeder;
 php artisan db:seed --class=ProductSubCategorySeeder;
 php artisan db:seed --class=ProductColorSeeder;
-php artisan db:seed --class=ProductTypeSeeder;
+php artisan db:seed --class=ProductTypeSeeder; -- not required
 php artisan db:seed --class=ProductSeeder;
 php artisan db:seed --class=MeasurmentTypesSeeder; -- not required
 php artisan db:seed --class=MeasurmentShirtSeeder;
+php artisan db:seed --class=StitchingsSeeder;
 
 ::: Clear all configuration :::
 php artisan config:clear;

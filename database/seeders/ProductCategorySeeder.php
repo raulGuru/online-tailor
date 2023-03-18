@@ -19,15 +19,7 @@ class ProductCategorySeeder extends Seeder
         $types = array(
             array(
                 'id' => 1,
-                'name' => 'type1',
-                'creator' => 1,
-                'action' => 'active',
-                'created_at' => Carbon::now(),
-                'updated_at' => Carbon::now(),
-            ),
-            array(
-                'id' => 2,
-                'name' => 'type2',
+                'name' => 'Fabric',
                 'creator' => 1,
                 'action' => 'active',
                 'created_at' => Carbon::now(),

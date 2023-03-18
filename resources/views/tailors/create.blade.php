@@ -88,17 +88,6 @@
                         </span>
                     @enderror
                 </div>
-                <div class="col-sm-3 mb-3">
-                    <label class="mb-1"><strong>Commission</strong> <span class="text-danger">*</span></label>
-                    <input class="form-control form-control-lg" type="number" min="0" name="commission" value="{{ old('commission') }}" placeholder="Enter  tailor's commission" />
-                    @error('commission')
-                        <span class="alert alert-danger alert-dismissible mt-1">
-                            <div class="alert-message p-0">
-                                {{ $message }}
-                            </div>
-                        </span>
-                    @enderror
-                </div>
                 <div class="col-sm-12 mb-3">
                     <label class="mb-3"><strong>Address</strong> <span class="text-danger">*</span></label>
                     <textarea name="address" class="form-control" rows="3" id="address">{{ old('address') }}</textarea>
@@ -196,7 +185,7 @@
                         <p class="mb-3">Add Stitching Cost first then only you can create a tailor <a href="{{ route('stitching.create') }}" class="text-success">Click here</a></p>
                     @endif
                 </div>
-                <div class="col-sm-6 mb-3">
+                <div class="col-sm-12 mb-3">
                     <label class="mb-3"><strong>Expertise</strong></label>
                     <textarea name="expertise" class="form-control" rows="3" id="expertise">{{ old('expertise') }}</textarea>
                     @error('expertise')
@@ -207,7 +196,29 @@
                         </span>
                     @enderror
                 </div>
-                <div class="col-sm-12 mb-3">
+                <div class="col-sm-4 mt-3 mb-3">
+                    <label class="mb-1"><strong>Material Commission (%)</strong> <span class="text-danger">*</span></label>
+                    <input class="form-control form-control-lg" type="number" min="0" name="commission" value="{{ old('commission') }}" placeholder="Enter tailor's commission" />
+                    @error('commission')
+                        <span class="alert alert-danger alert-dismissible mt-1">
+                            <div class="alert-message p-0">
+                                {{ $message }}
+                            </div>
+                        </span>
+                    @enderror
+                </div>
+                <div class="col-sm-4 mt-3 mb-3">
+                    <label class="mb-1"><strong>Visit charge on successful order placed</strong> <span class="text-danger">*</span></label>
+                    <input class="form-control form-control-lg" type="number" min="0" name="visit_charges" value="{{ old('visit_charges') }}" placeholder="Enter tailor's visit charge" />
+                    @error('visit_charges')
+                        <span class="alert alert-danger alert-dismissible mt-1">
+                            <div class="alert-message p-0">
+                                {{ $message }}
+                            </div>
+                        </span>
+                    @enderror
+                </div>
+                <div class="col-sm-12 mt-3 mb-3">
                     <p class="mb-3"><strong>Status</strong> <span class="text-danger">*</span></p>
                     <div class="form-check form-check-inline">
                         <input class="form-check-input" name="status" type="radio" value="active" checked {{ (old('status') == 'active' ? 'checked' : '') }} id="flexCheckDefault">

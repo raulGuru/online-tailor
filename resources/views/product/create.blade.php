@@ -97,7 +97,7 @@
       </div>
       <div class="card p-3">
          <div class="row">
-            <div class=" col-sm-4">
+            <div class="col-sm-3">
                <label>Color<span class="text-danger">*</span></label>
                <select class="form-control" name="color">
                   <option value="" selected disabled>Select color</option>
@@ -115,7 +115,7 @@
                   </span>
                @enderror
             </div>
-            <div class=" col-sm-4">
+            <div class="col-sm-3">
                <label>Material Size<span class="text-danger">*</span></label>
                <input type="text" name="size" id="material-size" value="{{ old('size') }}" class="form-control" placeholder="Enter material size">
                @error('size')
@@ -126,10 +126,21 @@
                   </span>
                @enderror
             </div>
-            <div class="col-sm-4">
+            <div class="col-sm-3">
                <label>Material Price <span class="small text-primary">(Per Meter)</span><span class="text-danger">*</span></label>
-               <input type="text" name="price" value="{{ old('price') }}" class="form-control" placeholder="Enter price">
+               <input type="number" min="0" name="price" value="{{ old('price') }}" id="material-price" class="form-control" placeholder="Enter price">
                @error('price')
+                  <span class="alert alert-danger alert-dismissible mt-1">
+                        <div class="alert-message p-0">
+                           {{ $message }}
+                        </div>
+                  </span>
+               @enderror
+            </div>
+            <div class="col-sm-3">
+               <label>New Commission Price <span class="text-danger">*</span></label>
+               <input type="number" min="0" name="commission_price" value="{{ old('commission_price') }}" id="commission-price" readonly="readonly" class="form-control" placeholder="Enter commission price">
+               @error('commission_price')
                   <span class="alert alert-danger alert-dismissible mt-1">
                         <div class="alert-message p-0">
                            {{ $message }}
@@ -233,7 +244,7 @@
                @enderror
             </div>
             <div class="col-12">
-               <label class="mb-1 mt-2">Note</label>
+               <label class="mb-1 mt-2">Info</label>
                <textarea name="note" class="form-control" rows="5" id="note" placeholder="Enter note related this material">{{ old('note') }}</textarea>
                @error('note')
                   <span class="alert alert-danger alert-dismissible mt-1">

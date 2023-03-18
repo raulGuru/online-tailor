@@ -14,4 +14,8 @@ class Tailor extends Model
         return $this->belongsTo(User::class, 'creator');
     }
 
+    public function store_timings() {
+        return $this->hasOne(StoreTiming::class, 'tailor_id');
+    }
+
 }

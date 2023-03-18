@@ -162,11 +162,9 @@ MYAPP.common = {
                 html += `<input type="${e.type}" name="${e.name}" value="${e.value}" class="form-control dynamicAdded">`
             }else{
                 html += ` <div class="col-md-6 mb-4 dynamicAdded">
-                            <p class="mb-1 f-16 d-flex justify-content-between">${e.label} 
-                                <i class="fa fa-info-circle"></i>
-                            </p>
+                            <p class="mb-1 f-16 d-flex justify-content-between">${e.label}</p>
                             <input type="${e.type}" name="${e.name}" id="${e.name}" 
-                            value="${e.value}" class="form-control ${e.validate != undefined ? e.validate : '' }" placeholder="Enter ${e.label}" required>
+                            value="${e.value}" class="form-control ${e.validate != undefined ? e.validate : '' }" placeholder="Enter ${e.label} in CM (centimeters)" required>
                         </div>`
             }
         });
@@ -264,6 +262,11 @@ $(document).ready(function() {
     $("#material-title").keyup(function() {
         var title = $.trim($(this).val());
         $('#material-slug').val(MYAPP.common.convertToSlug(title));
+    });
+
+    $("#material-price").keyup(function() {
+        var material_price = parseInt($.trim($(this).val()));
+        $('#commission-price').val(material_price);
     });
 
     $('.show_confirm').click(function(event) {
