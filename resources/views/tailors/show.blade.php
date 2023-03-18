@@ -20,7 +20,8 @@
                 <div><strong>Email:</strong> {{ $tailor->email }}</div>
                 <div><strong>Mobile:</strong> {{ $tailor->mobile }}</div>
                 <div><strong>Phone:</strong> {{ $tailor->phone }}</div>
-                <div><strong>Commission:</strong> {{ $tailor->commission }}</div>
+                <div><strong>Material Commission:</strong> {{ $tailor->commission }}%</div>
+                <div><strong>Visit charge on successful order placed:</strong> {{ $tailor->visit_charges }}</div>
                 <div><strong>Address:</strong> {{ $tailor->address }}</div>
                 <div class="mt-3">
                   <strong>Services:</strong>

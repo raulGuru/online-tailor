@@ -95,6 +95,7 @@ class TailorController extends Controller
             'email' => 'required|unique:tailors|max:255',
             'mobile' => 'required|max:255',
             'commission' => 'required|numeric|min:1|max:100',
+            'visit_charges' => 'required|numeric',
             'address' => 'required|max:255',
             'services' => 'required|min:1',
             'appointments' => 'required|min:1',
@@ -128,6 +129,7 @@ class TailorController extends Controller
             'mobile' => $request->mobile,
             'phone' => $request->phone,
             'commission' => $request->commission,
+            'visit_charges' => $request->visit_charges,
             'address' => $request->address,
             'services' => json_encode($request->services, true),
             'appointments' => json_encode($request->appointments, true),
@@ -182,6 +184,7 @@ class TailorController extends Controller
             'mobile' => $request->mobile,
             'phone' => $request->phone,
             'commission' => $request->commission,
+            'visit_charges' => $request->visit_charges,
             'address' => $request->address,
             'services' => json_encode($request->services, true),
             'appointments' => json_encode($request->appointments, true),
@@ -287,6 +290,7 @@ class TailorController extends Controller
             'email' => 'required|max:255',
             'mobile' => 'required|max:255',
             'commission' => 'required|numeric|min:1|max:100',
+            'visit_charges' => 'required|numeric',
             'address' => 'required|max:255',
             'services' => 'required|min:1',
             'appointments' => 'required|min:1',
@@ -340,6 +344,7 @@ class TailorController extends Controller
         $tailor->mobile = $request->mobile;
         $tailor->phone = $request->phone;
         $tailor->commission = $request->commission;
+        $tailor->visit_charges = $request->visit_charges;
         $tailor->address = $request->address;
         $tailor->services = json_encode($request->services, true);
         $tailor->appointments = json_encode($request->appointments, true);
