@@ -1,10 +1,10 @@
 @extends('layouts.master2')
 @section('content')
 <div class="container-fluid p-0">
-   <form method="post" id="measurement-form" action="{{ route('measurement.save_measurement') }}">
-      @csrf
-      <div class="card p-3">
-         <div class="row">
+    <form method="post" id="measurement-form" action="{{ route('measurement.save_measurement') }}" enctype="multipart/form-data">
+        @csrf
+        <div class="card p-3">
+            <div class="row">
             <div class="col-md-8 m-auto">
                <div class="row mb-5">
                   <div class="col-md-3 d-flex align-items-center">
@@ -25,8 +25,23 @@
                         <div class="alert-message p-0">
                            {{ $message }}
                         </div>
-                     </span>
-                     @enderror                            
+                        </span>
+                     @enderror
+                    </div>
+                    
+                    <h3 class="font-weight-500 mb-4 h3_title_measurement"></h3>
+                    <div class="row" id="dynamicfields">
+    
+                    </div>
+
+                    <div class="row d-none" id="image_row">
+                        <div class="col-md-6" mb-4>
+                            <p class="mb-1 f-16 d-flex justify-content-between">Add Image Files
+                                <i class="fa fa-info-circle"></i>
+                            </p>
+                            <input type="file" name="images[]" multiple="" accept="image/*">
+                        </div>
+                    </div>
                   </div>
                </div>
                <h3 class="font-weight-500 mb-4 h3_title_measurement"></h3>
