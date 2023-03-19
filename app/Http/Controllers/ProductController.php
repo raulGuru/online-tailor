@@ -8,6 +8,7 @@ use App\Models\ProductColor;
 use App\Models\ProductType;
 use App\Models\ProductCategory;
 use App\Models\ProductSubCategory;
+use App\Models\Tailor;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -28,8 +29,13 @@ class ProductController extends Controller
     public function index(Request $request)
     {
         $q = $request->q;
-        $products = Product::where('title', 'LIKE', '%' . $q . '%')
-            ->orWhere('description', 'LIKE', '%' . $q . '%')
+        $products = new Product();
+        if(Auth::user()->role === 'vendor') {
+            $products = $products::where('tailor_id', Auth::id());
+        } else {
+            $products = $products::where('title', 'LIKE', '%' . $q . '%');
+        }
+        $products = $products->orWhere('description', 'LIKE', '%' . $q . '%')
             ->orWhere('additional_details', 'LIKE', '%' . $q . '%')
             ->orWhere('tags', 'LIKE', '%' . $q . '%')
             ->orderBy('id', 'DESC')
@@ -47,9 +53,14 @@ class ProductController extends Controller
     {
         $data['categories'] = MasterCategory::get();
         $data['colors'] = ProductColor::get();
-        // $data['types'] = ProductType::get();
+        $data['tailors'] = Tailor::select('id', 'name', 'commission')->get();
         $data['types'] = ProductCategory::where('action','active')->get();
         return view('product.create', $data);
+    }
+
+    public function tailor_change(Request $request) {
+        $commission = Tailor::select('commission')->find($request->id);
+        return response()->json(['code' => 200, 'status' => 'success', 'result' => $commission]);
     }
 
     /**
@@ -60,22 +71,24 @@ class ProductController extends Controller
      */
     public function store(Request $request)
     {
-        $this->validate($request, [
+        $validations = [
+            'tailor' => 'required',
             'title' => 'required|max:255',
             'slug' => 'required|unique:products|max:255',
-            'sku' => 'max:100',
+            'sku' => 'required|max:100',
             'category' => 'required|max:255',
             'type' => 'required|max:255',
             'subtype' => 'required|max:255',
             'color' => 'required|max:255',
-            'size' => 'required|numeric|min:1|max:100000',
-            'price' => 'required|numeric|min:1|max:10000',
-            'commission_price' => 'required|numeric',
+            'size' => 'required|numeric|min:1',
+            'price' => 'required|numeric|min:1',
+            'commission_price' => 'required|numeric|min:1',
             'thumbnail' => 'required|mimes:jpg,jpeg,png,bmp,tiff|max:20480', // file max size 20MB
             'images' => 'required', // file max size 20MB
             'product_details' => 'required',
             'tags' => 'required'
-        ]);
+        ];
+        $this->validate($request, $validations);
         $thumbnail = '';
         if ((isset($request->thumbnail) && $request->thumbnail !== null)) {
             $file_name = $request->thumbnail->getClientOriginalName();
@@ -99,6 +112,7 @@ class ProductController extends Controller
 
         $data = array(
             'creator' => Auth::id(),
+            'tailor_id' => $request->tailor,
             'title' => $request->title,
             'slug' => $request->slug,
             'sku' => $request->sku,
@@ -156,6 +170,7 @@ class ProductController extends Controller
         // $data['types'] = ProductType::get();
         $data['types'] = ProductCategory::where('action','active')->get();
         $data['product'] = Product::find($id);
+        $data['tailors'] = Tailor::select('id', 'name', 'commission')->get();
         if (empty($data['product'])) {
             return redirect()->route('product.create');
         }
@@ -172,7 +187,8 @@ class ProductController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $this->validate($request, [
+        $validations = [
+            'tailor' => 'required',
             'title' => 'required|max:255',
             'slug' => 'required|max:255',
             'sku' => 'max:100',
@@ -180,11 +196,12 @@ class ProductController extends Controller
             'type' => 'required|max:255',
             'subtype' => 'required|max:255',
             'color' => 'required|max:255',
-            'size' => 'required|numeric|min:1|max:100000',
-            'price' => 'required|numeric|min:1|max:10000',
+            'size' => 'required|numeric|min:1',
+            'price' => 'required|numeric|min:1',
+            'commission_price' => 'required|numeric|min:1',
             'product_details' => 'required',
             'tags' => 'required'
-        ]);
+        ];
         $thumbnail = '';
         if ((isset($request->thumbnail) && $request->thumbnail !== null)) {
             $this->validate($request, [
@@ -213,6 +230,7 @@ class ProductController extends Controller
         }
 
         $product = Product::find($id);
+        $product->tailor_id = $request->tailor;
         $product->title = $request->title;
         $product->slug = $request->slug;
         $product->sku = $request->sku;
@@ -222,6 +240,7 @@ class ProductController extends Controller
         $product->color_id = $request->color;
         $product->size = $request->size;
         $product->price = $request->price;
+        $product->commission_price = $request->commission_price;
         if (!empty($thumbnail)) {
             $product->thumbnail = $thumbnail;
         }

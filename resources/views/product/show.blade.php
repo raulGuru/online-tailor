@@ -71,14 +71,14 @@
         @else
             <div class="row">
                 <div class="col-sm-10 col-md-8 col-lg-6 mx-auto d-table h-100">
-                <div class="d-table-cell align-middle">
-                    <div class="text-center">
-                        <h1 class="display-1 font-weight-bold">402</h1>
-                        <p class="h1">No data available.</p>
-                        <p class="h2 font-weight-normal mt-3 mb-4">There is no resource behind the URI.</p>
-                        <a href="{{ route('product.create') }}" class="btn btn-primary btn-lg">Create new product</a>
+                    <div class="d-table-cell align-middle">
+                        <div class="text-center">
+                            <h1 class="display-1 font-weight-bold">402</h1>
+                            <p class="h1">No data available.</p>
+                            <p class="h2 font-weight-normal mt-3 mb-4">There is no resource behind the URI.</p>
+                            <a href="{{ route('product.create') }}" class="btn btn-primary btn-lg">Create new product</a>
+                        </div>
                     </div>
-                </div>
                 </div>
             </div>
         @endif

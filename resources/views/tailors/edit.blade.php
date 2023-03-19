@@ -205,7 +205,7 @@
                 </div>
                 <div class="col-sm-4 mt-3 mb-3">
                     <label class="mb-1"><strong>Material Commission (%)</strong> <span class="text-danger">*</span></label>
-                    <input class="form-control form-control-lg" type="number" min="0" name="commission" value="{{ old('commission') ? old('commission') : $tailor->commission }}" placeholder="Enter tailor's commission" />
+                    <input class="form-control form-control-lg" type="number" min="0" max="100" required name="commission" value="{{ old('commission') ? old('commission') : $tailor->commission }}" placeholder="Enter tailor's commission" />
                     @error('commission')
                         <span class="alert alert-danger alert-dismissible mt-1">
                             <div class="alert-message p-0">
