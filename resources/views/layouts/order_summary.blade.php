@@ -80,7 +80,7 @@
                                             @endif
                                             @if($product->disclaimer)
                                                 <tr>
-                                                <th scope="col">disclaimer</th>
+                                                <th scope="col">Disclaimer</th>
                                                 <td>{{ $product->disclaimer }}</td>
                                                 </tr>
                                             @endif
