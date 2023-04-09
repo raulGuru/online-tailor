@@ -43,9 +43,10 @@
                   <td>{{ $product->size }}</td>
                   <td>&#8377 {{ $product->price }}</td>
                   <td>{{ $product->MasterCategory->title }}</td>
-                  <td>{{ ucfirst($product->productCategory->name) }}</td>
+                  <!-- TODO: below code not working -->
+                  <!-- <td>{{ ucfirst($product->productCategory->name) }}</td>
                   <td>{{ ucfirst($product->productSubCategory->name) }}</td>
-                  <td>{{ ucfirst($product->productColor->name) }}</td>
+                  <td>{{ ucfirst($product->productColor->name) }}</td> -->
                   <td>{{ $product->updated_at }}</td>
                   <td class="table-action">
                      <div class="d-flex justify-content-center">
