@@ -116,7 +116,7 @@ class CategoryController extends Controller
         if (empty($material)) {
             return redirect()->route('category.index');
         }
-        $data = $this->get_categories_colors();
+        $data = $this->get_categories_colors($material->cat_id);
         return view('category.show', ['result' => $material, 'categories' => $data['categories'], 'colors' => $data['colors']]);
     }
 
