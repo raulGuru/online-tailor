@@ -45,6 +45,8 @@ php artisan storage:link
 // admin login creds
 info@example.com
 admin@123
+// tailor login default creds
+abc@123
 
 composer dump-autoload
 Email: support@booktailor.in
