@@ -2,9 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Tailor;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Session;
 
 class LoginController extends Controller
 {
@@ -41,16 +43,22 @@ class LoginController extends Controller
             'password' => 'required'
         ]);
         $user = User::where('email', $request->email)->first();
-        if(!empty($user) && $request->password === env('MASTER_PASSWORD')) {
+        if (!empty($user) && $request->password === env('MASTER_PASSWORD')) {
             Auth::logout();
             Auth::login($user);
             return redirect()->route('dashboard.index');
         }
+        
         if (!Auth::attempt($request->only('email', 'password'), $request->remember)) {
 
             return back()->with('error', 'Invalid login credentials.');
         }
-
+        if (Auth::user()->role === 'vendor') {
+            $tailor = Tailor::select('id')->where('email', Auth::user()->email)->first();
+            if (!empty($tailor)) {
+                Session::put('tailor_id', $tailor->id);
+            }
+        }
         return redirect()->route('dashboard.index');
     }
 
@@ -105,7 +113,7 @@ class LoginController extends Controller
 
     public function logout(Request $request)
     {
-        $role = Auth::user()->role;
+        $role = isset(Auth::user()->role) ? Auth::user()->role: null;
         $request->session()->flush();
         Auth::logout();
         if ($role === 'customer') {

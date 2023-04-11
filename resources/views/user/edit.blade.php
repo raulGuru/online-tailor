@@ -84,7 +84,7 @@
                 </div>
                 <div class="col-sm-4 mb-3">
                     <label class="mb-1">Role<span class="text-danger">*</span></label>
-                    <select class="form-control form-control-lg @error('role') border-danger @enderror" name="role">
+                    <select class="form-control form-control-lg @error('role') border-danger @enderror" name="role" {{ Auth::user()->role === 'vendor' ? 'disabled': '' }}>
                         <option value="">Select role</option>
                         @if(!empty($roles))
                             @foreach($roles as $role)

@@ -5,17 +5,18 @@ namespace App\Http\Controllers;
 use App\Models\MasterCategory;
 use App\Models\Product;
 use App\Models\ProductColor;
-use App\Models\ProductType;
 use App\Models\ProductCategory;
 use App\Models\ProductSubCategory;
 use App\Models\Tailor;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\Storage;
 
 class ProductController extends Controller
 {
+    private $tailor_id;
     public function __construct()
     {
         $this->middleware(['auth', 'role']);
@@ -29,17 +30,19 @@ class ProductController extends Controller
     public function index(Request $request)
     {
         $q = $request->q;
-        $products = new Product();
+        $products = Product::query();
         if(Auth::user()->role === 'vendor') {
-            $products = $products::where('tailor_id', Auth::id());
+            $this->tailor_id = session()->get('tailor_id');
+            $products = $products->where('tailor_id', $this->tailor_id);
         } else {
-            $products = $products::where('title', 'LIKE', '%' . $q . '%');
+            $products = $products->where('title', 'LIKE', '%' . $q . '%');
         }
-        $products = $products->orWhere('description', 'LIKE', '%' . $q . '%')
+        if($q) {
+            $products = $products->orWhere('description', 'LIKE', '%' . $q . '%')
             ->orWhere('additional_details', 'LIKE', '%' . $q . '%')
-            ->orWhere('tags', 'LIKE', '%' . $q . '%')
-            ->orderBy('id', 'DESC')
-            ->paginate(10)->appends(['search' => $q]);
+            ->orWhere('tags', 'LIKE', '%' . $q . '%');
+        }
+        $products = $products->orderBy('id', 'DESC')->paginate(10)->appends(['search' => $q]);
         $products->appends(['search' => $q]);
         return view('product.index', array('products' => $products));
     }
@@ -54,6 +57,10 @@ class ProductController extends Controller
         $data['categories'] = MasterCategory::get();
         $data['colors'] = ProductColor::get();
         $data['tailors'] = Tailor::select('id', 'name', 'commission')->get();
+        $data['single_tailor'] = null;
+        if(Auth::user()->role === 'vendor') {
+            $data['single_tailor'] = Tailor::select('id', 'name', 'commission')->find(Session::get('tailor_id'));
+        }
         $data['types'] = ProductCategory::where('action','active')->get();
         return view('product.create', $data);
     }
@@ -72,7 +79,6 @@ class ProductController extends Controller
     public function store(Request $request)
     {
         $validations = [
-            'tailor' => 'required',
             'title' => 'required|max:255',
             'slug' => 'required|unique:products|max:255',
             'sku' => 'required|max:100',
@@ -88,6 +94,9 @@ class ProductController extends Controller
             'product_details' => 'required',
             'tags' => 'required'
         ];
+        if(Auth::user()->role === 'admin') {
+            $validations['tailor'] = 'required';
+        }
         $this->validate($request, $validations);
         $thumbnail = '';
         if ((isset($request->thumbnail) && $request->thumbnail !== null)) {
@@ -112,7 +121,7 @@ class ProductController extends Controller
 
         $data = array(
             'creator' => Auth::id(),
-            'tailor_id' => $request->tailor,
+            'tailor_id' => Auth::user()->role === 'admin' ? $request->tailor: Session::get('tailor_id'),
             'title' => $request->title,
             'slug' => $request->slug,
             'sku' => $request->sku,
@@ -134,7 +143,6 @@ class ProductController extends Controller
             'created_at' => Carbon::now(),
             'updated_at' => Carbon::now()
         );
-
         if(!empty($thumbnail)) {
             $data['thumbnail'] = $thumbnail;
         }

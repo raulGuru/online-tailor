@@ -116,16 +116,19 @@ class UserController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $this->validate($request, [
+        $validations = [
             'email' => 'required|email',
             'password' => 'confirmed',
             'password_confirmation' => 'same:password',
             'gender' => 'required',
             'phone' => 'required|digits:10',
             'pin_code' => 'required|regex:/\b\d{6}\b/',
-            'role' => 'required',
             'status' => 'required'
-        ]);
+        ];
+        if(Auth::user()->role === 'admin') {
+            $validations['role'] = 'required';
+        }
+        $this->validate($request, $validations);
         $user = User::find($id);
         $user->creator = Auth::id();
         if($request->password) {
@@ -135,7 +138,9 @@ class UserController extends Controller
         $user->gender = $request->gender;
         $user->phone = $request->phone;
         $user->pin_code = $request->pin_code;
-        $user->role = $request->role;
+        if(Auth::user()->role === 'admin') {
+            $user->role = $request->role;
+        }
         $user->status = $request->status;
         $user->updated_at = Carbon::now();
         $user->save();

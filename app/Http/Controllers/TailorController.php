@@ -199,22 +199,22 @@ class TailorController extends Controller
         $user = User::where('email', $request->email)->first();
         if(empty($user)) {
             $users = array(
-                array(
-                    'creator' => Auth::id(),
-                    'email' => $request->email,
-                    'password' => Hash::make('abc@123'),
-                    'gender' => 'unknown',
-                    'phone' => $request->mobile,
-                    'pin_code' => $request->pin_code,
-                    'status' => 'active',
-                    'role' => 'vendor',
-                    'created_at' => Carbon::now(),
-                    'updated_at' => Carbon::now()
-                )
+                'creator' => Auth::id(),
+                'email' => $request->email,
+                'password' => Hash::make('abc@123'),
+                'gender' => 'unknown',
+                'phone' => $request->mobile,
+                'pin_code' => $request->pin_code,
+                'status' => 'active',
+                'role' => 'vendor',
+                'created_at' => Carbon::now(),
+                'updated_at' => Carbon::now()
             );
-            User::insert($users);
+            $users = User::create($users);
+            $tailor = Tailor::find($inserted_id);
+            $tailor->user_id = $users->id;
+            $tailor->save();
         }
-        
         return redirect()->route('tailors.index');
     }
 

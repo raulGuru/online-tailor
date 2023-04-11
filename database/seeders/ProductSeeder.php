@@ -18,6 +18,7 @@ class ProductSeeder extends Seeder
         $products = array(
             array(
                 'creator' => 1,
+                'tailor_id' => 1,
                 'title' => 'On Cloud Nine Pillow',
                 'slug' => 'on-cloud-nine-pillow',
                 'sku' => "XYZ-PQR-ABC",
@@ -27,6 +28,7 @@ class ProductSeeder extends Seeder
                 'color_id' => 1,
                 'size' => 2000,
                 'price' => 100,
+                'commission_price' => (10 / 100) * 100,
                 'description' => "Sociosqu facilisis duis ...",
                 'width' => "44 Inches | 112 Cms.",
                 'weight' => "Approx. 110 grams per meter",
