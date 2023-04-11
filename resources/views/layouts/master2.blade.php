@@ -78,9 +78,6 @@
                                     <a class="dropdown-item" href="{{ route('account.index') }}">
                                        <i class="align-middle me-1" data-feather="user"></i> Profile
                                     </a>
-                                    <a class="dropdown-item" href="{{ route('dashboard.index') }}">
-                                       <i class="align-middle me-1" data-feather="user"></i> Dashboard
-                                    </a>
                                     <div class="dropdown-divider"></div>
                                     <form class="form-inline" action="{{ route('login.logout') }}" method="post">
                                        @csrf
