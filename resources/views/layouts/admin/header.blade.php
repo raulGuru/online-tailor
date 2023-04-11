@@ -17,6 +17,12 @@
                     <img src="<?php echo asset('public/assets/img/avatars/avatar.jpg') ?>" class="avatar img-fluid rounded" alt="Charles Hall" />
                 </a>
                 <div class="dropdown-menu dropdown-menu-end">
+                    <p class="p-2 pb-0">Hello 
+                        <?php 
+                            $email = Auth::user()->email;
+                            echo Str::title(explode("@", $email)[0]);
+                        ?>,
+                    </p>
                     <a class="dropdown-item" href="#">
                         <i class="align-middle me-1" data-feather="user"></i> Profile
                     </a>

@@ -9,11 +9,11 @@
             <div class="row">
                <div class="col-sm-3">
                   <label for="tailor-change">Tailor<span class="text-danger">*</span></label>
-                  <select class="form-control" name="tailor" id="tailor-change" {{ auth()->user()->role === 'vendor' ? 'readonly': ''}}>
+                  <select class="form-control" name="tailor" id="tailor-change" {{ auth()->user()->role === 'vendor' ? 'disabled': ''}}>
                      <option value="" selected disabled>Tailor</option>
                      @if($tailors->count() > 0)
                         @foreach($tailors as $tailor)
-                           <option value="{{ $tailor->id }}" {{ (old('tailor') && old('tailor') == $tailor->id) ? 'selected': '' }}>{{ ucfirst($tailor->name) }}</option>
+                           <option value="{{ $tailor->id }}" {{ ((old('tailor') && old('tailor') == $tailor->id) || (isset($single_tailor->id) && $single_tailor->id == $tailor->id)) ? 'selected': '' }}>{{ ucfirst($tailor->name) }}</option>
                         @endforeach
                      @endif
                   </select>
@@ -159,7 +159,7 @@
                <div class="col-sm-3">
                   <label>New Commission Price <span class="text-danger">*</span></label>
                   <input type="hidden" id="commission-price-hidden" value="">
-                  <input type="number" min="0" name="commission_price" value="{{ old('commission_price') }}" id="commission-price" readonly="readonly" class="form-control" placeholder="Enter commission price">
+                  <input type="number" min="0" name="commission_price" value="{{ isset($single_tailor->commission) ? $single_tailor->commission: old('commission_price') }}" id="commission-price" readonly="readonly" class="form-control" placeholder="Enter commission price">
                   @error('commission_price')
                      <span class="alert alert-danger alert-dismissible mt-1">
                            <div class="alert-message p-0">
