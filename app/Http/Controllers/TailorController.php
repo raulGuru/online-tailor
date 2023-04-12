@@ -332,7 +332,7 @@ class TailorController extends Controller
             User::insert($users);
         } else {
             $user->email = $request->email;
-            $user->phone = $request->phone;
+            $user->phone = $request->mobile;
             $user->pin_code = $request->pin_code;
             $user->save();
         }
