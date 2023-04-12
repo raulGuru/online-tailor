@@ -248,7 +248,7 @@
          </div>
          <div class="row mt-3">
             <div class="col-6">
-               <label class="mb-1">Width</label>
+               <label class="mb-1">Dimensions</label>
                <input type="text" name="width" value="{{ (old('width')) ? old('width'): $product->width }}" class="form-control" placeholder="Enter material width">
                @error('width')
                   <span class="alert alert-danger alert-dismissible mt-1">
