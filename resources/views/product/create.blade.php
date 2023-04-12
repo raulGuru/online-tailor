@@ -157,7 +157,7 @@
                   @enderror
                </div>
                <div class="col-sm-3">
-                  <label>Final price with comission <span class="text-danger">*</span></label>
+                  <label>Final price with commission <span class="text-danger">*</span></label>
                   <input type="hidden" id="commission-price-hidden" value="">
                   <input type="number" min="0" name="commission_price" value="{{ isset($single_tailor->commission) ? $single_tailor->commission: old('commission_price') }}" id="commission-price" readonly="readonly" class="form-control" placeholder="Enter commission price">
                   @error('commission_price')
