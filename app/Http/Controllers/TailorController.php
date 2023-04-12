@@ -320,7 +320,7 @@ class TailorController extends Controller
                     'creator' => Auth::id(),
                     'email' => $request->email,
                     'password' => Hash::make('abc@123'),
-                    'gender' => 'unknown',
+                    'gender' => 'male',
                     'phone' => $request->mobile,
                     'pin_code' => $request->pin_code,
                     'status' => 'active',
@@ -332,6 +332,8 @@ class TailorController extends Controller
             User::insert($users);
         } else {
             $user->email = $request->email;
+            $user->phone = $request->phone;
+            $user->pin_code = $request->pin_code;
             $user->save();
         }
         // Update tailors
