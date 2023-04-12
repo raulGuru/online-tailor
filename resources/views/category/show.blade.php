@@ -122,7 +122,7 @@
                        @endif
                        @if($result->disclaimer)
                         <tr>
-                           <th scope="col">disclaimer</th>
+                           <th scope="col">Disclaimer</th>
                            <td>{{ $result->disclaimer }}</td>
                         </tr>
                        @endif
