@@ -157,7 +157,7 @@
                   @enderror
                </div>
                <div class="col-sm-3">
-                  <label>New Commission Price <span class="text-danger">*</span></label>
+                  <label>Final price with commission <span class="text-danger">*</span></label>
                   <input type="hidden" id="commission-price-hidden" value="{{ isset($single_tailor->commission) ? $single_tailor->commission: 0 }}">
                   <input type="number" min="0" name="commission_price" value="{{ isset($single_tailor->commission) ? $single_tailor->commission: old('commission_price') }}" id="commission-price" readonly="readonly" class="form-control" placeholder="Enter commission price">
                   @error('commission_price')
@@ -220,7 +220,7 @@
             </div>
             <div class="row mt-3">
                <div class="col-6">
-                  <label class="mb-1">Width</label>
+                  <label class="mb-1">Dimensions</label>
                   <input type="text" name="width" value="{{ old('width') }}" class="form-control" placeholder="Enter material width">
                   @error('width')
                      <span class="alert alert-danger alert-dismissible mt-1">

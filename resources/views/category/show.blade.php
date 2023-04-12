@@ -92,7 +92,7 @@
                      <tbody>
                         @if($result->width)
                            <tr>
-                              <th scope="col">Width</th>
+                              <th scope="col">Dimensions</th>
                               <td>{{ $result->width }}</td>
                            </tr>
                        @endif
@@ -122,7 +122,7 @@
                        @endif
                        @if($result->disclaimer)
                         <tr>
-                           <th scope="col">disclaimer</th>
+                           <th scope="col">Disclaimer</th>
                            <td>{{ $result->disclaimer }}</td>
                         </tr>
                        @endif

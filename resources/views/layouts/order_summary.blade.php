@@ -50,7 +50,7 @@
                                             <tbody>
                                                 @if($product->width)
                                                 <tr>
-                                                    <th scope="col">Width</th>
+                                                    <th scope="col">Dimensions</th>
                                                     <td>{{ $product->width }}</td>
                                                 </tr>
                                             @endif

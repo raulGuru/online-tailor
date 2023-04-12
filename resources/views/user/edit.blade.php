@@ -100,6 +100,7 @@
                         </span>
                     @enderror
                 </div>
+                @if (Auth::user()->role === 'admin')
                 <div class="col-sm-12 mb-3">
                     <p class="mb-3">Status<span class="text-danger">*</span></p>
                     <div class="form-check form-check-inline">
@@ -122,6 +123,7 @@
                     </span>
                     @enderror
                 </div>
+                @endif
             </div>
             <div class="text-end mt-3">
                 <button type="submit" class="btn btn-primary">Update</button>
