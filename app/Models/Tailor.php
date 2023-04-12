@@ -9,6 +9,11 @@ class Tailor extends Model
 {
     use HasFactory;
 
+    protected $fillable = [
+        'phone',
+        'pin_code'
+    ];
+
     public function user()
     {
         return $this->belongsTo(User::class, 'creator');

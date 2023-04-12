@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Role;
+use App\Models\Tailor;
 use App\Models\User;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
@@ -117,13 +118,12 @@ class UserController extends Controller
     public function update(Request $request, $id)
     {
         $validations = [
-            'email' => 'required|email',
+            'email' => 'required|email|unique:users,email,'.$id ?? 0,
             'password' => 'confirmed',
             'password_confirmation' => 'same:password',
             'gender' => 'required',
             'phone' => 'required|digits:10',
             'pin_code' => 'required|regex:/\b\d{6}\b/',
-            'status' => 'required'
         ];
         if(Auth::user()->role === 'admin') {
             $validations['role'] = 'required';
@@ -140,10 +140,18 @@ class UserController extends Controller
         $user->pin_code = $request->pin_code;
         if(Auth::user()->role === 'admin') {
             $user->role = $request->role;
+            $user->status = $request->status;
         }
-        $user->status = $request->status;
         $user->updated_at = Carbon::now();
         $user->save();
+        $tailor = Tailor::where('user_id', $id)->first();
+        $tailor->mobile = $request->phone;
+        $tailor->phone = $request->phone;
+        $tailor->pin_code = $request->pin_code;
+        if(Auth::user()->role === 'admin') {
+            $tailor->status = $request->status;
+        }
+        $tailor->save();
         return redirect()->route('user.index');
     }
 
