@@ -294,7 +294,21 @@ $(document).ready(function() {
         var title = $.trim($(this).val());
         $('#material-slug').val(MYAPP.common.convertToSlug(title));
     });
-
+    // Onload logic
+    var material_price = parseInt($.trim($('#material-price').val()));
+    var price = 0;
+    if(material_price) {
+        price = material_price;
+    }
+    var commission_percentage = parseInt($('body #commission-price-hidden').val());
+    var percentage = 0;
+    if(commission_percentage) {
+        percentage = commission_percentage;
+    }
+    commission = (percentage / 100) * price;
+    var new_price = price + commission;
+    $('body #commission-price').val(new_price);
+    // Keyup logic
     $("body #material-price").keyup(function() {
         var material_price = parseInt($.trim($(this).val()));
         var price = 0;
