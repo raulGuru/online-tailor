@@ -30,20 +30,6 @@ if (!function_exists('working_hours')) {
     function working_hours($default = null)
     {
         $working_hours = [
-            '12:00 AM',
-            '12:30 AM',
-            '01:00 AM',
-            '01:30 AM',
-            '02:00 AM',
-            '02:30 AM',
-            '03:00 AM',
-            '03:30 AM',
-            '04:00 AM',
-            '04:30 AM',
-            '05:00 AM',
-            '05:30 AM',
-            '06:00 AM',
-            '06:30 AM',
             '07:00 AM',
             '07:30 AM',
             '08:00 AM',
@@ -77,7 +63,21 @@ if (!function_exists('working_hours')) {
             '10:00 PM',
             '10:30 PM',
             '11:00 PM',
-            '11:30 PM'
+            '11:30 PM',
+            '12:00 AM',
+            '12:30 AM',
+            '01:00 AM',
+            '01:30 AM',
+            '02:00 AM',
+            '02:30 AM',
+            '03:00 AM',
+            '03:30 AM',
+            '04:00 AM',
+            '04:30 AM',
+            '05:00 AM',
+            '05:30 AM',
+            '06:00 AM',
+            '06:30 AM',
         ];
 
         if (is_numeric($default)) {
