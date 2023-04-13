@@ -45,51 +45,28 @@
 										<p class="m-0"><strong>Address: </strong>{{ $tailor->address }}</p>
 										<p class="m-0"><strong>Phone: </strong>{{ $tailor->phone }}</p>
 										<p class="m-0">
-											<strong>Open Days: </strong>
+											<strong>Shop Timings: </strong>
 											@if($tailor->appointments)
 												<?php
 													$store_timings = $tailor->store_timings->toArray();
-													$opened = array();
-													$closed = array();
-													$start_end_time = null;
-													$appointments_days = collect(json_decode($tailor->appointments, true));
-													foreach($appointments_days as $day) {
-														if(isset($store_timings[$day . '_opens']) && 
-															!empty($store_timings[$day . '_opens']) && 
-															$store_timings[$day . '_opens'] !== 'closed') {
-															array_push($opened, ucwords($day));
-															if(empty($start_end_time) && $store_timings[$day . '_closes'] && $store_timings[$day . '_closes'] !== 'closed') {
-																$start_end_time = $store_timings[$day . '_opens'] . ' - ' . $store_timings[$day . '_closes'];
-															}
-														} else {
-															array_push($closed, ucwords($day));
-														}
-													}
-													echo implode(', ', $opened);
+													$days = ['monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday', 'sunday'];
 												?>
-											@else
-												N/A
-											@endif
-										</p>
-										@if(!empty($closed))
-											<p class="m-0">
-												<strong>Close Days: </strong>
-												{{ implode(', ', $closed) }}
-											</p>
-										@endif
-										@if($start_end_time)
-											<p class="m-0"><strong>Open Time: </strong>{{ $start_end_time }}</p>
-										@endif
-										<p class="m-0">
-											<strong>Services: </strong>
-											@if($tailor->services)
-												<?php
-													$services = collect(json_decode($tailor->services, true));
-													$service_names = $services->map(function($name, $key) {
-														return ucwords($name);
-													});
-													echo implode(', ', $service_names->toArray());
-												?>
+												<div class="table-responsive">
+													<table class="table table-sm">
+														<tr>
+															<th>Day</th>
+															<th>Opens</th>
+															<th>Closes</th>
+														</tr>
+														@foreach($days as $day)
+														<tr>
+															<td>{{ Str::title($day) }}</td>
+															<td>{{ $store_timings[$day . '_opens'] ? $store_timings[$day . '_opens']: 'N/A' }}</td>
+															<td>{{ $store_timings[$day . '_closes'] ? $store_timings[$day . '_closes']: 'N/A' }}</td>
+														</tr>
+														@endforeach
+													</table>
+												</div>
 											@else
 												N/A
 											@endif
