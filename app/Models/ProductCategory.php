@@ -15,7 +15,11 @@ class ProductCategory extends Model
      * @var array<int, string>
      */
     protected $fillable = [
-        'creator'
+        'creator',
+        'master_cat_id',
+        'action',
+        'created_at',
+        'updated_at'
     ];
 
     public function user()
@@ -23,8 +27,18 @@ class ProductCategory extends Model
         return $this->belongsTo(User::class, 'creator');
     }
 
+    public function masterCategory()
+    {
+        return $this->belongsTo(MasterCategory::class, 'master_cat_id');
+    }
+
     public function posts()
     {
         return $this->hasMany(Product::class, 'type_id');
+    }
+
+    public function subCategories()
+    {
+        return $this->hasMany(ProductSubCategory::class, 'product_category_id');
     }
 }

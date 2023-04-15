@@ -2,67 +2,10 @@
 
 @section('content')
 <div class="container">
-    <div class="breadcrumb-menu mt-0 mb-4">
-      <nav aria-label="breadcrumb">
-         <ol class="breadcrumb">
-            <li class="breadcrumb-item">
-               <a href="{{ route('category.index') }}">Home</a>
-            </li>
-            @if(request()->gender)
-               <li class="breadcrumb-item active">{{ ucfirst(request()->gender) }}</li>
-            @endif
-         </ol>
-      </nav>
-    </div>
+   @include('category.breadcrumb')
     <div class="row">
        <div class="col-md-3">
-          <div class="categories-border mb-4">
-             <h4 class="font-weight-600 m-0">CATEGORIES</h4>
-             <img src="{{ asset('public/assets/img/small-line.svg') }}" alt="">
-             @if($categories->count() > 0)
-               <ul class="categories-listing mt-3 p-0">
-                  @foreach($categories as $category)
-                     <a href="{{ route('category.index', http_build_query(['gender'=> strtolower(request()->gender), 'type' => strtolower($category->name)])) }}" class="text-decoration-none text-reset">
-                        <li class="d-flex justify-content-between mt-3">
-                           <span> {{ ucfirst($category->name) }} </span>
-                           <span>({{ $category->posts->count() }})</span>
-                        </li>
-                     </a>
-                  @endforeach
-               </ul>
-             @endif
-          </div>
-          @if($sub_categories!== null && $sub_categories->count() > 0)
-          <div class="categories-border mb-4">
-             <h4 class="font-weight-600 m-0">SUB CATEGORIES</h4>
-             <img src="{{ asset('public/assets/img/small-line.svg') }}" alt="">
-               <ul class="categories-listing mt-3 p-0">
-                  @foreach($sub_categories as $sub_category)
-                     <a href="{{ route('category.index', http_build_query(['gender'=> strtolower(request()->gender), 'subtype' => strtolower($sub_category->name)])) }}" class="text-decoration-none text-reset">
-                        <li class="d-flex justify-content-between mt-3">
-                           <span> {{ ucfirst($sub_category->name) }} </span>
-                        </li>
-                     </a>
-                  @endforeach
-               </ul>
-          </div>
-          @endif
-          <div class="categories-border">
-             <h4 class="font-weight-600 m-0">COLOR</h4>
-             <img src="{{ asset('public/assets/img/small-line.svg') }}" alt="">
-             @if($colors->count() > 0)
-               <ul class="categories-listing mt-3 p-0">
-                  @foreach($colors as $color)
-                     <a href="{{ route('category.index', http_build_query(['gender'=> strtolower(request()->gender), 'color' => strtolower($color->name)])) }}" class="text-decoration-none text-reset">
-                        <li class="d-flex justify-content-between mt-3">
-                           <span> {{ $color->name }} </span>
-                           <span class="circle-color" style="background: {{ $color->code }}"></span>
-                        </li>
-                     </a>
-                  @endforeach
-               </ul>
-             @endif
-          </div>
+         @include('category.common-sidebar')
        </div>
        <div class="col-md-9">
           <div class="row mb-4">
@@ -122,7 +65,7 @@
                      <p class="h1">No Result Found.</p>
                      <p class="font-weight-normal mt-3 mb-4">Try searching some other keywords or apply different set of filters</p>
                      <p class="font-weight-normal mt-3 mb-4">Try other items in our store</p>
-                     <a href="{{ route('category.index') }}" class="btn btn-primary btn-lg">Return to home</a>
+                     <a href="{{ route('home.index') }}" class="btn btn-primary btn-lg">Return to home</a>
                   </div>
                </div>
              @endif

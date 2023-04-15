@@ -8,4 +8,9 @@ use Illuminate\Database\Eloquent\Model;
 class ProductColor extends Model
 {
     use HasFactory;
+
+    public function post_count()
+    {
+        return $this->hasMany(Product::class, 'color_id');
+    }
 }

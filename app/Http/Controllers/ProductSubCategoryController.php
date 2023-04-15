@@ -50,16 +50,20 @@ class ProductSubCategoryController extends Controller
     public function store(Request $request)
     {
         $this->validate($request, [
-            'name' => 'required|unique:product_categories|max:255',
+            'name' => 'required|max:255',
+            'category' => 'required|max:255',
         ]);
-        $data = array(
-            'creator' => Auth::id(),
-            'name' => $request->name,
-            'product_category_id' => $request->category,
-            'created_at' => Carbon::now(),
-            'updated_at' => Carbon::now()
-        );
-        ProductSubCategory::insert($data);
+        $sub_cat = ProductSubCategory::where(array('product_category_id' => $request->category, 'name' => $request->name))->first();
+        if(empty($sub_cat)) {
+            $data = array(
+                'creator' => Auth::id(),
+                'name' => $request->name,
+                'product_category_id' => $request->category,
+                'created_at' => Carbon::now(),
+                'updated_at' => Carbon::now()
+            );
+            ProductSubCategory::insert($data);
+        }
         return redirect()->route('product_subcategory.index');
     }
 
@@ -98,8 +102,8 @@ class ProductSubCategoryController extends Controller
     public function update(Request $request, $id)
     {
         $this->validate($request, [
-            'name' => 'required',
-            'category' => 'required'
+            'name' => 'required|max:255',
+            'category' => 'required|max:255',
         ]);
         $ProductSubCategory = ProductSubCategory::find($id);
         $ProductSubCategory->name = $request->name;

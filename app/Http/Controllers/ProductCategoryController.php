@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\MasterCategory;
 use App\Models\ProductCategory;
 
 
@@ -37,7 +38,7 @@ class ProductCategoryController extends Controller
      */
     public function create()
     {
-        $data = array();
+        $data['categories'] = MasterCategory::all();
         return view('product.category.create', $data);
     }
 
@@ -50,15 +51,20 @@ class ProductCategoryController extends Controller
     public function store(Request $request)
     {
         $this->validate($request, [
-            'name' => 'required|unique:product_categories|max:255',
+            'name' => 'required|max:255',
+            'category' => 'required|max:255',
         ]);
-        $data = array(
-            'creator' => Auth::id(),
-            'name' => $request->name,
-            'created_at' => Carbon::now(),
-            'updated_at' => Carbon::now()
-        );
-        ProductCategory::insert($data);
+        $sub_cat = ProductCategory::where(array('master_cat_id' => $request->category, 'name' => $request->name))->first();
+        if(empty($sub_cat)) {
+            $data = array(
+                'creator' => Auth::id(),
+                'name' => $request->name,
+                'master_cat_id' => $request->category,
+                'created_at' => Carbon::now(),
+                'updated_at' => Carbon::now()
+            );
+            ProductCategory::insert($data);
+        }
         return redirect()->route('product_category.index');
     }
 

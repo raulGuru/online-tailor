@@ -24,9 +24,10 @@
                <tr>
                   <th>#</th>
                   <th>Creater</th>
+                  <th>Master Category</th>
                   <th>Name</th>
                   <th>Updated On</th>
-                  <!-- <th class="text-end">Actions</th> -->
+                  {{-- <th class="text-end">Actions</th> --}}
                </tr>
             </thead>
             <tbody>
@@ -35,9 +36,10 @@
                <tr>
                   <td>{{ ($categorys->currentpage()-1) * $categorys->perpage() + $key + 1 }}</td>
                   <td>{{ $category->user->email }}</td>
+                  <td>{{ Str::title($category->masterCategory->title) }}</td>
                   <td>{{ $category->name }}</td>
                   <td>{{ $category->created_at }}</td>
-                  <!-- <td class="table-action">
+                  {{-- <td class="table-action">
                      <div class="d-flex justify-content-end">
                         <div>
                            <a href="{{ route('product_category.show', $category->id)}}"><i class="align-middle me-2" data-feather="eye"></i></a>
@@ -63,7 +65,7 @@
                            </form>                         
                         </div>
                      </div>
-                  </td> -->
+                  </td> --}}
                </tr>
                @endforeach
             </tbody>
