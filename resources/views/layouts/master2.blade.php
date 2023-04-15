@@ -25,7 +25,7 @@
                <div class="collapse navbar-collapse" id="navbarTogglerDemo01">
                   <div class="row">
                      <div class="col-md-1 col-2 p-0">
-                        <a class="navbar-brand" href="{{ route('category.index') }}">
+                        <a class="navbar-brand" href="{{ route('home.index') }}">
                            <img src="{{ asset('public/assets/img/logo.ico') }}" alt="logo">
                         </a>
                      </div>

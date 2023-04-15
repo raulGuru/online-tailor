@@ -23,5 +23,10 @@ class ProductSubCategory extends Model
         return $this->belongsTo(ProductCategory::class, 'product_category_id');
     }
 
+    public function post_count()
+    {
+        return $this->hasMany(Product::class, 'subtype_id');
+    }
+
 
 }

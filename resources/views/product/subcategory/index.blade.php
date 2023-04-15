@@ -27,7 +27,7 @@
                   <th>Name</th>
                   <th>Category</th>
                   <th>Updated On</th>
-                  <!-- <th class="text-end">Actions</th> -->
+                  {{-- <th class="text-end">Actions</th> --}}
                </tr>
             </thead>
             <tbody>
@@ -39,7 +39,7 @@
                   <td>{{ $subcategory->name }}</td>
                   <td>{{ $subcategory->category->name }}</td>
                   <td>{{ $subcategory->created_at }}</td>
-                  <!-- <td class="table-action">
+                  {{-- <td class="table-action">
                      <div class="d-flex justify-content-end">
                         <div>
                            <a href="{{ route('product_subcategory.show', $subcategory->id)}}"><i class="align-middle me-2" data-feather="eye"></i></a>
@@ -65,7 +65,7 @@
                            </form>                         
                         </div>
                      </div>
-                  </td> -->
+                  </td> --}}
                </tr>
                @endforeach
             </tbody>

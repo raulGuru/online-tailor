@@ -15,6 +15,9 @@ class CategoryController extends Controller
     private $limit;
     private $gender;
     private $order;
+    // private $master_categories;
+    private $product_categories;
+    private $product_colors;
     private $type;
     private $subtype;
     private $color;
@@ -22,6 +25,9 @@ class CategoryController extends Controller
     {
         $this->limit = 9;
         $this->order = 'asc';
+        // $this->master_categories = MasterCategory::all();
+        $this->product_categories = ProductCategory::all();
+        $this->product_colors = ProductColor::all();
     }
 
     /**
@@ -32,20 +38,32 @@ class CategoryController extends Controller
 
     public function index(Request $request)
     {
-     
-        $searchTerm = $request->title ? trim($request->title) : '';
-        $this->gender = $request->gender ? trim($request->gender) : '';
+        
+        $searchTerm = $request->title ? trim($request->title) : null;
+        if($request->gender) {
+            $request->session()->put('gender', $request->gender);
+        }
         $this->order = $request->order ? trim($request->order) : $this->order;
         $this->limit = $request->limit ? trim($request->limit) : $this->limit;
+        $products = Product::query();
         $this->type = $request->type ? trim($request->type) : null;
         $this->subtype = $request->subtype ? trim($request->subtype) : null;
         $this->color = $request->color ? trim($request->color) : null;
-        $products = Product::where('title', 'like', '%' . $searchTerm . '%');
+        if($searchTerm) {
+            $products = Product::where('title', 'like', '%' . $searchTerm . '%');
+        }
+        $this->gender = session()->get('gender');
+        if(!empty($this->gender)) {
+            $gender = MasterCategory::where('slug', $this->gender)->first();
+            if (!empty($gender)) {
+                $products->where('cat_id', $gender->id);
+            }
+        }
+        $categories = null;
         if (!empty($this->type)) {
-            // $type = ProductType::where('name', $this->type)->first();
             $type = ProductCategory::where('name', $this->type)->first();
             if (!empty($type)) {
-                $data['sub_categories'] = ProductSubCategory::where('product_category_id', $type->id)->get();
+                // $categories = ProductCategory::where('id', $type->id)->get();
                 $products->where('type_id', $type->id);
             }
         }
@@ -53,17 +71,17 @@ class CategoryController extends Controller
         if (!empty($this->subtype)) {
             $subtype = ProductSubCategory::where('name', $this->subtype)->first();
             if (!empty($subtype)) {
-                $data['sub_categories'] = ProductSubCategory::where('product_category_id', $subtype->product_category_id)->get();
                 $products->where('subtype_id', $subtype->id);
             }
         }
 
         if (!empty($this->color)) {
-            $color = ProductColor::where('name', $this->color)->first();
+            $color = ProductColor::where('name', $this->color)->distinct()->first();
             if (!empty($color)) {
                 $products->where('color_id', $color->id);
             }
         }
+        /*
         if(!empty($this->gender)) {
             $gender = MasterCategory::where('slug', $this->gender)->first();
             if (!empty($gender)) {
@@ -78,9 +96,18 @@ class CategoryController extends Controller
         }
         $data = $this->get_categories_colors($gender->id);
         $products->orderBy('id', $this->order);
-        $results = $products->paginate($this->limit);
-        $results->appends(['title' => $searchTerm, 'gender' => $this->gender, 'type' => $this->type, 'color' => $this->color, 'order' => $this->order]);
-        return view('category.index', ['results' => $results, 'title' => $searchTerm, 'limit' => $this->limit, 'type' => $this->type, 'color' => $this->color, 'order' => $this->order, 'categories' => $data['categories'], 'sub_categories' => $data['sub_categories'], 'colors' => $data['colors']]);
+        */
+        $data['results'] = $products->paginate($this->limit);
+        $data['categories'] = $this->product_categories;
+        // $data['sub_categories'] = $this->product_categories;
+        $data['colors'] = $this->product_colors;
+        $data['order'] = $this->order;
+        $data['limit'] = $this->limit;
+        return view('category.index')->with($data);
+        // dd($results);
+        // $results->appends(['title' => $searchTerm, 'gender' => $this->gender, 'type' => $this->type, 'color' => $this->color, 'order' => $this->order]);
+        // return view('category.index', ['results' => $results, 'title' => $searchTerm, 'limit' => $this->limit, 'type' => $this->type, 'color' => $this->color, 'order' => $this->order, 'categories' => $data['categories'], 'sub_categories' => $data['sub_categories'], 'colors' => $data['colors']]);
+
     }
 
     /**
@@ -110,14 +137,16 @@ class CategoryController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show(Request $request, $title)
+    public function show($title)
     {
         $material = Product::where('slug', $title)->first();
         if (empty($material)) {
             return redirect()->route('category.index');
         }
-        $data = $this->get_categories_colors($material->cat_id);
-        return view('category.show', ['result' => $material, 'categories' => $data['categories'], 'colors' => $data['colors']]);
+        $data['result'] = $material;
+        $data['categories'] = $this->product_categories;
+        $data['colors'] = $this->product_colors;
+        return view('category.show', $data);
     }
 
     /**
