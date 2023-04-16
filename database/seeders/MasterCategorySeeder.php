@@ -29,7 +29,6 @@ class MasterCategorySeeder extends Seeder
                 'updated_at' => Carbon::now()
             )
         );
-        MasterCategory::truncate();
         MasterCategory::insert($categories);
     }
 }

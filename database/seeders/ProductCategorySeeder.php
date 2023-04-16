@@ -19,6 +19,7 @@ class ProductCategorySeeder extends Seeder
         $types = array(
             array(
                 'id' => 1,
+                'master_cat_id' => 1,
                 'name' => 'Fabric',
                 'creator' => 1,
                 'action' => 'active',

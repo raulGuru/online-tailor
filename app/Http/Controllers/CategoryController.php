@@ -15,7 +15,7 @@ class CategoryController extends Controller
     private $limit;
     private $gender;
     private $order;
-    // private $master_categories;
+    private $master_categories;
     private $product_categories;
     private $product_colors;
     private $type;
@@ -25,7 +25,7 @@ class CategoryController extends Controller
     {
         $this->limit = 9;
         $this->order = 'asc';
-        // $this->master_categories = MasterCategory::all();
+        $this->master_categories = MasterCategory::all();
         $this->product_categories = ProductCategory::all();
         $this->product_colors = ProductColor::all();
     }
@@ -38,7 +38,6 @@ class CategoryController extends Controller
 
     public function index(Request $request)
     {
-        
         $searchTerm = $request->title ? trim($request->title) : null;
         if($request->gender) {
             $request->session()->put('gender', $request->gender);
@@ -99,6 +98,7 @@ class CategoryController extends Controller
         */
         $data['results'] = $products->paginate($this->limit);
         $data['categories'] = $this->product_categories;
+        $data['master_categories'] = $this->master_categories;
         // $data['sub_categories'] = $this->product_categories;
         $data['colors'] = $this->product_colors;
         $data['order'] = $this->order;
