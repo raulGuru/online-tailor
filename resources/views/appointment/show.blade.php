@@ -13,6 +13,10 @@
          <p>Below are the booking information of customer:</p>
          <table class="table">
             <tr>
+               <td>Appointment Id</td>
+               <td>{{ $appointment->id }}</td>
+            </tr>
+            <tr>
                <td>Customer name</td>
                <td>{{ $appointment->fullname }}</td>
             </tr>
@@ -71,7 +75,7 @@
                </td>
             </tr>
          </table>
-      @else: 
+      @else:
          <div class="row">
             <div class="col-sm-10 col-md-8 col-lg-6 mx-auto d-table h-100">
                <div class="d-table-cell align-middle">
