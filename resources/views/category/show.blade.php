@@ -23,7 +23,7 @@
                 <div class="col-md-6 {{ (isset($images) && !empty($images)) ? 'col-md-6': 'col-md-12'}}">
                     <h4 class="font-weight-600">{{ $result->title }} </h4>
                     <div class="d-flex mb-4">
-                        <h6 class="text-brown f-20 font-weight-500 m-0">&#8377; {{ $result->price }} /meter</h6>
+                        <h6 class="text-brown f-20 font-weight-500 m-0">&#8377; {{ $result->commission_price }} /meter</h6>
                     </div>
                     <div class="row mb-4">
                         <div class="col-md-12">

@@ -39,7 +39,7 @@ class OrderController extends Controller
         $data['products'] = [$products]; // 
         $data['deliver_by'] = $this->formatDate($estimated_day); 
         $data['gender'] = $measurement['gender'];
-        $data['price']['product'] = $products->price;
+        $data['price']['product'] = $products->commission_price;
         $data['price']['stiching_cost'] = $stiching_cost * $product_qty;
         $data['price']['discount'] = $discount;
         $data['price']['delivey_charges'] = $delivey_charges;

@@ -151,7 +151,7 @@
             </div>
             <div class="col-sm-3">
                <label>Material Price <span class="small text-primary">(Per Meter)</span><span class="text-danger">*</span></label>
-               <input type="number" min="0" name="price" value="{{ (old('price')) ? old('price'): $product->price }}" id="material-price" class="form-control" placeholder="Enter price">
+               <input type="number" min="0" name="price" value="{{ (old('price')) ? old('price'): $product->commission_price }}" id="material-price" class="form-control" placeholder="Enter price">
                @error('price')
                   <span class="alert alert-danger alert-dismissible mt-1">
                         <div class="alert-message p-0">
