@@ -36,7 +36,7 @@
                <tr>
                   <td>{{ ($categorys->currentpage()-1) * $categorys->perpage() + $key + 1 }}</td>
                   <td>{{ $category->user->email }}</td>
-                  <td>{{ Str::title($category->masterCategory->title) }}</td>
+                  <td>{{ $category->master_cat_id }}</td>
                   <td>{{ $category->name }}</td>
                   <td>{{ $category->created_at }}</td>
                   {{-- <td class="table-action">

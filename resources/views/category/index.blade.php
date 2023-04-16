@@ -5,7 +5,7 @@
    @include('category.breadcrumb')
     <div class="row">
        <div class="col-md-3">
-         @include('category.common-sidebar')
+         @include('category.common-sidebar1')
        </div>
        <div class="col-md-9">
           <div class="row mb-4">

@@ -34,7 +34,13 @@ class ProductCategory extends Model
 
     public function posts()
     {
-        return $this->hasMany(Product::class, 'type_id');
+        $where = array();
+        if(request()->gender && request()->gender === 'male') {
+            $where = array('cat_id' => 1);
+        } else if(request()->gender && request()->gender === 'women') {
+            $where = array('cat_id' => 2);
+        }
+        return $this->hasMany(Product::class, 'type_id')->where($where);
     }
 
     public function subCategories()
