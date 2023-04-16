@@ -346,7 +346,7 @@ class TailorController extends Controller
         $tailor->mobile = $request->mobile;
         $tailor->phone = $request->phone;
         $tailor->commission = $request->commission;
-        $tailor->visit_charges = 0,//$request->visit_charges;
+        $tailor->visit_charges = 0;//$request->visit_charges;
         $tailor->address = $request->address;
         $tailor->services = json_encode($request->services, true);
         $tailor->appointments = json_encode($request->appointments, true);
