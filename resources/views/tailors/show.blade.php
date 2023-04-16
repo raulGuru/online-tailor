@@ -21,7 +21,7 @@
                 <div><strong>Mobile:</strong> {{ $tailor->mobile }}</div>
                 <div><strong>Phone:</strong> {{ $tailor->phone }}</div>
                 <div><strong>Material Commission:</strong> {{ $tailor->commission }}%</div>
-                <div><strong>Visit charge on successful order placed:</strong> {{ $tailor->visit_charges }}</div>
+                <!-- <div><strong>Visit charge on successful order placed:</strong> {{ $tailor->visit_charges }}</div> -->
                 <div><strong>Address:</strong> {{ $tailor->address }}</div>
                 <div class="mt-3">
                   <strong>Services:</strong>
@@ -76,7 +76,7 @@
                 @if(!empty($photos))
                         <div class="mb-3">
                             <label>Photos:</label>
-                            <div class="clearfix">                     
+                            <div class="clearfix">
                                 @foreach($photos as $key => $photo)
                                 <div class="thumbnail-img {{ $key === 0 ? 'product-image-01': '' }} px-3 mt-2 position-relative float-start">
                                     <img width="75" height="75" src="{{ asset('public/storage/tailors/' . $photo) }}" alt="">
@@ -95,7 +95,7 @@
                 </div>
             </div>
         </div>
-      @else: 
+      @else:
          <div class="row">
             <div class="col-sm-10 col-md-8 col-lg-6 mx-auto d-table h-100">
                <div class="d-table-cell align-middle">

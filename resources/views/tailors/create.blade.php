@@ -99,7 +99,7 @@
                         </span>
                     @enderror
                 </div>
-                
+
                 <div class="col-sm-12 mb-3">
                     <p class="mb-3"><strong>Services</strong> <span class="text-danger">*</span></p>
                     @foreach($services as $key => $service)
@@ -207,7 +207,7 @@
                         </span>
                     @enderror
                 </div>
-                <div class="col-sm-4 mt-3 mb-3">
+                <!-- <div class="col-sm-4 mt-3 mb-3">
                     <label class="mb-1"><strong>Visit charge on successful order placed</strong> <span class="text-danger">*</span></label>
                     <input class="form-control form-control-lg" type="number" min="0" name="visit_charges" value="{{ old('visit_charges') }}" placeholder="Enter tailor's visit charge" />
                     @error('visit_charges')
@@ -217,7 +217,7 @@
                             </div>
                         </span>
                     @enderror
-                </div>
+                </div> -->
                 <div class="col-sm-12 mt-3 mb-3">
                     <p class="mb-3"><strong>Status</strong> <span class="text-danger">*</span></p>
                     <div class="form-check form-check-inline">
