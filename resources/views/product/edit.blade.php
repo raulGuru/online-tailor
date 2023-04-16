@@ -151,7 +151,7 @@
             </div>
             <div class="col-sm-3">
                <label>Material Price <span class="small text-primary">(Per Meter)</span><span class="text-danger">*</span></label>
-               <input type="number" min="0" name="price" value="{{ (old('price')) ? old('price'): $product->commission_price }}" id="material-price" class="form-control" placeholder="Enter price">
+               <input type="number" min="0" name="price" value="{{ (old('price')) ? old('price'): $product->price }}" id="material-price" class="form-control" placeholder="Enter price">
                @error('price')
                   <span class="alert alert-danger alert-dismissible mt-1">
                         <div class="alert-message p-0">
@@ -213,7 +213,7 @@
                @if($product->images)
                   <?php $images = json_decode($product->images, true); ?>
                   @if(!empty($images))
-                     <div class="clearfix">                     
+                     <div class="clearfix">
                         @foreach($images as $key => $image)
                            <div class="thumbnail-img mt-2 px-3 position-relative float-start">
                               <img width="75" height="75" src="{{ asset('public/storage/products/' . $image) }}" alt="">
