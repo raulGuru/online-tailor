@@ -28,15 +28,15 @@
                         </span>
                      @enderror
                     </div>
-                    
+
                     <h3 class="font-weight-500 mb-4 h3_title_measurement"></h3>
                     <div class="row" id="dynamicfields">
-    
+
                     </div>
 
                     <div class="row d-none" id="image_row">
                         <div class="col-md-6" mb-4>
-                            <p class="mb-1 f-16 d-flex justify-content-between">Add Image Files
+                            <p class="mb-1 f-16 d-flex justify-content-between">Browse images (Choose your style)
                                 <i class="fa fa-info-circle"></i>
                             </p>
                             <input type="file" name="images[]" multiple="" accept="image/*">
