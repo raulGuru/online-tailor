@@ -105,40 +105,7 @@
 										<h4 class="mt-0 mb-1 text-muted"><strong>Location: </strong><i class="fas fa-map-marker text-success"></i> {{ $tailor->location }} - {{ $tailor->pin_code }}</h4>
 										<p class="m-0"><strong>Address: </strong>{{ $tailor->address }}</p>
 										<p class="m-0"><strong>Phone: </strong>{{ $tailor->phone }}</p>
-										<p class="m-0">
-											<strong>Open Days: </strong>
-											@if($tailor->appointments)
-												<?php
-													$appointments_days = collect(json_decode($tailor->appointments, true));
-													$days_names = $appointments_days->map(function($name, $key) {
-														return ucwords($name);
-													});
-													echo implode(', ', $days_names->toArray());
-												?>
-											@else
-												N/A
-											@endif
-										</p>
-										<p class="m-0"><strong>Timing: </strong>09:10 AM - 09:30 PM</p>
-										<p class="m-0">
-											<strong>Services: </strong>
-											@if($tailor->services)
-												<?php
-													$services = collect(json_decode($tailor->services, true));
-													$service_names = $services->map(function($name, $key) {
-														return ucwords($name);
-													});
-													echo implode(', ', $service_names->toArray());
-												?>
-											@else
-												N/A
-											@endif
-										</p>
-										@if($tailor->description)
-											<p class="m-0"><strong>Description: </strong>{{ $tailor->description }}</p>
-										@endif
 									</div>
-
                                 </div>
                             </div>
                         </div>
