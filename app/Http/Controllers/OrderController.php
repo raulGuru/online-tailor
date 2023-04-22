@@ -30,7 +30,7 @@ class OrderController extends Controller
         $data['tailor'] =  Tailor::where('id', $customer['tailor_id'])->first(); 
         $stiching_cost = DB::table('stitching_costs')->where([
             'tailor_id' => $customer['tailor_id'],
-            'stitch_name' => $measurement['measurement_type']])->value('cost');
+            'stitch_name' => $measurement['type']])->value('cost');
         
         // Need to update delivery charges logic
         // $delivey_charges = isset($data['tailor']->delivey_charges)? $request->delivey_charges : 0;

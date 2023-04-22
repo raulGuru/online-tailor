@@ -298,6 +298,171 @@ if (!function_exists('get_measurement_form_fields')) {
     }
 }
 
+if (!function_exists('get_measurement_form')) {
+    function get_measurement_form($genders = null, $variant = null)
+    {
+        $measurement_fileds = array(
+            'men' => array(
+                'shirt' => array(
+                    'fields' => array(
+                        array(
+                            'name'  => 'pattern',
+                            'type'  => 'hidden',
+                            'value' => 'top',
+                        ),
+                        array(
+                            'name'  => 'type',
+                            'type'  => 'hidden',
+                            'value' => 'shirt',
+                        ),
+                        array(
+                            'name'  => 'gender',
+                            'type'  => 'hidden',
+                            'value' => 'men'
+                        ),
+                        array(
+                            'label' => 'Length',
+                            'name'  => 'length',
+                            'type'  => 'textbox',
+                            'validate' => 'validateNumber',
+                            'value' => ''
+                        ),
+                        array(
+                            'label' => 'Shoulder',
+                            'name'  => 'shoulder',
+                            'type'  => 'textbox',
+                            'validate' => 'validateNumber',
+                            'value' => ''
+                        ),
+                        array(
+                            'label' => 'Sleeve',
+                            'name'  => 'sleeve',
+                            'type'  => 'textbox',
+                            'validate' => 'validateNumber',
+                            'value' => ''
+                        ),
+                        array(
+                            'label' => 'Chest',
+                            'name'  => 'chest',
+                            'type'  => 'textbox',
+                            'validate' => 'validateNumber',
+                            'value' => ''
+                        ),
+                        array(
+                            'label' => 'Waist',
+                            'name'  => 'waist',
+                            'type'  => 'textbox',
+                            'validate' => 'validateNumber',
+                            'value' => ''
+                        ),
+                        array(
+                            'label' => 'Hip',
+                            'name'  => 'hip',
+                            'type'  => 'textbox',
+                            'validate' => 'validateNumber',
+                            'value' => ''
+                        ),
+                        array(
+                            'label' => 'Neck',
+                            'name'  => 'neck',
+                            'type'  => 'textbox',
+                            'validate' => 'validateNumber',
+                            'value' => ''
+                        ),
+                        array(
+                            'label' => 'Notes',
+                            'name'  => 'note',
+                            'type'  => 'textarea',
+                            'value' => ''
+                        ),
+                    ),
+                ),
+                'pant' => array(
+                    'fields' => array(
+                        array(
+                            'name'  => 'pattern',
+                            'type'  => 'hidden',
+                            'value' => 'bottom',
+                        ),
+                        array(
+                            'name'  => 'type',
+                            'type'  => 'hidden',
+                            'value' => 'pant',
+                        ),
+                        array(
+                            'name'  => 'gender',
+                            'type'  => 'hidden',
+                            'value' => 'men'
+                        ),
+                        array(
+                            'label' => 'Length',
+                            'name'  => 'length',
+                            'type'  => 'textbox',
+                            'validate' => 'validateNumber',
+                            'value' => ''
+                        ),
+                        array(
+                            'label' => 'Waist',
+                            'name'  => 'waist',
+                            'type'  => 'textbox',
+                            'validate' => 'validateNumber',
+                            'value' => ''
+                        ),
+                        array(
+                            'label' => 'Hip',
+                            'name'  => 'hip',
+                            'type'  => 'textbox',
+                            'validate' => 'validateNumber',
+                            'value' => ''
+                        ),
+                        array(
+                            'label' => 'Thigh',
+                            'name'  => 'thigh',
+                            'type'  => 'textbox',
+                            'validate' => 'validateNumber',
+                            'value' => ''
+                        ),
+                        array(
+                            'label' => 'Knee',
+                            'name'  => 'knee',
+                            'type'  => 'textbox',
+                            'validate' => 'validateNumber',
+                            'value' => ''
+                        ),
+                        array(
+                            'label' => 'Bottom',
+                            'name'  => 'bottom',
+                            'type'  => 'textbox',
+                            'validate' => 'validateNumber',
+                            'value' => ''
+                        ),
+                        array(
+                            'label' => 'Fock',
+                            'name'  => 'fock',
+                            'type'  => 'textbox',
+                            'validate' => 'validateNumber',
+                            'value' => ''
+                        ),
+                        array(
+                            'label' => 'Notes',
+                            'name'  => 'note',
+                            'type'  => 'textarea',
+                            'value' => ''
+                        ),
+                    ),
+                )
+            ),
+            'women' => array()
+        );
+        if (!empty($genders) && !empty($variant)) {
+            return $measurement_fileds[$genders][$variant];
+        } else if (!empty($genders)) {
+            return $measurement_fileds[$genders];
+        }
+        return $measurement_fileds;
+    }
+}
+
 if (!function_exists('measurement_types')) {
     function measurement_types($gender = 'men')
     {
@@ -328,9 +493,7 @@ if (!function_exists('measurement_types')) {
                 //     'name' => 'Pyjama'
                 // )
             ),
-            'women' => array(
-
-            )
+            'women' => array()
         ];
         return $types[$gender];
     }

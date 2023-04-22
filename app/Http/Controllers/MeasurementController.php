@@ -113,10 +113,10 @@ class MeasurementController extends Controller
     {
         $type = $request->type;
         $gender = $request->gender;
-        $data = get_measurement_form_fields($gender , $type);
+        $data = get_measurement_form($gender , $type);
         if($request->session()->has('measurement')){
             $measurement = json_decode($request->session()->get('measurement'), TRUE);
-            if($type == $measurement['measurement_type']){
+            if($type == $measurement['type']){
                 foreach ($data['fields'] as $key => $value) {
                     $data['fields'][$key]['value'] = $measurement[$value['name']];
                 }
@@ -124,6 +124,7 @@ class MeasurementController extends Controller
                 $request->session()->forget('measurement');
             }
         }
+        $data['selType'] = $type;
         $result = ["code" => 200, "status" => "success", "message" => "fields found successfully!", "data" => $data];
         return response()->json( $result, 200);
     }
