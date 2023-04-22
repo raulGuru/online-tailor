@@ -10,7 +10,6 @@
       <meta name="csrf-token" content="{{ csrf_token() }}" />
       <link rel="preconnect" href="https://fonts.gstatic.com">
       <link rel="shortcut icon" href="{{ asset('public/assets/img/icons/icon-48x48.png') }}" />
-      <link rel="canonical" href="https://demo.adminkit.io/pages-blank.html" />
       <title>Customize Tailor</title>
       <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
       <link href="{{ asset('public/assets/css/light.css') }}" rel="stylesheet">
