@@ -1,23 +1,11 @@
 @extends('layouts.master2')
 @section('content')
 <div class="container mt-3">
-    <div class="breadcrumb-menu mt-4 mb-4">
-        <ul class="m-0 p-0 d-flex">
-            <li>
-                <a href="">Home</a>
-            </li>
-            <li>
-                <a href="">{{ ucfirst($gender) }}</a>
-            </li>
-        </ul>
-    </div>
-
     <div class="row">
         <div class="col-md-12 mb-3">
             <h3>Order Summary</h3>
         </div>
     </div>
-
     <div class="row">
         <div class="col-md-8">
             <div class="accordion" id="accordionPanelsStayOpenExample">
@@ -99,7 +87,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="accordion-item">
+                <div class="accordion-item mb-4">
                     <h2 class="accordion-header" id="panelsStayOpen-headingTwo">
                         <button class="accordion-button collapsed title font-weight-500" type="button" data-bs-toggle="collapse" data-bs-target="#panelsStayOpen-collapseTwo" aria-expanded="false" aria-controls="panelsStayOpen-collapseTwo">
                             Tailor Details
