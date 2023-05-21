@@ -213,7 +213,7 @@
                @if($product->images)
                   <?php $images = json_decode($product->images, true); ?>
                   @if(!empty($images))
-                     <div class="clearfix">                     
+                     <div class="clearfix">
                         @foreach($images as $key => $image)
                            <div class="thumbnail-img mt-2 px-3 position-relative float-start">
                               <img width="75" height="75" src="{{ asset('public/storage/products/' . $image) }}" alt="">

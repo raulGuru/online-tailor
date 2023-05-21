@@ -4,11 +4,11 @@
    <div class="card-header">
       <h5 class="card-title mb-0">Appointment List</h5>
    </div>
-   <div class="card-body">      
+   <div class="card-body">
          <table class="table table-striped">
             <thead>
                <tr>
-                  <th>#</th>
+                  <th>Appointment Id</th>
                   <th>Tailor</th>
                   <th>Fullname</th>
                   <th>Mobile</th>
@@ -25,7 +25,7 @@
                 @if($appointments->count() > 0)
                     @foreach($appointments as $key => $appointment)
                         <tr>
-                            <td>{{ $appointments->firstItem() + $key }}</td>
+                            <td>{{ $appointment->id }}</td>
                             <td>{{ $appointment->tailor->name }}</td>
                             <td>{{ $appointment->fullname }}</td>
                             <td>{{ $appointment->mobile }}</td>
@@ -35,9 +35,9 @@
                             <td>{{ $appointment->address }}</td>
                             <td>{{ $appointment->appointment_at }}</td>
                             <td>
-                                <span class="{{ 
-                                    $appointment->status === 'pending' ? 'text-warning': '' }} 
-                                    {{ $appointment->status === 'accepted' ? 'text-success': '' }} 
+                                <span class="{{
+                                    $appointment->status === 'pending' ? 'text-warning': '' }}
+                                    {{ $appointment->status === 'accepted' ? 'text-success': '' }}
                                     {{ $appointment->status === 'rejected' ? 'text-danger': '' }}">
                                     {{ Str::ucfirst($appointment->status) }}
                                 </span>

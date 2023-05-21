@@ -41,7 +41,7 @@
                   <td>{{ $product->title }}</td>
                   <td>{{ $product->sku }}</td>
                   <td>{{ $product->size }}</td>
-                  <td>&#8377 {{ $product->price }}</td>
+                  <td>&#8377 {{ $product->commission_price }}</td>
                   <td>{{ $product->MasterCategory->title }}</td>
                   <td>{{ ucfirst($product->productCategory->name) }}</td>
                   <td>{{ ucfirst($product->productSubCategory->name) }}</td>

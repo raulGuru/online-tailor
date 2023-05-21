@@ -128,8 +128,8 @@
                             </div>
                             <div class="col-sm-10">
                                 <label class="m-3 mt-0">
-                                    Opens: 
-                                    
+                                    Opens:
+
                                     <select name="{{ $appointment }}_opens">
                                         <option value="">Select opens time</option>
                                         <option value="closed" {{ (isset($store_timings[$appointment . '_opens']) && $store_timings[$appointment . '_opens'] == 'closed') ? 'selected': '' }}>Closed</option>
@@ -171,13 +171,13 @@
                                 <div class="col-sm-3 mb-2">
                                     <div class="form-check form-check-inline p-0">
                                         <label class="form-check-label" for="stitching_{{ $key }}">{{ $stitching->stitch_name }}</label>
-                                        <input 
-                                            class="form-control form-control-lg" 
-                                            id="stitching_{{ $key }}" 
-                                            type="number" 
-                                            min="0" 
-                                            name="stitchings[{{ $stitching->slug_name }}]" 
-                                            value="{{ $stitching->cost }}" 
+                                        <input
+                                            class="form-control form-control-lg"
+                                            id="stitching_{{ $key }}"
+                                            type="number"
+                                            min="0"
+                                            name="stitchings[{{ $stitching->slug_name }}]"
+                                            value="{{ $stitching->cost }}"
                                             placeholder="Enter stitching cost" />
                                     </div>
                                 </div>
@@ -214,7 +214,7 @@
                         </span>
                     @enderror
                 </div>
-                <div class="col-sm-4 mt-3 mb-3">
+                <!-- <div class="col-sm-4 mt-3 mb-3">
                     <label class="mb-1"><strong>Visit charge on successful order placed</strong> <span class="text-danger">*</span></label>
                     <input class="form-control form-control-lg" type="number" min="0" name="visit_charges" value="{{ old('visit_charges') ? old('visit_charges') : $tailor->visit_charges }}" placeholder="Enter tailor's visit charge" />
                     @error('visit_charges')
@@ -224,7 +224,7 @@
                             </div>
                         </span>
                     @enderror
-                </div>
+                </div> -->
                 <div class="col-sm-12 mb-3">
                     <p class="mb-3"><strong>Status</strong> <span class="text-danger">*</span></p>
                     <div class="form-check form-check-inline">

@@ -29,7 +29,7 @@
             <h4>Sku:</h4>
             <p>{{ $product->sku }}</p>
             <h4>Price:</h4> 
-            <p>&#8377 {{ $product->price }}</p>
+            <p>&#8377 {{ $product->commission_price }}</p>
             <h4>Status:</h4>
             <p>{{ ucfirst($product->status) }}</p>
             <h4>Updated on:</h4>

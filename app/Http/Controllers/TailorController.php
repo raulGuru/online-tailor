@@ -95,7 +95,7 @@ class TailorController extends Controller
             'email' => 'required|unique:tailors|max:255',
             'mobile' => 'required|digits:10',
             'commission' => 'required|numeric|min:1|max:100',
-            'visit_charges' => 'required|numeric',
+            // 'visit_charges' => 'required|numeric',
             'address' => 'required|max:255',
             'services' => 'required|min:1',
             'appointments' => 'required|min:1',
@@ -129,7 +129,7 @@ class TailorController extends Controller
             'mobile' => $request->mobile,
             'phone' => $request->phone,
             'commission' => $request->commission,
-            'visit_charges' => $request->visit_charges,
+            'visit_charges' => 0,//$request->visit_charges,
             'address' => $request->address,
             'services' => json_encode($request->services, true),
             'appointments' => json_encode($request->appointments, true),
@@ -155,7 +155,7 @@ class TailorController extends Controller
                     $temp = array_merge($store_timings, $timings);
                 }
                 DB::table('store_timings')->insert($temp);
-                
+
             }
             $stitchings = array();
             if(!empty($request->stitchings)) {
@@ -184,7 +184,7 @@ class TailorController extends Controller
             'mobile' => $request->mobile,
             'phone' => $request->phone,
             'commission' => $request->commission,
-            'visit_charges' => $request->visit_charges,
+            'visit_charges' => 0,//$request->visit_charges,
             'address' => $request->address,
             'services' => json_encode($request->services, true),
             'appointments' => json_encode($request->appointments, true),
@@ -202,7 +202,7 @@ class TailorController extends Controller
                 'creator' => Auth::id(),
                 'email' => $request->email,
                 'password' => Hash::make('abc@123'),
-                'gender' => 'unknown',
+                'gender' => 'male',
                 'phone' => $request->mobile,
                 'pin_code' => $request->pin_code,
                 'status' => 'active',
@@ -290,7 +290,7 @@ class TailorController extends Controller
             'email' => 'required|max:255',
             'mobile' => 'required|digits:10',
             'commission' => 'required|numeric|min:1|max:100',
-            'visit_charges' => 'required|numeric',
+            // 'visit_charges' => 'required|numeric',
             'address' => 'required|max:255',
             'services' => 'required|min:1',
             'appointments' => 'required|min:1',
@@ -346,7 +346,7 @@ class TailorController extends Controller
         $tailor->mobile = $request->mobile;
         $tailor->phone = $request->phone;
         $tailor->commission = $request->commission;
-        $tailor->visit_charges = $request->visit_charges;
+        $tailor->visit_charges = 0;//$request->visit_charges;
         $tailor->address = $request->address;
         $tailor->services = json_encode($request->services, true);
         $tailor->appointments = json_encode($request->appointments, true);
@@ -396,7 +396,7 @@ class TailorController extends Controller
                 }
             }
         }
-        
+
         return redirect()->route('tailors.index');
     }
 

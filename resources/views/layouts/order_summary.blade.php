@@ -1,23 +1,11 @@
 @extends('layouts.master2')
 @section('content')
 <div class="container mt-3">
-    <div class="breadcrumb-menu mt-4 mb-4">
-        <ul class="m-0 p-0 d-flex">
-            <li>
-                <a href="">Home</a>
-            </li>
-            <li>
-                <a href="">{{ ucfirst($gender) }}</a>
-            </li>
-        </ul>
-    </div>
-
     <div class="row">
         <div class="col-md-12 mb-3">
             <h3>Order Summary</h3>
         </div>
     </div>
-
     <div class="row">
         <div class="col-md-8">
             <div class="accordion" id="accordionPanelsStayOpenExample">
@@ -40,7 +28,7 @@
                                         </div>
                                         <div>
                                             <h3>{{ucwords($product->title)}}</h3>
-                                            <h6 class="text-brown f-20 font-weight-500 m-0"> ₹{{$product->price}}</h6>
+                                            <h6 class="text-brown f-20 font-weight-500 m-0"> ₹{{$product->commission_price}}</h6>
                                         </div>
                                     </div>
                                 </li>
@@ -99,7 +87,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="accordion-item">
+                <div class="accordion-item mb-4">
                     <h2 class="accordion-header" id="panelsStayOpen-headingTwo">
                         <button class="accordion-button collapsed title font-weight-500" type="button" data-bs-toggle="collapse" data-bs-target="#panelsStayOpen-collapseTwo" aria-expanded="false" aria-controls="panelsStayOpen-collapseTwo">
                             Tailor Details
@@ -117,40 +105,7 @@
 										<h4 class="mt-0 mb-1 text-muted"><strong>Location: </strong><i class="fas fa-map-marker text-success"></i> {{ $tailor->location }} - {{ $tailor->pin_code }}</h4>
 										<p class="m-0"><strong>Address: </strong>{{ $tailor->address }}</p>
 										<p class="m-0"><strong>Phone: </strong>{{ $tailor->phone }}</p>
-										<p class="m-0">
-											<strong>Open Days: </strong>
-											@if($tailor->appointments)
-												<?php
-													$appointments_days = collect(json_decode($tailor->appointments, true));
-													$days_names = $appointments_days->map(function($name, $key) {
-														return ucwords($name);
-													});
-													echo implode(', ', $days_names->toArray());
-												?>
-											@else
-												N/A
-											@endif
-										</p>
-										<p class="m-0"><strong>Timing: </strong>09:10 AM - 09:30 PM</p>
-										<p class="m-0">
-											<strong>Services: </strong>
-											@if($tailor->services)
-												<?php
-													$services = collect(json_decode($tailor->services, true));
-													$service_names = $services->map(function($name, $key) {
-														return ucwords($name);
-													});
-													echo implode(', ', $service_names->toArray());
-												?>
-											@else
-												N/A
-											@endif
-										</p>
-										@if($tailor->description)
-											<p class="m-0"><strong>Description: </strong>{{ $tailor->description }}</p>
-										@endif
 									</div>
-
                                 </div>
                             </div>
                         </div>
