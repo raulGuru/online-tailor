@@ -56,7 +56,7 @@ class CustomerSignupController extends Controller
             'pin_code' => $request->pin_code,
             'role' => 'customer'
         );
-        // User::create($data);
+        User::create($data);
         $email_data['name'] = explode('@', $request->email)[0];
         $email_body_content = array(
             "subject" => "Welcome to bookmytailor",
@@ -64,16 +64,10 @@ class CustomerSignupController extends Controller
         );
         // return view('emails.customer-welcome-mail', array('data' => $email_body_content));
         try {
-            $result = Mail::to($request->email)->send(new CustomerSignupMailNotify($email_body_content));
-            dd($result);
-        } catch (Exception $e) {
-            // print_r($e->getCode());
-            print_r($e->getMessage());
-            // print_r($e);
-            exit;
-        }
+            Mail::to($request->email)->send(new CustomerSignupMailNotify($email_body_content));
+        } catch (Exception $e) {}
 
-        //return redirect()->route('login.index');
+        return redirect()->route('login.index');
     }
 
     /**
