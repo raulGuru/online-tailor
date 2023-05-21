@@ -1,4 +1,5 @@
 var MYAPP = MYAPP || {};
+/*global showModal */
 MYAPP.common = {
     base_url: baseUrl,
     routeName: segment1,
@@ -436,6 +437,9 @@ $(document).ready(function () {
         event.preventDefault();
         MYAPP.common.get_product_category(action, params);
     });
+    if(typeof showModal !== undefined || showModal === true) {
+        $('#approve-reject').modal('show');
+    }
 });
 
 window.addEventListener("load", (event) => {
