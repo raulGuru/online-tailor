@@ -47,20 +47,14 @@
                                 <form method="post" action="{{ route('appointment.update', $appointment->id) }}" class="form-inline">
                                     @csrf
                                     @method('PATCH')
-                                    {{-- <button type="submit" {{ ($appointment->status === 'accepted' || $appointment->status === 'rejected') ? 'disabled': '' }} class="btn btn-sm btn-success mt-2 text-white">
-                                        Approve
-                                    </button> --}}
-                                    <button type="submit" class="btn btn-sm btn-success mt-2 text-white">
+                                    <button type="submit" {{ ($appointment->status === 'accepted' || $appointment->status === 'rejected') ? 'disabled': '' }} class="btn btn-sm btn-success mt-2 text-white">
                                         Approve
                                     </button>
                                 </form>
                                 <form method="post" action="{{ route('appointment.destroy', $appointment->id) }}" class="form-inline">
                                     @csrf
                                     @method('DELETE')
-                                    {{-- <button type="submit" {{ ($appointment->status === 'accepted' || $appointment->status === 'rejected') ? 'disabled': '' }} class="btn btn-sm btn-danger mt-2 text-white">
-                                        Decline
-                                    </button> --}}
-                                    <button type="submit" class="btn btn-sm btn-danger mt-2 text-white">
+                                    <button type="submit" {{ ($appointment->status === 'accepted' || $appointment->status === 'rejected') ? 'disabled': '' }} class="btn btn-sm btn-danger mt-2 text-white">
                                         Decline
                                     </button>
                                 </form>
