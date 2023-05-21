@@ -58,15 +58,12 @@ class CategoryController extends Controller
                 $products->where('cat_id', $gender->id);
             }
         }
-        $categories = null;
         if (!empty($this->type)) {
             $type = ProductCategory::where('name', $this->type)->first();
             if (!empty($type)) {
-                // $categories = ProductCategory::where('id', $type->id)->get();
                 $products->where('type_id', $type->id);
             }
         }
-
         if (!empty($this->subtype)) {
             $subtype = ProductSubCategory::where('name', $this->subtype)->first();
             if (!empty($subtype)) {
@@ -80,34 +77,14 @@ class CategoryController extends Controller
                 $products->where('color_id', $color->id);
             }
         }
-        /*
-        if(!empty($this->gender)) {
-            $gender = MasterCategory::where('slug', $this->gender)->first();
-            if (!empty($gender)) {
-                $products->where('cat_id', $gender->id);
-            }
-        }
-        if (!empty($searchTerm)) {
-            // $products->orWhere('slug', 'like', '%' . $searchTerm . '%');
-            // $products->orWhere('description', 'like', '%' . $searchTerm . '%');
-            // $products->orWhere('additional_details', 'like', '%' . $searchTerm . '%');
-            $products->orWhere('tags', 'LIKE', '%' . $searchTerm . '%');
-        }
-        $data = $this->get_categories_colors($gender->id);
         $products->orderBy('id', $this->order);
-        */
         $data['results'] = $products->paginate($this->limit);
         $data['categories'] = $this->product_categories;
         $data['master_categories'] = $this->master_categories;
-        // $data['sub_categories'] = $this->product_categories;
         $data['colors'] = $this->product_colors;
         $data['order'] = $this->order;
         $data['limit'] = $this->limit;
         return view('category.index')->with($data);
-        // dd($results);
-        // $results->appends(['title' => $searchTerm, 'gender' => $this->gender, 'type' => $this->type, 'color' => $this->color, 'order' => $this->order]);
-        // return view('category.index', ['results' => $results, 'title' => $searchTerm, 'limit' => $this->limit, 'type' => $this->type, 'color' => $this->color, 'order' => $this->order, 'categories' => $data['categories'], 'sub_categories' => $data['sub_categories'], 'colors' => $data['colors']]);
-
     }
 
     /**
@@ -144,7 +121,7 @@ class CategoryController extends Controller
             return redirect()->route('category.index');
         }
         $data['result'] = $material;
-        $data['categories'] = $this->product_categories;
+        $data['master_categories'] = $this->master_categories;
         $data['colors'] = $this->product_colors;
         return view('category.show', $data);
     }

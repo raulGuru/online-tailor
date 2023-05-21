@@ -2,10 +2,12 @@
 
 namespace App\Http\Controllers;
 
+use App\Mail\CustomerSignupMailNotify;
 use App\Models\User;
+use Exception;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Mail;
 
 class CustomerSignupController extends Controller
 {
@@ -39,8 +41,7 @@ class CustomerSignupController extends Controller
     public function store(Request $request)
     {
         $this->validate($request, [
-            'email' => 'required|email|unique:users|max:255',
-            'password' => 'required|max:255|confirmed',
+            'email' => 'required|email:rfc,dns|unique:users|max:255',
             'password_confirmation' => 'required',
             'gender' => 'required',
             'phone' => 'required|digits:10',
@@ -55,9 +56,17 @@ class CustomerSignupController extends Controller
             'pin_code' => $request->pin_code,
             'role' => 'customer'
         );
-        
         User::create($data);
-        
+        $email_data['name'] = explode('@', $request->email)[0];
+        $email_body_content = array(
+            "subject" => "Welcome to bookmytailor",
+            "body" => $email_data
+        );
+        // return view('emails.customer-welcome-mail', array('data' => $email_body_content));
+        try {
+            Mail::to($request->email)->send(new CustomerSignupMailNotify($email_body_content));
+        } catch (Exception $e) {}
+
         return redirect()->route('login.index');
     }
 

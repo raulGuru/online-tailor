@@ -1,25 +1,24 @@
 @extends('layouts.master2')
-
 @section('content')
 <div class="container">
    @include('category.breadcrumb')
     <div class="row">
        <div class="col-md-3">
-          @include('category.common-sidebar')
+          @include('category.common-sidebar1')
        </div>
        <div class="col-md-9">
           <div class="row">
              @if(!empty($result))
                 <?php $images = json_decode($result->images, true); ?>
-                @if(isset($images) && !empty($images))
-                    <div class="col-md-6 big-img-product">
-                        <ul>
-                            @foreach($images as $image)
-                                <li><img src="{{ asset('public/storage/products/' . $image) }}" alt=""></li>
-                            @endforeach
-                        </ul>
-                    </div>
-                @endif
+                  @if(isset($images) && !empty($images))
+                     <div class="col-md-6 big-img-product">
+                           <ul>
+                              @foreach($images as $image)
+                                 <li><img src="{{ asset('public/storage/products/' . $image) }}" alt=""></li>
+                              @endforeach
+                           </ul>
+                     </div>
+                  @endif
                 <div class="col-md-6 {{ (isset($images) && !empty($images)) ? 'col-md-6': 'col-md-12'}}">
                     <h4 class="font-weight-600">{{ $result->title }} </h4>
                     <div class="d-flex mb-4">

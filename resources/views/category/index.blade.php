@@ -1,5 +1,4 @@
 @extends('layouts.master2')
-
 @section('content')
 <div class="container">
    @include('category.breadcrumb')
@@ -11,7 +10,7 @@
           <div class="row mb-4">
              <div class="col-md-4">
                <div class="input-group mb-3">
-                  <span class="input-group-text">Sort By: </span>
+                  <span class="input-group-text">Sort By:</span>
                   <select class="form-select" id="order" aria-label="Default select example">
                      <option value="asc" {{ ($order && $order == 'asc') ? 'selected': '' }}>Name (A - Z)</option>
                      <option value="desc" {{ ($order && $order == 'desc') ? 'selected': '' }}>Name (Z - A)</option>
@@ -44,7 +43,7 @@
                         <a href="{{ route('category.show', $result->slug) }}" data-id="{{$result->id}}">
                            <img src="{{ asset('public/storage/products/' . $result->thumbnail) }}" alt="{{ $result->title }}">
                         </a>
-                        <h4 class="mt-3 font-weight-500">
+                        <h4 class="mt-3 font-weight-500 p-1">
                            <a href="{{ route('category.show', $result->slug) }}" data-id="{{$result->id}}" style="text-decoration: none; color: #495057">
                            {{ $result->title }}
                            </a>
@@ -70,7 +69,7 @@
                </div>
              @endif
           </div>
-         <div class="d-flex justify-content-center">
+         <div class="d-flex justify-content-end">
             {!! $results->links() !!}
          </div>
        </div>
