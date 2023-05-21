@@ -106,8 +106,7 @@ class AppointmentController extends Controller
         } catch (Exception $e) {
             return response()->json(['code' => 202, 'status' => 'error', 'errors' => array('Sorry! Please try again latter ' . $e->getMessage())]);
         }
-
-        return redirect()->route('appointment.list');
+        return redirect()->route('appointment.list')->with('modal_data', $data);
     }
 
     /**
@@ -140,7 +139,7 @@ class AppointmentController extends Controller
         } catch (Exception $e) {
             return response()->json(['code' => 202, 'status' => 'error', 'errors' => array('Sorry! Please try again latter ' . $e->getMessage())]);
         }
-        return redirect()->route('appointment.list');
+        return redirect()->route('appointment.list')->with('modal_data', $data);
     }
 
     public function list()

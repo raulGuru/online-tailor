@@ -75,4 +75,46 @@
         </div>
    </div>
 </div>
+@if(Session::has('modal_data'))
+    @php
+        $modal_data = Session::get('modal_data');
+    @endphp
+    <div class="modal fade" id="approve-reject" tabindex="-1" aria-labelledby="approve-reject-modal" aria-hidden="true" role="dialog">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Customer's Contact Details</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    @csrf
+                    <p>
+                        Customer Name: {{ $modal_data['customer_name'] }}
+                    </p>
+                    <p>
+                        Tailor Name: {{ $modal_data['tailor_name'] }}
+                    </p>
+                    <p>
+                        Shop Name: {{ $modal_data['shop_name'] }}
+                    </p>
+                    <p>
+                        Mobile Number: {{ $modal_data['mobile'] }}
+                    </p>
+                    <p>
+                        Address: {{ $modal_data['address'] }}
+                    </p>
+                    <p>
+                        Appointment on: {{ $modal_data['appointment_at'] }}
+                    </p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script type="text/javascript">
+        let showModal = true;
+    </script>
+@endif
 @endsection
