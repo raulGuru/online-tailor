@@ -52,7 +52,7 @@
                      </div>
                      <div class="col-md-3 col-12 p-0">
                         <form class="navbar-left search-box" action="{{ route('category.index') }}" method="get">
-                           <input type="search" name="title" id="title" value="{{ (isset($title) && !empty($title)) ? $title: '' }}" class="form-control me-2" placeholder="Search">
+                           <input type="search" name="title" id="title" value="{{ (isset($title) && !empty($title)) ? $title: '' }}" class="form-control me-2" placeholder="Search Product">
                            <i class="fa fa-search search-icon"></i>
                            <input type="submit" class="d-none" value="Submit">
                         </form>
