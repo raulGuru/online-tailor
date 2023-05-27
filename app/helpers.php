@@ -303,7 +303,7 @@ if (!function_exists('get_measurement_form')) {
     {
         $measurement_fileds = array(
             'men' => array(
-                'shirt' => array(
+                'top' => array(
                     'fields' => array(
                         array(
                             'name'  => 'pattern',
@@ -313,7 +313,7 @@ if (!function_exists('get_measurement_form')) {
                         array(
                             'name'  => 'type',
                             'type'  => 'hidden',
-                            'value' => 'shirt',
+                            'value' => 'top',
                         ),
                         array(
                             'name'  => 'gender',
@@ -377,7 +377,7 @@ if (!function_exists('get_measurement_form')) {
                         ),
                     ),
                 ),
-                'pant' => array(
+                'bottom' => array(
                     'fields' => array(
                         array(
                             'name'  => 'pattern',
@@ -387,7 +387,7 @@ if (!function_exists('get_measurement_form')) {
                         array(
                             'name'  => 'type',
                             'type'  => 'hidden',
-                            'value' => 'pant',
+                            'value' => 'bottom',
                         ),
                         array(
                             'name'  => 'gender',
@@ -469,29 +469,13 @@ if (!function_exists('measurement_types')) {
         $types = [
             'men' => array(
                 array(
-                    'id' => 'shirt',
-                    'name' => 'Shirt'
+                    'id' => 'top',
+                    'name' => 'Top'
                 ),
                 array(
-                    'id' => 'pant',
-                    'name' => 'Pant / Trouser'
+                    'id' => 'bottom',
+                    'name' => 'Bottom'
                 ),
-                // array(
-                //     'id' => 'jacket',
-                //     'name' => 'Jacket'
-                // ),
-                // array(
-                //     'id' => 'blazer',
-                //     'name' => 'Blazer'
-                // ),
-                // array(
-                //     'id' => 'kurta',
-                //     'name' => 'Kurta'
-                // ),
-                // array(
-                //     'id' => 'pyjama',
-                //     'name' => 'Pyjama'
-                // )
             ),
             'women' => array()
         ];
