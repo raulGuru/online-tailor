@@ -10,7 +10,8 @@
                   <li class="sidebar-item">
                      <a href="{{ route('category.index', http_build_query(['gender'=> session()->get('gender'), 'type' => strtolower($productCategory->name)])) }}" class="sidebar-link d-flex justify-content-between mt-3 text-white">
                         <span>{{ ucfirst($productCategory->name) }}</span>
-                        <span>({{ $productCategory->posts->count() }})</span>
+                        <span>({{ $productCategory->posts->count() }})&nbsp;&nbsp;
+                        <i class="fa fa-lg {{ (strtolower(request()->type) && strtolower($productCategory->name) === strtolower(request()->type)) ? 'fa-caret-up': 'fa-caret-down' }}"></i></span>
                      </a>
                      <ul class="sidebar-dropdown list-unstyled {{ (strtolower(request()->type) && strtolower($productCategory->name) === strtolower(request()->type)) ? 'd-block': 'd-none' }}">
                         @foreach($productCategory->subCategories as $subCategory)
