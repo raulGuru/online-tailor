@@ -200,7 +200,9 @@ MYAPP.common = {
                         $('#measurement-form button[type=submit]').removeAttr('id');
                         $('#measurement-form').submit();
                     } else {
-                        window.location.href = redirect_uri;
+                        if(redirect_uri) {
+                            window.location.href = redirect_uri;
+                        }
                     }
                 } else {
                     localStorage.setItem('is_redirect', true);

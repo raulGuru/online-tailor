@@ -26,7 +26,12 @@
                     </div>
                     <div class="row mb-4">
                         <div class="col-md-12">
-                            <a href="{{ route('location.list') }}" id="check-pincode" class="btn d-block add-bag-btn">BOOK TAILOR</a>
+                           <form action="{{ route('location.list') }}" method="POST">
+                              @csrf
+                              <input type="hidden" name="product_id" value="{{$result->id}}">
+                              <button type="submit" id="{{ session()->has('pincode') ? '' : 'check-pincode' }}" class="btn d-block add-bag-btn">BOOK TAILOR
+                              </button>
+                            </form>
                             <form action="{{ route('measurement.store') }}" method="post">
                               @csrf
                               <input type="hidden" name="product_id" value="{{$result->id}}">
@@ -35,7 +40,6 @@
                                  ADD MEASUREMENT 
                               </button>
                             </form>
-                            {{-- <a href="{{ route('measurement.index') }}" class="btn d-block add-wish-btn mt-3">ADD MEASUREMENT </a> --}}
                         </div>
                     </div>
 
