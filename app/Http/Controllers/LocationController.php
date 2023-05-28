@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Mail\TailorMailNotify;
 use App\Models\Appointment;
+use App\Models\Product;
 use App\Models\Tailor;
 use Carbon\Carbon;
 use Exception;
@@ -38,8 +39,28 @@ class LocationController extends Controller
             return redirect()->route('home.index');
         }
         $q = $request->session()->get('pincode');
-        $tailors = Tailor::where('status', 'active')->whereBetween('pin_code', [$q - 5, $q + 5])->orderBy('created_at', 'DESC')->paginate($this->limit);
-        $data['tailors'] = $tailors;
+        $query = Tailor::query();
+        if($request->product_id) {
+            $product = Product::find($request->product_id);
+            if(!empty($product)) {
+                $query->where('id', $product->tailor_id);
+                $results = $query->where(array('status' => 'active', 'id' => $product->tailor_id))
+                        ->whereBetween('pin_code', [$q - 5, $q + 5])
+                        ->orderBy('created_at', 'DESC')
+                        ->paginate($this->limit);
+                if($results->count() > 0) {
+                    $data['tailors'] = $results;
+                } else {
+                    $query2 = Tailor::query();
+                    $result2 = $query2->where(array('status' => 'active', 'id' => $product->tailor_id))
+                                        ->orderBy('created_at', 'DESC')
+                                        ->paginate($this->limit);
+                    $data['related_tailors'] = $result2;
+                }
+            }
+        } else {
+            $data['tailors'] = $query->where('status', 'active')->whereBetween('pin_code', [$q - 5, $q + 5])->orderBy('created_at', 'DESC')->paginate($this->limit);
+        }
         return view('layouts.appointment', $data);
     }
 

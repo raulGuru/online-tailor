@@ -54,6 +54,7 @@ Route::get('appointment/list', [AppointmentController::class, 'list'])->name('ap
 Route::resource('appointment', AppointmentController::class);
 Route::get('get_appointment/{id}', [LocationController::class, 'get_appointment']);
 Route::get('location/list', [LocationController::class, 'list'])->name('location.list');
+Route::post('location/list', [LocationController::class, 'list'])->name('location.list');
 Route::post('location/send_notification', [LocationController::class, 'send_notification'])->name('location.send_notification');
 Route::resource('location', LocationController::class);
 Route::resource('measurement', MeasurementController::class);
