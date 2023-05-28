@@ -42,7 +42,7 @@ class ProductController extends Controller
             ->orWhere('additional_details', 'LIKE', '%' . $q . '%')
             ->orWhere('tags', 'LIKE', '%' . $q . '%');
         }
-        $products = $products->orderBy('id', 'DESC')->paginate(10)->appends(['search' => $q]);
+        $products = $products->join('tailors', 'products.tailor_id', '=', 'tailors.id')->orderBy('products.id', 'DESC')->paginate(10)->appends(['search' => $q]);
         $products->appends(['search' => $q]);
         return view('product.index', array('products' => $products));
     }

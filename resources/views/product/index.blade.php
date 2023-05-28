@@ -22,13 +22,14 @@
                <tr>
                   <th>#</th>
                   <th>Title</th>
-                  <th>SKU</th>
                   <th>Size</th>
                   <th>Price <span class="small">(per meter)</span></th>
                   <th>Main Category</th>
                   <th>Category</th>
                   <th>Sub Category</th>
                   <th>Color</th>
+                  <th>Tailor Name</th>
+                  <th>Pincode</th>
                   <th>Updated at</th>
                   <th>Actions</th>
                </tr>
@@ -39,13 +40,14 @@
                <tr>
                   <td>{{ ($products->currentpage()-1) * $products->perpage() + $key + 1 }}</td>
                   <td>{{ $product->title }}</td>
-                  <td>{{ $product->sku }}</td>
                   <td>{{ $product->size }}</td>
                   <td>&#8377 {{ $product->commission_price }}</td>
                   <td>{{ $product->MasterCategory->title }}</td>
                   <td>{{ ucfirst($product->productCategory->name) }}</td>
                   <td>{{ ucfirst($product->productSubCategory->name) }}</td>
                   <td>{{ ucfirst($product->productColor->name) }}</td>
+                  <td>{{ $product->name }}</td>
+                  <td>{{ $product->pin_code }}</td>
                   <td>{{ $product->updated_at }}</td>
                   <td class="table-action">
                      <div class="d-flex justify-content-center">
