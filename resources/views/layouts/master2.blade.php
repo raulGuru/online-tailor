@@ -29,7 +29,7 @@
                            <img src="{{ asset('public/assets/img/logo.ico') }}" alt="logo">
                         </a>
                      </div>
-                     <div class="col-md-5 menu-top col-10 p-0">
+                     <div class="col-md-5 menu-top col-10 p-0 mt-2">
                         <ul>
                            <li>
                               <?php $query = http_build_query(['gender' => 'men']); ?>
@@ -50,7 +50,7 @@
                            </li>
                         </ul>
                      </div>
-                     <div class="col-md-3 col-12 p-0">
+                     <div class="col-md-3 col-12 p-0 mt-2">
                         <form class="navbar-left search-box" action="{{ route('category.index') }}" method="get">
                            <input type="search" name="title" id="title" value="{{ (isset($title) && !empty($title)) ? $title: '' }}" class="form-control me-2" placeholder="Search Product">
                            <i class="fa fa-search search-icon"></i>
@@ -58,7 +58,7 @@
                         </form>
                      </div>
                      <div class="col-md-3 login-menu-top btn-brown d-flex justify-content-end col-12">
-                        <ul>
+                        <ul class="mt-2">
                            @if(!Auth::id())
                               <li>
                                  <a href="{{ route('login.index') }}" class="p-1">Login</a>
@@ -108,7 +108,7 @@
          <div class="container-fluid">
             <div class="row">
                <div class="col-md-6 d-flex align-items-center">
-                  <p class="m-0"> © 2022 Custom Tailor. All rights reserved</p>
+                  <p class="m-0"> © 2023 Custom Tailor. All rights reserved</p>
                </div>
                <div class="col-md-6 d-flex justify-content-end align-items-center">
                   <ul>
