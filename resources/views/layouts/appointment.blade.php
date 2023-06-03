@@ -5,7 +5,8 @@
 	<div class="row">
 		<div class="col-12">
 			@if(isset($tailors) && $tailors->count())
-				<h1 class="mb-3 border-bottom border-3 pb-2">Best tailor(s) near your pin code : 
+				<h1 class="mb-3 border-bottom border-3 pb-2">
+					Best @if($tailors->count() == 1) tailor @else tailors @endif near your pin code : 
 					@if(session()->has('pincode'))
 						{{ session()->get('pincode') }}
 					@endif
@@ -93,9 +94,13 @@
 					<div class="col-sm-10 col-md-8 col-lg-6 mx-auto d-table">
 						<div class="d-table-cell align-middle">
 							<div class="text-center">
-								<h1 class="display-1 font-weight-bold">402</h1>
-								<p class="h1">No data available.</p>
-								<p class="h2 font-weight-normal mt-3 mb-4">There is no resource behind the URI.</p>
+								<p class="h1 mb-3 mt-5">
+									@if(isset($product_id))
+										<span>Selected product is not at your location,<br>please choose a different product.</span>
+									@else
+										<span>Currently no tailors present at your location,<br>please choose a different location.</span>
+									@endif
+								</p>
 							</div>
 						</div>
 					</div>
@@ -103,7 +108,7 @@
 			@endif
 			@if(isset($related_tailors) && $related_tailors->count())
 				<hr>
-				<h1 class="mb-3 mt-5 border-bottom pb-2">Below are the tailor for selected product</h1>
+				<h1 class="mb-3 mt-5 border-bottom pb-2">Below is the related tailor for the selected product.</h1>
 				<ul class="list-unstyled">
 					@foreach($related_tailors as $tailor)
 						<li class="media border-bottom border-1 pb-2 mb-2">
