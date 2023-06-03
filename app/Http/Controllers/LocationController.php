@@ -57,6 +57,7 @@ class LocationController extends Controller
                                         ->paginate($this->limit);
                     $data['related_tailors'] = $result2;
                 }
+                $data['product_id'] = $request->product_id;
             }
         } else {
             $data['tailors'] = $query->where('status', 'active')->whereBetween('pin_code', [$q - 5, $q + 5])->orderBy('created_at', 'DESC')->paginate($this->limit);
