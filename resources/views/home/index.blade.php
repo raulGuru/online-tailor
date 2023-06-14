@@ -23,7 +23,7 @@
                    <div class="over-text">
                      BLAZER
                    </div>
-                </a>
+                <!-- </a> -->
                    
                 </div>
                 <div class="col-md-3 position-relative text-center">
