@@ -10,135 +10,38 @@
  </section>
  <div class="container-fluid mt-5">
     <div class="text-line-img">
-       <h2 class="mb-0 font-weight-600 f-20">SERVICES OFFERED</h2>
-       <img src="{{ asset('public/assets/img/line.jpg') }}" alt="">
-    </div>
-    <div id="demo-offered" class="carousel slide demo-sider-one" data-bs-ride="carousel">
-       <div class="carousel-inner">
-          <div class="carousel-item active">
-             <div class="row">
-                <div class="col-md-3 position-relative text-center">
-                   <img src="{{ asset('public/assets/img/product-services-one.jpg') }}" alt="">
-                   <div class="over-text">
-                      RENTAL CLOTHES OFFRED
-                   </div>
-                </div>
-                <div class="col-md-3 position-relative text-center">
-                   <img src="{{ asset('public/assets/img/product-services-one.jpg') }}" alt="">
-                   <div class="over-text">
-                      RENTAL CLOTHES OFFRED
-                   </div>
-                </div>
-                <div class="col-md-3 position-relative text-center">
-                   <img src="{{ asset('public/assets/img/product-services-one.jpg') }}" alt="">
-                   <div class="over-text">
-                      RENTAL CLOTHES OFFRED
-                   </div>
-                </div>
-                <div class="col-md-3 position-relative text-center">
-                   <img src="{{ asset('public/assets/img/product-services-one.jpg') }}" alt="">
-                   <div class="over-text">
-                      RENTAL CLOTHES OFFRED
-                   </div>
-                </div>
-             </div>
-          </div>
-          <div class="carousel-item ">
-             <div class="row">
-                <div class="col-md-3 position-relative text-center">
-                   <img src="{{ asset('public/assets/img/product-services-one.jpg') }}" alt="">
-                   <div class="over-text">
-                      RENTAL CLOTHES OFFRED
-                   </div>
-                </div>
-                <div class="col-md-3 position-relative text-center">
-                   <img src="{{ asset('public/assets/img/product-services-one.jpg') }}" alt="">
-                   <div class="over-text">
-                      RENTAL CLOTHES OFFRED
-                   </div>
-                </div>
-                <div class="col-md-3 position-relative text-center">
-                   <img src="{{ asset('public/assets/img/product-services-one.jpg') }}" alt="">
-                   <div class="over-text">
-                      RENTAL CLOTHES OFFRED
-                   </div>
-                </div>
-                <div class="col-md-3 position-relative text-center">
-                   <img src="{{ asset('public/assets/img/product-services-one.jpg') }}" alt="">
-                   <div class="over-text">
-                      RENTAL CLOTHES OFFRED
-                   </div>
-                </div>
-             </div>
-          </div>
-       </div>
-       <button class="carousel-control-prev" type="button" data-bs-target="#demo-offered" data-bs-slide="prev">
-       <span class="carousel-control-prev-icon"></span>
-       </button>
-       <button class="carousel-control-next" type="button" data-bs-target="#demo-offered" data-bs-slide="next">
-       <span class="carousel-control-next-icon"></span>
-       </button>
-    </div>
- </div>
- <div class="container-fluid mt-5">
-    <div class="text-line-img">
        <h2 class="mb-0 font-weight-600 f-20">MEN CUSTOMIZED TAILOR</h2>
        <img src="{{ asset('public/assets/img/line.jpg') }}" alt="">
     </div>
-    <div id="demo-customized" class="carousel slide demo-sider-one" data-bs-ride="carousel">
+    <div id="demo-men" class="carousel slide demo-sider-one" data-bs-ride="carousel">
        <div class="carousel-inner">
           <div class="carousel-item active">
-             <div class="row">
+             <div class="row">               
                 <div class="col-md-3 position-relative text-center">
-                   <img src="{{ asset('public/assets/img/home/Men_Blazer_1.jpeg') }}" alt="MEN BLAZER">
+                <!-- <a href="category?gender=men&type=brand"> -->
+                <img src="{{ asset('public/assets/img/home/Blazer_1.jpeg') }}" alt="Blazer_1">
                    <div class="over-text">
-                      MEN BLAZER
+                     BLAZER
+                   </div>
+                </a>
+                   
+                </div>
+                <div class="col-md-3 position-relative text-center">
+                   <img src="{{ asset('public/assets/img/home/Blazer_2.jpeg') }}" alt="Blazer_2">
+                   <div class="over-text">
+                     BLAZER
                    </div>
                 </div>
                 <div class="col-md-3 position-relative text-center">
-                   <img src="{{ asset('public/assets/img/home/Men_Shirt_2.jpeg') }}" alt="MEN SHIRT">
+                   <img src="{{ asset('public/assets/img/home/Jacket.jpeg') }}" alt="Jacket">
                    <div class="over-text">
-                      MEN SHIRT
+                     JACKET
                    </div>
                 </div>
                 <div class="col-md-3 position-relative text-center">
-                   <img src="{{ asset('public/assets/img/home/Men_Shirt_3.jpeg') }}" alt="MEN SHIRT">
+                   <img src="{{ asset('public/assets/img/home/Kurta.jpeg') }}" alt="Kurta">
                    <div class="over-text">
-                      MEN SHIRT
-                   </div>
-                </div>
-                <div class="col-md-3 position-relative text-center">
-                   <img src="{{ asset('public/assets/img/home/Men_Pant_Without_Plate_4.jpeg') }}" alt="MEN PANT WITHOUT PLATE">
-                   <div class="over-text">
-                      MEN PANT WITHOUT PLATE
-                   </div>
-                </div>
-             </div>
-          </div>
-          <div class="carousel-item ">
-             <div class="row">
-                <div class="col-md-3 position-relative text-center">
-                   <img src="{{ asset('public/assets/img/home/Men_Pant_Without_Plate_5.jpeg') }}" alt="MEN PANT WITHOUT PLATE">
-                   <div class="over-text">
-                      MEN PANT WITHOUT PLATE
-                   </div>
-                </div>
-                <div class="col-md-3 position-relative text-center">
-                   <img src="{{ asset('public/assets/img/home/Men_Modi_Jacket_front_6.jpeg') }}" alt="Men_Modi_Jacket_front_6">
-                   <div class="over-text">
-                      MEN MODI JACKET
-                   </div>
-                </div>
-                <div class="col-md-3 position-relative text-center">
-                   <img src="{{ asset('public/assets/img/home/Men_Modi_Jacket_back_7.jpeg') }}" alt="Men_Modi_Jacket_back_7">
-                   <div class="over-text">
-                      MEN MODI JACKET
-                   </div>
-                </div>
-                <div class="col-md-3 position-relative text-center">
-                   <img src="{{ asset('public/assets/img/home/Men_Modi_Jacket_8.jpeg') }}" alt="Men_Modi_Jacket_8.jpeg">
-                   <div class="over-text">
-                      MEN MODI JACKET
+                     KURTA
                    </div>
                 </div>
              </div>
@@ -146,38 +49,26 @@
           <div class="carousel-item ">
              <div class="row">
                 <div class="col-md-3 position-relative text-center">
-                   <img src="{{ asset('public/assets/img/home/Men_Blazer_9.jpeg') }}" alt="Men_Blazer_9">
+                   <img src="{{ asset('public/assets/img/home/Sherwani_1.jpeg') }}" alt="Sherwani_1">
                    <div class="over-text">
-                      MEN BLAZER
+                     SHERWANI
                    </div>
                 </div>
                 <div class="col-md-3 position-relative text-center">
-                   <img src="{{ asset('public/assets/img/home/Men_Kurta_10.jpeg') }}" alt="Men_Kurta_10">
+                   <img src="{{ asset('public/assets/img/home/Sherwani_2.jpeg') }}" alt="Sherwani_2">
                    <div class="over-text">
-                      MEN KURTA
+                     SHERWANI
                    </div>
                 </div>
                 <div class="col-md-3 position-relative text-center">
-                   <img src="{{ asset('public/assets/img/home/Men_Design_Kurta_11.jpeg') }}" alt="Men_Design_Kurta_11.jpeg">
+                   <img src="{{ asset('public/assets/img/home/Shirt.jpeg') }}" alt="Shirt">
                    <div class="over-text">
-                      MEN DESIGN KURTA
-                   </div>
-                </div>
-                <div class="col-md-3 position-relative text-center">
-                   <img src="{{ asset('public/assets/img/home/Men_Blazer_12.jpeg') }}" alt="Men_Blazer_12">
-                   <div class="over-text">
-                      MEN BLAZER
+                     SHIRT
                    </div>
                 </div>
              </div>
           </div>
        </div>
-       <button class="carousel-control-prev" type="button" data-bs-target="#demo-customized" data-bs-slide="prev">
-       <span class="carousel-control-prev-icon"></span>
-       </button>
-       <button class="carousel-control-next" type="button" data-bs-target="#demo-customized" data-bs-slide="next">
-       <span class="carousel-control-next-icon"></span>
-       </button>
     </div>
  </div>
  <div class="container-fluid mt-5">
@@ -244,12 +135,6 @@
              </div>
           </div>
        </div>
-       <button class="carousel-control-prev" type="button" data-bs-target="#demo-women" data-bs-slide="prev">
-       <span class="carousel-control-prev-icon"></span>
-       </button>
-       <button class="carousel-control-next" type="button" data-bs-target="#demo-women" data-bs-slide="next">
-       <span class="carousel-control-next-icon"></span>
-       </button>
     </div>
  </div>
 @endsection
