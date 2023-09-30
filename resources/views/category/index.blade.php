@@ -21,12 +21,9 @@
                <div class="input-group mb-3">
                   <span class="input-group-text">Show:</span>
                   <select class="form-select change-limit" aria-label="Default select example">
-                     <option value="5" {{ ($limit && $limit == '5') ? 'selected': '' }}>5</option>
-                     <option value="10" {{ ($limit && $limit == '10') ? 'selected': '' }}>10</option>
-                     <option value="15" {{ ($limit && $limit == '15') ? 'selected': '' }}>15</option>
-                     <option value="25" {{ ($limit && $limit == '25') ? 'selected': '' }}>25</option>
-                     <option value="50" {{ ($limit && $limit == '50') ? 'selected': '' }}>50</option>
-                     <option value="75" {{ ($limit && $limit == '75') ? 'selected': '' }}>75</option>
+                     <option value="9" {{ ($limit && $limit == '9') ? 'selected': '' }}>9</option>
+                     <option value="18" {{ ($limit && $limit == '18') ? 'selected': '' }}>18</option>
+                     <option value="45" {{ ($limit && $limit == '45') ? 'selected': '' }}>45</option>
                      <option value="100" {{ ($limit && $limit == '100') ? 'selected': '' }}>100</option>
                   </select>
                </div>

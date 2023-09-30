@@ -65,7 +65,7 @@ class CategoryController extends Controller
             }
         }
         if (!empty($this->subtype)) {
-            $subtype = ProductSubCategory::where('name', $this->subtype)->first();
+            $subtype = ProductSubCategory::where('name', $this->subtype)->latest()->first();
             if (!empty($subtype)) {
                 $products->where('subtype_id', $subtype->id);
             }
@@ -79,6 +79,12 @@ class CategoryController extends Controller
         }
         $products->orderBy('id', $this->order);
         $data['results'] = $products->paginate($this->limit);
+        $data['results']->appends([
+            'gender' => $request->gender,
+            'type' => $this->type,
+            'subtype' => $this->subtype,
+            'color' => $this->color
+        ]);
         $data['categories'] = $this->product_categories;
         $data['master_categories'] = $this->master_categories;
         $data['colors'] = $this->product_colors;
