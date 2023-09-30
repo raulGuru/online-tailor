@@ -12,7 +12,7 @@
             </div>
          </form>
          @if(request()->q)
-            <a href="{{ route('tailors.index') }}" class="btn btn-secondary ms-2" type="button" data-bs-toggle="tooltip" data-bs-placement="top" title="Clear search data">
+            <a href="{{ route('tailors.index') }}" class="btn btn-secondary ms-2" type="submit" data-bs-toggle="tooltip" data-bs-placement="top" title="Clear search data">
                <i class="align-middle" data-feather="refresh-cw"></i>
             </a>
          @endif
