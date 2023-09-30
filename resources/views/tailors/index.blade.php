@@ -11,6 +11,11 @@
                </button>
             </div>
          </form>
+         @if(request()->q)
+            <a href="{{ route('tailors.index') }}" class="btn btn-secondary ms-2" type="button" data-bs-toggle="tooltip" data-bs-placement="top" title="Clear search data">
+               <i class="align-middle" data-feather="refresh-cw"></i>
+            </a>
+         @endif
          <a href="{{ route('tailors.create') }}" class="btn btn-primary" role="button">
             <i class="align-middle me-2" data-feather="edit-2"></i> Create new tailor
          </a>
@@ -86,10 +91,8 @@
             <div class="col-sm-10 col-md-8 col-lg-6 mx-auto d-table h-100">
                <div class="d-table-cell align-middle">
                   <div class="text-center">
-                     <h1 class="display-1 font-weight-bold">402</h1>
-                     <p class="h1">No data available.</p>
-                     <p class="h2 font-weight-normal mt-3 mb-4">There is no resource behind the URI.</p>
-                     <a href="{{ route('tailors.create') }}" class="btn btn-primary btn-lg">Create new tailor</a>
+                     <p class="h1">No tailor available.</p>
+                     <a href="{{ route('product.create') }}" class="btn btn-primary btn-lg">Create new product</a>
                   </div>
                </div>
             </div>

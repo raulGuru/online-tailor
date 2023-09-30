@@ -5,15 +5,20 @@
       <div class="float-end">
          <form class="d-none d-sm-inline-block">
             <div class="input-group input-group-navbar">
-               <input type="text" class="form-control" name="q" value="{{ request()->q }}" placeholder="Search product…" aria-label="Search">
-               <button class="btn" type="button">
+               <input type="text" class="form-control" name="q" value="{{ request()->q }}" placeholder="Search category" aria-label="Search">
+               <button class="btn" type="submit">
                <i class="align-middle" data-feather="search"></i>
                </button>
             </div>
          </form>
+         @if(request()->q)
+            <a href="{{ route('product_category.index') }}" class="btn btn-secondary ms-2" type="button" data-bs-toggle="tooltip" data-bs-placement="top" title="Clear search data">
+               <i class="align-middle" data-feather="refresh-cw"></i>
+            </a>
+         @endif
          <a href="{{ route('product_category.create') }}" class="btn btn-primary" role="button">
             <i class="align-middle me-2" data-feather="edit-2"></i> Add Category
-         </a>
+         </a>  
       </div>
       <h5 class="card-title mb-0">Product Category List</h5>
    </div>

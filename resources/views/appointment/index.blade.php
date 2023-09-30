@@ -1,21 +1,36 @@
 @extends('layouts.master')
 @section('content')
 <div class="card">
-   <div class="card-header">
-      <h5 class="card-title mb-0">Appointment List</h5>
-   </div>
-   <div class="card-body">
+    <div class="card-header">
+        <div class="float-end">
+           <form class="d-none d-sm-inline-block">
+              <div class="input-group input-group-navbar">
+                 <input type="text" class="form-control" name="q" value="{{ request()->q }}" placeholder="Search appointment(s)..." aria-label="Search">
+                 <button class="btn" type="submit">
+                 <i class="align-middle" data-feather="search"></i>
+                 </button>
+              </div>
+           </form>
+           @if(request()->q)
+              <a href="{{ route('appointment.list') }}" class="btn btn-secondary ms-2" type="button" data-bs-toggle="tooltip" data-bs-placement="top" title="Clear search data">
+                 <i class="align-middle" data-feather="refresh-cw"></i>
+              </a>
+           @endif
+        </div>
+        <h5 class="card-title mb-0">Appointment List</h5>
+    </div>
+   <div class="card-body pt-0">
          <table class="table table-striped">
             <thead>
                <tr>
-                  <th>Appointment Id</th>
+                  <th>#</th>
                   <th>Tailor</th>
                   <th>Fullname</th>
                   <th>Mobile</th>
                   <th>Email</th>
                   <th>Address</th>
                   <th>Services</th>
-                  <th>Service Description</th>
+                  <th>Service Desc</th>
                   <th>Appointment</th>
                   <th>Status</th>
                   <th class="text-end">Actions</th>
@@ -25,7 +40,7 @@
                 @if($appointments->count() > 0)
                     @foreach($appointments as $key => $appointment)
                         <tr>
-                            <td>{{ $appointment->id }}</td>
+                            <td>{{ ($appointments->currentpage()-1) * $appointments->perpage() + $key + 1 }}</td>
                             <td>{{ $appointment->tailor->name }}</td>
                             <td>{{ $appointment->fullname }}</td>
                             <td>{{ $appointment->mobile }}</td>

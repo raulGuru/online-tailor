@@ -5,17 +5,24 @@
       <div class="float-end">
          <form class="d-none d-sm-inline-block">
             <div class="input-group input-group-navbar">
-               <input type="text" class="form-control" name="q" value="{{ request()->q }}" placeholder="Search product…" aria-label="Search">
-               <button class="btn" type="button">
-               <i class="align-middle" data-feather="search"></i>
+               <input type="text" class="form-control" name="q" value="{{ request()->q }}" placeholder="Search material" aria-label="Search">
+               <button class="btn" type="submit">
+                  <i class="align-middle" data-feather="search"></i>
                </button>
             </div>
          </form>
+         @if(request()->q)
+            <a href="{{ route('product.index') }}" class="btn btn-secondary ms-2" type="button" data-bs-toggle="tooltip" data-bs-placement="top" title="Clear search data">
+               <i class="align-middle" data-feather="refresh-cw"></i>
+            </a>
+         @endif
+         <a href="{{ route('product.create') }}" class="btn btn-primary" role="button">
+            <i class="align-middle me-2" data-feather="edit-2"></i> Add Material
+         </a>
       </div>
       <h5 class="card-title mb-0">Product List</h5>
    </div>
    <div class="card-body">
-      {{-- <pre>{{ dd($products) }}</pre> --}}
       @if($products->count() > 0)
          <table class="table table-striped">
             <thead>
@@ -82,7 +89,7 @@
             <div class="col-sm-10 col-md-8 col-lg-6 mx-auto d-table h-100">
                <div class="d-table-cell align-middle">
                   <div class="text-center">
-                     <p class="h1">No data available.</p>
+                     <p class="h1">No material available.</p>
                      <a href="{{ route('product.create') }}" class="btn btn-primary btn-lg">Create new product</a>
                   </div>
                </div>

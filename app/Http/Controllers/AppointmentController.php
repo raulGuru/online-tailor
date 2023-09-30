@@ -142,19 +142,24 @@ class AppointmentController extends Controller
         return redirect()->route('appointment.list')->with('modal_data', $data);
     }
 
-    public function list()
+    public function list(Request $request)
     {
         $user = Auth::user();
-        if ($user->role === 'admin') {
-            $appointments = Appointment::latest();
-        } else {
+        $appointments = Appointment::query();
+        if ($user->role !== 'admin') {
             $tailor = Tailor::where('email', $user->email)->first();
             if (!empty($tailor)) {
-                $where = array('tailor_id' => $tailor->id);
-                $appointments = Appointment::where($where)->latest();
+                $appointments->where(array('appointments.tailor_id' => $tailor->id));
             }
         }
-        $appointments = $appointments->paginate($this->limit);
+        $q = $request->q;
+        $appointments->orWhere('appointments.fullname', 'LIKE', '%' . $q . '%');
+        $appointments->orWhere('appointments.mobile', 'LIKE', '%' . $q . '%');
+        $appointments->orWhere('appointments.email', 'LIKE', '%' . $q . '%');
+        $appointments->orWhere('appointments.address', 'LIKE', '%' . $q . '%');
+        $appointments->orWhere('tailors.name', 'LIKE', '%' . $q . '%');
+        $appointments->select('tailors.*', 'appointments.*');
+        $appointments = $appointments->join('tailors', 'appointments.tailor_id', '=', 'tailors.id')->orderBy('appointments.id', 'DESC')->paginate($this->limit);
         return view('appointment.index')->with('appointments', $appointments);
     }
 }
