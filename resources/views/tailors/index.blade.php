@@ -6,13 +6,13 @@
          <form class="d-none d-sm-inline-block">
             <div class="input-group input-group-navbar">
                <input type="text" class="form-control" name="q" value="{{ request()->q }}" placeholder="Search tailor(s)..." aria-label="Search">
-               <button class="btn" type="button">
+               <button class="btn" type="submit">
                <i class="align-middle" data-feather="search"></i>
                </button>
             </div>
          </form>
          @if(request()->q)
-            <a href="{{ route('tailors.index') }}" class="btn btn-secondary ms-2" type="submit" data-bs-toggle="tooltip" data-bs-placement="top" title="Clear search data">
+            <a href="{{ route('tailors.index') }}" class="btn btn-secondary ms-2" type="button" data-bs-toggle="tooltip" data-bs-placement="top" title="Clear search data">
                <i class="align-middle" data-feather="refresh-cw"></i>
             </a>
          @endif
