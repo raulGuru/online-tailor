@@ -1,8 +1,13 @@
 @extends('layouts.master')
 @section('content')
 <div class="container-fluid p-0">
-   <h1 class="h3 mb-3">Add Material</h1>
-   <form method="post" action="{{ route('product.store') }}" enctype="multipart/form-data">
+   <div class="d-flex justify-content-between mb-2">
+      <h4 class="font-weight-600">Add Material</h4>
+      <a href="{{ route('product.index') }}" class="btn btn-primary" role="button">
+         Material List
+      </a>
+   </div>
+   <form method="post" action="{{ route('product.store') }}" enctype="multipart/form-data" class="mt-2">
       @csrf
       @if($tailors->count() > 0)
          <div class="card p-3">

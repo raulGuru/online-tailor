@@ -33,14 +33,15 @@ class ProductController extends Controller
         $products = Product::query();
         if(Auth::user()->role === 'vendor') {
             $this->tailor_id = session()->get('tailor_id');
-            $products = $products->where('tailor_id', $this->tailor_id);
+            $products = $products->where('products.tailor_id', $this->tailor_id);
         } else {
-            $products = $products->where('title', 'LIKE', '%' . $q . '%');
+            $products = $products->where('products.title', 'LIKE', '%' . $q . '%');
         }
         if($q) {
-            $products = $products->orWhere('description', 'LIKE', '%' . $q . '%')
-            ->orWhere('additional_details', 'LIKE', '%' . $q . '%')
-            ->orWhere('tags', 'LIKE', '%' . $q . '%');
+            $products = $products
+            ->orWhere('products.description', 'LIKE', '%' . $q . '%')
+            ->orWhere('products.additional_details', 'LIKE', '%' . $q . '%')
+            ->orWhere('products.tags', 'LIKE', '%' . $q . '%');
         }
         $products->select('tailors.*', 'products.*');
         $products = $products->join('tailors', 'products.tailor_id', '=', 'tailors.id')->orderBy('products.id', 'DESC')->paginate(10)->appends(['search' => $q]);
