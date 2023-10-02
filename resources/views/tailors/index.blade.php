@@ -5,7 +5,7 @@
       <div class="float-end">
          <form class="d-none d-sm-inline-block">
             <div class="input-group input-group-navbar">
-               <input type="text" class="form-control" name="q" value="{{ request()->q }}" placeholder="Search tailor(s)..." aria-label="Search">
+               <input type="text" class="form-control" name="q" value="{{ request()->q }}" title="Search by Name, Shop Name, Location, Pin code, Mobile, Services" placeholder="Search by Name, Shop Name, Location, Pin code, Mobile, Services" aria-label="Search">
                <button class="btn" type="submit">
                <i class="align-middle" data-feather="search"></i>
                </button>
