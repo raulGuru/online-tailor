@@ -41,10 +41,15 @@ class ProductController extends Controller
             $products = $products
             ->orWhere('products.description', 'LIKE', '%' . $q . '%')
             ->orWhere('products.additional_details', 'LIKE', '%' . $q . '%')
-            ->orWhere('products.tags', 'LIKE', '%' . $q . '%');
+            ->orWhere('products.tags', 'LIKE', '%' . $q . '%')
+            ->orWhere('tailors.name', 'LIKE', '%' . $q . '%')
+            ->orWhere('tailors.pin_code', 'LIKE', '%' . $q . '%')
+            ->orWhere('product_colors.name', 'LIKE', '%' . $q . '%');
         }
-        $products->select('tailors.*', 'products.*');
-        $products = $products->join('tailors', 'products.tailor_id', '=', 'tailors.id')->orderBy('products.id', 'DESC')->paginate(10)->appends(['search' => $q]);
+        $products->select('product_colors.*', 'tailors.*', 'products.*');
+        $products->join('tailors', 'products.tailor_id', '=', 'tailors.id');
+        $products->join('product_colors', 'products.color_id', '=', 'product_colors.id');
+        $products = $products->orderBy('products.id', 'DESC')->paginate(10)->appends(['search' => $q]);
         return view('product.index', array('products' => $products));
     }
 

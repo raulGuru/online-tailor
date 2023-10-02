@@ -54,14 +54,16 @@ class TailorController extends Controller
 
     public function index(Request $request)
     {
+        // Name, Shop Name, Location, Pin code, Mobile, Services
         $q = $request->q;
-        $data = Tailor::orWhere('email', 'LIKE', '%' . $q . '%')
-            ->orWhere('phone', 'LIKE', '%' . $q . '%')
-            ->orWhere('name', 'LIKE', '%' . $q . '%')
+        $data = Tailor::orWhere('name', 'LIKE', '%' . $q . '%')
             ->orWhere('shop_name', 'LIKE', '%' . $q . '%')
+            ->orWhere('location', 'LIKE', '%' . $q . '%')
+            ->orWhere('pin_code', 'LIKE', '%' . $q . '%')
+            ->orWhere('mobile', 'LIKE', '%' . $q . '%')
+            ->orWhere('services', 'LIKE', '%' . $q . '%')
             ->orderBy('id', 'DESC')
             ->paginate(10)->appends(['search' => $q]);
-        $data->appends(['search' => $q]);
         return view('tailors.index', array('tailors' => $data));
     }
 
