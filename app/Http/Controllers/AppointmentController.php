@@ -159,7 +159,7 @@ class AppointmentController extends Controller
         $appointments->orWhere('appointments.address', 'LIKE', '%' . $q . '%');
         $appointments->orWhere('tailors.name', 'LIKE', '%' . $q . '%');
         $appointments->select('tailors.*', 'appointments.*');
-        $appointments = $appointments->join('tailors', 'appointments.tailor_id', '=', 'tailors.id')->orderBy('appointments.id', 'DESC')->paginate($this->limit);
+        $appointments = $appointments->join('tailors', 'appointments.tailor_id', '=', 'tailors.id')->orderBy('appointments.id', 'DESC')->paginate($this->limit)->appends(['q' => $q]);
         return view('appointment.index')->with('appointments', $appointments);
     }
 }

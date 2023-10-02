@@ -63,7 +63,7 @@ class TailorController extends Controller
             ->orWhere('mobile', 'LIKE', '%' . $q . '%')
             ->orWhere('services', 'LIKE', '%' . $q . '%')
             ->orderBy('id', 'DESC')
-            ->paginate(10)->appends(['search' => $q]);
+            ->paginate(10)->appends(['q' => $q]);
         return view('tailors.index', array('tailors' => $data));
     }
 
