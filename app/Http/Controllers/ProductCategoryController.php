@@ -27,7 +27,7 @@ class ProductCategoryController extends Controller
         $ProductCategory = ProductCategory::orWhere('name', 'LIKE', '%' . $q . '%')
                         ->orderBy('id', 'DESC')
                         ->paginate(10);
-        $ProductCategory->appends(['search' => $q]);
+        $ProductCategory->appends(['q' => $q]);
         return view('product.category.index', array('categorys' => $ProductCategory));
     }
 

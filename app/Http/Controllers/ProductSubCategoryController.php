@@ -28,7 +28,7 @@ class ProductSubCategoryController extends Controller
         $productSubCategory->orWhere('product_sub_categories.name', 'LIKE', '%' . $q . '%');
         $productSubCategory->orWhere('product_categories.name', 'LIKE', '%' . $q . '%');
         $productSubCategory->join('product_categories', 'product_categories.id', '=', 'product_sub_categories.product_category_id');
-        $productSubCategory = $productSubCategory->orderBy('product_sub_categories.id', 'DESC')->paginate(10)->appends(['search' => $q]);
+        $productSubCategory = $productSubCategory->orderBy('product_sub_categories.id', 'DESC')->paginate(10)->appends(['q' => $q]);
         return view('product.subcategory.index', array('categorys' => $productSubCategory));
     }
 

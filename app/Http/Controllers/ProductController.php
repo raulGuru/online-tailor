@@ -49,7 +49,7 @@ class ProductController extends Controller
         $products->select('product_colors.*', 'tailors.*', 'products.*');
         $products->join('tailors', 'products.tailor_id', '=', 'tailors.id');
         $products->join('product_colors', 'products.color_id', '=', 'product_colors.id');
-        $products = $products->orderBy('products.id', 'DESC')->paginate(10)->appends(['search' => $q]);
+        $products = $products->orderBy('products.id', 'DESC')->paginate(10)->appends(['q' => $q]);
         return view('product.index', array('products' => $products));
     }
 
