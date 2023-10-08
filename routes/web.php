@@ -66,3 +66,5 @@ Route::resource('product_category', ProductCategoryController::class);
 Route::post('product_category/update_status', [ProductCategoryController::class, 'update_status'])->name('product_category.update_status');
 Route::resource('product_subcategory', ProductSubCategoryController::class);
 Route::post('product_subcategory/update_status', [ProductSubCategoryController::class, 'update_status'])->name('product_subcategory.update_status');
+Route::post('process_payment', [OrderController::class, 'make_payment'])->name('order.make_payment');
+Route::post('payment_response', [OrderController::class, 'payment_response'])->name('order.payment_response');

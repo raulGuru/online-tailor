@@ -144,41 +144,12 @@
                 </div>
             </div>
             <div class="card-acc mb-3">
-                <div class="card-header">
-                    <span class="title font-weight-500">Card Details</span>
-                </div>
                 <div class="box-body p-2">
-                    <img class="mt-3 mb-3" src="{{ asset('public/assets/img/multiple_cards-icon.svg')}}" alt="">
-
-                    <form>
-                        <div class="row mb-3">
-                            <div class="col-md-12">
-                                <p class="mb-0 font-weight-500">NAME ON CARD </p>
-                                <input type="text" class="form-control">
-                            </div>
-                        </div>
-
-                        <div class="row mb-3">
-                            <div class="col-md-12">
-                                <p class="mb-0 font-weight-500">CARD NUMBER</p>
-                                <input type="text" class="form-control">
-                            </div>
-                        </div>
-
-                        <div class="row mb-3">
-                            <div class="col-md-6">
-                                <p class="mb-0 font-weight-500">EXPIRATION DATE</p>
-                                <input type="text" class="form-control">
-                            </div>
-                            <div class="col-md-6">
-                                <p class="mb-0 font-weight-500">CV CODE</p>
-                                <input type="text" class="form-control">
-                            </div>
-                        </div>
-
+                    <form action="process_payment" method="post">
+                        <input type="hidden" name="_token" value="{{ csrf_token() }}" />
                         <div class="row">
                             <div class="col-md-12 text-end">
-                                <button class="btn book-btn">
+                                <button type="submit" class="btn book-btn">
                                     Make payment
                                 </button>
                             </div>
