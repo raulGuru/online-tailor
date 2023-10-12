@@ -130,9 +130,10 @@ class OrderController extends Controller
     {
         $customer = json_decode($request->session()->get('customer_details'), True);
         $order_data = $request->session()->get('order_data');
-        $login_id=1;
+        $login_id=5;
         $cient_id=env('PAYMENT_TEST_CLIENT_ID');
         $cient_secret=env('PAYMENT_TEST_CLIENT_SECRET');
+        $app_url=env('APP_URL');
         try
         {
             $api = Instamojo\Instamojo::init("app",[
@@ -141,30 +142,43 @@ class OrderController extends Controller
             ],true);
            
              $response = $api->createPaymentRequest(array(
-            "purpose" => "FIFA 16",
-            "amount" => "3499",
-            "send_email" => TRUE,
-            "email" => "rahull.1612@gmail.com",
-            "redirect_url" => "http://localhost/online-tailor/payment_response"
+            "purpose" => "Purchase",
+            "buyer_name"=>$customer['fullname'],
+            "amount" =>$order_data['price']['total'],
+            "email"=>$customer['email'],
+            "phone"=>$customer['mobile'],
+            "send_email" => false,
+            "redirect_url" =>$app_url."payment_response",
+            "webhook"=>$app_url."payment_wehook",
             ));
         if($response && !empty($response['id']))
         {
             $temp=array('payment_id'=>$response['id'],
             'amount'=>$response['amount'],
-            'payment_id'=>$response['id'],
+            'payment_request_id'=>$response['id'],
             'login_id'=>$login_id,'payment_response'=>json_encode($response));
-            $transaction_id=DB::table('payments')->insert($temp);
-            header('Location: ' . $response['longurl']);
-            exit();
+            if($temp)
+            {
+                $transaction_id=DB::table('payments')->insert($temp);
+                header('Location: ' . $response['longurl']);
+                exit();
+            }
         }
          }catch(EXCEPTION $e)
          {
             echo $e->getMessage();
          }
     }
-    function payment_response()
+    function payment_response(Request $request)
     {
-        var_dump($_REQUEST);
+        $msg='Payment Failed';
+        $update_data=array('payment_id'=>$request->payment_id,'transaction_status'=>$request->payment_status);
+        $update_stats=DB::table('payments')->where('payment_request_id',$request->payment_request_id)->update($update_data);
+        if(!empty($request->payment_status) && strtolower($request->payment_status)==='credit')
+        {
+           $msg='Payment Successfull';
+        }
+        echo $msg;
     }
 
     private function formatDate($interval, $format = '', $date = ''){
@@ -172,7 +186,6 @@ class OrderController extends Controller
         $format = !empty($format) ? $format : 'D M d'; //Thu Nov 24 
         $data['date'] = date('Y-m-d', strtotime($date. ' + '.$interval.' days'));
         $data['format'] = date( $format, strtotime($data['date']));
-       
         return $data;
     }
 }
