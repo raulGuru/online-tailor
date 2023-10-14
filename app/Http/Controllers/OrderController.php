@@ -35,6 +35,7 @@ class OrderController extends Controller
             $stitch_name='normal-shirt';
         }
         $total_material_required= round($total_measement / 100);
+        $data['total_material_required']=$total_material_required;
         $products =  Product::find($measurement['product_type_id']);
         // Tailor details
         $data['tailor'] =  Tailor::where('id', $customer['tailor_id'])->first(); 
@@ -128,46 +129,55 @@ class OrderController extends Controller
     }
     public function make_payment(Request $request)
     {
+
+        $login_id=5;
         $customer = json_decode($request->session()->get('customer_details'), True);
         $order_data = $request->session()->get('order_data');
-        $login_id=5;
+        //$measurement = json_decode($request->session()->get('measurement'), True);
+       
+
         $cient_id=env('PAYMENT_TEST_CLIENT_ID');
         $cient_secret=env('PAYMENT_TEST_CLIENT_SECRET');
         $app_url=env('APP_URL');
+        $order_data_insert=array('login_id'=>$login_id,'name'=>$customer['fullname'],'email'=>$customer['email'],'mobile'=>$customer['mobile'],'address'=>$customer['address'],'amount'=>$order_data['price']['total']);
+        $order_id=DB::table('orders')->insertGetId($order_data_insert);
         try
         {
             $api = Instamojo\Instamojo::init("app",[
             "client_id" => $cient_id,
             "client_secret" => $cient_secret
             ],true);
-           
+            
              $response = $api->createPaymentRequest(array(
-            "purpose" => "Purchase",
+            "purpose" => "Purchase-".$order_id,
             "buyer_name"=>$customer['fullname'],
             "amount" =>$order_data['price']['total'],
             "email"=>$customer['email'],
             "phone"=>$customer['mobile'],
             "send_email" => false,
-            "redirect_url" =>$app_url."payment_response",
-            "webhook"=>$app_url."payment_wehook",
+            "redirect_url" =>$app_url."payment_response"
+            
             ));
+            // "webhook"=>$app_url."payment_wehook"
         if($response && !empty($response['id']))
         {
-            $temp=array('payment_id'=>$response['id'],
-            'amount'=>$response['amount'],
-            'payment_request_id'=>$response['id'],
-            'login_id'=>$login_id,'payment_response'=>json_encode($response));
-            if($temp)
-            {
-                $transaction_id=DB::table('payments')->insert($temp);
-                header('Location: ' . $response['longurl']);
-                exit();
-            }
+        
+            $order_details_data=array('order_id'=>$order_id,'measurement'=>$request->session()->get('measurement'));
+            DB::table('order_details')->insert($order_details_data);
+            $temp=array(
+                'amount'=>$response['amount'],
+                'payment_request_id'=>$response['id'],
+                'login_id'=>$login_id,'payment_response'=>json_encode($response),
+                'order_id'=>$order_id
+            );
+            $transaction_id=DB::table('payments')->insert($temp);
+            header('Location: ' . $response['longurl']);
+            exit();
         }
-         }catch(EXCEPTION $e)
-         {
-            echo $e->getMessage();
-         }
+        }catch(EXCEPTION $e)
+        {
+            //echo $e->getMessage();
+        }
     }
     function payment_response(Request $request)
     {

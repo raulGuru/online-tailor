@@ -83,11 +83,23 @@
                                     </div>
                                 </li>
                                 @endforeach
+                                 <li class="mb-2 pb-2 bd-bottom d-flex justify-content-between">
+                                    <div class="col-md-12">
+                                        <table class="table">
+                                            <tbody>
+                                                <tr>
+                                                    <th scope="col">Total material required</th>
+                                                    <td>{{$total_material_required}} Meteres</td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </li>
                             </ul>
                         </div>
                     </div>
                 </div>
-                <div class="accordion-item mb-4">
+                <div class="accordion-item">
                     <h2 class="accordion-header" id="panelsStayOpen-headingTwo">
                         <button class="accordion-button collapsed title font-weight-500" type="button" data-bs-toggle="collapse" data-bs-target="#panelsStayOpen-collapseTwo" aria-expanded="false" aria-controls="panelsStayOpen-collapseTwo">
                             Tailor Details
