@@ -19,7 +19,12 @@ class WebhookJobHandlerForPayment extends ProcessWebhookJob
         )->value('order_id');
         $update_data=array('payment_id'=>$payload['payment_id'],'transaction_status'=>$payload['status']);
         $update_stats=DB::table('payments')->where('payment_request_id',$payload['payment_request_id'])->update($update_data);
-        $update_der_stats=DB::table('orders')->where('id',$order_id)->update(array('status'=>'placed'));
+        $order_status='failed';
+        if(strtolower($payload['status'])==='credit')
+        {
+            $order_status='placed';
+        }
+        $update_der_stats=DB::table('orders')->where('id',$order_id)->update(array('status'=>$order_status));
     }
 }
 ?>

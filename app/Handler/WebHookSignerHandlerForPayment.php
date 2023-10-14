@@ -26,8 +26,6 @@ class WebHookSignerHandlerForPayment implements SignatureValidator
         }
        
         $data = $_POST;
-        $data = $_POST;
-        $data = $_POST;
         $mac_provided = $data['mac'];  // Get the MAC from the POST data
         unset($data['mac']);  // Remove the MAC key from the data.
 
