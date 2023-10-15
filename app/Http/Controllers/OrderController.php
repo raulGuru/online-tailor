@@ -8,7 +8,6 @@ use App\Models\ProductType;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
 use Instamojo;
-use App\Models\Payments;
 
 
 class OrderController extends Controller
