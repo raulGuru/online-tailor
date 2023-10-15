@@ -61,6 +61,8 @@ Route::resource('measurement', MeasurementController::class);
 Route::post('measurement/get_fields', [MeasurementController::class, 'get_fields'])->name('measurement.get_fields');
 Route::post('measurement/save_measurement', [MeasurementController::class, 'save_measurement'])->name('measurement.save_measurement');
 Route::post('measurement/book_tailor', [MeasurementController::class, 'book_tailor'])->name('measurement.book_tailor');
+Route::get('order/list', [OrderController::class, 'list'])->name('order.list');
+Route::get('payment/list', [OrderController::class, 'paymentList'])->name('order.paymentList');
 Route::resource('order', OrderController::class);
 Route::resource('product_category', ProductCategoryController::class);
 Route::post('product_category/update_status', [ProductCategoryController::class, 'update_status'])->name('product_category.update_status');

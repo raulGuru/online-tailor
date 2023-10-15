@@ -8,6 +8,7 @@ use App\Models\ProductType;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
 use Instamojo;
+use App\Models\Payments;
 
 
 class OrderController extends Controller
@@ -34,6 +35,13 @@ class OrderController extends Controller
             $total_measement=$measurement['length']+$measurement['shoulder']+$measurement['sleeve']+$measurement['chest']+$measurement['waist']+$measurement['hip']+$measurement['neck'];
             $stitch_name='normal-shirt';
         }
+        if($measurement['type']==='bottom')
+        {
+
+            $total_measement=$measurement['length']+$measurement['waist']+$measurement['hip']+$measurement['thigh']+$measurement['knee']+$measurement['bottom']+$measurement['fock'];           
+            $stitch_name='normal-pant';
+        }
+        
         $total_material_required= round($total_measement / 100);
         $data['total_material_required']=$total_material_required;
         $products =  Product::find($measurement['product_type_id']);
@@ -134,10 +142,17 @@ class OrderController extends Controller
         $customer = json_decode($request->session()->get('customer_details'), True);
         $order_data = $request->session()->get('order_data');
         //$measurement = json_decode($request->session()->get('measurement'), True);
-       
-
-        $cient_id=env('PAYMENT_TEST_CLIENT_ID');
-        $cient_secret=env('PAYMENT_TEST_CLIENT_SECRET');
+        $testing=false;
+        if(env('PAYMENT_ENV')==='testing')
+        {
+            $testing=true;
+            $cient_id=env('PAYMENT_TEST_CLIENT_ID');
+            $cient_secret=env('PAYMENT_TEST_CLIENT_SECRET');
+        }else
+        {
+            $cient_id=env('PAYMENT_LIVE_CLIENT_ID');
+            $cient_secret=env('PAYMENT_LIVE_CLIENT_SECRET');
+        }
         $app_url=env('APP_URL');
         $order_data_insert=array('login_id'=>$login_id,'name'=>$customer['fullname'],'email'=>$customer['email'],'mobile'=>$customer['mobile'],'address'=>$customer['address'],'amount'=>$order_data['price']['total']);
         $order_id=DB::table('orders')->insertGetId($order_data_insert);
@@ -146,7 +161,7 @@ class OrderController extends Controller
             $api = Instamojo\Instamojo::init("app",[
             "client_id" => $cient_id,
             "client_secret" => $cient_secret
-            ],true);
+            ],$testing);
             
              $response = $api->createPaymentRequest(array(
             "purpose" => "Purchase-".$order_id,
@@ -197,5 +212,32 @@ class OrderController extends Controller
         $data['date'] = date('Y-m-d', strtotime($date. ' + '.$interval.' days'));
         $data['format'] = date( $format, strtotime($data['date']));
         return $data;
+    }
+    public function list(Request $request)
+    {
+       $q = $request->q;
+            $order_data = DB::table('orders')
+            ->select('*')
+            ->join('order_details', 'orders.id', '=', 'order_details.order_id')
+            ->orWhere('orders.name', 'LIKE', '%' . $q . '%')
+            ->orWhere('orders.email', 'LIKE', '%' . $q . '%')
+            ->orWhere('orders.mobile', 'LIKE', '%' . $q . '%')
+            ->orWhere('orders.address', 'LIKE', '%' . $q . '%')
+            ->orWhere('orders.amount', 'LIKE', '%' . $q . '%')
+            ->orderBy('orders.id', 'DESC')
+            ->paginate(10)->appends(['q' => $q]);
+        return view('orders.index', array('orders' => $order_data));
+    }
+    public function paymentList(Request $request)
+    {
+       $q = $request->q;
+            $order_data = DB::table('payments')
+            ->select('*')
+            ->orWhere('payment_id', 'LIKE', '%' . $q . '%')
+            ->orWhere('transaction_status', 'LIKE', '%' . $q . '%')
+            ->orWhere('order_id', 'LIKE', '%' . $q . '%')
+            ->orderBy('id', 'DESC')
+            ->paginate(10)->appends(['q' => $q]);
+        return view('orders.payment', array('payments' => $order_data));
     }
 }
