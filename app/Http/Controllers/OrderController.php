@@ -41,7 +41,7 @@ class OrderController extends Controller
             $stitch_name='normal-pant';
         }
         
-        $total_material_required= round($total_measement / 100);
+        $total_material_required= round($total_measement * 0.01 );
         $data['total_material_required']=$total_material_required;
         $products =  Product::find($measurement['product_type_id']);
         // Tailor details
@@ -153,7 +153,7 @@ class OrderController extends Controller
             $cient_secret=env('PAYMENT_LIVE_CLIENT_SECRET');
         }
         $app_url=env('APP_URL');
-        $order_data_insert=array('login_id'=>$login_id,'name'=>$customer['fullname'],'email'=>$customer['email'],'mobile'=>$customer['mobile'],'address'=>$customer['address'],'amount'=>$order_data['price']['total']);
+        $order_data_insert=array('login_id'=>$login_id,'name'=>$customer['fullname'],'email'=>$customer['email'],'mobile'=>$customer['mobile'],'address'=>$customer['address'],'amount'=>$order_data['price']['total'],'tailor_id'=>$customer['tailor_id'],'billing_address'=>$customer['address']);
         $order_id=DB::table('orders')->insertGetId($order_data_insert);
         try
         {
@@ -175,8 +175,10 @@ class OrderController extends Controller
             // "webhook"=>$app_url."payment_wehook"
         if($response && !empty($response['id']))
         {
-        
-            $order_details_data=array('order_id'=>$order_id,'measurement'=>$request->session()->get('measurement'));
+            $measurement_data = json_decode($request->session()->get('measurement'), True);
+            $measurement_data['total_material_required']=$order_data['total_material_required'];
+            $measurement_data['price']=$order_data['price']['product']+$order_data['price']['stiching_cost'];
+            $order_details_data=array('order_id'=>$order_id,'measurement'=>json_encode($measurement_data));
             DB::table('order_details')->insert($order_details_data);
             $temp=array(
                 'amount'=>$response['amount'],
@@ -195,14 +197,64 @@ class OrderController extends Controller
     }
     function payment_response(Request $request)
     {
-        $msg='Payment Failed';
-        $update_data=array('payment_id'=>$request->payment_id,'transaction_status'=>$request->payment_status);
-        $update_stats=DB::table('payments')->where('payment_request_id',$request->payment_request_id)->update($update_data);
-        if(!empty($request->payment_status) && strtolower($request->payment_status)==='credit')
+        if(empty($request->payment_request_id))
         {
-           $msg='Payment Successfull';
+            echo 'Invalid request';exit(0);
         }
-        echo $msg;
+        $order_id = DB::table('payments')->where(['payment_request_id' =>$request->payment_request_id]
+        )->value('order_id');
+        if(empty($order_id))
+        {
+            echo 'Invalid request';exit(0);
+        }
+        $update_data=array('payment_id'=>$request->payment_id,'transaction_status'=>$request->payment_status);
+
+        $update_stats=DB::table('payments')->where('payment_request_id',$request->payment_request_id)->update($update_data);
+        //return redirect()->route('order.order_view/'.$order_id);//todo
+        //copy from here
+        $data['order_summary'] = DB::table('orders')->where(array('id'=>$order_id,'login_id'=>5))->first();
+        if(empty($data['order_summary']))
+        {
+            echo 'Invalid request';exit(0);
+        }
+        $data['payment_details'] = DB::table('payments')->where('order_id', $order_id)->first();
+        if(empty($data['order_summary']))
+        {
+            echo 'Invalid request';exit(0);
+        }
+        
+        $msg='Order Failed';
+        if(!empty($data['payment_details']) && strtolower( $data['payment_details']->transaction_status)==='credit')
+        {
+           $msg='Thank you for your Purchase';
+        }
+        
+        $data['order_details'] =[];
+
+        $order_details=DB::table('order_details')->where('order_id', $order_id)->get();
+        $data['tailor'] =  Tailor::where('id', $data['order_summary']->tailor_id)->first();
+        foreach ($order_details as $key => $value) 
+        {
+            $decoded_data=json_decode($value->measurement,true);
+            $products =  Product::find($decoded_data['product_type_id']);
+            $stitch_name='';
+            if($decoded_data['type']==='top')
+            {
+                $stitch_name='normal-shirt';
+            }
+            if($decoded_data['type']==='bottom')
+            {
+               $stitch_name='normal-pant';
+            }
+            $stiching_cost = DB::table('stitching_costs')->where([
+                'tailor_id' => $data['order_summary']->tailor_id,
+                'stitch_name' => $stitch_name])->value('cost');
+            $data['order_details'][]=array('product'=>$products,'stitch_cost'=>$stiching_cost,'additional_data'=>$decoded_data); 
+        }
+        $data['msg']=$msg;
+
+        return view('layouts.order_success', array('data' => $data));
+        
     }
 
     private function formatDate($interval, $format = '', $date = ''){
@@ -215,6 +267,7 @@ class OrderController extends Controller
     public function list(Request $request)
     {
        $q = $request->q;
+      
             $order_data = DB::table('orders')
             ->select('*')
             ->join('order_details', 'orders.id', '=', 'order_details.order_id')
@@ -229,14 +282,83 @@ class OrderController extends Controller
     }
     public function paymentList(Request $request)
     {
-       $q = $request->q;
-            $order_data = DB::table('payments')
+        $q = $request->q;
+        $start_date='';
+        $end_date='';
+        $appendto=['q' => $q];
+        if(!empty($request->datepick))
+        {
+       //     var_dump($request->datepick);die;
+            $search_date=$request->datepick;
+            $expl_date=explode('to',$search_date);
+            $start_date=date("Y-m-d",strtotime(trim($expl_date[0])));
+            $end_date=date("Y-m-d",strtotime(trim($expl_date[1])));
+            $appendto['datepick']=$request->datepick;
+        }else
+        {
+            $start_date=date("Y-m-d",strtotime('-30 days'));
+            $end_date=date("Y-m-d");
+            $appendto['datepick']=date("d-M-Y",strtotime($start_date)).' to '.date("d-M-Y");
+        }  
+            $result = DB::table('payments')
             ->select('*')
             ->orWhere('payment_id', 'LIKE', '%' . $q . '%')
             ->orWhere('transaction_status', 'LIKE', '%' . $q . '%')
             ->orWhere('order_id', 'LIKE', '%' . $q . '%')
+            ->whereBetween('created_at', [$start_date, $end_date])
             ->orderBy('id', 'DESC')
-            ->paginate(10)->appends(['q' => $q]);
-        return view('orders.payment', array('payments' => $order_data));
+            ->paginate(10)->appends($appendto);
+        return view('orders.payment', array('payments' => $result));
+    }
+    public function order_view(Request $request)
+    {
+        //todo
+        if(empty($request->id))
+        {
+            echo 'Invalid request';exit(0);
+        }
+       
+        $data['order_summary'] = DB::table('orders')->where(array('id'=>$request->id,'login_id'=>5))->first();
+        if(empty($data['order_summary']))
+        {
+            echo 'Invalid request';exit(0);
+        }
+        $data['payment_details'] = DB::table('payments')->where('order_id', $request->order_id)->first();
+        if(empty($data['order_summary']))
+        {
+            echo 'Invalid request';exit(0);
+        }
+        
+        $msg='Order Failed';
+        if(!empty( $data['payment_details']) && strtolower( $data['payment_details']->transaction_status)==='credit')
+        {
+           $msg='Thank you for your Purchase';
+        }
+        
+        $data['order_details'] =[];
+
+        $order_details=DB::table('order_details')->where('order_id', $order_id)->get();
+        $data['tailor'] =  Tailor::where('id', $data['order_summary']->tailor_id)->first();
+        foreach ($order_details as $key => $value) 
+        {
+            $decoded_data=json_decode($value->measurement,true);
+            $products =  Product::find($decoded_data['product_type_id']);
+            $stitch_name='';
+            if($decoded_data['type']==='top')
+            {
+                $stitch_name='normal-shirt';
+            }
+            if($decoded_data['type']==='bottom')
+            {
+               $stitch_name='normal-pant';
+            }
+            $stiching_cost = DB::table('stitching_costs')->where([
+                'tailor_id' => $data['order_summary']->tailor_id,
+                'stitch_name' => $stitch_name])->value('cost');
+            $data['order_details'][]=array('product'=>$products,'stitch_cost'=>$stiching_cost); 
+        }
+        $data['msg']=$msg;
+
+        return view('layouts.order_success', array('data' => $data));
     }
 }
