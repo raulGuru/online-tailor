@@ -66,6 +66,19 @@
                     <i class="align-middle" data-feather="user"></i> <span class="align-middle">Appointments</span>
                 </a>
             </li>
+            <li class="sidebar-header">
+                Orders
+            </li>
+            <li class="sidebar-item">
+                <a class="sidebar-link" href="{{ route('order.list') }}">
+                    <i class="align-middle" data-feather="user"></i> <span class="align-middle">Orders</span>
+                </a>
+            </li>
+            <li class="sidebar-item">
+                <a class="sidebar-link" href="{{ route('order.paymentList') }}">
+                    <i class="align-middle" data-feather="user"></i> <span class="align-middle">Payments</span>
+                </a>
+            </li>
        </ul>
     </div>
  </nav>
