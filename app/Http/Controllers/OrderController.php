@@ -184,7 +184,8 @@ class OrderController extends Controller
                 'amount'=>$response['amount'],
                 'payment_request_id'=>$response['id'],
                 'login_id'=>$login_id,'payment_response'=>json_encode($response),
-                'order_id'=>$order_id
+                'order_id'=>$order_id,
+                "buyer_name"=>$customer['fullname']
             );
             $transaction_id=DB::table('payments')->insert($temp);
             header('Location: ' . $response['longurl']);
