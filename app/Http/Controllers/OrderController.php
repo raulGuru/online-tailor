@@ -12,6 +12,10 @@ use Instamojo;
 
 class OrderController extends Controller
 {
+    public function __construct() 
+    {
+        date_default_timezone_set('Asia/Calcutta');
+    }
     /**
      * Display a listing of the resource.
      *
@@ -153,17 +157,20 @@ class OrderController extends Controller
             $cient_secret=env('PAYMENT_LIVE_CLIENT_SECRET');
         }
         $app_url=env('APP_URL');
-        $order_data_insert=array('login_id'=>$login_id,'name'=>$customer['fullname'],'email'=>$customer['email'],'mobile'=>$customer['mobile'],'address'=>$customer['address'],'amount'=>$order_data['price']['total'],'tailor_id'=>$customer['tailor_id'],'billing_address'=>$customer['address']);
+
+        $order_data_insert=array('login_id'=>$login_id,'name'=>$customer['fullname'],'email'=>$customer['email'],'mobile'=>$customer['mobile'],'address'=>$customer['address'],'amount'=>$order_data['price']['total'],'tailor_id'=>$customer['tailor_id'],'billing_address'=>$customer['address'],'order_id'=>'');
         $order_id=DB::table('orders')->insertGetId($order_data_insert);
+        $generated_order_id=date("Ymdhi").$order_id;
         try
         {
+            
             $api = Instamojo\Instamojo::init("app",[
             "client_id" => $cient_id,
             "client_secret" => $cient_secret
             ],$testing);
             
              $response = $api->createPaymentRequest(array(
-            "purpose" => "Purchase-".$order_id,
+            "purpose" => $generated_order_id,
             "buyer_name"=>$customer['fullname'],
             "amount" =>$order_data['price']['total'],
             "email"=>$customer['email'],
@@ -175,6 +182,10 @@ class OrderController extends Controller
             // "webhook"=>$app_url."payment_wehook"
         if($response && !empty($response['id']))
         {
+            $update_order_data=array('order_id'=>$generated_order_id);
+
+            $update_order_stats=DB::table('orders')->where('id',$order_id)->update($update_order_data);
+
             $measurement_data = json_decode($request->session()->get('measurement'), True);
             $measurement_data['total_material_required']=$order_data['total_material_required'];
             $measurement_data['price']=$order_data['price']['product']+$order_data['price']['stiching_cost'];
@@ -185,7 +196,8 @@ class OrderController extends Controller
                 'payment_request_id'=>$response['id'],
                 'login_id'=>$login_id,'payment_response'=>json_encode($response),
                 'order_id'=>$order_id,
-                "buyer_name"=>$customer['fullname']
+                "buyer_name"=>$customer['fullname'],
+                "instamojo_order_id"=>$generated_order_id
             );
             $transaction_id=DB::table('payments')->insert($temp);
             header('Location: ' . $response['longurl']);
@@ -267,6 +279,7 @@ class OrderController extends Controller
     }
     public function list(Request $request)
     {
+        
        $q = $request->q;
       
             $order_data = DB::table('orders')
