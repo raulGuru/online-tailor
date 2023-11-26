@@ -25,6 +25,7 @@
             <thead>
                <tr>
                   <th>#</th>
+                  <th>Order Id</th>
                   <th>Name</th>
                   <th>Email</th>
                   <th>Mobile</th>
@@ -39,6 +40,7 @@
                @foreach($orders as $key => $order)
                <tr>
                   <td>{{ ($orders->currentpage()-1) * $orders->perpage() + $key + 1 }}</td>
+                  <td>{{ $order->instamojo_order_id }}</td>
                   <td>{{ $order->name }}</td>
                   <td>{{ $order->email }}</td>
                   <td>{{ $order->mobile }}</td>

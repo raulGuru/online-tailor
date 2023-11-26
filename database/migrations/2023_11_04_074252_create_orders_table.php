@@ -27,6 +27,7 @@ class CreateOrdersTable extends Migration
             $table->double('delivery_charge')->default(0);
             $table->double('amount')->default(0);
             $table->integer('tailor_id');
+            $table->text('instamojo_order_id');
         });
     }
 
