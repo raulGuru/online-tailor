@@ -67,7 +67,7 @@
          @foreach($orders as $key2 => $order_dets)
          
             <div class="card-body" style="display:none;" id="details_view<?php echo $order_dets->id;?>">
-            <button class="btn btn-primary float-end" type="submit">Back
+            <button class="btn btn-primary float-end" type="button" onclick="view_details('<?php echo $order_dets->id;?>',false);">Back
             </button>
             <div class="row">
                   
@@ -216,14 +216,14 @@
 <script>
 function view_details(id,show)
 {
-   if(show)
+   if(show==true)
    {
-      $(".summary_view").hide();
-      $("#details_view"+id).show();
+      $(".summary_view").css('display','none');
+      $("#details_view"+id).css('display','block');
    }else
    {
-      $(".summary_view").show();
-      $("#details_view"+id).hide();
+      $(".summary_view").css('display','block');
+      $("#details_view"+id).css('display','none');
    }
 }
 </script>
