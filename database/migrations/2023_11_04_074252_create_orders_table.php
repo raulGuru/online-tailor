@@ -16,7 +16,7 @@ class CreateOrdersTable extends Migration
         Schema::create('orders', function (Blueprint $table) {
             $table->id();
             $table->integer('login_id');
-            $table->enum('status', ['initiated','deleted','placed','delivered'])->defaul('initiated');
+            $table->enum('status', ['initiated','deleted','placed','delivered','failed'])->defaul('initiated');
             $table->timestamp('order_date')->useCurrent();
             $table->string('name');
             $table->string('email');
