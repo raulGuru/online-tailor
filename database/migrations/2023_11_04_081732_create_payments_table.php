@@ -26,7 +26,6 @@ class CreatePaymentsTable extends Migration
             $table->integer('login_id');
             $table->text('payment_response')->nullable();
             $table->integer('order_id');
-            $table->text('instamojo_order_id');
         });
     }
 
