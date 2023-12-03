@@ -14,7 +14,7 @@ class AlterEnmumOrderidToOrdersTable extends Migration
     public function up()
     {
         Schema::table('orders', function (Blueprint $table) {
-             $table->enum('status', ['initiated','deleted','placed','delivered','failed'])->default('initiated');
+             $table->enum('status', ['initiated','deleted','placed','delivered','failed'])->default('initiated')->change();
               $table->string('instamojo_order_id');
         });
     }
@@ -28,7 +28,7 @@ class AlterEnmumOrderidToOrdersTable extends Migration
     {
         Schema::table('orders', function (Blueprint $table) {
              $table->dropColumn('instamojo_order_id');
-             $table->enum('status', ['initiated','deleted','placed','delivered'])->default('initiated');
+             $table->enum('status', ['initiated','deleted','placed','delivered'])->default('initiated')->change();
         });
     }
 }
