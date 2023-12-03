@@ -4,13 +4,16 @@
    <div class="card-header">
       <div class="float-end">
          <form class="d-none d-sm-inline-block ">
-            <div class="input-group input-group-navbar summary_view">
-               <input type="text" class="form-control" name="q" value="{{ request()->q }}" title="Searchs" placeholder="Search" aria-label="Search">
-               <button class="btn" type="submit">
+            <div class="input-group input-group-navbar ">
+               <input type="text" class="form-control summary_view" name="q" value="{{ request()->q }}" title="Searchs" placeholder="Search" aria-label="Search">
+               <button class="btn summary_view" type="submit">
                <i class="align-middle" data-feather="search"></i>
                </button>
+               
             </div>
          </form>
+         <button style="display:none" class="btn btn-primary float-end details_view" type="button" onclick="backFunc();">Back
+               </button>
          @if(request()->q)
             <a href="{{ route('order.list') }}" class="btn btn-secondary ms-2" type="button" data-bs-toggle="tooltip" data-bs-placement="top" title="Clear search data">
                <i class="align-middle" data-feather="refresh-cw"></i>
@@ -21,7 +24,7 @@
    </div>
    <div class="card-body" >
       @if(isset($orders) && $orders->count() > 0)
-         <table class="table table-striped summary_view" >
+         <table style="width:100% !important;" class="table table-striped summary_view" >
             <thead>
                <tr>
                   <th>#</th>
@@ -65,10 +68,9 @@
          </div>
 
          @foreach($orders as $key2 => $order_dets)
-         
+               
             <div class="card-body" style="display:none;" id="details_view<?php echo $order_dets->id;?>">
-            <button class="btn btn-primary float-end" type="button" onclick="view_details('<?php echo $order_dets->id;?>',false);">Back
-            </button>
+            
             <div class="row">
                   
               <div class="col-lg-6">
@@ -135,17 +137,14 @@
                       </div>
                   </div>
               </div>
-              <?php 
-
-              /*
-                  todo 
-               ?>
               <div class="col-lg-6">
-                  <!--<div class="card flex-fill w-100">
+                  <div class="card flex-fill w-100">
                       <div class="summary-table-container pt-0">
                           <table style="width:100%">
                               <tbody>
-                                  @foreach ($orders[$key2]->order_details as $details)
+                                 @if(isset($order_dets->order_details))
+                                  @foreach ($order_dets->order_details as $details)
+
                                       <tr>
                                           <td class="col-thumbnail">
                                               <div class="summary-img-box">
@@ -170,6 +169,7 @@
                                           </td>
                                       </tr>
                                   @endforeach
+                                  @endif
                               </tbody>
                               <tfoot style="background-color: #D3D3D3;">
                                   <tr>
@@ -185,18 +185,14 @@
                                       <th style="text-align: right !important;">{{$order_dets->discount}}</th>
                                   </tr>
                                   <tr>
-                                      <th colspan="2">Tax</th>
-                                      <th style="text-align: right !important;">0</th>
-                                  </tr>
-                                  <tr>
                                       <th colspan="2">Grand total</th>
                                       <th style="text-align: right !important;">₹{{$order_dets->amount}}</th>
                                   </tr>
                               </tfoot>
                           </table>
                       </div>
-                  </div>--->
-              </div><?php */ ?>
+                  </div>
+              </div>
     </div>
             </div>
          @endforeach
@@ -214,17 +210,28 @@
    </div>
 </div>
 <script>
+var selected_id=0;   
 function view_details(id,show)
 {
+   selected_id=id;
    if(show==true)
    {
       $(".summary_view").css('display','none');
       $("#details_view"+id).css('display','block');
+      $(".details_view").show();
    }else
    {
-      $(".summary_view").css('display','block');
+      $(".summary_view").removeAttr('style');
       $("#details_view"+id).css('display','none');
+      $(".details_view").hide();
    }
 }
+function  backFunc()
+{
+    $(".summary_view").removeAttr('style');
+      $("#details_view"+selected_id).css('display','none');
+      $(".details_view").hide();
+}
+
 </script>
 @endsection

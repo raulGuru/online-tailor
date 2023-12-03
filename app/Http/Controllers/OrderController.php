@@ -158,7 +158,7 @@ class OrderController extends Controller
         }
         $app_url=env('APP_URL');
 
-        $order_data_insert=array('login_id'=>$login_id,'name'=>$customer['fullname'],'email'=>$customer['email'],'mobile'=>$customer['mobile'],'address'=>$customer['address'],'amount'=>$order_data['price']['total'],'tailor_id'=>$customer['tailor_id'],'billing_address'=>$customer['address'],'order_id'=>'');
+        $order_data_insert=array('login_id'=>$login_id,'name'=>$customer['fullname'],'email'=>$customer['email'],'mobile'=>$customer['mobile'],'address'=>$customer['address'],'amount'=>$order_data['price']['total'],'tailor_id'=>$customer['tailor_id'],'billing_address'=>$customer['address'],'instamojo_order_id'=>'');
         $order_id=DB::table('orders')->insertGetId($order_data_insert);
         $generated_order_id=date("Ymdhi").$order_id;
         try
@@ -182,10 +182,8 @@ class OrderController extends Controller
             // "webhook"=>$app_url."payment_wehook"
         if($response && !empty($response['id']))
         {
-            $update_order_data=array('order_id'=>$generated_order_id);
-
+            $update_order_data=array('instamojo_order_id'=>$generated_order_id);
             $update_order_stats=DB::table('orders')->where('id',$order_id)->update($update_order_data);
-
             $measurement_data = json_decode($request->session()->get('measurement'), True);
             $measurement_data['total_material_required']=$order_data['total_material_required'];
             $measurement_data['price']=$order_data['price']['product']+$order_data['price']['stiching_cost'];
@@ -287,24 +285,29 @@ class OrderController extends Controller
     {
         $role=auth()->user()->role;
         $q = $request->q;
+                //DB::enableQueryLog();
             $order_data = DB::table('orders')
-            ->select('*')
-            ->join('order_details', 'orders.id', '=', 'order_details.order_id')
-            ->orWhere('orders.name', 'LIKE', '%' . $q . '%')
-            ->orWhere('orders.email', 'LIKE', '%' . $q . '%')
-            ->orWhere('orders.mobile', 'LIKE', '%' . $q . '%')
-            ->orWhere('orders.address', 'LIKE', '%' . $q . '%')
-            ->orWhere('orders.amount', 'LIKE', '%' . $q . '%');
-            if($role!=='admin')
-            {
-                $order_data = $order_data->where('tailor_id','=', auth()->user()->id);
-            }
-            $order_data = $order_data->orderBy('orders.id', 'DESC')
-            ->paginate(10)->appends(['q' => $q]);
+             //this wraps the whole statement in ()
+             ->where(function($query) use ($q,$role){
+                if($role!=='admin')
+                {
+                 $query->where(function($query) use ($q){
+                     $query->where('orders.tailor_id','=', auth()->user()->id);
+                 });
+                }
+                 $query->where(function($query) use ($q){
+                        
+                       $query->orWhere('orders.name', 'LIKE', '%' . $q . '%');
+                        $query->orWhere('orders.email', 'LIKE', '%' . $q . '%');
+                        $query->orWhere('orders.mobile', 'LIKE', '%' . $q . '%');
+                       $query->orWhere('orders.address', 'LIKE', '%' . $q . '%');
+                        $query->orWhere('orders.amount', 'LIKE', '%' . $q . '%');
+                 });
+             })
+             ->paginate(10)->appends(['q' => $q]);
+
             $data['order_details'] =[];
             $new_data=[];
-
-           
             foreach ($order_data as $key => $summary)
             {
                 $order_details_data=[];
@@ -330,6 +333,7 @@ class OrderController extends Controller
                 }
                 $order_data[$key]->order_details=$order_details_data;
             }
+
         return view('orders.index', array('orders' => $order_data));
     }
     public function paymentList(Request $request)
