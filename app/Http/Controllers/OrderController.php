@@ -303,11 +303,12 @@ class OrderController extends Controller
                 }
                  $query->where(function($query) use ($q){
                         
-                       $query->orWhere('orders.name', 'LIKE', '%' . $q . '%');
+                        $query->orWhere('orders.name', 'LIKE', '%' . $q . '%');
                         $query->orWhere('orders.email', 'LIKE', '%' . $q . '%');
                         $query->orWhere('orders.mobile', 'LIKE', '%' . $q . '%');
-                       $query->orWhere('orders.address', 'LIKE', '%' . $q . '%');
+                        $query->orWhere('orders.address', 'LIKE', '%' . $q . '%');
                         $query->orWhere('orders.amount', 'LIKE', '%' . $q . '%');
+                        $query->orWhere('orders.instamojo_order_id', 'LIKE', '%' . $q . '%');
                  });
              })
              ->paginate(10)->appends(['q' => $q]);
@@ -365,9 +366,11 @@ class OrderController extends Controller
             $result = DB::table('payments')
             ->select('*')
             ->orWhere('payment_id', 'LIKE', '%' . $q . '%')
+            ->orWhere('payment_request_id', 'LIKE', '%' . $q . '%')
             ->orWhere('transaction_status', 'LIKE', '%' . $q . '%')
+            ->orWhere('instamojo_order_id', 'LIKE', '%' . $q . '%')
             ->orWhere('order_id', 'LIKE', '%' . $q . '%')
-            ->whereBetween('created_at', [$start_date, $end_date])
+            //->whereBetween('created_at', [$start_date, $end_date])
             ->orderBy('id', 'DESC')
             ->paginate(10)->appends($appendto);
         return view('orders.payment', array('payments' => $result));
