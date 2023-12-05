@@ -61,7 +61,7 @@
                   <td>{{ ($payments->currentpage()-1) * $payments->perpage() + $key + 1 }}</td>
                    <td>{{ $payment->payment_request_id }}</td>
                   <td>{{ $payment->payment_id }}</td>
-                  <td>{{ $payment->order_id }}</td>
+                  <td>{{ $payment->instamojo_order_id }}</td>
                   <td>{{ $payment->amount }}</td>
                   <td>{{ $payment->transaction_status }}
                      <?php
