@@ -185,6 +185,12 @@ class OrderController extends Controller
             $update_order_data=array('instamojo_order_id'=>$generated_order_id);
             $update_order_stats=DB::table('orders')->where('id',$order_id)->update($update_order_data);
             $measurement_data = json_decode($request->session()->get('measurement'), True);
+
+            //minus
+            $products_row =  Product::find($measurement_data['product_type_id']);
+            $update_order_size_data=array('size'=>$products_row->size-$order_data['total_material_required']);
+            $update_order_stats=DB::table('products')->where('id',$measurement_data['product_type_id'])->update($update_order_size_data);
+
             $measurement_data['total_material_required']=$order_data['total_material_required'];
             $measurement_data['price']=$order_data['price']['product']+$order_data['price']['stiching_cost'];
             $order_details_data=array('order_id'=>$order_id,'measurement'=>json_encode($measurement_data));
@@ -203,7 +209,7 @@ class OrderController extends Controller
         }
         }catch(EXCEPTION $e)
         {
-            //echo $e->getMessage();
+            echo $e->getMessage();
         }
     }
     function payment_response(Request $request)
