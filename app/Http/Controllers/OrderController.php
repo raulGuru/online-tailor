@@ -295,7 +295,7 @@ class OrderController extends Controller
             $order_data = DB::table('orders')
              //this wraps the whole statement in ()
              ->where(function($query) use ($q,$role){
-                if($role!=='admin')
+                if($role==='vendor')
                 {
                  $query->where(function($query) use ($q){
                      $query->where('orders.tailor_id','=', auth()->user()->id);
@@ -341,7 +341,7 @@ class OrderController extends Controller
                 $order_data[$key]->order_details=$order_details_data;
             }
 
-        return view('orders.index', array('orders' => $order_data));
+        return view('orders.index', array('orders' => $order_data,'role'=>$role));
     }
     public function paymentList(Request $request)
     {
@@ -427,5 +427,20 @@ class OrderController extends Controller
         $data['msg']=$msg;
 
         return view('layouts.order_success', array('data' => $data));
+    }
+
+    public function update_status(Request $request)
+    {
+        
+        $update_order_data=array('status'=>$request->update_stats);
+        $update_order_stats=DB::table('orders')->where('id',$request->id)->update($update_order_data);
+        if($update_order_stats)
+        {
+            $status=true;
+        }
+        else{
+             $status=false;
+        }
+        echo json_encode(array('status'=>$status));
     }
 }

@@ -34,7 +34,7 @@
                   <th>Mobile</th>
                   <th>Address</th>
                   <th>Amount</th>
-                  <th>Status</th>
+                  <th style="text-align: center">Status</th>
                   <th>Created at</th>
                   <th>Action</th>
                </tr>
@@ -50,7 +50,38 @@
                   <td>{{ $order->mobile }}</td>
                   <td>{{ $order->address }}</td>
                   <td>{{ $order->amount }}</td>
-                  <td>{{ $order->status }}</td>
+                  <td style="text-align: center"><span id="statsspan<?php echo $order->id;?>">{{ $order->status }}</span>
+                   
+                    <?php if(!empty($role) && $role==='vendor' && $order->status!=='delivered' && $order->status!=='failed') {
+
+                      $nxt_stats='';
+                      if($order->status==='initiated')
+                      {
+                        $nxt_stats='placed';
+                      }
+                      elseif($order->status==='placed')
+                      {
+                        $nxt_stats='in progress';
+                      }
+                      elseif($order->status==='in progress')
+                      {
+                        $nxt_stats='out for delivery';
+                      }
+                       elseif($order->status==='out for delivery')
+                      {
+                        $nxt_stats='delivered';
+                      }
+                      ?>
+                      <div>
+                    <input type="hidden" name="next<?php echo $order->id;?>" id="next<?php echo $order->id;?>" value="<?php echo $nxt_stats;?>">
+                    <button class="btn btn-info" type="button" id="btn<?php echo $order->id;?>" onClick="updateStatus('<?php echo $order->id;?>')">
+                      Update to {{ $nxt_stats }}
+                    </button>
+                  </div>
+                    <?php 
+                    unset($nxt_stats);
+                  } ?>
+                  </td>
                   <td>{{ $order->order_date }}</td>
                   <td>
                         <div>
@@ -231,6 +262,58 @@ function  backFunc()
     $(".summary_view").removeAttr('style');
       $("#details_view"+selected_id).css('display','none');
       $(".details_view").hide();
+}
+
+function updateStatus(id)
+{
+
+     const update_stats=$("#next"+id).val();
+     let next_stats='';
+      if(update_stats==='initiated')
+      {
+        next_stats='placed';
+      }
+      else if(update_stats==='placed')
+      {
+        next_stats='in progress';
+      }
+      else if(update_stats==='in progress')
+      {
+        next_stats='out for delivery';
+      }
+      else if(update_stats==='out for delivery')
+      {
+        next_stats='delivered';
+      }
+
+      
+   $.ajax({
+          url: "{{ route('order.update_status') }}",
+          type: "post",
+          dataType: "json",
+          data: {id,update_stats,"_token": "{{ csrf_token() }}"},
+          success: function(d) {
+            alert(d.status);
+              if(d.status)
+              {
+                if(next_stats.length===0)
+                {
+                  $("#next"+id).remove();
+                  $("#btn"+id).remove();
+                  if(update_stats==='delivered')
+                  {
+                    $("#statsspan"+id).html('delivered');
+                  }
+                  
+                }else{
+
+                    $("#next"+id).val(next_stats);
+                    $("#statsspan"+id).html(update_stats);
+                    $("#btn"+id).html("Update to "+next_stats);
+                }
+              }
+          }
+      });
 }
 
 </script>
