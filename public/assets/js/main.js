@@ -193,16 +193,18 @@ MYAPP.common = {
             url: MYAPP.common.base_url + '/location',
             beforeSend: function () { },
             success: function (response) {
-                if (response.code === 200 && response.result === true) {
+                console.log('response => ', response);
+                console.log('this.base_url => ', MYAPP.common.base_url);
+                if (response.code === 404 && response.result === false) {
+                    window.location.href = MYAPP.common.base_url + '/login';
+                } else if (response.code === 200 && response.result === true) {
                     if (localStorage.getItem('measurement_redirect') != null && localStorage.getItem('measurement_redirect') === 'false') {
                         $('body #search-location').modal('hide');
                         localStorage.removeItem('measurement_redirect');
                         $('#measurement-form button[type=submit]').removeAttr('id');
                         $('#measurement-form').submit();
-                    } else {
-                        if(redirect_uri) {
-                            window.location.href = redirect_uri;
-                        }
+                    } else if (redirect_uri) {
+                        window.location.href = redirect_uri;
                     }
                 } else {
                     localStorage.setItem('is_redirect', true);

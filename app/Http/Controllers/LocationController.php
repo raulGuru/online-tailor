@@ -27,6 +27,9 @@ class LocationController extends Controller
      */
     public function index(Request $request)
     {
+        if(auth()->user() === null) {
+            return response()->json(['code' => 404, 'status' => 'error', 'result' => false]);
+        }
         if ($request->session()->has('pincode')) {
             return response()->json(['code' => 200, 'status' => 'success', 'result' => true]);
         }
