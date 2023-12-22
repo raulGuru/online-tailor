@@ -1,4 +1,3 @@
-{{-- {{ dd($summaryData) }} --}}
 <div class="container">
     <h1 class="text-center mt-2 fw-bold"><?php echo $summaryData['msg']; ?></h1>
     <h4 class="mb-3 fw-normal">
