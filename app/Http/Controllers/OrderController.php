@@ -297,9 +297,10 @@ class OrderController extends Controller
              ->where(function($query) use ($q,$role){
                 if($role==='vendor')
                 {
-                 $query->where(function($query) use ($q){
-                     $query->where('orders.tailor_id','=', auth()->user()->id);
-                 });
+                $query->where(function ($query) use ($q) {
+                    $tailor =  Tailor::where('user_id', auth()->user()->id)->first();
+                    $query->where('orders.tailor_id', '=', $tailor->id);
+                });
                 }
                  $query->where(function($query) use ($q){
                         
