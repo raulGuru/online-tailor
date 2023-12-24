@@ -75,8 +75,7 @@
                     <h5 class="card-title mb-0">Order Summary</h5>
                 </div>
                 <div class="summary-table-container pt-0">
-                    <table style="width:100%">
-                        <tbody>
+                    <table class="table-striped table table-responsive">
                             @foreach ($summaryData['order_details'] as $details)
                                 <tr>
                                     <td class="col-thumbnail">
@@ -101,8 +100,6 @@
                                     </td>
                                 </tr>
                             @endforeach
-                        </tbody>
-                        <tfoot style="background-color: #D3D3D3;">
                             <tr>
                                 <th colspan="2">Subtotal</th>
                                 <th style="text-align: right !important;">₹{{$summaryData['order_summary']->amount}}</th>
@@ -116,14 +113,9 @@
                                 <th style="text-align: right !important;">{{$summaryData['order_summary']->discount}}</th>
                             </tr>
                             <tr>
-                                <th colspan="2">Tax</th>
-                                <th style="text-align: right !important;">0</th>
-                            </tr>
-                            <tr>
                                 <th colspan="2">Grand total</th>
                                 <th style="text-align: right !important;">₹{{$summaryData['order_summary']->amount}}</th>
                             </tr>
-                        </tfoot>
                     </table>
                     <div class="pt-2 text-end">
                         <a href="{{ route('home.index') }}" class="btn btn-primary" role="button">Continue Shopping</a>
