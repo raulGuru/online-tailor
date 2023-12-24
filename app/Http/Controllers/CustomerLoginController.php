@@ -19,9 +19,14 @@ class CustomerLoginController extends Controller
     {
         $this->roles = get_roles();
     }
-    public function index()
+    public function index(Request $request)
     {
-        return view('layouts.customer.login');
+        $redirectTo = null;
+        if ($request->has('redirectTo')) {
+            $redirectTo = $request->input('redirectTo');
+         }
+        $data = array('redirectTo' => $redirectTo);
+        return view('layouts.customer.login', $data);
     }
 
     /**
@@ -53,6 +58,9 @@ class CustomerLoginController extends Controller
         }
 
         $user = User::find(Auth::id());
+        if($request->redirectTo) {
+            return redirect($request->redirectTo);
+        }
         if (in_array($user->role, $this->roles) && $user->role !== 'customer') {
             return redirect()->route('admin.login.index');
         }

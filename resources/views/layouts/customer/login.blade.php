@@ -27,6 +27,7 @@
                                 <h4 class="mb-3 font-weight-600"> Login </h4>
                                 <form method="post" action="{{ route('login.store') }}">
                                     @csrf
+                                    <input type="hidden" name="redirectTo" value="{{ $redirectTo }}" />
                                     <div class="mb-3">
                                         <label class="mb-1">Email</label>
                                         <input class="form-control form-control-lg" type="email" name="email" placeholder="Enter your email" />
@@ -61,7 +62,7 @@
                                     </div>
                                     <div class="text-center mt-3">
                                         <button type="submit" class="btn btn-primary text-white btn-blue">Sign in</button>
-                                        <a href="{{ route('signup.index') }}" class="text-black f-12 text-end ml-3">Sign Up ?</a>
+                                        <a href="{{ route('signup.index', ['redirectTo' => $redirectTo]) }}" class="text-black f-12 text-end ml-3">Sign Up ?</a>
                                     </div>
                                 </form>
                             </div>

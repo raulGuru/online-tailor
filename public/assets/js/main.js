@@ -5,6 +5,7 @@ MYAPP.common = {
     routeName: segment1,
     segment1: segment2,
     segment2: segment3,
+    fullUrl: fullUrl,
     headers: {
         'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
     },
@@ -193,10 +194,10 @@ MYAPP.common = {
             url: MYAPP.common.base_url + '/location',
             beforeSend: function () { },
             success: function (response) {
-                console.log('response => ', response);
-                console.log('this.base_url => ', MYAPP.common.base_url);
                 if (response.code === 404 && response.result === false) {
-                    window.location.href = MYAPP.common.base_url + '/login';
+                    const html = '<a href="' + MYAPP.common.base_url + '/login?redirectTo=' + encodeURI(fullUrl) + '" class="btn btn-primary">Yes</a>';
+                    $('#dynamic-content').html(html);
+                    $('#confirm-dialog').modal('show');
                 } else if (response.code === 200 && response.result === true) {
                     if (localStorage.getItem('measurement_redirect') != null && localStorage.getItem('measurement_redirect') === 'false') {
                         $('body #search-location').modal('hide');
@@ -415,7 +416,7 @@ $(document).ready(function () {
         event.target.value = event.target.value.replace(/[^0-9.]/g, "");
     });
 
-    $('body').on('click', '#check-pincode', function (e) {
+    $('body').on('click', '.check-pincode', function (e) {
         e.preventDefault();
         const redirect_uri = $.trim($(this).attr('href'));
         if (this.dataset.redirect != undefined) {
