@@ -23,9 +23,6 @@
                             echo Str::title(explode("@", $email)[0]);
                         ?>,
                     </p>
-                    <a class="dropdown-item" href="#">
-                        <i class="align-middle me-1" data-feather="user"></i> Profile
-                    </a>
                     <a class="dropdown-item" href="{{ route('user.index') }}">
                         <i class="align-middle me-1" data-feather="user"></i> Users
                     </a>
