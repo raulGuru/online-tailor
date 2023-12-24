@@ -45,6 +45,7 @@
       </div>
       <script type="text/javascript">
          var baseUrl = "{{ url('/') }}";
+         var fullUrl = '{{ Request::fullUrl() }}';
          var segment1 = "{{ !empty(Request::segment(1)) ? Request::segment(1): ''; }}";
          var segment2 = "{{ !empty(Request::segment(2)) ? Request::segment(2): ''; }}";
          var segment3 = "{{ !empty(Request::segment(3)) ? Request::segment(3): ''; }}";

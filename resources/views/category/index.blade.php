@@ -72,8 +72,4 @@
        </div>
     </div>
  </div>
- <script>
-    let fullUrl = '{{ Request::fullUrl() }}';
-    console.log('fullUrl => ', fullUrl);
- </script>
 @endsection

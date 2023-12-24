@@ -40,7 +40,7 @@
                               <a href="{{ route('category.index', $query) }}">WOMEN</a>
                            </li>
                            <li>
-                              <a href="{{ route('location.list') }}" id="check-pincode">BOOK APPOINTMENT</a>
+                              <a href="{{ route('location.list') }}" class="check-pincode">BOOK APPOINTMENT</a>
                            </li>
                            <li>
                               <a href="javascript:void(0)" id="change-location">CHANGE LOCATION</a>
@@ -141,8 +141,27 @@
             </form>
          </div>
       </div>
+      <div class="modal" id="confirm-dialog" tabindex="-1">
+         <div class="modal-dialog">
+           <div class="modal-content">
+             <div class="modal-header">
+               <h4 class="modal-title">Proceed to login</h4>
+               <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+             </div>
+             <div class="modal-body">
+               <h4 class="text-center">Please log in to book a tailor or add measurements. Are you sure?</h4>
+             </div>
+             <div class="modal-footer">
+               <div id="dynamic-content">
+                  {{-- Dynamic link will be load here. --}}
+               </div>
+             </div>
+           </div>
+         </div>
+       </div>
       <script type="text/javascript">
          var baseUrl = "{{ url('/') }}";
+         var fullUrl = '{{ Request::fullUrl() }}';
          var segment1 = "{{ !empty(Request::segment(1)) ? Request::segment(1): ''; }}";
          var segment2 = "{{ !empty(Request::segment(2)) ? Request::segment(2): ''; }}";
          var segment3 = "{{ !empty(Request::segment(3)) ? Request::segment(3): ''; }}";

@@ -29,13 +29,13 @@
                            <form method="POST" action="{{ route('location.list') }}" accept="utf-8">
                               @csrf
                               <input type="hidden" name="product_id" value="{{$result->id}}">
-                              <button type="submit" id="{{ session()->has('pincode') ? '' : 'check-pincode' }}" class="btn d-block add-bag-btn">BOOK TAILOR</button>
+                              <button type="submit" class="btn d-block add-bag-btn {{ session()->has('pincode') ? '' : 'check-pincode' }}">BOOK TAILOR</button>
                             </form>
                             <form action="{{ route('measurement.store') }}" method="post">
                               @csrf
                               <input type="hidden" name="product_id" value="{{$result->id}}">
                               <input type="hidden" name="cat_id" value="{{$result->cat_id}}">
-                              <button type="submit" class="btn d-block add-wish-btn mt-3">
+                              <button type="submit" class="btn d-block add-wish-btn mt-3 {{ session()->has('pincode') ? '' : 'check-pincode' }}">
                                  ADD MEASUREMENT 
                               </button>
                             </form>
@@ -110,8 +110,4 @@
        </div>
     </div>
  </div>
- <script>
-    let fullUrl = '{{ Request::fullUrl() }}';
-    console.log('fullUrl => ', fullUrl);
- </script>
 @endsection

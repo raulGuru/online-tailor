@@ -17,9 +17,14 @@ class CustomerSignupController extends Controller
      * @return \Illuminate\Http\Response
      */
 
-    public function index()
+    public function index(Request $request)
     {
-        return view('layouts.customer.signup');
+        $redirectTo = null;
+        if ($request->has('redirectTo')) {
+            $redirectTo = $request->input('redirectTo');
+         }
+        $data = array('redirectTo' => $redirectTo);
+        return view('layouts.customer.signup', $data);
     }
 
     /**
@@ -62,11 +67,12 @@ class CustomerSignupController extends Controller
             "subject" => "Welcome to bookmytailor",
             "body" => $email_data
         );
-        // return view('emails.customer-welcome-mail', array('data' => $email_body_content));
         try {
             Mail::to($request->email)->send(new CustomerSignupMailNotify($email_body_content));
         } catch (Exception $e) {}
-
+        if($request->redirectTo) {
+            return redirect($request->redirectTo);
+        }
         return redirect()->route('login.index');
     }
 
