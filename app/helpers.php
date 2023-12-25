@@ -77,7 +77,7 @@ if (!function_exists('working_hours')) {
             '10:00 PM',
             '10:30 PM',
             '11:00 PM',
-            '11:30 PM',            
+            '11:30 PM',
         ];
 
         if (is_numeric($default)) {
@@ -321,11 +321,20 @@ if (!function_exists('get_measurement_form')) {
                             'value' => 'men'
                         ),
                         array(
+                            'label' => 'Chest',
+                            'name'  => 'chest',
+                            'type'  => 'textbox',
+                            'validate' => 'validateNumber',
+                            'value' => '',
+                            'info' => 'Minimun 36 inch & Maximum 44 inch',
+                        ),
+                        array(
                             'label' => 'Length',
                             'name'  => 'length',
                             'type'  => 'textbox',
                             'validate' => 'validateNumber',
-                            'value' => ''
+                            'value' => '',
+                            'info' => 'Minimun 26 inch & Maximum 29 inch'
                         ),
                         array(
                             'label' => 'Shoulder',
@@ -337,13 +346,6 @@ if (!function_exists('get_measurement_form')) {
                         array(
                             'label' => 'Sleeve',
                             'name'  => 'sleeve',
-                            'type'  => 'textbox',
-                            'validate' => 'validateNumber',
-                            'value' => ''
-                        ),
-                        array(
-                            'label' => 'Chest',
-                            'name'  => 'chest',
                             'type'  => 'textbox',
                             'validate' => 'validateNumber',
                             'value' => ''
@@ -480,5 +482,33 @@ if (!function_exists('measurement_types')) {
             'women' => array()
         ];
         return $types[$gender];
+    }
+}
+
+if (!function_exists('stitching_panna')) {
+    function stitching_panna($gender = 'men', $type)
+    {
+        $panna = [
+            'men' => array(
+                'normal-shirt' => array(
+                    array(
+                        'label' => '36',
+                        'value' => '36',
+                        'meter' => '2.25',
+                    ),
+                    array(
+                        'label' => '44',
+                        'value' => '44',
+                        'meter' => '2',
+                    ),
+                    array(
+                        'label' => '58',
+                        'value' => '58',
+                        'meter' => '1.16',
+                    )
+                )
+            )
+        ];
+        return $panna[$gender][$type];
     }
 }

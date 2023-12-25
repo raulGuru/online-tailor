@@ -11,6 +11,7 @@ class Stitching extends Model
 
     protected $fillable = [
         'creator',
+        'type',
         'stitch_name',
         'slug_name',
         'cost'
