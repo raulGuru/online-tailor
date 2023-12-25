@@ -56,3 +56,7 @@ WEHOOK REFERNECE->https://medium.com/@onadeji.sam/how-to-recieve-webhook-in-lara
 php artisan queue:listen
 path->vendor\instamojo\instamojo-php\src\Instamojo.php
 change  function __wakeup() and __sleep to public
+
+26-12-2023
+php artisan migrate
+php artisan db:seed --class=StitchingsSeeder
