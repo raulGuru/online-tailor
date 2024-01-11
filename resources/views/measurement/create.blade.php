@@ -36,7 +36,7 @@
                         </p>
                      </div>
                      <div class="col-sm-12 text-center">
-                        <button class="btn btn-primary check-pincode" data-redirect="false" type="submit">Submit</button>
+                        <button class="btn btn-primary" type="submit">Submit</button>
                      </div>
                   </div>
                </div>

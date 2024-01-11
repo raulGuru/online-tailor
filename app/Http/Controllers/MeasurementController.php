@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\MasterCategory;
+use App\Models\Stitching;
 use App\Models\Tailor;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
@@ -125,6 +126,12 @@ class MeasurementController extends Controller
             }
         }
         $data['selType'] = $type;
+        $stitches = Stitching::where(array('type' => $type, 'show' => 1))->get()->toArray();
+        if(!empty($stitches)) {
+            $data['stitches'] = $stitches;
+            $first = $stitches[0]['slug_name'];
+            $data['panna'] = stitching_panna($gender, $first);
+        }
         $result = ["code" => 200, "status" => "success", "message" => "fields found successfully!", "data" => $data];
         return response()->json( $result, 200);
     }
