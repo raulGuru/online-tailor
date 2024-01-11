@@ -169,7 +169,7 @@ MYAPP.common = {
         if(stitches) {
             html += `<div class="col-md-6 mb-4"><p class="mb-1 f-16 d-flex justify-content-between">Stitch Type*</p><select class="form-control" name="selStitchType" id="selStitchType">`;
             stitches.forEach(e => {
-                html += `<option value="${e.id}">${e.stitch_name}</option>`;
+                html += `<option value="${e.slug_name}">${e.stitch_name}</option>`;
             });
             html += `</select></div>`;
         }

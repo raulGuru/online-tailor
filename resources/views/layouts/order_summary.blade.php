@@ -89,7 +89,7 @@
                                             <tbody>
                                                 <tr>
                                                     <th scope="col">Total material required</th>
-                                                    <td>{{$total_material_required}} Meteres</td>
+                                                    <td>{{$total_material_required}} Meters</td>
                                                 </tr>
                                             </tbody>
                                         </table>
