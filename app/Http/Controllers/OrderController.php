@@ -30,7 +30,7 @@ class OrderController extends Controller
         $discount = isset($request->discount) ? $request->discount : 0;
         $measurement = json_decode($request->session()->get('measurement'), True);
         $customer = json_decode($request->session()->get('customer_details'), True);
-        
+
         ['gender' => $gender, 'type' => $type, 'selStitchType' => $stitch_name, 'selPanna' => $total_material_required] = $measurement;
 
         // Tailor details
@@ -251,8 +251,8 @@ class OrderController extends Controller
             ])->value('cost');
             $data['order_details'][] = array('product' => $products, 'stitch_cost' => $stiching_cost, 'additional_data' => $decoded_data);
         }
-        $data['msg']=$msg;
-        $data['continue_btn']=true;
+        $data['msg'] = $msg;
+        $data['continue_btn'] = true;
         return view('layouts.order_success', array('data' => $data));
     }
 
@@ -290,34 +290,31 @@ class OrderController extends Controller
             })
             ->paginate(10)->appends(['q' => $q]);
 
-            $data['order_details'] =[];
-            $new_data=[];
-            foreach ($order_data as $key => $summary)
-            {
-                $order_details_data=[];
-                $order_details=DB::table('order_details')->where('order_id', $summary->id)->get();
-                $tailor=  Tailor::where('id', $summary->tailor_id)->first();
-                foreach ($order_details as $key => $value) 
-                {
-                    $decoded_data=json_decode($value->measurement,true);
-                    $products =  Product::find($decoded_data['product_type_id']);
-                    $stitch_name='';
-                    if($decoded_data['type']==='top')
-                    {
-                        $stitch_name='normal-shirt';
-                    }
-                    if($decoded_data['type']==='bottom')
-                    {
-                       $stitch_name='normal-pant';
-                    }
-                    $stiching_cost = DB::table('stitching_costs')->where([
-                        'tailor_id' => $summary->tailor_id,
-                        'stitch_name' => $stitch_name])->value('cost');
-                    $order_details_data[]=array('product'=>$products,'stitch_cost'=>$stiching_cost,'additional_data'=>$decoded_data); 
+        $data['order_details'] = [];
+        $new_data = [];
+        foreach ($order_data as $key => $summary) {
+            $order_details_data = [];
+            $order_details = DB::table('order_details')->where('order_id', $summary->id)->get();
+            $tailor =  Tailor::where('id', $summary->tailor_id)->first();
+            foreach ($order_details as $key => $value) {
+                $decoded_data = json_decode($value->measurement, true);
+                $products =  Product::find($decoded_data['product_type_id']);
+                $stitch_name = '';
+                if ($decoded_data['type'] === 'top') {
+                    $stitch_name = 'normal-shirt';
                 }
-                $order_data[$key]->tailor=$tailor;
-                $order_data[$key]->order_details=$order_details_data;
+                if ($decoded_data['type'] === 'bottom') {
+                    $stitch_name = 'normal-pant';
+                }
+                $stiching_cost = DB::table('stitching_costs')->where([
+                    'tailor_id' => $summary->tailor_id,
+                    'stitch_name' => $stitch_name
+                ])->value('cost');
+                $order_details_data[] = array('product' => $products, 'stitch_cost' => $stiching_cost, 'additional_data' => $decoded_data);
             }
+            $order_data[$key]->tailor = $tailor;
+            $order_data[$key]->order_details = $order_details_data;
+        }
 
         return view('orders.index', array('orders' => $order_data, 'role' => $role));
     }
@@ -398,8 +395,8 @@ class OrderController extends Controller
             ])->value('cost');
             $data['order_details'][] = array('product' => $products, 'stitch_cost' => $stiching_cost);
         }
-        $data['msg']=$msg;
-        $data['continue_btn']=true;
+        $data['msg'] = $msg;
+        $data['continue_btn'] = true;
         return view('layouts.order_success', array('data' => $data));
     }
 
