@@ -1,5 +1,5 @@
 <div class="container">
-    <h1 class="text-center mt-2 fw-bold"><?php echo $summaryData['msg']; ?></h1>
+    <h1 class="text-center mt-2 fw-bold"><?php echo (!empty($summaryData['msg']))? $summaryData['msg']:''; ?></h1>
     <h4 class="mb-3 fw-normal">
         Your Order Id: <strong><?php echo $summaryData['order_summary']->id; ?></strong> <?php echo ($summaryData['order_summary']->status==='initiated')? 'Placed': $summaryData['order_summary']->status; ?>, <br>
         Order Date: <strong><?php echo date('d M Y', strtotime($summaryData['order_summary']->order_date)); ?></strong>
@@ -68,6 +68,43 @@
                     </div>
                 </div>
             </div>
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="card">
+                        <div class="card-body pt-2">
+                            <div class="d-flex justify-content-between">
+                                <h5 class="card-title align-self-center mb-0">Measurement</h5>
+                            </div>
+                            <div class="mt-3">
+                                <?php
+                                    if(!empty($summaryData['order_details'][0]['additional_data']))
+                                    {
+                                        ?>
+                                        <table class="table-striped table table-responsive">
+                                        @foreach ($summaryData['order_details'][0]['additional_data'] as $key=>$val)
+                                        <?php $skipcols=['product_type_id','measurement','total_material_required','price','gender','pattern','type'];
+                                        if(!in_array($key, $skipcols)){
+                                        ?>    
+                                            <tr>
+                                                <td class="col-thumbnail">
+                                                  <p class="text-grey f-14 font-weight-500 m-0">{{$key}}</p>
+                                                </td>
+                                                <td class="col-details">
+                                                   <p class="text-grey f-14 font-weight-500 m-0">{{$val}} cms</p>
+                                                </td>
+                                                
+                                            </tr>
+                                            <?php } ?>
+                                        @endforeach
+                                    </table>
+                                        <?php 
+                                    }
+                                ?>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
         <div class="col-lg-6">
             <div class="card flex-fill w-100">
@@ -99,6 +136,7 @@
                                         <h6 class="text-brown f-20 font-weight-500 m-0"> ₹{{$summaryData['order_summary']->amount}}</h6>
                                     </td>
                                 </tr>
+                                 
                             @endforeach
                             <tr>
                                 <th colspan="2">Subtotal</th>
@@ -117,9 +155,13 @@
                                 <th style="text-align: right !important;">₹{{$summaryData['order_summary']->amount}}</th>
                             </tr>
                     </table>
+
+                   
+                    <?php if($summaryData['continue_btn']){?>
                     <div class="pt-2 text-end">
                         <a href="{{ route('home.index') }}" class="btn btn-primary" role="button">Continue Shopping</a>
                     </div>
+                    <?php } ?>
                 </div>
             </div>
         </div>

@@ -177,7 +177,14 @@ class CustomerAccountController extends Controller
                         'stitch_name' => $stitch_name])->value('cost');
                     $order_details_data[]=array('product'=>$products,'stitch_cost'=>$stiching_cost,'additional_data'=>$decoded_data); 
                 }
+                
+                $order_data[$key]->tailor=$tailor;
                 $order_data[$key]->order_details=$order_details_data;
+
+
+               /* echo '<pre>';
+                print_r($order_data);
+                echo '</pre>';die;*/
             }
 
         
