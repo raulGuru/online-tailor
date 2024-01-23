@@ -23,14 +23,7 @@
                    <div class="over-text">
                      BLAZER
                    </div>
-                <!-- </a> -->
-                   
-                </div>
-                <div class="col-md-3 position-relative text-center">
-                   <img src="{{ asset('public/assets/img/home/Blazer_2.jpeg') }}" alt="Blazer_2">
-                   <div class="over-text">
-                     BLAZER
-                   </div>
+                <!-- </a> -->                   
                 </div>
                 <div class="col-md-3 position-relative text-center">
                    <img src="{{ asset('public/assets/img/home/Jacket.jpeg') }}" alt="Jacket">
@@ -44,22 +37,16 @@
                      KURTA
                    </div>
                 </div>
-             </div>
-          </div>
-          <div class="carousel-item ">
-             <div class="row">
-                <div class="col-md-3 position-relative text-center">
-                   <img src="{{ asset('public/assets/img/home/Sherwani_1.jpeg') }}" alt="Sherwani_1">
-                   <div class="over-text">
-                     SHERWANI
-                   </div>
-                </div>
                 <div class="col-md-3 position-relative text-center">
                    <img src="{{ asset('public/assets/img/home/Sherwani_2.jpeg') }}" alt="Sherwani_2">
                    <div class="over-text">
                      SHERWANI
                    </div>
                 </div>
+             </div>
+          </div>
+          <div class="carousel-item ">
+             <div class="row">                
                 <div class="col-md-3 position-relative text-center">
                    <img src="{{ asset('public/assets/img/home/Shirt.jpeg') }}" alt="Shirt">
                    <div class="over-text">

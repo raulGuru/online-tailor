@@ -291,7 +291,6 @@ class OrderController extends Controller
             ->paginate(10)->appends(['q' => $q]);
 
         $data['order_details'] = [];
-        $new_data = [];
         foreach ($order_data as $key => $summary) {
             $order_details_data = [];
             $order_details = DB::table('order_details')->where('order_id', $summary->id)->get();
@@ -299,16 +298,9 @@ class OrderController extends Controller
             foreach ($order_details as $key => $value) {
                 $decoded_data = json_decode($value->measurement, true);
                 $products =  Product::find($decoded_data['product_type_id']);
-                $stitch_name = '';
-                if ($decoded_data['type'] === 'top') {
-                    $stitch_name = 'normal-shirt';
-                }
-                if ($decoded_data['type'] === 'bottom') {
-                    $stitch_name = 'normal-pant';
-                }
                 $stiching_cost = DB::table('stitching_costs')->where([
                     'tailor_id' => $summary->tailor_id,
-                    'stitch_name' => $stitch_name
+                    'stitch_name' => $decoded_data['selStitchType']
                 ])->value('cost');
                 $order_details_data[] = array('product' => $products, 'stitch_cost' => $stiching_cost, 'additional_data' => $decoded_data);
             }
