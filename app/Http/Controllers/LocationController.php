@@ -159,6 +159,13 @@ class LocationController extends Controller
         //
     }
 
+    /**
+     * Validate appointment form payload, persist appointment row, and notify tailor by email.
+     *
+     * Side effects:
+     * - inserts into appointments table
+     * - sends transactional email via configured mail transport
+     */
     public function send_notification(Request $request)
     {
         $validator = Validator::make($request->all(), [
