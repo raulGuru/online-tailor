@@ -1,66 +1,131 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400"></a></p>
+# Online Tailor (BookMyTailor)
 
-<p align="center">
-<a href="https://travis-ci.org/laravel/framework"><img src="https://travis-ci.org/laravel/framework.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
+Online Tailor is a Laravel web application for:
+- browsing fabric/material products,
+- submitting body measurements,
+- choosing a tailor,
+- placing and paying for tailoring orders,
+- and managing the back-office catalog/tailor/order workflow.
 
-## About Laravel
+The system supports both customer-facing flows and an admin/vendor dashboard. See the full docs index at **[`docs/INDEX.md`](docs/INDEX.md)**.
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+## Tech stack
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+- **Framework:** Laravel 8 (`laravel/framework:^8.75`)
+- **PHP:** `^7.3|^8.0`
+- **Auth:** Session auth + Laravel Sanctum package installed (minimal API use)
+- **Database:** MySQL (default `DB_CONNECTION=mysql`)
+- **Queue:** Database queue supported (`jobs` + `failed_jobs` migrations), default env is sync
+- **Webhook processing:** `spatie/laravel-webhook-client`
+- **Payments:** Instamojo SDK (`instamojo/instamojo-php`)
+- **Frontend:** Blade templates + Laravel Mix (Webpack), Axios/Lodash
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+## Local setup
 
-## Learning Laravel
+> These steps are validated against `composer.json`, `package.json`, and repository structure.
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
+1. **Clone and enter repo**
+   ```bash
+   git clone <repo-url>
+   cd online-tailor
+   ```
 
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains over 1500 video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+2. **Install PHP dependencies**
+   ```bash
+   composer install
+   ```
 
-## Laravel Sponsors
+3. **Install Node dependencies**
+   ```bash
+   npm install
+   ```
 
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the Laravel [Patreon page](https://patreon.com/taylorotwell).
+4. **Create environment file**
+   ```bash
+   cp .env.example .env
+   ```
 
-### Premium Partners
+5. **Generate app key**
+   ```bash
+   php artisan key:generate
+   ```
 
-- **[Vehikl](https://vehikl.com/)**
-- **[Tighten Co.](https://tighten.co)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Cubet Techno Labs](https://cubettech.com)**
-- **[Cyber-Duck](https://cyber-duck.co.uk)**
-- **[Many](https://www.many.co.uk)**
-- **[Webdock, Fast VPS Hosting](https://www.webdock.io/en)**
-- **[DevSquad](https://devsquad.com)**
-- **[Curotec](https://www.curotec.com/services/technologies/laravel/)**
-- **[OP.GG](https://op.gg)**
-- **[CMS Max](https://www.cmsmax.com/)**
-- **[WebReinvent](https://webreinvent.com/?utm_source=laravel&utm_medium=github&utm_campaign=patreon-sponsors)**
-- **[Lendio](https://lendio.com)**
-- **[Romega Software](https://romegasoftware.com)**
+6. **Configure `.env`**
+   - Set DB credentials.
+   - Set payment/webhook variables (see [docs/03-setup-and-environments.md](docs/03-setup-and-environments.md)).
+   - Set `MASTER_PASSWORD` for admin emergency login path.
 
-## Contributing
+7. **Run migrations**
+   ```bash
+   php artisan migrate
+   ```
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+8. **Seed baseline data (recommended for local)**
+   ```bash
+   php artisan db:seed --class=MasterCategorySeeder
+   php artisan db:seed --class=ProductColorSeeder
+   php artisan db:seed --class=ProductCategorySeeder
+   php artisan db:seed --class=ProductSubCategorySeeder
+   php artisan db:seed --class=StitchingsSeeder
+   php artisan db:seed --class=UserSeeder
+   ```
+   > `DatabaseSeeder` does not currently call these seeders.
 
-## Code of Conduct
+9. **Create storage symlink**
+   ```bash
+   php artisan storage:link
+   ```
 
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
+10. **Build frontend assets**
+    ```bash
+    npm run dev
+    ```
 
-## Security Vulnerabilities
+11. **Run app**
+    ```bash
+    php artisan serve
+    ```
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
+12. **Optional: run queue worker (required for webhook queue processing when `QUEUE_CONNECTION=database`)**
+    ```bash
+    php artisan queue:work
+    ```
 
-## License
+## Common commands
 
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+```bash
+# Run tests
+php artisan test
+
+# Alternative test runner
+./vendor/bin/phpunit
+
+# Run queue worker
+php artisan queue:work
+
+# Retry failed jobs
+php artisan queue:retry all
+
+# Clear compiled/config/cache
+php artisan optimize:clear
+
+# Build production assets
+npm run prod
+```
+
+## Troubleshooting
+
+- **`php artisan` fails with missing `vendor/autoload.php`**
+  - Run `composer install` first.
+- **Image uploads do not show up**
+  - Ensure `php artisan storage:link` was run and files are written under `storage/app/public`.
+- **Payment flow fails before redirect**
+  - Confirm Instamojo env variables are set correctly (`PAYMENT_ENV`, `PAYMENT_*_CLIENT_ID`, `PAYMENT_*_CLIENT_SECRET`).
+- **Webhook signature failures**
+  - Validate `WEBHOOK_CLIENT_SECRET` / `WEBHOOK_TEST_CLIENT_SECRET` and that provider posts `mac` header/field.
+- **No baseline data after `php artisan db:seed`**
+  - Seeders are not chained in `DatabaseSeeder`; run individual seeder commands listed above.
+
+## Documentation map
+
+Start at **[`docs/INDEX.md`](docs/INDEX.md)** for architecture, data model, routes, integrations, and change recipes.

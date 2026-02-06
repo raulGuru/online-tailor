@@ -87,6 +87,14 @@ class TailorController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
+    /**
+     * Create a tailor profile and associated dependent records.
+     *
+     * Side effects:
+     * - writes tailor, store_timings, and stitching_costs rows
+     * - uploads tailor photos to storage/app/public/tailors
+     * - creates/links a vendor user account when email does not already exist
+     */
     public function store(Request $request)
     {
         $this->validate($request, [

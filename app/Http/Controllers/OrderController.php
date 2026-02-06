@@ -122,6 +122,15 @@ class OrderController extends Controller
     {
         //
     }
+    /**
+     * Create an order, initialize an Instamojo payment request, persist order/payment rows,
+     * and redirect the browser to the payment gateway URL.
+     *
+     * Side effects:
+     * - inserts into orders, order_details, and payments tables
+     * - updates products.size to reserve material quantity
+     * - performs an external API call to Instamojo
+     */
     public function make_payment(Request $request)
     {
 
@@ -191,6 +200,14 @@ class OrderController extends Controller
             echo $e->getMessage();
         }
     }
+    /**
+     * Handle the browser redirect/callback from Instamojo after payment completion.
+     *
+     * Side effects:
+     * - updates payment status fields
+     * - may update order status to failed for non-credit states
+     * - renders a success/failure summary based on persisted transaction state
+     */
     function payment_response(Request $request)
     {
         $user_id = auth()->user()->id;
@@ -256,6 +273,9 @@ class OrderController extends Controller
         return view('layouts.order_success', array('data' => $data));
     }
 
+    /**
+     * Format a date offset helper used by checkout estimated delivery rendering.
+     */
     private function formatDate($interval, $format = '', $date = '')
     {
         $date = !empty($date) ? $date : date('Y-m-d');
