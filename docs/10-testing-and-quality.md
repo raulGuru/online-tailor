@@ -31,8 +31,3 @@ php artisan test
   - measurement session flow
   - payment callback/webhook updates
 - Prefer request tests around controller endpoints before refactoring logic.
-
-## Gotchas
-
-- Some controller methods use `echo/exit/die`; these patterns make automated testing harder.
-- Vendor dependencies were not installed in this analysis environment, so runtime tests were not executed here.

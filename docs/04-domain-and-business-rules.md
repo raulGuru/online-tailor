@@ -39,9 +39,6 @@ Captures important rules inferred from code.
 - If adding order states, update migrations (enum), UI filters, and status update endpoints.
 
 ## Gotchas
-
-- Women measurement and stitching matrices are mostly empty placeholders.
-- Some validation allows data inconsistency (e.g., minimal cross-table constraints).
 - `order_view` endpoint currently contains debug stop code.
 
 See also [Data model](06-data-model.md) and [How-to changes](12-how-to-change-common-things.md).

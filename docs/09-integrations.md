@@ -51,8 +51,3 @@ Server-to-server status updates from payment provider.
 
 - Add integration credentials to `.env.example`.
 - Keep all new external calls wrapped with clear error handling and logs.
-
-## Gotchas
-
-- Several mail sends catch exceptions and suppress details.
-- Webhook signing reads `mac` from request/body; confirm provider format during production rollout.

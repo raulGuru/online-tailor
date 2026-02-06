@@ -48,11 +48,6 @@ Provides route-level navigation for web and API endpoints.
 - Keep resource route conventions where possible.
 - If adding JSON endpoints, return consistent `{code,status,...}` payload shape used in existing AJAX methods.
 
-## Gotchas
-
-- No generated route names table included because artisan route:list requires installed vendor deps.
-- A few route/controller mismatches exist (declared route but missing controller method).
-
 Related:
 - [Auth](05-auth-roles-permissions.md)
 - [Integrations](09-integrations.md)

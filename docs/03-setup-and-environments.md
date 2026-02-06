@@ -41,11 +41,6 @@ Explains local setup and required environment variables.
 - Add new env vars in both `.env.example` and corresponding config usage.
 - Avoid reading `env()` directly in controllers for new code; prefer config wrappers.
 
-## Gotchas
-
-- Payment credentials are read directly inside `OrderController` and webhook config.
-- If queue remains `sync`, webhook processing is synchronous.
-
 Related:
 - [Integrations](09-integrations.md)
 - [Deployment](11-deployment-and-ops.md)

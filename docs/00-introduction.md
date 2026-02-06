@@ -36,9 +36,3 @@ See [Auth and roles](05-auth-roles-permissions.md).
 - Follow existing controller-centric pattern (no service layer currently).
 - Keep session keys stable (`pincode`, `measurement`, `customer_details`, `order_data`) because checkout depends on them.
 - Add DB columns through migrations first; then update controllers/views.
-
-## Gotchas
-
-- Composer package versions show this is Laravel **8**, not 10.
-- Some flows are partially implemented or debug-oriented (`OrderController::order_view` has `var_dump/die`).
-- `DatabaseSeeder` does not invoke project seeders by default.

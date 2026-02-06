@@ -37,11 +37,6 @@ Helpers expose role list via `get_roles()` in `app/helpers.php`.
 - Update middleware logic carefully if introducing finer-grained permissions.
 - Prefer policy/gate introduction for per-resource authorization (currently minimal usage).
 
-## Gotchas
-
-- No dedicated permissions table or policy mappings are configured.
-- Users table enum includes more roles than business logic currently handles.
-
 Related:
 - [Routes](07-routes-and-api.md)
 - [Domain rules](04-domain-and-business-rules.md)

@@ -24,11 +24,6 @@ Documents where to find key code and conventions in this repository.
 - Add new route/controller/model in a consistent resource-style grouping.
 - Prefer adding relationships in models before writing joins in controllers.
 
-## Gotchas
-
-- There are legacy and typo-prone names (`Measurment*`, `payment_wehook` route name).
-- Several tables use enums and manual Query Builder instead of strict FK-backed Eloquent patterns.
-
 Cross-links:
 - [Architecture](01-architecture-overview.md)
 - [Data model](06-data-model.md)

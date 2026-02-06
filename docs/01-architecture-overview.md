@@ -45,8 +45,3 @@ sequenceDiagram
 - Keep logic close to existing controller action to reduce surprise.
 - For new complex logic, add a dedicated service/action class and call it from controller (incremental adoption).
 - If introducing queued work, use existing DB queue setup pattern.
-
-## Gotchas
-
-- Middleware alias `verified` is duplicated in `app/Http/Kernel.php` and one entry references a likely wrong namespace.
-- Route-level auth/role checks are mixed between middleware and controller constructors.

@@ -47,11 +47,6 @@ erDiagram
 - Prefer additive migrations; do not edit old migrations in-place.
 - For JSON columns storing arrays (`services`, `appointments`, `images`), normalize only with a clear migration plan.
 
-## Gotchas
-
-- Several migrations contain typos (`defaul`) and may require manual verification during first-time setup.
-- Some FK relations are implicit (integer ids without foreign constraints).
-
 Cross-links:
 - [Business rules](04-domain-and-business-rules.md)
 - [Routes](07-routes-and-api.md)

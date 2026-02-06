@@ -27,11 +27,6 @@ Explains async/background behavior.
 - If queueing jobs in production, set `QUEUE_CONNECTION=database` and run `php artisan queue:work`.
 - Keep webhook job idempotent (lookup by `payment_request_id` and upsert/update carefully).
 
-## Gotchas
-
-- Webhook and browser redirect both update payment/order records; handle double-write/race scenarios in future changes.
-- No retry/backoff customization is present beyond default queue behavior.
-
 Related:
 - [Integrations](09-integrations.md)
 - [Deployment](11-deployment-and-ops.md)

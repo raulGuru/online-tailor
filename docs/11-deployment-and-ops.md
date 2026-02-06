@@ -36,11 +36,6 @@ Production checklist for runtime services and operational practices.
 - Keep secrets in environment, never in code.
 - Validate webhook endpoint reachability and signature verification in staging.
 
-## Gotchas
-
-- Payment/order flow writes can occur from both user redirect and webhook paths.
-- Storage symlink required for product/tailor image visibility.
-
 Related:
 - [Setup](03-setup-and-environments.md)
 - [Integrations](09-integrations.md)
