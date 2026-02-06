@@ -12,6 +12,12 @@ class WebhookJobHandlerForPayment extends ProcessWebhookJob
      */
     public $timeout = 120;
 
+    /**
+     * Process a payment webhook payload and synchronize payment/order transaction state.
+     *
+     * The update is keyed by payment_request_id so repeated webhook deliveries overwrite
+     * the same rows instead of creating duplicates.
+     */
     public function handle()
     {
         $payload=$this->webhookCall->payload;
